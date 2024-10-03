@@ -1,0 +1,119 @@
+/* styles.css */
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.dark-mode .card {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+body.dark-mode .btn {
+    background-color: #bb86fc;
+    color: #000000;
+}
+
+/* Header styling */
+.app-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.app-logo {
+    width: 100px; /* Adjust as needed */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.card-item {
+    text-align: center;
+    transition: opacity 0.5s ease-in-out;
+    margin: 0 auto;
+    max-width: 350px;
+    position: relative;
+    z-index: 1;
+    height: 500px; /* Adjust as needed based on your card images */
+    overflow: hidden;
+}
+
+/* Ensure images scale properly within the container */
+.card-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* Progress bar styling */
+.progress {
+    height: 25px;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 25px; /* Vertically center the text */
+    background-color: #bb86fc;
+}
+
+/* Adjust image size to 30 pixels */
+.card-type-input img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    margin-right: 10px;
+}
+
+/* Adjust the card header to align items */
+.card-type-input .card-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Input count styling */
+.card-type-input .input-count {
+    width: 60px;
+    margin-left: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card-type-input {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .card-type-input .input-count {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+    .card-type-input .d-flex {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+}
+
+/* Modal image styling */
+.modal-body img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Additional styles for Card Action UI */
+#cardActionSection {
+    margin-top: 20px;
+}
+
+#actionTopNInput {
+    margin-top: 10px;
+}

@@ -1,0 +1,591 @@
+{
+    "Base Game": [
+        {
+            "card": "Renewed Vigour",
+            "type": "Environment",
+            "contents": "Renewed_Vigour.png"
+        },
+        {
+            "card": "Life Drain",
+            "type": "Revenants",
+            "contents": "Life_Drain.png"
+        },
+        {
+            "card": "Balefire",
+            "type": "Revenants",
+            "contents": "Balefire.png"
+        },
+        {
+            "card": "Respite",
+            "type": "Novice",
+            "contents": "Respite.png"
+        },
+        {
+            "card": "Snap",
+            "type": "Environment",
+            "contents": "Snap.png"
+        },
+        {
+            "card": "Malaclyte Fluctuations",
+            "type": "Environment",
+            "contents": "Malaclyte_Fluctuations.png"
+        },
+        {
+            "card": "Trap! Arrow",
+            "type": "Dungeon",
+            "contents": "Trap_Arrow.png"
+        },
+        {
+            "card": "Fiery Fusion",
+            "type": "Revenants",
+            "contents": "Fiery_Fusion.png"
+        },
+        {
+            "card": "Feeling Lucky",
+            "type": "Novice",
+            "contents": "Feeling_Lucky.png"
+        },
+        {
+            "card": "Alarm!",
+            "type": "Environment",
+            "contents": "Alarm.png"
+        },
+        {
+            "card": "Chilling Aura",
+            "type": "Revenants",
+            "contents": "Chilling_Aura.png"
+        },
+        {
+            "card": "Reanimation",
+            "type": "Revenants",
+            "contents": "Reanimation.png"
+        },
+        {
+            "card": "Deathly Fusion",
+            "type": "Revenants",
+            "contents": "Deathly_Fusion.png"
+        },
+        {
+            "card": "They're Below Us!",
+            "type": "Revenants",
+            "contents": "Theyre_Below_Us.png"
+        },
+        {
+            "card": "Get That One!",
+            "type": "Revenants",
+            "contents": "Get_That_One.png"
+        },
+        {
+            "card": "Unnatural Lifeforce",
+            "type": "Malaguant",
+            "contents": "Unnatural_Lifeforce.png"
+        },
+        {
+            "card": "Death Draws In",
+            "type": "Malaguant",
+            "contents": "Death_Draws_In.png"
+        },
+        {
+            "card": "Gleaming Trinket",
+            "type": "Environment",
+            "contents": "Gleaming_Trinket.png"
+        },
+        {
+            "card": "Tremors",
+            "type": "Environment",
+            "contents": "Tremors.png"
+        },
+        {
+            "card": "Spooked",
+            "type": "Environment",
+            "contents": "Spooked.png"
+        },
+        {
+            "card": "As One Door Closes...",
+            "type": "Environment",
+            "contents": "As_One_Door_Closes.png"
+        },
+        {
+            "card": "Trap! Snap",
+            "type": "Dungeon",
+            "contents": "Trap_Snap.png"
+        },
+        {
+            "card": "They're Everywhere",
+            "type": "Environment",
+            "contents": "Theyre_Everywhere.png"
+        },
+        {
+            "card": "Lost Traveller",
+            "type": "Denizen",
+            "contents": "Lost_Traveller.png"
+        },
+        {
+            "card": "Opportunist",
+            "type": "Denizen",
+            "contents": "Opportunist.png"
+        },
+        {
+            "card": "On The Hunt",
+            "type": "Denizen",
+            "contents": "On_The_Hunt.png"
+        },
+        {
+            "card": "Out For Blood",
+            "type": "Denizen",
+            "contents": "Out_For_Blood.png"
+        },
+        {
+            "card": "Cankers",
+            "type": "Wandering Beast",
+            "contents": "Cankers.png"
+        },
+        {
+            "card": "Troglodyte",
+            "type": "Wandering Beast",
+            "contents": "Troglodyte.png"
+        },
+        {
+            "card": "Drakon",
+            "type": "Wandering Beast",
+            "contents": "Drakon.png"
+        },
+        {
+            "card": "Trap! Net",
+            "type": "Dungeon",
+            "contents": "Trap_Net.png"
+        },
+        {
+            "card": "Trap! Swinging Blade",
+            "type": "Dungeon",
+            "contents": "Trap_Swinging_Blade.png"
+        },
+        {
+            "card": "Fading Light",
+            "type": "Dungeon",
+            "contents": "Fading_Light.png"
+        },
+        {
+            "card": "Collapsed!",
+            "type": "Dungeon",
+            "contents": "Collapsed.png"
+        },
+        {
+            "card": "Dormant Lifeforce",
+            "type": "Dungeon",
+            "contents": "Dormant_Lifeforce.png"
+        },
+        {
+            "card": "Drip, Drip, Drip",
+            "type": "Dungeon",
+            "contents": "Drip,_Drip,_Drip.png"
+        },
+        {
+            "card": "Premonition",
+            "type": "Novice",
+            "contents": "Premonition.png"
+        },
+        {
+            "card": "Teamwork",
+            "type": "Novice",
+            "contents": "Teamwork.png"
+        },
+        {
+            "card": "Risk",
+            "type": "Novice",
+            "contents": "Risk.png"
+        },
+        {
+            "card": "Blaze Of Glory",
+            "type": "Novice",
+            "contents": "Blaze_Of_Glory.png"
+        },
+        {
+            "card": "Spurred On",
+            "type": "Novice",
+            "contents": "Spurred_On.png"
+        },
+        {
+            "card": "Malaclyte Surge",
+            "type": "Veteran",
+            "contents": "Malaclyte_Surge.png"
+        },
+        {
+            "card": "Dangerous Ground",
+            "type": "Veteran",
+            "contents": "Dangerous_Ground.png"
+        },
+        {
+            "card": "Malaclyte Exhaustion",
+            "type": "Veteran",
+            "contents": "Malaclyte_Exhaustion.png"
+        },
+        {
+            "card": "Unexpected Assault",
+            "type": "Veteran",
+            "contents": "Unexpected_Assault.png"
+        },
+        {
+            "card": "One Thing After Another",
+            "type": "Veteran",
+            "contents": "One_Thing_After_Another.png"
+        },
+        {
+            "card": "Fresh Graves",
+            "type": "Revenants + Veteran",
+            "contents": "Fresh_Graves.png"
+        },
+        {
+            "card": "Fiery Touch",
+            "type": "Revenants",
+            "contents": "Fiery_Touch.png"
+        }
+    ],
+    "Of Ale And Adventure": [
+        {
+            "card": "Questgiver",
+            "type": "Denizen",
+            "contents": "Questgiver.png"
+        },
+        {
+            "card": "Stand And Deliver!",
+            "type": "Denizen",
+            "contents": "Stand_And_Deliver.png"
+        },
+        {
+            "card": "Nomadic Trader",
+            "type": "Denizen",
+            "contents": "Nomadic_Trader.png"
+        },
+        {
+            "card": "Panhandler",
+            "type": "Denizen",
+            "contents": "Panhandler.png"
+        },
+        {
+            "card": "Rumours",
+            "type": "Environment",
+            "contents": "Rumours.png"
+        },
+        {
+            "card": "Escape Route",
+            "type": "Novice",
+            "contents": "Escape_Route.png"
+        },
+        {
+            "card": "It's A Trap!",
+            "type": "Novice",
+            "contents": "Its_A_Trap.png"
+        },
+        {
+            "card": "Clear The Way!",
+            "type": "Novice",
+            "contents": "Clear_The_Way.png"
+        },
+        {
+            "card": "Stroke Of Fortune",
+            "type": "Novice",
+            "contents": "Stroke_Of_Fortune.png"
+        },
+        {
+            "card": "Watch My Step!",
+            "type": "Veteran",
+            "contents": "Watch_My_Step.png"
+        },
+        {
+            "card": "Paradigm Shift",
+            "type": "Veteran",
+            "contents": "Paradigm_Shift.png"
+        }
+    ],
+    "Oblivion\u2019s Maw": [
+        {
+            "card": "Eldritch Tentacle",
+            "type": "Corruptor / Wandering Beast",
+            "contents": "Eldritch_Tentacle.png"
+        },
+        {
+            "card": "It's Behind You!",
+            "type": "Corruptor",
+            "contents": "Its_Behind_You.png"
+        },
+        {
+            "card": "Corrupt Talisman",
+            "type": "Corruptor",
+            "contents": "Corrupt_Talisman.png"
+        },
+        {
+            "card": "Ethereal Power",
+            "type": "Corruptor",
+            "contents": "Ethereal_Power.png"
+        },
+        {
+            "card": "Deathly Draught",
+            "type": "Environment",
+            "contents": "Deathly_Draught.png"
+        },
+        {
+            "card": "Don't Look Up",
+            "type": "Dungeon",
+            "contents": "Dont_Look_Up.png"
+        },
+        {
+            "card": "Halls Of Veneration",
+            "type": "Dungeon",
+            "contents": "Halls_Of_Veneration.png"
+        },
+        {
+            "card": "Cursed Chest",
+            "type": "Wandering Beast",
+            "contents": "Cursed_Chest.png"
+        },
+        {
+            "card": "Cursed Portal",
+            "type": "Wandering Beast",
+            "contents": "Cursed_Portal.png"
+        },
+        {
+            "card": "Cursed Vestiges",
+            "type": "Wandering Beast",
+            "contents": "Cursed_Vestiges.png"
+        },
+        {
+            "card": "Trap! Ancient Ward",
+            "type": "Veteran + Dungeon",
+            "contents": "Trap_Ancient_Ward.png"
+        },
+        {
+            "card": "Trap! Crushing Cellar",
+            "type": "Veteran + Dungeon",
+            "contents": "Trap_Crushing_Cellar.png"
+        },
+        {
+            "card": "Summon The Master",
+            "type": "Veteran",
+            "contents": "Summon_The_Master.png"
+        }
+    ],
+    "Beasts Of Environ": [
+        {
+            "card": "Split-Tail Rats",
+            "type": "Wandering Beast",
+            "contents": "Split-Tail_Rats.png"
+        },
+        {
+            "card": "Great Bear",
+            "type": "Wandering Beast",
+            "contents": "Great_Bear.png"
+        },
+        {
+            "card": "Bloodwyrm",
+            "type": "Wandering Beast",
+            "contents": "Bloodwyrm.png"
+        },
+        {
+            "card": "Skin Shifter",
+            "type": "Wandering Beast",
+            "contents": "Skin_Shifter.png"
+        },
+        {
+            "card": "Cave Troll",
+            "type": "Wandering Beast",
+            "contents": "Cave_Troll.png"
+        },
+        {
+            "card": "It's Alive",
+            "type": "Wandering Beast",
+            "contents": "Its_Alive.png"
+        },
+        {
+            "card": "Home Invasion",
+            "type": "Environment",
+            "contents": "Home_Invasion.png"
+        },
+        {
+            "card": "Unmasked!",
+            "type": "Denizen",
+            "contents": "Unmasked.png"
+        }
+    ],
+    "Beyond The Vaults": [
+        {
+            "card": "Tsewer-Nami",
+            "type": "Wandering Beast",
+            "contents": "Tsewer-Nami.png"
+        },
+        {
+            "card": "Toxic Waste",
+            "type": "Environment",
+            "contents": "Toxic_Waste.png"
+        },
+        {
+            "card": "Spitting Fire",
+            "type": "Environment",
+            "contents": "Spitting_Fire.png"
+        },
+        {
+            "card": "Cave-In!",
+            "type": "Dungeon",
+            "contents": "Cave-In.png"
+        },
+        {
+            "card": "Heigh Ho, Heigh Ho!",
+            "type": "Dungeon + Denizen",
+            "contents": "Heigh_Ho,_Heigh_Ho.png"
+        },
+        {
+            "card": "Runaway Train",
+            "type": "Dungeon",
+            "contents": "Runaway_Train.png"
+        },
+        {
+            "card": "G-G-G-Ghosts!",
+            "type": "Dungeon",
+            "contents": "G-G-G-Ghosts.png"
+        },
+        {
+            "card": "Hall Of Heroes",
+            "type": "Denizen",
+            "contents": "Hall_Of_Heroes.png"
+        },
+        {
+            "card": "Nectar of the Gods",
+            "type": "Environment",
+            "contents": "Nectar_of_the_Gods.png"
+        },
+        {
+            "card": "Shhhhhh\u2026",
+            "type": "Environment",
+            "contents": "Shhhhhh\u2026.png"
+        },
+        {
+            "card": "Seize Them!",
+            "type": "Dungeon",
+            "contents": "Seize_Them.png"
+        },
+        {
+            "card": "Watch Your Step!",
+            "type": "Veteran + Dungeon",
+            "contents": "Watch_Your_Step.png"
+        },
+        {
+            "card": "Corrupted Warrior",
+            "type": "Veteran + Environment",
+            "contents": "Corrupted_Warrior.png"
+        },
+        {
+            "card": "Rotten Floor",
+            "type": "Veteran + Dungeon",
+            "contents": "Rotten_Floor.png"
+        },
+        {
+            "card": "There's Life In The Walls!",
+            "type": "Veteran + Environment",
+            "contents": "Theres_Life_In_The_Walls.png"
+        },
+        {
+            "card": "Fountain Of Life",
+            "type": "Veteran + Environment",
+            "contents": "Fountain_Of_Life.png"
+        },
+        {
+            "card": "The Floodgates Open",
+            "type": "Veteran + Environment",
+            "contents": "The_Floodgates_Open.png"
+        }
+    ],
+    "Forbidden Creed": [
+        {
+            "card": "Maladite Golem",
+            "type": "Wandering Beast",
+            "contents": "Maladite_Golem.png"
+        },
+        {
+            "card": "Debased Acolyte",
+            "type": "Cabal",
+            "contents": "Debased_Acolyte.png"
+        },
+        {
+            "card": "Treacherous Terrain",
+            "type": "Mountain",
+            "contents": "Treacherous_Terrain.png"
+        },
+        {
+            "card": "Thunderstorm",
+            "type": "Mountain",
+            "contents": "Thunderstorm.png"
+        },
+        {
+            "card": "Ambush!",
+            "type": "Mountain",
+            "contents": "Ambush.png"
+        },
+        {
+            "card": "Chill Wind",
+            "type": "Mountain",
+            "contents": "Chill_Wind.png"
+        },
+        {
+            "card": "Dusk To Dawn",
+            "type": "Mountain",
+            "contents": "Dusk_To_Dawn.png"
+        },
+        {
+            "card": "Falling Rocks",
+            "type": "Mountain",
+            "contents": "Falling_Rocks.png"
+        },
+        {
+            "card": "Howling Gale",
+            "type": "Mountain",
+            "contents": "Howling_Gale.png"
+        },
+        {
+            "card": "Malaclyte Scourge",
+            "type": "Environment",
+            "contents": "Malaclyte_Scourge.png"
+        },
+        {
+            "card": "Purifying Aether",
+            "type": "Novice",
+            "contents": "Purifying_Aether.png"
+        },
+        {
+            "card": "Touched By Darkness",
+            "type": "Veteran",
+            "contents": "Touched_By_Darkness.png"
+        },
+        {
+            "card": "They Are Coming",
+            "type": "Veteran",
+            "contents": "They_Are_Coming.png"
+        }
+    ],
+    "Revenant Retribution": [
+        {
+            "card": "High Alert",
+            "type": "Revenant + Veteran",
+            "contents": "High_Alert.png"
+        },
+        {
+            "card": "Fortune Favours The...",
+            "type": "Revenant + Veteran",
+            "contents": "Fortune_Favours_The....png"
+        },
+        {
+            "card": "The Lurching Flesh",
+            "type": "Revenant + Veteran",
+            "contents": "The_Lurching_Flesh.png"
+        },
+        {
+            "card": "Deja-Ju",
+            "type": "Revenant + Veteran",
+            "contents": "Deja-Ju.png"
+        },
+        {
+            "card": "Deathly Avatar",
+            "type": "Revenant + Veteran",
+            "contents": "Deathly_Avatar.png"
+        }
+    ]
+}
