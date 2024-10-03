@@ -1,3 +1,4 @@
+// Updated JavaScript Code (deckbuilder.js)
 let deckDataByType = {}; // Cards grouped by type
 let currentDeck = [];    // Generated deck
 let currentIndex = -1;   // Current card index (-1 to start with back.jpg)
@@ -110,7 +111,7 @@ function loadCardTypes() {
     generateCardTypeInputs();
 }
 
-// Function to generate card type inputs with logos
+// Function to generate card type inputs with +/- buttons
 function generateCardTypeInputs() {
     const cardTypeInputs = document.getElementById('cardTypeInputs');
     cardTypeInputs.innerHTML = ''; // Clear previous inputs
@@ -130,7 +131,9 @@ function generateCardTypeInputs() {
                 <div class="d-flex align-items-center">
                     <img src="logos/${imageName}.jpg" alt="${type}" class="mr-2" style="width: 30px; height: 30px;">
                     <span class="card-title mr-auto">${type} Cards</span>
+                    <button class="btn btn-sm btn-outline-secondary decrease-btn" data-type="${type}" style="margin-right: 5px;">-</button>
                     <input type="number" id="type-${type}" min="0" value="0" class="form-control form-control-sm input-count" style="width: 60px;">
+                    <button class="btn btn-sm btn-outline-secondary increase-btn" data-type="${type}" style="margin-left: 5px;">+</button>
                 </div>
             `;
 
@@ -138,10 +141,65 @@ function generateCardTypeInputs() {
             cardTypeInputs.appendChild(div);
         }
     });
+
+    // Add event listeners for +/- buttons
+    document.querySelectorAll('.increase-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const type = e.target.getAttribute('data-type');
+            const input = document.getElementById(`type-${type}`);
+            input.value = parseInt(input.value) + 1;
+            saveConfiguration(); // Save configuration after every change
+        });
+    });
+
+    document.querySelectorAll('.decrease-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const type = e.target.getAttribute('data-type');
+            const input = document.getElementById(`type-${type}`);
+            if (parseInt(input.value) > 0) {
+                input.value = parseInt(input.value) - 1;
+                saveConfiguration(); // Save configuration after every change
+            }
+        });
+    });
 }
 
-// Add event listener for search input
-document.getElementById('cardTypeSearch').addEventListener('input', generateCardTypeInputs);
+// Save configuration function
+function saveConfiguration() {
+    const config = {
+        selectedGames,
+        cardCounts: {}
+    };
+    allCardTypes.forEach(type => {
+        const inputId = `type-${type}`;
+        const element = document.getElementById(inputId);
+        const count = parseInt(element.value) || 0;
+        config.cardCounts[type] = count;
+    });
+    localStorage.setItem('savedConfig', JSON.stringify(config));
+}
+
+// Load configuration function
+function loadConfiguration() {
+    const savedConfig = JSON.parse(localStorage.getItem('savedConfig'));
+    if (savedConfig) {
+        // Restore game selections
+        allGames.forEach(game => {
+            const checkbox = document.getElementById(`game-${game}`);
+            checkbox.checked = savedConfig.selectedGames.includes(game);
+        });
+        loadCardTypes(); // Reload card types based on selected games
+
+        // Restore card counts
+        allCardTypes.forEach(type => {
+            const inputId = `type-${type}`;
+            const element = document.getElementById(inputId);
+            if (element) {
+                element.value = savedConfig.cardCounts[type] || 0;
+            }
+        });
+    }
+}
 
 // Function to select random cards from availableCards
 function selectRandomCardsFromAvailableCards(cardType, count) {
@@ -348,43 +406,6 @@ document.addEventListener('input', (event) => {
         saveConfiguration();
     }
 });
-
-// Save configuration function
-function saveConfiguration() {
-    const config = {
-        selectedGames,
-        cardCounts: {}
-    };
-    allCardTypes.forEach(type => {
-        const inputId = `type-${type}`;
-        const element = document.getElementById(inputId);
-        const count = parseInt(element.value) || 0;
-        config.cardCounts[type] = count;
-    });
-    localStorage.setItem('savedConfig', JSON.stringify(config));
-}
-
-// Load configuration function
-function loadConfiguration() {
-    const savedConfig = JSON.parse(localStorage.getItem('savedConfig'));
-    if (savedConfig) {
-        // Restore game selections
-        allGames.forEach(game => {
-            const checkbox = document.getElementById(`game-${game}`);
-            checkbox.checked = savedConfig.selectedGames.includes(game);
-        });
-        loadCardTypes(); // Reload card types based on selected games
-
-        // Restore card counts
-        allCardTypes.forEach(type => {
-            const inputId = `type-${type}`;
-            const element = document.getElementById(inputId);
-            if (element) {
-                element.value = savedConfig.cardCounts[type] || 0;
-            }
-        });
-    }
-}
 
 // Toggle visibility of the top N input based on the card action selected
 document.getElementById('cardAction').addEventListener('change', (event) => {

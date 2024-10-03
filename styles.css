@@ -1,6 +1,4 @@
-/* styles.css */
-
-/* Dark mode styles */
+/* Updated CSS (styles.css) */
 body.dark-mode {
     background-color: #121212;
     color: #ffffff;
@@ -16,7 +14,6 @@ body.dark-mode .btn {
     color: #000000;
 }
 
-/* Header styling */
 .app-header {
     display: flex;
     flex-direction: column;
@@ -25,7 +22,7 @@ body.dark-mode .btn {
 }
 
 .app-logo {
-    width: 100px; /* Adjust as needed */
+    width: 100px;
     height: auto;
     margin-bottom: 10px;
 }
@@ -37,11 +34,10 @@ body.dark-mode .btn {
     max-width: 350px;
     position: relative;
     z-index: 1;
-    height: 500px; /* Adjust as needed based on your card images */
+    height: 500px;
     overflow: hidden;
 }
 
-/* Ensure images scale properly within the container */
 .card-image {
     max-width: 100%;
     max-height: 100%;
@@ -52,7 +48,6 @@ body.dark-mode .btn {
     border-radius: 8px;
 }
 
-/* Progress bar styling */
 .progress {
     height: 25px;
     margin-bottom: 10px;
@@ -61,11 +56,10 @@ body.dark-mode .btn {
 .progress-bar {
     font-weight: bold;
     font-size: 16px;
-    line-height: 25px; /* Vertically center the text */
+    line-height: 25px;
     background-color: #bb86fc;
 }
 
-/* Adjust image size to 30 pixels */
 .card-type-input img {
     width: 30px;
     height: 30px;
@@ -73,19 +67,16 @@ body.dark-mode .btn {
     margin-right: 10px;
 }
 
-/* Adjust the card header to align items */
 .card-type-input .card-title {
     font-size: 16px;
     font-weight: bold;
 }
 
-/* Input count styling */
 .card-type-input .input-count {
     width: 60px;
     margin-left: 10px;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .card-type-input {
         flex-direction: column;
@@ -103,17 +94,24 @@ body.dark-mode .btn {
     }
 }
 
-/* Modal image styling */
 .modal-body img {
     max-width: 100%;
     height: auto;
 }
 
-/* Additional styles for Card Action UI */
 #cardActionSection {
     margin-top: 20px;
 }
 
 #actionTopNInput {
     margin-top: 10px;
+}
+
+.card-type-input .decrease-btn,
+.card-type-input .increase-btn {
+    width: 30px;
+    height: 30px;
+    line-height: 1;
+    text-align: center;
+    padding: 0;
 }

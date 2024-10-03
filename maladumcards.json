@@ -239,6 +239,26 @@
             "card": "Fiery Touch",
             "type": "Revenants",
             "contents": "Fiery_Touch.png"
+        },
+        {
+            "card": "Trap! Pit",
+            "type": "Dungeon",
+            "contents": "Trap_Pit.png"
+        },
+        {
+            "card": "Trap! Snare",
+            "type": "Environment",
+            "contents": "Trap_Snare.png"
+        },
+        {
+            "card": "Fading Light",
+            "type": "Dungeon",
+            "contents": "Fading_Light.png"
+        },
+        {
+            "card": "Collapsed!",
+            "type": "Dungeon",
+            "contents": "Collapsed.png"
         }
     ],
     "Of Ale And Adventure": [
@@ -296,6 +316,31 @@
             "card": "Paradigm Shift",
             "type": "Veteran",
             "contents": "Paradigm_Shift.png"
+        },
+        {
+            "card": "Bounty!",
+            "type": "Denizen",
+            "contents": "Bounty.png"
+        },
+        {
+            "card": "Excursionist",
+            "type": "Denizen",
+            "contents": "Excursionist.png"
+        },
+        {
+            "card": "Lights Out",
+            "type": "Veteran + Dungeon",
+            "contents": "Lights_Out.png"
+        },
+        {
+            "card": "Outta My Way!",
+            "type": "Novice",
+            "contents": "Outta_My_Way.png"
+        },
+        {
+            "card": "Stroke Of Fortune",
+            "type": "Novice",
+            "contents": "Stroke_Of_Fortune.png"
         }
     ],
     "Oblivion\u2019s Maw": [
@@ -363,6 +408,16 @@
             "card": "Summon The Master",
             "type": "Veteran",
             "contents": "Summon_The_Master.png"
+        },
+        {
+            "card": "Trap! Ancient Wards",
+            "type": "Veteran + Dungeon",
+            "contents": "Trap_Ancient_Wards.png"
+        },
+        {
+            "card": "Trap! Crushing Ceiling",
+            "type": "Veteran + Dungeon",
+            "contents": "Trap_Crushing_Ceiling.png"
         }
     ],
     "Beasts Of Environ": [
@@ -405,6 +460,11 @@
             "card": "Unmasked!",
             "type": "Denizen",
             "contents": "Unmasked.png"
+        },
+        {
+            "card": "Alary",
+            "type": "Wandering Beast",
+            "contents": "Alary.png"
         }
     ],
     "Beyond The Vaults": [
@@ -559,6 +619,11 @@
             "card": "They Are Coming",
             "type": "Veteran",
             "contents": "They_Are_Coming.png"
+        },
+        {
+            "card": "The Cabal",
+            "type": "Cabal",
+            "contents": "The_Cabal.png"
         }
     ],
     "Revenant Retribution": [
