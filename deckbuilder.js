@@ -1,4 +1,4 @@
-// Updated JavaScript Code (deckbuilder.js)
+// Updated JavaScript Code (deckbuilder.js) with Fixes
 let deckDataByType = {}; // Cards grouped by type
 let currentDeck = [];    // Generated deck
 let currentIndex = -1;   // Current card index (-1 to start with back.jpg)
@@ -90,7 +90,7 @@ function loadCardTypes() {
     // Copy allCards to availableCards
     availableCards = [...allCards];
 
-    // Group cards by their type
+    // Group cards by their type, including handling duplicates
     allCards.forEach(card => {
         // Split types on ' + ' and ' / '
         let types = card.type.split('+').join('/').split('/');
@@ -100,7 +100,7 @@ function loadCardTypes() {
                 deckDataByType[type] = [];
                 allCardTypes.push(type);
             }
-            deckDataByType[type].push(card);
+            deckDataByType[type].push({ ...card }); // Add a copy of the card to handle duplicates properly
         });
     });
 
@@ -123,6 +123,7 @@ function generateCardTypeInputs() {
 
     allCardTypes.forEach(type => {
         if (type.toLowerCase().includes(searchTerm)) {
+            const maxCount = deckDataByType[type].length; // Set max count to number of available cards of this type
             const div = document.createElement('div');
             div.classList.add('card-type-input', 'col-12', 'col-md-6', 'mb-3');
 
@@ -132,7 +133,7 @@ function generateCardTypeInputs() {
                     <img src="logos/${imageName}.jpg" alt="${type}" class="mr-2" style="width: 30px; height: 30px;">
                     <span class="card-title mr-auto">${type} Cards</span>
                     <button class="btn btn-sm btn-outline-secondary decrease-btn" data-type="${type}" style="margin-right: 5px;">-</button>
-                    <input type="number" id="type-${type}" min="0" value="0" class="form-control form-control-sm input-count" style="width: 60px;">
+                    <input type="number" id="type-${type}" min="0" max="${maxCount}" value="0" class="form-control form-control-sm input-count" style="width: 60px;">
                     <button class="btn btn-sm btn-outline-secondary increase-btn" data-type="${type}" style="margin-left: 5px;">+</button>
                 </div>
             `;
@@ -147,8 +148,10 @@ function generateCardTypeInputs() {
         button.addEventListener('click', (e) => {
             const type = e.target.getAttribute('data-type');
             const input = document.getElementById(`type-${type}`);
-            input.value = parseInt(input.value) + 1;
-            saveConfiguration(); // Save configuration after every change
+            if (parseInt(input.value) < parseInt(input.max)) {
+                input.value = parseInt(input.value) + 1;
+                saveConfiguration(); // Save configuration after every change
+            }
         });
     });
 
@@ -230,6 +233,8 @@ function selectRandomCardsFromAvailableCards(cardType, count) {
         }
     });
 
+    console.log(`Selected ${selectedCards.length} cards of type ${cardType}`); // Debugging output
+
     return selectedCards;
 }
 
@@ -245,6 +250,8 @@ function resetAvailableCards() {
 
     // Copy allCards to availableCards
     availableCards = [...allCards];
+
+    console.log(`Available cards reset. Total cards available: ${availableCards.length}`); // Debugging output
 }
 
 // Function to generate the deck
@@ -271,6 +278,11 @@ function generateDeck() {
         }
         const count = parseInt(element.value) || 0;
         if (count > 0) {
+            if (deckDataByType[type].length < count) {
+                console.warn(`Not enough cards of type ${type}. Requested: ${count}, Available: ${deckDataByType[type].length}`); // Debugging output
+                alert(`Not enough cards available for type ${type}. Requested: ${count}, Available: ${deckDataByType[type].length}`);
+                return;
+            }
             hasCardSelection = true;
             currentDeck = currentDeck.concat(selectRandomCardsFromAvailableCards(type, count));
         }
