@@ -1,4 +1,4 @@
-// Updated JavaScript Code (deckbuilder.js) with Fixes for Mobile Enhancements and PWA Registration
+// Updated JavaScript Code (deckbuilder.js) with New Card Action and Mobile Fixes
 
 // Register the Service Worker for PWA functionality
 if ('serviceWorker' in navigator) {
@@ -500,9 +500,11 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
         return;
     }
 
+    // The active card before any action
     const activeCard = currentDeck[currentIndex];
 
     if (cardAction === 'shuffleAnywhere') {
+        // Existing logic for shuffleAnywhere
         // Remove the active card from the deck
         currentDeck.splice(currentIndex, 1);
 
@@ -514,7 +516,14 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
 
         alert('Card shuffled back into the deck.');
 
+        // Move to the previous card
+        if (currentIndex > 0) {
+            currentIndex--;
+        } else {
+            currentIndex = -1; // Go back to the start (back.jpg)
+        }
     } else if (cardAction === 'shuffleTopN') {
+        // Existing logic for shuffleTopN
         let topN = parseInt(document.getElementById('actionN').value);
         if (isNaN(topN) || topN <= 0) {
             alert('Please enter a valid number for N.');
@@ -549,44 +558,65 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
             alert('No remaining cards to shuffle into.');
         }
 
+        // Move to the previous card
+        if (currentIndex > 0) {
+            currentIndex--;
+        } else {
+            currentIndex = -1; // Go back to the start (back.jpg)
+        }
+    } else if (cardAction === 'replaceSameType') {
+        // New logic for replacing the active card with an unseen card of the same type
+        replaceActiveCardWithUnseenSameType();
     } else {
         alert('Please select a valid action.');
         return;
     }
 
-    // Move to the previous card
-    if (currentIndex > 0) {
-        currentIndex--;
-        showCurrentCard();
-    } else if (currentIndex === 0) {
-        currentIndex = -1; // Go back to the start (back.jpg)
-        showCurrentCard();
-    } else {
-        alert('You are at the beginning of the deck.');
-    }
+    // Refresh the display
+    showCurrentCard();
 });
+
+// New function to replace the active card with an unseen card of the same type
+function replaceActiveCardWithUnseenSameType() {
+    const activeCard = currentDeck[currentIndex];
+    const activeCardTypes = parseCardTypes(activeCard.type);
+
+    // Get all cards of the same type from availableCards
+    const allSameTypeCards = availableCards.filter(card => {
+        const cardTypes = parseCardTypes(card.type);
+        return cardTypes.some(type => activeCardTypes.includes(type));
+    });
+
+    // Exclude cards already in the currentDeck
+    const selectedCardIds = new Set(currentDeck.map(card => card.card + card.contents));
+    const unseenSameTypeCards = allSameTypeCards.filter(card => {
+        const cardId = card.card + card.contents;
+        return !selectedCardIds.has(cardId);
+    });
+
+    if (unseenSameTypeCards.length === 0) {
+        alert('No unseen cards of the same type are available.');
+        return;
+    }
+
+    // Randomly select a new card from unseenSameTypeCards
+    const randomIndex = Math.floor(Math.random() * unseenSameTypeCards.length);
+    const newCard = unseenSameTypeCards[randomIndex];
+
+    // Replace the active card with the new card in the currentDeck
+    currentDeck[currentIndex] = newCard;
+
+    alert(`Replaced the active card with a new unseen card of the same type.`);
+}
 
 // Function to enhance buttons with ripple effect and touch feedback
 function enhanceButtons() {
     document.querySelectorAll('button').forEach(button => {
-        // Handle the ripple effect on button press
-        const handleButtonClick = function (e) {
+        // Handle the ripple effect on button click
+        button.addEventListener('click', function (e) {
             // Touch feedback (vibration)
             if ('vibrate' in navigator) {
                 navigator.vibrate(30);
-            }
-
-            // Get coordinates
-            let x, y;
-            if (e.type.startsWith('touch') && e.touches && e.touches.length > 0) {
-                x = e.touches[0].clientX;
-                y = e.touches[0].clientY;
-            } else if (e.type.startsWith('pointer') && e.pointerType === 'touch') {
-                x = e.clientX;
-                y = e.clientY;
-            } else {
-                x = e.clientX;
-                y = e.clientY;
             }
 
             // Create ripple
@@ -594,19 +624,19 @@ function enhanceButtons() {
             ripple.classList.add('ripple');
             const rect = button.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
             ripple.style.width = ripple.style.height = `${size}px`;
-            ripple.style.left = `${x - rect.left - size / 2}px`;
-            ripple.style.top = `${y - rect.top - size / 2}px`;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
             button.appendChild(ripple);
 
             setTimeout(() => {
                 ripple.remove();
             }, 600);
-        };
+        });
 
-        button.addEventListener('click', handleButtonClick);
-
-        // Use pointer events for better compatibility
+        // Visual feedback for button press
         button.addEventListener('pointerdown', function () {
             button.classList.add('button-pressed');
         });
@@ -620,4 +650,3 @@ function enhanceButtons() {
         });
     });
 }
-

@@ -10,9 +10,13 @@ const urlsToCache = [
     // Add other assets like images, logos, JSON files, etc.
     '/logos/gameicon.jpg',
     '/logos/gameicon.jpg',
-    // Include paths to your card images, logos, and JSON data
     '/maladumcards.json',
-    // Add other files as needed
+    // Add paths to your card images and logos
+    // Example:
+    // '/cardimages/back.jpg',
+    // '/cardimages/card1.png',
+    // '/logos/logo1.jpg',
+    // Include all assets that need to be available offline
 ];
 
 self.addEventListener('install', (event) => {
