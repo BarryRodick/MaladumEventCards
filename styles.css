@@ -1,6 +1,8 @@
-/* Updated CSS (styles.css) */
+/* Updated CSS (styles.css) with Improved Background and Mobile Enhancements */
+
+/* Background with Subtle Gradient */
 body.dark-mode {
-    background-color: #121212;
+    background: linear-gradient(135deg, #1e1e1e, #121212);
     color: #ffffff;
 }
 
@@ -9,9 +11,39 @@ body.dark-mode .card {
     color: #ffffff;
 }
 
-body.dark-mode .btn {
-    background-color: #bb86fc;
-    color: #000000;
+/* Enhanced Buttons */
+.btn {
+    background: linear-gradient(135deg, #ff4081, #ff80ab);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:active,
+.button-pressed {
+    transform: scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Ripple Effect */
+.btn .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
 }
 
 .app-header {
@@ -114,4 +146,10 @@ body.dark-mode .btn {
     line-height: 1;
     text-align: center;
     padding: 0;
+}
+
+/* Enhanced Buttons for Touch Devices */
+.button-pressed {
+    transform: scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }

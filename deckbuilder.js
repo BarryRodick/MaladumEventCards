@@ -1,4 +1,17 @@
-// Updated JavaScript Code (deckbuilder.js) with Fixes for '+' and '/' in card types
+// Updated JavaScript Code (deckbuilder.js) with Fixes for Mobile Enhancements and PWA Registration
+
+// Register the Service Worker for PWA functionality
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then((registration) => {
+                console.log('Service Worker registered with scope:', registration.scope);
+            }, (err) => {
+                console.log('Service Worker registration failed:', err);
+            });
+    });
+}
+
 let deckDataByType = {}; // Cards grouped by type
 let currentDeck = [];    // Generated deck
 let currentIndex = -1;   // Current card index (-1 to start with back.jpg)
@@ -35,6 +48,9 @@ fetch('maladumcards.json')
 
         // Load configuration if available
         loadConfiguration();
+
+        // Enhance buttons after DOM content is loaded
+        enhanceButtons();
     })
     .catch(error => console.error('Error loading the JSON:', error));
 
@@ -216,8 +232,8 @@ function loadConfiguration() {
     }
 }
 
-// Function to select random cards from availableCards considering '+' and '/'
-function selectCardsByType(cardType, count, selectedCardsMap) {
+// Function to select cards by type considering '+' and '/'
+function selectCardsByType(cardType, count, selectedCardsMap, cardCounts) {
     let selectedCards = [];
 
     // Cards that can satisfy this type (considering '/' as OR)
@@ -245,10 +261,7 @@ function selectCardsByType(cardType, count, selectedCardsMap) {
                 let orTypes = typePart.split('/').map(s => s.trim());
                 let matched = false;
                 for (let t of orTypes) {
-                    const inputId = `type-${t}`;
-                    const element = document.getElementById(inputId);
-                    const remainingCount = parseInt(element.value) - (selectedCardsMap.get(t) || 0);
-                    if (remainingCount > 0) {
+                    if (cardCounts[t] > 0) {
                         matched = true;
                         break;
                     }
@@ -267,10 +280,8 @@ function selectCardsByType(cardType, count, selectedCardsMap) {
                 for (let typePart of andTypes) {
                     let orTypes = typePart.split('/').map(s => s.trim());
                     for (let t of orTypes) {
-                        const inputId = `type-${t}`;
-                        const element = document.getElementById(inputId);
-                        if (element && parseInt(element.value) > 0) {
-                            element.value = parseInt(element.value) - 1;
+                        if (cardCounts[t] > 0) {
+                            cardCounts[t]--;
                             break; // Only decrease once per '+'
                         }
                     }
@@ -278,14 +289,10 @@ function selectCardsByType(cardType, count, selectedCardsMap) {
             }
         } else {
             // For single type or '/' types
-            selectedCards.push(card);
-            selectedCardsMap.set(cardId, true);
-
-            // Decrease count for the type
-            const inputId = `type-${cardType}`;
-            const element = document.getElementById(inputId);
-            if (element && parseInt(element.value) > 0) {
-                element.value = parseInt(element.value) - 1;
+            if (cardCounts[cardType] > 0) {
+                selectedCards.push(card);
+                selectedCardsMap.set(cardId, true);
+                cardCounts[cardType]--;
             }
         }
     }
@@ -316,21 +323,21 @@ function generateDeck() {
         const inputId = `type-${type}`;
         const element = document.getElementById(inputId);
         cardCounts[type] = parseInt(element.value) || 0;
-    });
-
-    allCardTypes.forEach(type => {
-        const count = cardCounts[type];
-        if (count > 0) {
-            hasCardSelection = true;
-            const selectedCards = selectCardsByType(type, count, selectedCardsMap);
-            currentDeck = currentDeck.concat(selectedCards);
-        }
+        if (cardCounts[type] > 0) hasCardSelection = true;
     });
 
     if (!hasCardSelection) {
         alert('Please select at least one card type and specify the number of cards.');
         return;
     }
+
+    allCardTypes.forEach(type => {
+        const count = cardCounts[type];
+        if (count > 0) {
+            const selectedCards = selectCardsByType(type, count, selectedCardsMap, cardCounts);
+            currentDeck = currentDeck.concat(selectedCards);
+        }
+    });
 
     // Shuffle the entire deck
     currentDeck = shuffleDeck(currentDeck);
@@ -558,3 +565,54 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
         alert('You are at the beginning of the deck.');
     }
 });
+
+// Function to enhance buttons with ripple effect and touch feedback
+function enhanceButtons() {
+    document.querySelectorAll('button').forEach(button => {
+        // Handle both click and touchstart events
+        const handleButtonClick = function (e) {
+            e.preventDefault(); // Prevent default to eliminate delay and multiple triggers
+
+            // Touch feedback (vibration)
+            if ('vibrate' in navigator) {
+                navigator.vibrate(30);
+            }
+
+            // Get coordinates
+            let x, y;
+            if (e.type === 'touchstart' && e.touches && e.touches.length > 0) {
+                x = e.touches[0].clientX;
+                y = e.touches[0].clientY;
+            } else {
+                x = e.clientX;
+                y = e.clientY;
+            }
+
+            // Create ripple
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${x - rect.left - size / 2}px`;
+            ripple.style.top = `${y - rect.top - size / 2}px`;
+            button.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        };
+
+        button.addEventListener('click', handleButtonClick);
+        button.addEventListener('touchstart', handleButtonClick);
+
+        // Press animation for touch devices
+        button.addEventListener('touchstart', function () {
+            button.classList.add('button-pressed');
+        });
+
+        button.addEventListener('touchend', function () {
+            button.classList.remove('button-pressed');
+        });
+    });
+}
