@@ -1,4 +1,4 @@
-// Updated JavaScript Code (deckbuilder.js) with Fixes
+// Updated JavaScript Code (deckbuilder.js) with Fixes for '+' and '/' in card types
 let deckDataByType = {}; // Cards grouped by type
 let currentDeck = [];    // Generated deck
 let currentIndex = -1;   // Current card index (-1 to start with back.jpg)
@@ -90,17 +90,15 @@ function loadCardTypes() {
     // Copy allCards to availableCards
     availableCards = [...allCards];
 
-    // Group cards by their type, including handling duplicates
+    // Group cards by their types
     allCards.forEach(card => {
-        // Split types on ' + ' and ' / '
-        let types = card.type.split('+').join('/').split('/');
+        let types = parseCardTypes(card.type);
         types.forEach(type => {
-            type = type.trim();
             if (!deckDataByType[type]) {
                 deckDataByType[type] = [];
                 allCardTypes.push(type);
             }
-            deckDataByType[type].push({ ...card }); // Add a copy of the card to handle duplicates properly
+            deckDataByType[type].push({ ...card });
         });
     });
 
@@ -109,6 +107,17 @@ function loadCardTypes() {
 
     // Generate card type inputs with logos
     generateCardTypeInputs();
+}
+
+// Function to parse card types considering '+' and '/'
+function parseCardTypes(typeString) {
+    let andTypes = typeString.split('+').map(s => s.trim());
+    let types = [];
+    andTypes.forEach(part => {
+        let orTypes = part.split('/').map(s => s.trim());
+        types = types.concat(orTypes);
+    });
+    return [...new Set(types)];
 }
 
 // Function to generate card type inputs with +/- buttons
@@ -123,7 +132,10 @@ function generateCardTypeInputs() {
 
     allCardTypes.forEach(type => {
         if (type.toLowerCase().includes(searchTerm)) {
-            const maxCount = deckDataByType[type].length; // Set max count to number of available cards of this type
+            // Adjust maxCount based on unique cards
+            const uniqueCards = new Set(deckDataByType[type].map(card => card.card + card.contents));
+            const maxCount = uniqueCards.size; // Set max count to number of unique cards of this type
+
             const div = document.createElement('div');
             div.classList.add('card-type-input', 'col-12', 'col-md-6', 'mb-3');
 
@@ -133,7 +145,7 @@ function generateCardTypeInputs() {
                     <img src="logos/${imageName}.jpg" alt="${type}" class="mr-2" style="width: 30px; height: 30px;">
                     <span class="card-title mr-auto">${type} Cards</span>
                     <button class="btn btn-sm btn-outline-secondary decrease-btn" data-type="${type}" style="margin-right: 5px;">-</button>
-                    <input type="number" id="type-${type}" min="0" max="${maxCount}" value="0" class="form-control form-control-sm input-count" style="width: 60px;">
+                    <input type="number" id="type-${type}" min="0" max="${maxCount}" value="${maxCount}" class="form-control form-control-sm input-count" style="width: 60px;">
                     <button class="btn btn-sm btn-outline-secondary increase-btn" data-type="${type}" style="margin-left: 5px;">+</button>
                 </div>
             `;
@@ -198,60 +210,87 @@ function loadConfiguration() {
             const inputId = `type-${type}`;
             const element = document.getElementById(inputId);
             if (element) {
-                element.value = savedConfig.cardCounts[type] || 0;
+                element.value = savedConfig.cardCounts[type] || element.max;
             }
         });
     }
 }
 
-// Function to select random cards from availableCards
-function selectRandomCardsFromAvailableCards(cardType, count) {
-    // Get available cards of this type
-    const cardsOfType = availableCards.filter(card => {
-        let types = card.type.split('+').join('/').split('/').map(t => t.trim());
+// Function to select random cards from availableCards considering '+' and '/'
+function selectCardsByType(cardType, count, selectedCardsMap) {
+    let selectedCards = [];
+
+    // Cards that can satisfy this type (considering '/' as OR)
+    let cardsOfType = availableCards.filter(card => {
+        let types = parseCardTypes(card.type);
         return types.includes(cardType);
     });
 
-    if (cardsOfType.length === 0) {
-        return []; // No available cards of this type
-    }
+    // Shuffle cardsOfType
+    let shuffledCards = shuffleDeck(cardsOfType);
 
-    // Shuffle cardsOfType using Fisher-Yates shuffle
-    for (let i = cardsOfType.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [cardsOfType[i], cardsOfType[j]] = [cardsOfType[j], cardsOfType[i]];
-    }
+    for (let card of shuffledCards) {
+        if (selectedCards.length >= count) break;
 
-    // Select up to 'count' cards
-    const selectedCards = cardsOfType.slice(0, Math.min(count, cardsOfType.length));
+        const cardId = card.card + card.contents;
+        if (selectedCardsMap.has(cardId)) continue;
 
-    // Remove selected cards from availableCards
-    selectedCards.forEach(card => {
-        const index = availableCards.indexOf(card);
-        if (index !== -1) {
-            availableCards.splice(index, 1);
+        // Check if card has '+' types (AND types)
+        let andTypes = card.type.split('+').map(s => s.trim());
+
+        if (andTypes.length > 1) {
+            // For '+' types, ensure all types have counts remaining
+            let canSelect = true;
+            for (let typePart of andTypes) {
+                let orTypes = typePart.split('/').map(s => s.trim());
+                let matched = false;
+                for (let t of orTypes) {
+                    const inputId = `type-${t}`;
+                    const element = document.getElementById(inputId);
+                    const remainingCount = parseInt(element.value) - (selectedCardsMap.get(t) || 0);
+                    if (remainingCount > 0) {
+                        matched = true;
+                        break;
+                    }
+                }
+                if (!matched) {
+                    canSelect = false;
+                    break;
+                }
+            }
+
+            if (canSelect) {
+                selectedCards.push(card);
+                selectedCardsMap.set(cardId, true);
+
+                // Decrease counts for all types
+                for (let typePart of andTypes) {
+                    let orTypes = typePart.split('/').map(s => s.trim());
+                    for (let t of orTypes) {
+                        const inputId = `type-${t}`;
+                        const element = document.getElementById(inputId);
+                        if (element && parseInt(element.value) > 0) {
+                            element.value = parseInt(element.value) - 1;
+                            break; // Only decrease once per '+'
+                        }
+                    }
+                }
+            }
+        } else {
+            // For single type or '/' types
+            selectedCards.push(card);
+            selectedCardsMap.set(cardId, true);
+
+            // Decrease count for the type
+            const inputId = `type-${cardType}`;
+            const element = document.getElementById(inputId);
+            if (element && parseInt(element.value) > 0) {
+                element.value = parseInt(element.value) - 1;
+            }
         }
-    });
-
-    console.log(`Selected ${selectedCards.length} cards of type ${cardType}`); // Debugging output
+    }
 
     return selectedCards;
-}
-
-// Function to reset availableCards without affecting the DOM
-function resetAvailableCards() {
-    // Flatten cards from selected games
-    let allCards = [];
-    selectedGames.forEach(game => {
-        if (dataStore[game]) {
-            allCards = allCards.concat(dataStore[game]);
-        }
-    });
-
-    // Copy allCards to availableCards
-    availableCards = [...allCards];
-
-    console.log(`Available cards reset. Total cards available: ${availableCards.length}`); // Debugging output
 }
 
 // Function to generate the deck
@@ -269,22 +308,22 @@ function generateDeck() {
     // Reset availableCards without affecting user inputs
     resetAvailableCards();
 
+    const selectedCardsMap = new Map(); // Use Map to store selected cards and their types
+
+    // Copy of card counts to manage counts during selection
+    const cardCounts = {};
     allCardTypes.forEach(type => {
         const inputId = `type-${type}`;
         const element = document.getElementById(inputId);
-        if (!element) {
-            console.error('No element found with id:', inputId);
-            return;
-        }
-        const count = parseInt(element.value) || 0;
+        cardCounts[type] = parseInt(element.value) || 0;
+    });
+
+    allCardTypes.forEach(type => {
+        const count = cardCounts[type];
         if (count > 0) {
-            if (deckDataByType[type].length < count) {
-                console.warn(`Not enough cards of type ${type}. Requested: ${count}, Available: ${deckDataByType[type].length}`); // Debugging output
-                alert(`Not enough cards available for type ${type}. Requested: ${count}, Available: ${deckDataByType[type].length}`);
-                return;
-            }
             hasCardSelection = true;
-            currentDeck = currentDeck.concat(selectRandomCardsFromAvailableCards(type, count));
+            const selectedCards = selectCardsByType(type, count, selectedCardsMap);
+            currentDeck = currentDeck.concat(selectedCards);
         }
     });
 
@@ -307,6 +346,20 @@ function generateDeck() {
     // Collapse the "Select Games" and "Select Card Types" sections
     $('#gameCheckboxes').collapse('hide');
     $('#cardTypeInputs').collapse('hide');
+}
+
+// Function to reset availableCards without affecting the DOM
+function resetAvailableCards() {
+    // Flatten cards from selected games
+    let allCards = [];
+    selectedGames.forEach(game => {
+        if (dataStore[game]) {
+            allCards = allCards.concat(dataStore[game]);
+        }
+    });
+
+    // Copy allCards to availableCards
+    availableCards = [...allCards];
 }
 
 // Function to shuffle the deck
@@ -446,20 +499,13 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
         // Remove the active card from the deck
         currentDeck.splice(currentIndex, 1);
 
-        // Calculate the number of positions after the current index
-        const positionsAfterCurrent = currentDeck.length - currentIndex;
+        // Generate a random insertion index after the current index
+        const insertionIndex = Math.floor(Math.random() * (currentDeck.length - currentIndex)) + currentIndex + 1;
 
-        if (positionsAfterCurrent > 0) {
-            // Generate a random insertion index after the current index
-            const insertionIndex = currentIndex + 1 + Math.floor(Math.random() * positionsAfterCurrent);
+        // Insert the card back into the deck
+        currentDeck.splice(insertionIndex, 0, activeCard);
 
-            // Insert the card back into the deck
-            currentDeck.splice(insertionIndex, 0, activeCard);
-
-            alert('Card shuffled back into the deck.');
-        } else {
-            alert('No remaining cards to shuffle into. The card cannot be shuffled back into the deck.');
-        }
+        alert('Card shuffled back into the deck.');
 
     } else if (cardAction === 'shuffleTopN') {
         let topN = parseInt(document.getElementById('actionN').value);

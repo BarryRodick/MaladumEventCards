@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- ...existing head content... -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#121212">
-    <link rel="stylesheet" href="styles.css">
+    <title>Deck Builder</title>
     <!-- Include Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <title>Deck Builder</title>
+    <!-- Include your custom styles -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="dark-mode">
 
     <!-- Header Section -->
     <header class="app-header">
@@ -85,24 +86,6 @@
             <button id="applyCardAction" class="btn btn-success mt-2">Apply Action</button>
         </section>
 
-    </div>
-
-    <!-- Card Details Modal -->
-    <div class="modal fade" id="cardDetailsModal" tabindex="-1" role="dialog" aria-labelledby="cardDetailsModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Card Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="modalCardContent"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Include Bootstrap JS and dependencies -->
