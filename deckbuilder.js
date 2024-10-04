@@ -569,10 +569,8 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
 // Function to enhance buttons with ripple effect and touch feedback
 function enhanceButtons() {
     document.querySelectorAll('button').forEach(button => {
-        // Handle both click and touchstart events
+        // Handle the ripple effect on button press
         const handleButtonClick = function (e) {
-            e.preventDefault(); // Prevent default to eliminate delay and multiple triggers
-
             // Touch feedback (vibration)
             if ('vibrate' in navigator) {
                 navigator.vibrate(30);
@@ -580,9 +578,12 @@ function enhanceButtons() {
 
             // Get coordinates
             let x, y;
-            if (e.type === 'touchstart' && e.touches && e.touches.length > 0) {
+            if (e.type.startsWith('touch') && e.touches && e.touches.length > 0) {
                 x = e.touches[0].clientX;
                 y = e.touches[0].clientY;
+            } else if (e.type.startsWith('pointer') && e.pointerType === 'touch') {
+                x = e.clientX;
+                y = e.clientY;
             } else {
                 x = e.clientX;
                 y = e.clientY;
@@ -604,15 +605,19 @@ function enhanceButtons() {
         };
 
         button.addEventListener('click', handleButtonClick);
-        button.addEventListener('touchstart', handleButtonClick);
 
-        // Press animation for touch devices
-        button.addEventListener('touchstart', function () {
+        // Use pointer events for better compatibility
+        button.addEventListener('pointerdown', function () {
             button.classList.add('button-pressed');
         });
 
-        button.addEventListener('touchend', function () {
+        button.addEventListener('pointerup', function () {
+            button.classList.remove('button-pressed');
+        });
+
+        button.addEventListener('pointerleave', function () {
             button.classList.remove('button-pressed');
         });
     });
 }
+

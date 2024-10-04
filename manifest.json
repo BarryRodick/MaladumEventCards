@@ -7,12 +7,12 @@
   "theme_color": "#121212",
   "icons": [
     {
-      "src": "/logos/gameicon.png",
+      "src": "/logos/gameicon.jpg",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/logos/gameicon.png",
+      "src": "/logos/gameicon.jpg",
       "sizes": "512x512",
       "type": "image/png"
     }

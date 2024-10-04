@@ -8,8 +8,8 @@ const urlsToCache = [
     '/deckbuilder.js',
     '/manifest.json',
     // Add other assets like images, logos, JSON files, etc.
-    '/logos/gameicon.png',
-    '/logos/gameicon.png',
+    '/logos/gameicon.jpg',
+    '/logos/gameicon.jpg',
     // Include paths to your card images, logos, and JSON data
     '/maladumcards.json',
     // Add other files as needed
