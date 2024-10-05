@@ -3,14 +3,14 @@
 const CACHE_NAME = 'deck-builder-v1';
 const urlsToCache = [
     '/',
-    '/index.html',
-    '/styles.css',
-    '/deckbuilder.js',
-    '/manifest.json',
+    './index.html',
+    './styles.css',
+    './deckbuilder.js',
+    './manifest.json',
     // Add other assets like images, logos, JSON files, etc.
-    '/logos/gameicon.jpg',
-    '/logos/gameicon.jpg',
-    '/maladumcards.json',
+    './logos/gameicon.jpg',
+    './logos/gameicon.jpg',
+    './maladumcards.json',
     // Add paths to your card images and logos
     // Example:
     // '/cardimages/back.jpg',
