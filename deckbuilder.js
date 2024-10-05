@@ -303,7 +303,7 @@ function selectCardsByType(cardType, count, selectedCardsMap, cardCounts) {
 // Function to generate the deck
 function generateDeck() {
     if (selectedGames.length === 0) {
-        alert('Please select at least one game.');
+        showToast('Please select at least one game.');
         return;
     }
 
@@ -327,7 +327,7 @@ function generateDeck() {
     });
 
     if (!hasCardSelection) {
-        alert('Please select at least one card type and specify the number of cards.');
+        showToast('Please select at least one card type and specify the number of cards.');
         return;
     }
 
@@ -443,8 +443,15 @@ function displayDeck() {
 function updateProgressBar() {
     const progressBar = document.getElementById('progressBar');
 
+    if (currentDeck.length === 0) {
+        progressBar.style.width = '0%';
+        progressBar.setAttribute('aria-valuenow', '0');
+        progressBar.textContent = 'No cards available';
+        return;
+    }
+
     let totalCards = currentDeck.length + 1; // Including the back card
-    let currentCardNumber = currentIndex + 2; // +2 because currentIndex starts at -1
+    let currentCardNumber = Math.max(1, currentIndex + 2); // Ensure at least 1 for the back card
 
     let progressPercentage = (currentCardNumber / totalCards) * 100;
 
@@ -496,7 +503,7 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
     const cardAction = document.getElementById('cardAction').value;
 
     if (currentIndex === -1) {
-        alert('No active card to apply action.');
+        showToast('No active card to apply action.');
         return;
     }
 
@@ -514,7 +521,7 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
         // Insert the card back into the deck
         currentDeck.splice(insertionIndex, 0, activeCard);
 
-        alert('Card shuffled back into the deck.');
+        showToast('Card shuffled back into the deck.');
 
         // Move to the previous card
         if (currentIndex > 0) {
@@ -526,7 +533,7 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
         // Existing logic for shuffleTopN
         let topN = parseInt(document.getElementById('actionN').value);
         if (isNaN(topN) || topN <= 0) {
-            alert('Please enter a valid number for N.');
+            showToast('Please enter a valid number for N.');
             return;
         }
 
@@ -536,7 +543,7 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
         // Adjust topN if it exceeds the number of remaining cards
         if (topN > remainingCards) {
             topN = remainingCards;
-            alert(`Only ${remainingCards} cards remaining. Shuffling into the next ${remainingCards} cards.`);
+            showToast(`Only ${remainingCards} cards remaining. Shuffling into the next ${remainingCards} cards.`);
         }
 
         if (topN > 0) {
@@ -553,9 +560,9 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
             // Insert the card back into the deck
             currentDeck.splice(insertionIndex, 0, activeCard);
 
-            alert(`Card shuffled into the next ${topN} cards.`);
+            showToast(`Card shuffled into the next ${topN} cards.`);
         } else {
-            alert('No remaining cards to shuffle into.');
+            showToast('No remaining cards to shuffle into.');
         }
 
         // Move to the previous card
@@ -568,7 +575,7 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
         // New logic for replacing the active card with an unseen card of the same type
         replaceActiveCardWithUnseenSameType();
     } else {
-        alert('Please select a valid action.');
+        showToast('Please select a valid action.');
         return;
     }
 
@@ -595,7 +602,7 @@ function replaceActiveCardWithUnseenSameType() {
     });
 
     if (unseenSameTypeCards.length === 0) {
-        alert('No unseen cards of the same type are available.');
+        showToast('No unseen cards of the same type are available.');
         return;
     }
 
@@ -606,7 +613,23 @@ function replaceActiveCardWithUnseenSameType() {
     // Replace the active card with the new card in the currentDeck
     currentDeck[currentIndex] = newCard;
 
-    alert(`Replaced the active card with a new unseen card of the same type.`);
+    showToast(`Replaced the active card with a new unseen card of the same type.`);
+}
+
+// Function to show a toast message
+function showToast(message) {
+    const toastContainer = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.classList.add('toast', 'show');
+    toast.textContent = message;
+    toastContainer.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+    }, 3000);
 }
 
 // Function to enhance buttons with ripple effect and touch feedback
