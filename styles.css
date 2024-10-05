@@ -26,11 +26,22 @@ body.dark-mode::before {
     z-index: -1;
 }
 
-
+#gameCheckboxes {
+    background-color: rgba(0, 0, 0, 0.7); /* Black with 70% opacity */
+    padding: 10px;
+    border-radius: 8px;
+    color: #ffffff; /* Ensure text is white for better contrast */
+}
 
 body.dark-mode .card {
     background-color: #1e1e1e;
     color: #ffffff;
+}
+.card-item strong {
+    background-color: rgba(0, 0, 0, 0.7); /* Black background with 70% opacity */
+    color: #ffffff; /* White text for contrast */
+    padding: 5px 10px; /* Add some padding around the text */
+    border-radius: 4px; /* Slightly round the corners */
 }
 
 /* Enhanced Buttons */
