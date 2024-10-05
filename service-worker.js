@@ -1,23 +1,20 @@
 // service-worker.js for PWA functionality
 
-const CACHE_NAME = 'deck-builder-v1';
+const CACHE_NAME = 'deck-builder-v0.1';
 const urlsToCache = [
-    '/',
+    './',
     './index.html',
     './styles.css',
     './deckbuilder.js',
     './manifest.json',
-    // Add other assets like images, logos, JSON files, etc.
-    './logos/gameicon.jpg',
     './logos/gameicon.jpg',
     './maladumcards.json',
-    // Add paths to your card images and logos
+    // Add paths to other assets
     // Example:
-    // '/cardimages/back.jpg',
-    // '/cardimages/card1.png',
-    // '/logos/logo1.jpg',
-    // Include all assets that need to be available offline
+    // './cardimages/back.jpg',
+    // './logos/logo1.jpg',
 ];
+
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
