@@ -84,12 +84,34 @@ body.dark-mode .card {
     padding: 20px;
     border-radius: 8px;
     color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribute space between header elements */
+    flex-wrap: wrap; /* Wrap content if needed for smaller screens */
 }
 
-.app-logo {
-    width: 100px;
-    height: auto;
-    margin-bottom: 10px;
+.app-logo-text {
+    margin: 0; /* Remove default margin from h1 */
+    font-size: 1.5rem; /* Adjust font size */
+}
+
+#headerButtons {
+    display: flex;
+    gap: 10px; /* Space between the buttons */
+}
+
+#headerButtons .btn {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    background: rgba(0, 19, 0, 0.6); /* Slight background for visibility */
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#headerButtons .btn:hover {
+    background-color: rgba(1, 87, 1, 0.8); /* Darker green background on hover */
 }
 
 .card-item {

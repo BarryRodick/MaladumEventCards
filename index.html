@@ -17,9 +17,22 @@
 <body class="dark-mode">
 
     <!-- Header Section -->
-    <header class="app-header dark-green-bar">
-        <h1 class="app-logo-text">Event Cards</h1>
-    </header>
+<!-- Header Section -->
+<header class="app-header dark-green-bar d-flex align-items-center justify-content-between">
+    <h1 class="app-logo-text">Event Cards</h1>
+    
+    <div id="headerButtons" class="d-flex">
+        <!-- Select Games Button -->
+        <button id="selectGamesButton" class="btn btn-link mr-3" type="button" data-toggle="collapse" data-target="#gameCheckboxes" aria-expanded="true" aria-controls="gameCheckboxes">
+            Select Games
+        </button>
+
+        <!-- Select Card Types Button -->
+        <button id="selectCardTypesButton" class="btn btn-link" type="button" data-toggle="collapse" data-target="#cardTypeInputs" aria-expanded="true" aria-controls="cardTypeInputs">
+            Select Card Types
+        </button>
+    </div>
+</header>
     
     <div id="toastContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
 
@@ -29,21 +42,18 @@
         <!-- Game Selection (Collapsible) -->
         <section id="gameSelection" class="mb-3">
             <h2>
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#gameCheckboxes" aria-expanded="true" aria-controls="gameCheckboxes">
-                    Select Games
-                </button>
+              
             </h2>
             <div id="gameCheckboxes" class="collapse show">
                 <!-- Game checkboxes will be populated here -->
+            
             </div>
         </section>
 
         <!-- Card Type Selection (Collapsible) -->
         <section id="cardTypeSelection" class="mb-3">
             <h2>
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#cardTypeInputs" aria-expanded="true" aria-controls="cardTypeInputs">
-                    Select Card Types
-                </button>
+                
             </h2>
                         <div id="cardTypeInputs" class="row collapse show">
                 <!-- Card type inputs will be populated here -->
