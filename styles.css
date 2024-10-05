@@ -9,7 +9,7 @@
 
 
 body.dark-mode {
-    background: url('/logos/background.png') no-repeat center center fixed;
+    background: url('./logos/background.png') no-repeat center center fixed;
     background-size: cover;
     color: #ffffff;
 
