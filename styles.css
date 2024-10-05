@@ -1,10 +1,32 @@
 /* Updated CSS (styles.css) with Improved Background and Mobile Enhancements */
 
 /* Background with Subtle Gradient */
-body.dark-mode {
-    background: linear-gradient(135deg, #1e1e1e, #121212);
-    color: #ffffff;
+.dark-green-bar {
+    background-color: #001300; /* Dark green color */
+    width: 100%;
+    padding: 10px;
 }
+
+
+body.dark-mode {
+    background: url('/logos/background.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
+
+}
+
+body.dark-mode::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay with 50% opacity */
+    z-index: -1;
+}
+
+
 
 body.dark-mode .card {
     background-color: #1e1e1e;
@@ -13,7 +35,7 @@ body.dark-mode .card {
 
 /* Enhanced Buttons */
 .btn {
-    background: linear-gradient(135deg, #ff4081, #ff80ab);
+    background: linear-gradient(135deg, #001300, #015701);
     color: #ffffff;
     border: none;
     border-radius: 8px;
@@ -47,10 +69,10 @@ body.dark-mode .card {
 }
 
 .app-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
+    background-color: rgba(0, 0, 0, 0.8); /* Black with some opacity */
+    padding: 20px;
+    border-radius: 8px;
+    color: #ffffff;
 }
 
 .app-logo {
@@ -76,7 +98,7 @@ body.dark-mode .card {
     object-fit: contain;
     margin: 0 auto;
     display: block;
-    border: 1px solid #ccc;
+    border: 1px solid #001300;
     border-radius: 8px;
 }
 
@@ -89,14 +111,15 @@ body.dark-mode .card {
     font-weight: bold;
     font-size: 16px;
     line-height: 25px;
-    background-color: #bb86fc;
+    background-color: #001300;
 }
 
-.card-type-input img {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
-    margin-right: 10px;
+/* Add a solid background to card-type input container */
+.card-type-input {
+    background-color: rgba(0, 0, 0, 0.8); /* Black with some opacity */
+    padding: 10px;
+    border-radius: 8px;
+    color: #ffffff;
 }
 
 .card-type-input .card-title {
