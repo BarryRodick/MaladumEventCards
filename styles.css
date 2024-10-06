@@ -135,18 +135,23 @@ body.dark-mode .card {
     border-radius: 8px;
 }
 
+/* Updated Progress Bar Styles */
 .progress {
     height: 25px;
     margin-bottom: 10px;
+    background-color: #e0e0e0; /* Light gray background for better contrast */
+    border-radius: 8px; /* Rounded corners for a cleaner look */
 }
 
 .progress-bar {
     font-weight: bold;
     font-size: 16px;
     line-height: 25px;
-    background-color: #001300;
+    background-color: #015701; /* Dark green fill color */
+    color: #ffffff; /* White text for contrast */
+    border-radius: 8px; /* Match background corners */
+    transition: width 0.4s ease; /* Smooth transition for progress changes */
 }
-
 /* Add a solid background to card-type input container */
 .card-type-input {
     background-color: rgba(0, 0, 0, 0.8); /* Black with some opacity */
