@@ -215,3 +215,8 @@ button {
     position: relative;
     overflow: hidden;
 }
+/* Highlight input fields when counts are updated */
+.highlight-input {
+    background-color: #ffeb3b; /* Bright yellow background */
+    transition: background-color 0.5s ease;
+}

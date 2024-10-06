@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Updated head content for PWA and Improved Background -->
+    <!-- Head content remains unchanged -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deck Builder</title>
@@ -17,46 +17,47 @@
 <body class="dark-mode">
 
     <!-- Header Section -->
-<!-- Header Section -->
-<header class="app-header dark-green-bar d-flex align-items-center justify-content-between">
-    <h1 class="app-logo-text">Event Cards</h1>
-    
-    <div id="headerButtons" class="d-flex">
-        <!-- Select Games Button -->
-        <button id="selectGamesButton" class="btn btn-link mr-3" type="button" data-toggle="collapse" data-target="#gameCheckboxes" aria-expanded="true" aria-controls="gameCheckboxes">
-            Select Games
-        </button>
+    <header class="app-header dark-green-bar d-flex align-items-center justify-content-between">
+        <h1 class="app-logo-text">Event Cards</h1>
+        
+        <div id="headerButtons" class="d-flex">
+            <!-- Select Games Button -->
+            <button id="selectGamesButton" class="btn btn-link mr-3" type="button" data-toggle="collapse" data-target="#gameCheckboxes" aria-expanded="true" aria-controls="gameCheckboxes">
+                Select Games
+            </button>
 
-        <!-- Select Card Types Button -->
-        <button id="selectCardTypesButton" class="btn btn-link" type="button" data-toggle="collapse" data-target="#cardTypeInputs" aria-expanded="true" aria-controls="cardTypeInputs">
-            Select Card Types
-        </button>
-    </div>
-</header>
+            <!-- Select Card Types Button -->
+            <button id="selectCardTypesButton" class="btn btn-link" type="button" data-toggle="collapse" data-target="#cardTypeSection" aria-expanded="true" aria-controls="cardTypeSection">
+                Select Card Types
+            </button>
+        </div>
+    </header>
     
     <div id="toastContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
-
 
     <div class="container">
 
         <!-- Game Selection (Collapsible) -->
         <section id="gameSelection" class="mb-3">
-            <h2>
-              
-            </h2>
             <div id="gameCheckboxes" class="collapse show">
                 <!-- Game checkboxes will be populated here -->
-            
             </div>
         </section>
 
-        <!-- Card Type Selection (Collapsible) -->
-        <section id="cardTypeSelection" class="mb-3">
-            <h2>
-                
-            </h2>
-                        <div id="cardTypeInputs" class="row collapse show">
+        <!-- Card Type Selection and Difficulty (Collapsible) -->
+        <section id="cardTypeSection" class="mb-3 collapse show">
+            <!-- Card Type Selection -->
+            <div id="cardTypeInputs" class="row">
                 <!-- Card type inputs will be populated here -->
+            </div>
+
+            <!-- Difficulty Selection -->
+            <div id="difficultySelection" class="mb-3">
+                <label for="difficultyLevel">Select Difficulty Level:</label>
+                <select id="difficultyLevel" class="form-control">
+                    <!-- Options will be populated dynamically -->
+                </select>
+                <p id="difficultyDetails" style="margin-top: 10px;"></p>
             </div>
         </section>
 
@@ -85,12 +86,13 @@
 
         <!-- Card Action Section (Initially Hidden) -->
         <section id="cardActionSection" class="mb-3" style="display: none;">
+            <!-- Card action content remains unchanged -->
             <label for="cardAction">Choose Card Action:</label>
             <select id="cardAction" class="form-control">
                 <option value="">--Select Action--</option>
-                <option value="shuffleAnywhere">Shuffle Active Card Anywhere in Deck</option>
+                <option value="shuffleAnywhere">Shuffle Active Card into the remaining deck</option>
                 <option value="shuffleTopN">Shuffle Active Card into Next N Cards</option>
-                <option value="replaceSameType">Replace Active Card with Unseen Card of Same Type</option> <!-- New Option -->
+                <option value="replaceSameType">Replace Active Card with Unseen Card of Same Type</option>
             </select>
 
             <!-- Top N Input -->

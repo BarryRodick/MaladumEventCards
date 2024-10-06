@@ -1,5 +1,3 @@
-// Updated JavaScript Code (deckbuilder.js) with New Card Action and Mobile Fixes
-
 // Register the Service Worker for PWA functionality
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -20,39 +18,57 @@ let allCardTypes = [];   // List of all card types
 let selectedGames = [];  // Selected games
 let dataStore = {};      // Store data for access in functions
 let availableCards = []; // Global array of available cards
+let difficultySettings = []; // Store difficulty settings
 
 // Enable dark mode by default
 document.body.classList.add('dark-mode');
 
-// Fetch the JSON file and load the data
-fetch('maladumcards.json')
-    .then(response => response.json())
-    .then(data => {
-        dataStore = data; // Store data for later use
-        // Get all games (categories)
-        allGames = Object.keys(data);
+// Fetch the JSON files and load the data
+Promise.all([
+    fetch('maladumcards.json').then(response => response.json()),
+    fetch('difficulties.json').then(response => response.json())
+])
+.then(([cardsData, difficultiesData]) => {
+    dataStore = cardsData; // Store cards data
+    difficultySettings = difficultiesData.difficulties; // Store difficulty settings
 
-        // Generate game selection checkboxes
-        generateGameSelection(allGames);
+    // Get all games (categories)
+    allGames = Object.keys(dataStore);
 
-        // Event listener for game selection changes
-        document.getElementById('gameCheckboxes').addEventListener('change', (event) => {
-            if (event.target && event.target.matches('input[type="checkbox"]')) {
-                loadCardTypes();
-                saveConfiguration(); // Automatically save configuration when games are selected/deselected
-            }
-        });
+    // Generate game selection checkboxes
+    generateGameSelection(allGames);
 
-        // Initial load of card types
-        loadCardTypes();
+    // Load configuration if available (restore selected games)
+    loadConfiguration(); // This will set selectedGames
 
-        // Load configuration if available
-        loadConfiguration();
+    // Populate the difficulty selection dropdown
+    populateDifficultySelection();
 
-        // Enhance buttons after DOM content is loaded
-        enhanceButtons();
-    })
-    .catch(error => console.error('Error loading the JSON:', error));
+    // Event listener for game selection changes
+    document.getElementById('gameCheckboxes').addEventListener('change', (event) => {
+        if (event.target && event.target.matches('input[type="checkbox"]')) {
+            loadCardTypes();
+            saveConfiguration(); // Automatically save configuration when games are selected/deselected
+        }
+    });
+
+    // Event listener for difficulty selection changes
+    document.getElementById('difficultyLevel').addEventListener('change', () => {
+        updateDifficultyDetails();
+        // Optionally, inform the user that counts have been reset
+        showToast('Novice and Veteran card counts have been updated based on the selected difficulty.');
+    });
+
+    // Initial load of card types based on selected games
+    loadCardTypes(); // Now that selectedGames is set
+
+    // After card types are loaded, restore card counts
+    restoreCardCounts();
+
+    // Enhance buttons after DOM content is loaded
+    enhanceButtons();
+})
+.catch(error => console.error('Error loading the JSON files:', error));
 
 // Function to generate game selection checkboxes
 function generateGameSelection(games) {
@@ -141,34 +157,29 @@ function generateCardTypeInputs() {
     const cardTypeInputs = document.getElementById('cardTypeInputs');
     cardTypeInputs.innerHTML = ''; // Clear previous inputs
 
-    const searchTermElement = document.getElementById('cardTypeSearch');
-    const searchTerm = searchTermElement ? searchTermElement.value.toLowerCase() : '';
-
     allCardTypes.sort(); // Sort the card types alphabetically
 
     allCardTypes.forEach(type => {
-        if (type.toLowerCase().includes(searchTerm)) {
-            // Adjust maxCount based on unique cards
-            const uniqueCards = new Set(deckDataByType[type].map(card => card.card + card.contents));
-            const maxCount = uniqueCards.size; // Set max count to number of unique cards of this type
+        // Adjust maxCount based on unique cards
+        const uniqueCards = new Set(deckDataByType[type].map(card => card.card + card.contents));
+        const maxCount = uniqueCards.size; // Set max count to number of unique cards of this type
 
-            const div = document.createElement('div');
-            div.classList.add('card-type-input', 'col-12', 'col-md-6', 'mb-3');
+        const div = document.createElement('div');
+        div.classList.add('card-type-input', 'col-12', 'col-md-6', 'mb-3');
 
-            const imageName = type.replace(/\s/g, '');
-            const card = `
-                <div class="d-flex align-items-center">
-                    <img src="logos/${imageName}.jpg" alt="${type}" class="mr-2" style="width: 30px; height: 30px;">
-                    <span class="card-title mr-auto">${type} Cards</span>
-                    <button class="btn btn-sm btn-outline-secondary decrease-btn" data-type="${type}" style="margin-right: 5px;">-</button>
-                    <input type="number" id="type-${type}" min="0" max="${maxCount}" value="${maxCount}" class="form-control form-control-sm input-count" style="width: 60px;">
-                    <button class="btn btn-sm btn-outline-secondary increase-btn" data-type="${type}" style="margin-left: 5px;">+</button>
-                </div>
-            `;
+        const imageName = type.replace(/\s/g, '');
+        const card = `
+            <div class="d-flex align-items-center">
+                <img src="logos/${imageName}.jpg" alt="${type}" class="mr-2" style="width: 30px; height: 30px;">
+                <span class="card-title mr-auto">${type} Cards</span>
+                <button class="btn btn-sm btn-outline-secondary decrease-btn" data-type="${type}" style="margin-right: 5px;">-</button>
+                <input type="number" id="type-${type}" min="0" max="${maxCount}" value="0" class="form-control form-control-sm input-count" style="width: 60px;">
+                <button class="btn btn-sm btn-outline-secondary increase-btn" data-type="${type}" style="margin-left: 5px;">+</button>
+            </div>
+        `;
 
-            div.innerHTML = card;
-            cardTypeInputs.appendChild(div);
-        }
+        div.innerHTML = card;
+        cardTypeInputs.appendChild(div);
     });
 
     // Add event listeners for +/- buttons
@@ -195,10 +206,74 @@ function generateCardTypeInputs() {
     });
 }
 
+// Function to populate difficulty selection dropdown
+function populateDifficultySelection() {
+    const difficultySelect = document.getElementById('difficultyLevel');
+
+    // Clear existing options
+    difficultySelect.innerHTML = '';
+
+    // Populate options
+    difficultySettings.forEach((difficulty, index) => {
+        const option = document.createElement('option');
+        option.value = index; // Use index to reference the difficulty setting
+        option.textContent = difficulty.name;
+        option.setAttribute('data-novice', difficulty.novice);
+        option.setAttribute('data-veteran', difficulty.veteran);
+        difficultySelect.appendChild(option);
+    });
+
+    // Set a default selection if desired
+    difficultySelect.selectedIndex = 0;
+
+    // Display the selected difficulty details
+    updateDifficultyDetails();
+}
+
+// Function to update difficulty details display and adjust counts
+function updateDifficultyDetails() {
+    const difficultySelect = document.getElementById('difficultyLevel');
+    const selectedOption = difficultySelect.options[difficultySelect.selectedIndex];
+    const noviceCount = selectedOption.getAttribute('data-novice');
+    const veteranCount = selectedOption.getAttribute('data-veteran');
+
+    const difficultyDetails = document.getElementById('difficultyDetails');
+    difficultyDetails.textContent = `Novice Cards: ${noviceCount}, Veteran Cards: ${veteranCount}`;
+
+    // Update the counts for Novice and Veteran card types
+    const noviceInput = document.getElementById('type-Novice');
+    if (noviceInput) {
+        noviceInput.value = noviceCount;
+        // Add highlight class
+        noviceInput.classList.add('highlight-input');
+    }
+
+    const veteranInput = document.getElementById('type-Veteran');
+    if (veteranInput) {
+        veteranInput.value = veteranCount;
+        // Add highlight class
+        veteranInput.classList.add('highlight-input');
+    }
+
+    // Remove the highlight after a short delay
+    setTimeout(() => {
+        if (noviceInput) {
+            noviceInput.classList.remove('highlight-input');
+        }
+        if (veteranInput) {
+            veteranInput.classList.remove('highlight-input');
+        }
+    }, 2000); // Highlight lasts for 2 seconds
+
+    // Save the updated counts
+    saveConfiguration();
+}
+
 // Save configuration function
 function saveConfiguration() {
     const config = {
         selectedGames,
+        selectedDifficultyIndex: document.getElementById('difficultyLevel').value,
         cardCounts: {}
     };
     allCardTypes.forEach(type => {
@@ -217,16 +292,34 @@ function loadConfiguration() {
         // Restore game selections
         allGames.forEach(game => {
             const checkbox = document.getElementById(`game-${game}`);
-            checkbox.checked = savedConfig.selectedGames.includes(game);
+            if (checkbox) {
+                checkbox.checked = savedConfig.selectedGames.includes(game);
+            }
         });
-        loadCardTypes(); // Reload card types based on selected games
 
-        // Restore card counts
+        // Set selectedGames based on restored game selections
+        selectedGames = savedConfig.selectedGames;
+
+        // Restore selected difficulty
+        const difficultySelect = document.getElementById('difficultyLevel');
+        if (difficultySelect && savedConfig.selectedDifficultyIndex !== undefined) {
+            difficultySelect.value = savedConfig.selectedDifficultyIndex;
+        }
+    } else {
+        // If no configuration, set selectedGames to all games
+        selectedGames = allGames.slice();
+    }
+}
+
+// Function to restore card counts after card type inputs are generated
+function restoreCardCounts() {
+    const savedConfig = JSON.parse(localStorage.getItem('savedConfig'));
+    if (savedConfig && savedConfig.cardCounts) {
         allCardTypes.forEach(type => {
             const inputId = `type-${type}`;
             const element = document.getElementById(inputId);
             if (element) {
-                element.value = savedConfig.cardCounts[type] || element.max;
+                element.value = savedConfig.cardCounts[type] || 0;
             }
         });
     }
@@ -310,8 +403,6 @@ function generateDeck() {
     currentIndex = -1; // Start with -1 to display back.jpg first
     currentDeck = [];
 
-    let hasCardSelection = false;
-
     // Reset availableCards without affecting user inputs
     resetAvailableCards();
 
@@ -323,21 +414,23 @@ function generateDeck() {
         const inputId = `type-${type}`;
         const element = document.getElementById(inputId);
         cardCounts[type] = parseInt(element.value) || 0;
-        if (cardCounts[type] > 0) hasCardSelection = true;
     });
 
-    if (!hasCardSelection) {
-        showToast('Please select at least one card type and specify the number of cards.');
-        return;
-    }
-
+    // Proceed with selecting cards based on counts from inputs (including manual adjustments)
+    let hasCardSelection = false;
     allCardTypes.forEach(type => {
         const count = cardCounts[type];
         if (count > 0) {
+            hasCardSelection = true;
             const selectedCards = selectCardsByType(type, count, selectedCardsMap, cardCounts);
             currentDeck = currentDeck.concat(selectedCards);
         }
     });
+
+    if (!hasCardSelection) {
+        showToast('Please select at least one card type with a count greater than zero.');
+        return;
+    }
 
     // Shuffle the entire deck
     currentDeck = shuffleDeck(currentDeck);
@@ -352,7 +445,7 @@ function generateDeck() {
 
     // Collapse the "Select Games" and "Select Card Types" sections
     $('#gameCheckboxes').collapse('hide');
-    $('#cardTypeInputs').collapse('hide');
+    $('#cardTypeSection').collapse('hide');
 }
 
 // Function to reset availableCards without affecting the DOM
@@ -572,7 +665,7 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
             currentIndex = -1; // Go back to the start (back.jpg)
         }
     } else if (cardAction === 'replaceSameType') {
-        // New logic for replacing the active card with an unseen card of the same type
+        // Logic for replacing the active card with an unseen card of the same type
         replaceActiveCardWithUnseenSameType();
     } else {
         showToast('Please select a valid action.');
@@ -583,7 +676,6 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
     showCurrentCard();
 });
 
-// New function to replace the active card with an unseen card of the same type
 function replaceActiveCardWithUnseenSameType() {
     const activeCard = currentDeck[currentIndex];
     const activeCardTypes = parseCardTypes(activeCard.type);
@@ -591,7 +683,7 @@ function replaceActiveCardWithUnseenSameType() {
     // Get all cards of the same type from availableCards
     const allSameTypeCards = availableCards.filter(card => {
         const cardTypes = parseCardTypes(card.type);
-        return cardTypes.some(type => activeCardTypes.includes(type));
+        return activeCardTypes.every(type => cardTypes.includes(type)) && cardTypes.every(type => activeCardTypes.includes(type));
     });
 
     // Exclude cards already in the currentDeck

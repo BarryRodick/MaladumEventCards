@@ -1,0 +1,71 @@
+{
+    "difficulties": [
+        
+        {
+            "name": "No Adjustment",
+            "novice": 0,
+            "veteran": 0
+        },
+        
+        {
+            "name": "Very Easy (1-300)",
+            "novice": 5,
+            "veteran": 0
+        },
+        {
+            "name": "Easy (301-400)",
+            "novice": 4,
+            "veteran": 0
+        },
+        {
+            "name": "Normal (401-500)",
+            "novice": 3,
+            "veteran": 0
+        },
+        {
+            "name": "Challenging (501-600)",
+            "novice": 2,
+            "veteran": 1
+        },
+        {
+            "name": "Hard (601-700)",
+            "novice": 1,
+            "veteran": 2
+        },
+        {
+            "name": "Very Hard (701-875)",
+            "novice": 0,
+            "veteran": 3
+        },
+        {
+            "name": "Expert (876-1050)",
+            "novice": 0,
+            "veteran": 4
+        },
+        {
+            "name": "Master (1051-1300)",
+            "novice": 0,
+            "veteran": 5
+        },
+        {
+            "name": "Legendary (1301-1550)",
+            "novice": 0,
+            "veteran": 6
+        },
+        {
+            "name": "Mythic (1551-1900)",
+            "novice": 0,
+            "veteran": 7
+        },
+        {
+            "name": "Godlike (1901-2250)",
+            "novice": 0,
+            "veteran": 8
+        },
+        {
+            "name": "Impossible (2251+)",
+            "novice": 0,
+            "veteran": 10
+        }
+    ]
+}
