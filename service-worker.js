@@ -1,6 +1,6 @@
 // service-worker.js for PWA functionality
 
-const CACHE_NAME = 'deck-builder-v0.1';
+const CACHE_NAME = 'deck-builder-v0.2';
 const urlsToCache = [
     './',
     './index.html',

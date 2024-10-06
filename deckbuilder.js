@@ -438,6 +438,12 @@ function generateDeck() {
     // Save the current configuration
     saveConfiguration();
 
+    // Log for debugging
+    console.log('Selected Games:', selectedGames);
+    console.log('Card Counts:', cardCounts);
+    console.log('Available Cards:', availableCards);
+    console.log('Generated Deck:', currentDeck);
+
     displayDeck();
 
     // Show the Card Action section after deck generation
@@ -603,6 +609,10 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
     // The active card before any action
     const activeCard = currentDeck[currentIndex];
 
+    console.log('Current Index:', currentIndex);
+    console.log('Active Card Before Action:', activeCard);
+    console.log('Current Deck Before Action:', currentDeck);
+
     if (cardAction === 'shuffleAnywhere') {
         // Existing logic for shuffleAnywhere
         // Remove the active card from the deck
@@ -672,19 +682,26 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
         return;
     }
 
+    console.log('Current Deck After Action:', currentDeck);
+
     // Refresh the display
     showCurrentCard();
 });
 
 function replaceActiveCardWithUnseenSameType() {
     const activeCard = currentDeck[currentIndex];
-    const activeCardTypes = parseCardTypes(activeCard.type);
+    const activeCardTypes = parseCardTypes(activeCard.type).map(type => type.trim().toLowerCase()).sort();
+
+    console.log('Active Card:', activeCard);
+    console.log('Active Card Types:', activeCardTypes);
 
     // Get all cards of the same type from availableCards
     const allSameTypeCards = availableCards.filter(card => {
-        const cardTypes = parseCardTypes(card.type);
-        return activeCardTypes.every(type => cardTypes.includes(type)) && cardTypes.every(type => activeCardTypes.includes(type));
+        const cardTypes = parseCardTypes(card.type).map(type => type.trim().toLowerCase()).sort();
+        return JSON.stringify(cardTypes) === JSON.stringify(activeCardTypes);
     });
+
+    console.log('All Same Type Cards:', allSameTypeCards);
 
     // Exclude cards already in the currentDeck
     const selectedCardIds = new Set(currentDeck.map(card => card.card + card.contents));
@@ -692,6 +709,8 @@ function replaceActiveCardWithUnseenSameType() {
         const cardId = card.card + card.contents;
         return !selectedCardIds.has(cardId);
     });
+
+    console.log('Unseen Same Type Cards:', unseenSameTypeCards);
 
     if (unseenSameTypeCards.length === 0) {
         showToast('No unseen cards of the same type are available.');
@@ -701,6 +720,8 @@ function replaceActiveCardWithUnseenSameType() {
     // Randomly select a new card from unseenSameTypeCards
     const randomIndex = Math.floor(Math.random() * unseenSameTypeCards.length);
     const newCard = unseenSameTypeCards[randomIndex];
+
+    console.log('Selected New Card:', newCard);
 
     // Replace the active card with the new card in the currentDeck
     currentDeck[currentIndex] = newCard;
