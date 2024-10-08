@@ -11,7 +11,9 @@ if ('serviceWorker' in navigator) {
 }
 
 let deckDataByType = {}; // Cards grouped by type
-let currentDeck = [];    // Generated deck
+let regularDeck = [];    // Generated regular deck
+let sentryDeck = [];     // Generated sentry deck
+let currentDeck = [];    // Combined deck for display
 let currentIndex = -1;   // Current card index (-1 to start with back.jpg)
 let allGames = [];       // List of all games
 let allCardTypes = [];   // List of all card types
@@ -19,6 +21,9 @@ let selectedGames = [];  // Selected games
 let dataStore = {};      // Store data for access in functions
 let availableCards = []; // Global array of available cards
 let difficultySettings = []; // Store difficulty settings
+
+// Define Sentry card types
+const sentryCardTypes = ['Revenants', 'Revenant', 'Malagaunt'];
 
 // Enable dark mode by default
 document.body.classList.add('dark-mode');
@@ -38,11 +43,11 @@ Promise.all([
     // Generate game selection checkboxes
     generateGameSelection(allGames);
 
-    // Load configuration if available (restore selected games)
-    loadConfiguration(); // This will set selectedGames
-
     // Populate the difficulty selection dropdown
     populateDifficultySelection();
+
+    // Load configuration if exists
+    loadConfiguration();
 
     // Event listener for game selection changes
     document.getElementById('gameCheckboxes').addEventListener('change', (event) => {
@@ -57,6 +62,12 @@ Promise.all([
         updateDifficultyDetails();
         // Optionally, inform the user that counts have been reset
         showToast('Novice and Veteran card counts have been updated based on the selected difficulty.');
+    });
+
+    // Event listener for Sentry Rules checkbox
+    document.getElementById('enableSentryRules').addEventListener('change', () => {
+        toggleSentryRulesOptions();
+        saveConfiguration(); // Save configuration when Sentry Rules option changes
     });
 
     // Initial load of card types based on selected games
@@ -269,19 +280,33 @@ function updateDifficultyDetails() {
     saveConfiguration();
 }
 
+// Function to toggle visibility of Sentry Rules options based on the checkbox
+function toggleSentryRulesOptions() {
+    const isEnabled = document.getElementById('enableSentryRules').checked;
+    // The Sentry Action Section is now removed; handle any related UI changes here if needed
+    // For this integration, no additional UI changes are required
+}
+
 // Save configuration function
 function saveConfiguration() {
     const config = {
         selectedGames,
         selectedDifficultyIndex: document.getElementById('difficultyLevel').value,
-        cardCounts: {}
+        cardCounts: {},
+        sentryCardCounts: {},
+        enableSentryRules: document.getElementById('enableSentryRules').checked
     };
     allCardTypes.forEach(type => {
         const inputId = `type-${type}`;
         const element = document.getElementById(inputId);
         const count = parseInt(element.value) || 0;
-        config.cardCounts[type] = count;
+        if (sentryCardTypes.includes(type)) {
+            config.sentryCardCounts[type] = count;
+        } else {
+            config.cardCounts[type] = count;
+        }
     });
+    // Save configuration including Sentry Rules state
     localStorage.setItem('savedConfig', JSON.stringify(config));
 }
 
@@ -305,6 +330,13 @@ function loadConfiguration() {
         if (difficultySelect && savedConfig.selectedDifficultyIndex !== undefined) {
             difficultySelect.value = savedConfig.selectedDifficultyIndex;
         }
+
+        // Restore Sentry Rules state
+        const sentryRulesCheckbox = document.getElementById('enableSentryRules');
+        if (sentryRulesCheckbox && savedConfig.enableSentryRules !== undefined) {
+            sentryRulesCheckbox.checked = savedConfig.enableSentryRules;
+            toggleSentryRulesOptions(); // Show/hide Sentry Action Section based on saved state if needed
+        }
     } else {
         // If no configuration, set selectedGames to all games
         selectedGames = allGames.slice();
@@ -314,19 +346,23 @@ function loadConfiguration() {
 // Function to restore card counts after card type inputs are generated
 function restoreCardCounts() {
     const savedConfig = JSON.parse(localStorage.getItem('savedConfig'));
-    if (savedConfig && savedConfig.cardCounts) {
+    if (savedConfig && (savedConfig.cardCounts || savedConfig.sentryCardCounts)) {
         allCardTypes.forEach(type => {
             const inputId = `type-${type}`;
             const element = document.getElementById(inputId);
             if (element) {
-                element.value = savedConfig.cardCounts[type] || 0;
+                if (sentryCardTypes.includes(type)) {
+                    element.value = savedConfig.sentryCardCounts[type] || 0;
+                } else {
+                    element.value = savedConfig.cardCounts[type] || 0;
+                }
             }
         });
     }
 }
 
 // Function to select cards by type considering '+' and '/'
-function selectCardsByType(cardType, count, selectedCardsMap, cardCounts) {
+function selectCardsByType(cardType, count, selectedCardsMap, cardCounts, isSentry = false) {
     let selectedCards = [];
 
     // Cards that can satisfy this type (considering '/' as OR)
@@ -401,7 +437,8 @@ function generateDeck() {
     }
 
     currentIndex = -1; // Start with -1 to display back.jpg first
-    currentDeck = [];
+    regularDeck = [];
+    sentryDeck = [];
 
     // Reset availableCards without affecting user inputs
     resetAvailableCards();
@@ -410,39 +447,97 @@ function generateDeck() {
 
     // Copy of card counts to manage counts during selection
     const cardCounts = {};
+    const sentryCardCounts = {};
     allCardTypes.forEach(type => {
         const inputId = `type-${type}`;
         const element = document.getElementById(inputId);
-        cardCounts[type] = parseInt(element.value) || 0;
-    });
-
-    // Proceed with selecting cards based on counts from inputs (including manual adjustments)
-    let hasCardSelection = false;
-    allCardTypes.forEach(type => {
-        const count = cardCounts[type];
-        if (count > 0) {
-            hasCardSelection = true;
-            const selectedCards = selectCardsByType(type, count, selectedCardsMap, cardCounts);
-            currentDeck = currentDeck.concat(selectedCards);
+        const count = parseInt(element.value) || 0;
+        if (sentryCardTypes.includes(type)) {
+            sentryCardCounts[type] = count;
+        } else {
+            cardCounts[type] = count;
         }
     });
 
-    if (!hasCardSelection) {
-        showToast('Please select at least one card type with a count greater than zero.');
-        return;
-    }
+    // Check if Sentry Rules are enabled
+    const isSentryEnabled = document.getElementById('enableSentryRules').checked;
 
-    // Shuffle the entire deck
-    currentDeck = shuffleDeck(currentDeck);
+    if (isSentryEnabled) {
+        // Proceed with selecting regular and sentry cards separately
+
+        // Selecting regular cards based on counts from inputs (excluding Sentry)
+        let hasRegularCardSelection = false;
+        allCardTypes.forEach(type => {
+            if (sentryCardTypes.includes(type)) return; // Skip Sentry types here
+            const count = cardCounts[type];
+            if (count > 0) {
+                hasRegularCardSelection = true;
+                const selectedCards = selectCardsByType(type, count, selectedCardsMap, cardCounts, false);
+                regularDeck = regularDeck.concat(selectedCards);
+            }
+        });
+
+        // Selecting Sentry cards based on counts from inputs
+        let hasSentryCardSelection = false;
+        allCardTypes.forEach(type => {
+            if (!sentryCardTypes.includes(type)) return; // Only handle Sentry types here
+            const count = sentryCardCounts[type];
+            if (count > 0) {
+                hasSentryCardSelection = true;
+                const selectedSentryCards = selectCardsByType(type, count, selectedCardsMap, sentryCardCounts, true);
+                sentryDeck = sentryDeck.concat(selectedSentryCards);
+            }
+        });
+
+        if (!hasRegularCardSelection && !hasSentryCardSelection) {
+            showToast('Please select at least one card type with a count greater than zero.');
+            return;
+        }
+
+        // Shuffle the regular deck
+        regularDeck = shuffleDeck(regularDeck);
+
+        // Set currentDeck to regularDeck
+        currentDeck = regularDeck.slice(); // Start with regular deck
+
+        // Sentry cards are kept in sentryDeck and introduced later
+    } else {
+        // Proceed with selecting all cards as regular cards
+
+        // Selecting all cards based on counts from inputs
+        let hasCardSelection = false;
+        allCardTypes.forEach(type => {
+            const count = cardCounts[type];
+            if (count > 0) {
+                hasCardSelection = true;
+                const selectedCards = selectCardsByType(type, count, selectedCardsMap, cardCounts, false);
+                regularDeck = regularDeck.concat(selectedCards);
+            }
+        });
+
+        if (!hasCardSelection) {
+            showToast('Please select at least one card type with a count greater than zero.');
+            return;
+        }
+
+        // Shuffle the entire deck
+        regularDeck = shuffleDeck(regularDeck);
+
+        // Set currentDeck to regularDeck
+        currentDeck = regularDeck.slice(); // Start with regular deck
+    }
 
     // Save the current configuration
     saveConfiguration();
 
     // Log for debugging
     console.log('Selected Games:', selectedGames);
-    console.log('Card Counts:', cardCounts);
+    console.log('Regular Card Counts:', cardCounts);
+    console.log('Sentry Card Counts:', sentryCardCounts);
     console.log('Available Cards:', availableCards);
-    console.log('Generated Deck:', currentDeck);
+    console.log('Generated Regular Deck:', regularDeck);
+    console.log('Generated Sentry Deck:', sentryDeck);
+    console.log('Sentry Rules Enabled:', isSentryEnabled);
 
     displayDeck();
 
@@ -527,7 +622,9 @@ function displayDeck() {
 
     const navButtons = document.getElementById('navigationButtons');
 
-    if (currentDeck.length === 0) {
+    const isSentryEnabled = document.getElementById('enableSentryRules').checked;
+
+    if (currentDeck.length === 0 && (!isSentryEnabled || sentryDeck.length === 0)) {
         output.innerHTML = '<p>No cards selected.</p>';
         navButtons.style.display = 'none';
         document.getElementById('deckProgress').style.display = 'none';
@@ -542,14 +639,12 @@ function displayDeck() {
 function updateProgressBar() {
     const progressBar = document.getElementById('progressBar');
 
-    if (currentDeck.length === 0) {
-        progressBar.style.width = '0%';
-        progressBar.setAttribute('aria-valuenow', '0');
-        progressBar.textContent = 'No cards available';
-        return;
-    }
+    const isSentryEnabled = document.getElementById('enableSentryRules').checked;
 
-    let totalCards = currentDeck.length + 1; // Including the back card
+    let totalRegularCards = regularDeck.length + 1; // Including the back card
+    let totalSentryCards = isSentryEnabled ? sentryDeck.length : 0;
+    let totalCards = totalRegularCards + totalSentryCards;
+
     let currentCardNumber = Math.max(1, currentIndex + 2); // Ensure at least 1 for the back card
 
     let progressPercentage = (currentCardNumber / totalCards) * 100;
@@ -569,9 +664,15 @@ document.getElementById('prevCard').addEventListener('click', () => {
 });
 
 document.getElementById('nextCard').addEventListener('click', () => {
+    const isSentryEnabled = document.getElementById('enableSentryRules').checked;
+
     if (currentIndex < currentDeck.length - 1) {
         currentIndex++;
         showCurrentCard();
+    } else if (isSentryEnabled && sentryDeck.length > 0) {
+        showToast('All regular cards have been revealed. Introduce Sentry cards to continue.');
+    } else {
+        showToast('No more cards in the deck.');
     }
 });
 
@@ -677,6 +778,9 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
     } else if (cardAction === 'replaceSameType') {
         // Logic for replacing the active card with an unseen card of the same type
         replaceActiveCardWithUnseenSameType();
+    } else if (cardAction === 'introduceSentry') {
+        // **New Introduce Sentry Cards Logic**
+        introduceSentryCards();
     } else {
         showToast('Please select a valid action.');
         return;
@@ -688,6 +792,7 @@ document.getElementById('applyCardAction').addEventListener('click', () => {
     showCurrentCard();
 });
 
+// Function to replace the active card with an unseen card of the same type
 function replaceActiveCardWithUnseenSameType() {
     const activeCard = currentDeck[currentIndex];
     const activeCardTypes = parseCardTypes(activeCard.type).map(type => type.trim().toLowerCase()).sort();
@@ -733,15 +838,35 @@ function replaceActiveCardWithUnseenSameType() {
 function showToast(message) {
     const toastContainer = document.getElementById('toastContainer');
     const toast = document.createElement('div');
-    toast.classList.add('toast', 'show');
-    toast.textContent = message;
+    toast.classList.add('toast', 'show', 'align-items-center', 'text-white', 'bg-secondary', 'border-0');
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'assertive');
+    toast.setAttribute('aria-atomic', 'true');
+
+    const toastBody = document.createElement('div');
+    toastBody.classList.add('d-flex');
+    const toastMessage = document.createElement('div');
+    toastMessage.classList.add('toast-body');
+    toastMessage.textContent = message;
+    toastBody.appendChild(toastMessage);
+
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.classList.add('ml-auto', 'mb-1', 'close');
+    closeButton.setAttribute('data-dismiss', 'toast');
+    closeButton.setAttribute('aria-label', 'Close');
+    closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
+    toastBody.appendChild(closeButton);
+
+    toast.appendChild(toastBody);
     toastContainer.appendChild(toast);
 
+    // Automatically remove the toast after 3 seconds
     setTimeout(() => {
-        toast.classList.remove('show');
-        setTimeout(() => {
+        $(toast).toast('hide');
+        toast.addEventListener('hidden.bs.toast', () => {
             toast.remove();
-        }, 300);
+        });
     }, 3000);
 }
 
@@ -786,3 +911,53 @@ function enhanceButtons() {
         });
     });
 }
+
+// Function to introduce Sentry cards into the remaining deck
+function introduceSentryCards() {
+    if (sentryDeck.length === 0) {
+        showToast('No Sentry cards to introduce.');
+        return;
+    }
+
+    // Define the starting point for shuffling (after the current card)
+    const insertionStart = currentIndex + 1;
+
+    // Extract the remaining deck
+    const remainingDeck = currentDeck.slice(insertionStart);
+
+    // Combine remaining deck with sentryDeck
+    const combinedDeck = remainingDeck.concat(sentryDeck);
+
+    // Shuffle the combined deck
+    const shuffledCombinedDeck = shuffleDeck(combinedDeck);
+
+    // Replace the remaining deck with the shuffled combined deck
+    currentDeck = currentDeck.slice(0, insertionStart).concat(shuffledCombinedDeck);
+
+    // Clear sentryDeck after introduction
+    sentryDeck = [];
+
+    // Refresh the display
+    showCurrentCard();
+
+    showToast('Sentry cards have been introduced into the remaining deck.');
+}
+
+// Function to apply card action
+// This function is already handled in the event listener for "Apply Action"
+// Ensure that the "introduceSentry" action is handled correctly in the applyCardAction event listener
+
+// Attach event listener to the introduce Sentry button
+// Removed as "Introduce Sentry Cards" is now part of card actions
+
+// Function to handle Apply Card Action
+// This is integrated into the existing event listener for "applyCardAction"
+
+// **Ensure that the "Introduce Sentry Cards" action is handled in the applyCardAction event listener**
+// This has already been integrated above in the "Apply Action to the active card" section
+
+// Function to display the deck and manage the visibility of UI elements remains unchanged
+
+// Function to handle "Apply Action" including the new "Introduce Sentry Cards" option has been updated above
+
+// No other changes needed
