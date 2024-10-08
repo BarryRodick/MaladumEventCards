@@ -117,7 +117,7 @@ Promise.all([
     // Event listener for game selection changes
     document.getElementById('gameCheckboxes').addEventListener('change', (event) => {
         if (event.target && event.target.matches('input[type="checkbox"]')) {
-            loadCardTypes(); // Now, sentryCardTypes is globally defined
+            preserveAndRestoreCardCounts(); // Preserve and restore card counts
             saveConfiguration(); // Automatically save configuration when games are selected/deselected
         }
     });
@@ -125,14 +125,14 @@ Promise.all([
     // Event listener for difficulty selection changes
     document.getElementById('difficultyLevel').addEventListener('change', () => {
         updateDifficultyDetails();
-        // Inform the user that counts have been reset
+        preserveAndRestoreCardCounts(); // Preserve and restore card counts
         showToast('Novice and Veteran card counts have been updated based on the selected difficulty.');
     });
 
     // Event listener for Sentry Rules checkbox
     document.getElementById('enableSentryRules').addEventListener('change', () => {
         toggleSentryRulesOptions();
-        loadCardTypes(); // Reload card types to include/exclude Sentry cards
+        preserveAndRestoreCardCounts(); // Preserve and restore card counts
         saveConfiguration(); // Save configuration when Sentry Rules option changes
     });
 
@@ -160,7 +160,7 @@ function generateGameSelection(games) {
         checkbox.type = 'checkbox';
         checkbox.id = `game-${game}`;
         checkbox.value = game;
-        checkbox.checked = true; // Default to checked
+        checkbox.checked = selectedGames.length === 0 || selectedGames.includes(game); // Default to checked if no selection
         checkbox.classList.add('form-check-input', 'mr-2');
 
         const label = document.createElement('label');
@@ -175,6 +175,11 @@ function generateGameSelection(games) {
 
         gameCheckboxes.appendChild(div);
     });
+
+    // If no games are selected yet, select all by default
+    if (selectedGames.length === 0) {
+        selectedGames = games.slice();
+    }
 }
 
 // Function to load card types based on selected games
@@ -426,6 +431,31 @@ function loadConfiguration() {
     }
 }
 
+// Function to preserve and restore card counts when configuration changes
+function preserveAndRestoreCardCounts() {
+    // Store current card counts
+    const preservedCounts = {};
+    allCardTypes.forEach(type => {
+        const inputId = `type-${type}`;
+        const element = document.getElementById(inputId);
+        if (element) {
+            preservedCounts[type] = parseInt(element.value) || 0;
+        }
+    });
+
+    // Reload card types to reflect any changes in selection
+    loadCardTypes();
+
+    // Restore preserved values
+    allCardTypes.forEach(type => {
+        const inputId = `type-${type}`;
+        const element = document.getElementById(inputId);
+        if (element && preservedCounts.hasOwnProperty(type)) {
+            element.value = preservedCounts[type];
+        }
+    });
+}
+
 // Function to restore card counts after card type inputs are generated
 function restoreCardCounts() {
     const savedConfig = JSON.parse(localStorage.getItem('savedConfig'));
@@ -568,8 +598,9 @@ function generateDeck() {
     // Show the Card Action section after deck generation
     document.getElementById('cardActionSection').style.display = 'block';
 
-    // Collapse the "Select Games" and "Select Card Types" sections
+    // Collapse the "Select Games" and "Scenario Config" sections
     $('#gameCheckboxes').collapse('hide');
+    $('#scenarioConfig').collapse('hide');
     $('#cardTypeSection').collapse('hide');
 }
 

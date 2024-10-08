@@ -46,7 +46,7 @@
     </header>
     
     <!-- Toast Container for Notifications -->
-    <div id="toastContainer" aria-live="polite" aria-atomic="true" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
+    <div id="toastContainer" aria-live="polite" aria-atomic="true" class="toast-container"></div>
 
     <div class="container">
 
@@ -57,31 +57,33 @@
             </div>
         </section>
 
-        <!-- Card Type Selection and Difficulty (Collapsible) -->
+        <!-- Card Type Selection and Scenario Config (Collapsible) -->
         <section id="cardTypeSection" class="mb-3 collapse show">
+            <!-- Scenario Config Section -->
+            <section id="scenarioConfig" class="mb-3">
+                <!-- Difficulty Selection -->
+                <div class="form-group">
+                    <label for="difficultyLevel">Select Difficulty Level:</label>
+                    <select id="difficultyLevel" class="form-control">
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                    <p id="difficultyDetails" class="mt-2"></p>
+                </div>
+
+                <!-- Enable Sentry Rules Checkbox -->
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="enableSentryRules">
+                    <label class="form-check-label" for="enableSentryRules">Enable Sentry Rules</label>
+                    <small class="form-text text-muted">
+                        Sentry cards (Revenant, Malagaunt) will be introduced into the deck at a later stage.
+                    </small>
+                </div>
+            </section>
+
             <!-- Card Type Selection -->
             <div id="cardTypeInputs" class="row">
                 <!-- Card type inputs will be populated here -->
             </div>
-
-            <!-- Difficulty Selection -->
-            <div id="difficultySelection" class="mb-3">
-                <label for="difficultyLevel">Select Difficulty Level:</label>
-                <select id="difficultyLevel" class="form-control">
-                    <!-- Options will be populated dynamically -->
-                </select>
-                <p id="difficultyDetails" style="margin-top: 10px;"></p>
-            </div>
-
-            <!-- **New Sentry Rules Option** -->
-            <div id="sentryRulesOption" class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="enableSentryRules">
-                <label class="form-check-label" for="enableSentryRules">Enable Sentry Rules</label>
-                <small class="form-text text-muted">
-                    Sentry cards (Revenant, Malagaunt) will be introduced into the deck at a later stage.
-                </small>
-            </div>
-            <!-- **End of Sentry Rules Option** -->
         </section>
 
         <!-- Generate Deck Button -->
@@ -93,7 +95,7 @@
         <section id="deckOutput" class="mb-3"></section>
 
         <!-- Progress Bar -->
-        <div id="deckProgress" style="display: none;">
+        <div id="deckProgress" class="mb-3" style="display: none;">
             <div class="progress">
                 <div id="progressBar" class="progress-bar" role="progressbar">
                     <!-- Progress text will be inserted here -->
@@ -129,8 +131,6 @@
 
             <button id="applyCardAction" class="btn btn-success mt-2">Apply Action</button>
         </section>
-
-        <!-- **Removed Sentry Action Section** -->
 
     </div>
 

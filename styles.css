@@ -7,12 +7,12 @@
     padding: 10px;
 }
 
-
+/* Dark Mode Styles */
 body.dark-mode {
     background: url('./logos/background.png') no-repeat center center fixed;
     background-size: cover;
     color: #ffffff;
-
+    position: relative; /* To ensure ::before overlay works correctly */
 }
 
 body.dark-mode::before {
@@ -26,6 +26,7 @@ body.dark-mode::before {
     z-index: -1;
 }
 
+/* Game Checkboxes Styling */
 #gameCheckboxes {
     background-color: rgba(0, 0, 0, 0.7); /* Black with 70% opacity */
     padding: 10px;
@@ -33,10 +34,12 @@ body.dark-mode::before {
     color: #ffffff; /* Ensure text is white for better contrast */
 }
 
+/* Dark Mode Card Styling */
 body.dark-mode .card {
     background-color: #1e1e1e;
     color: #ffffff;
 }
+
 .card-item strong {
     background-color: rgba(0, 0, 0, 0.7); /* Black background with 70% opacity */
     color: #ffffff; /* White text for contrast */
@@ -79,6 +82,7 @@ body.dark-mode .card {
     }
 }
 
+/* App Header Styling */
 .app-header {
     background-color: rgba(0, 0, 0, 0.8); /* Black with some opacity */
     padding: 20px;
@@ -114,6 +118,7 @@ body.dark-mode .card {
     background-color: rgba(1, 87, 1, 0.8); /* Darker green background on hover */
 }
 
+/* Card Item Styling */
 .card-item {
     text-align: center;
     transition: opacity 0.5s ease-in-out;
@@ -152,7 +157,8 @@ body.dark-mode .card {
     border-radius: 8px; /* Match background corners */
     transition: width 0.4s ease; /* Smooth transition for progress changes */
 }
-/* Add a solid background to card-type input container */
+
+/* Card Type Input Container Styling */
 .card-type-input {
     background-color: rgba(0, 0, 0, 0.8); /* Black with some opacity */
     padding: 10px;
@@ -170,6 +176,7 @@ body.dark-mode .card {
     margin-left: 10px;
 }
 
+/* Responsive Design for Card Type Inputs */
 @media (max-width: 768px) {
     .card-type-input {
         flex-direction: column;
@@ -187,11 +194,13 @@ body.dark-mode .card {
     }
 }
 
+/* Modal Image Styling */
 .modal-body img {
     max-width: 100%;
     height: auto;
 }
 
+/* Card Action Section Styling */
 #cardActionSection {
     margin-top: 20px;
 }
@@ -200,6 +209,7 @@ body.dark-mode .card {
     margin-top: 10px;
 }
 
+/* Decrease and Increase Button Styling within Card Type Inputs */
 .card-type-input .decrease-btn,
 .card-type-input .increase-btn {
     width: 30px;
@@ -220,8 +230,86 @@ button {
     position: relative;
     overflow: hidden;
 }
+
 /* Highlight input fields when counts are updated */
 .highlight-input {
     background-color: #ffeb3b; /* Bright yellow background */
     transition: background-color 0.5s ease;
+}
+
+/* Adjusted CSS for Scenario Config section */
+#scenarioConfig {
+    padding: 15px;
+    border: 1px solid #444; /* Darker border for contrast */
+    border-radius: 5px;
+    background-color: #333; /* Dark background to match dark mode */
+    color: #ffffff; /* White text for better readability */
+    margin-bottom: 20px;
+}
+
+/* Toast Container Positioning */
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1050;
+}
+
+/* Additional Styling for Select Elements in Dark Mode */
+body.dark-mode select.form-control {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border: 1px solid #444;
+}
+
+body.dark-mode select.form-control:focus {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border-color: #007bff;
+    box-shadow: none;
+}
+
+/* Styling for Labels in Dark Mode */
+body.dark-mode label {
+    color: #ffffff;
+}
+
+/* Styling for Small Text in Dark Mode */
+body.dark-mode small.form-text {
+    color: #cccccc;
+}
+
+/* Ensure Inputs Have Transparent Background in Dark Mode */
+body.dark-mode input.form-control,
+body.dark-mode select.form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid #444;
+}
+
+body.dark-mode input.form-control::placeholder {
+    color: #aaaaaa;
+}
+
+/* Remove default focus outline and add custom */
+input:focus, select:focus, button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #007bff;
+}
+
+/* Adjust Toast Background for Dark Mode */
+body.dark-mode .toast {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+}
+
+/* Ensure all buttons have white text in dark mode */
+body.dark-mode .btn {
+    color: #ffffff;
+}
+
+/* Adjust Close Button in Toasts for Visibility */
+.toast .close {
+    color: #ffffff;
+    opacity: 1;
 }
