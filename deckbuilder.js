@@ -943,6 +943,56 @@ function introduceSentryCards() {
     showToast('Sentry cards have been introduced into the remaining deck.');
 }
 
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js')
+        .then((registration) => {
+            console.log('Service Worker registered with scope:', registration.scope);
+            
+            // Listen for updates to the service worker
+            registration.onupdatefound = () => {
+                const installingWorker = registration.installing;
+                installingWorker.onstatechange = () => {
+                    if (installingWorker.state === 'installed') {
+                        if (navigator.serviceWorker.controller) {
+                            // New update available
+                            showUpdateNotification();
+                        }
+                    }
+                };
+            };
+        }, (err) => {
+            console.log('Service Worker registration failed:', err);
+        });
+}
+
+// Function to show an update notification to the user
+function showUpdateNotification() {
+    const updateModal = `
+        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">Update Available</h5>
+              </div>
+              <div class="modal-body">
+                A new version of the app is available. Reload to update.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="reloadButton">Reload</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', updateModal);
+    $('#updateModal').modal('show');
+    
+    document.getElementById('reloadButton').addEventListener('click', () => {
+        window.location.reload();
+    });
+}
+
+
 // Function to apply card action
 // This function is already handled in the event listener for "Apply Action"
 // Ensure that the "introduceSentry" action is handled correctly in the applyCardAction event listener
