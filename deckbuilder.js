@@ -1,4 +1,5 @@
-// Register the Service Worker for PWA functionality
+// Updated deckbuilder.js with logic for delayed introduction of Malagaunt and Revenants cards during "Sentries" mission.
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./service-worker.js')
@@ -119,6 +120,12 @@ function loadCardTypes() {
         }
     });
 
+    // Check if the mission "Sentries" is selected and filter Malagaunt - Revenants cards
+    if (selectedGames.includes('Sentries')) {
+        dataStore.delayedCards = allCards.filter(card => card.type === 'Malagaunt' || card.type === 'Revenants');
+        allCards = allCards.filter(card => card.type !== 'Malagaunt' && card.type !== 'Revenants');
+    }
+
     // Copy allCards to availableCards
     availableCards = [...allCards];
 
@@ -140,6 +147,26 @@ function loadCardTypes() {
     // Generate card type inputs with logos
     generateCardTypeInputs();
 }
+
+// Function to introduce delayed cards into the deck
+function introduceDelayedCards() {
+    if (dataStore.delayedCards && dataStore.delayedCards.length > 0) {
+        // Add delayed cards to the current deck and shuffle
+        currentDeck = currentDeck.concat(dataStore.delayedCards);
+        currentDeck = shuffleDeck(currentDeck);
+        showToast('Malagaunt and Revenants have been added to the deck.');
+
+        // Clear delayed cards to avoid re-adding them
+        dataStore.delayedCards = [];
+    }
+}
+
+// Event listeners for navigation buttons
+document.getElementById('nextCard').addEventListener('click', () => {
+    if (currentIndex === 5) { // Example: Introduce delayed cards after 5 cards are played
+        introduceDelayedCards();
+    }
+});
 
 // Function to parse card types considering '+' and '/'
 function parseCardTypes(typeString) {
@@ -206,70 +233,7 @@ function generateCardTypeInputs() {
     });
 }
 
-// Function to populate difficulty selection dropdown
-function populateDifficultySelection() {
-    const difficultySelect = document.getElementById('difficultyLevel');
-
-    // Clear existing options
-    difficultySelect.innerHTML = '';
-
-    // Populate options
-    difficultySettings.forEach((difficulty, index) => {
-        const option = document.createElement('option');
-        option.value = index; // Use index to reference the difficulty setting
-        option.textContent = difficulty.name;
-        option.setAttribute('data-novice', difficulty.novice);
-        option.setAttribute('data-veteran', difficulty.veteran);
-        difficultySelect.appendChild(option);
-    });
-
-    // Set a default selection if desired
-    difficultySelect.selectedIndex = 0;
-
-    // Display the selected difficulty details
-    updateDifficultyDetails();
-}
-
-// Function to update difficulty details display and adjust counts
-function updateDifficultyDetails() {
-    const difficultySelect = document.getElementById('difficultyLevel');
-    const selectedOption = difficultySelect.options[difficultySelect.selectedIndex];
-    const noviceCount = selectedOption.getAttribute('data-novice');
-    const veteranCount = selectedOption.getAttribute('data-veteran');
-
-    const difficultyDetails = document.getElementById('difficultyDetails');
-    difficultyDetails.textContent = `Novice Cards: ${noviceCount}, Veteran Cards: ${veteranCount}`;
-
-    // Update the counts for Novice and Veteran card types
-    const noviceInput = document.getElementById('type-Novice');
-    if (noviceInput) {
-        noviceInput.value = noviceCount;
-        // Add highlight class
-        noviceInput.classList.add('highlight-input');
-    }
-
-    const veteranInput = document.getElementById('type-Veteran');
-    if (veteranInput) {
-        veteranInput.value = veteranCount;
-        // Add highlight class
-        veteranInput.classList.add('highlight-input');
-    }
-
-    // Remove the highlight after a short delay
-    setTimeout(() => {
-        if (noviceInput) {
-            noviceInput.classList.remove('highlight-input');
-        }
-        if (veteranInput) {
-            veteranInput.classList.remove('highlight-input');
-        }
-    }, 2000); // Highlight lasts for 2 seconds
-
-    // Save the updated counts
-    saveConfiguration();
-}
-
-// Save configuration function
+// Function to save configuration to localStorage
 function saveConfiguration() {
     const config = {
         selectedGames,
@@ -285,7 +249,7 @@ function saveConfiguration() {
     localStorage.setItem('savedConfig', JSON.stringify(config));
 }
 
-// Load configuration function
+// Function to load configuration from localStorage
 function loadConfiguration() {
     const savedConfig = JSON.parse(localStorage.getItem('savedConfig'));
     if (savedConfig) {
@@ -325,73 +289,93 @@ function restoreCardCounts() {
     }
 }
 
-// Function to select cards by type considering '+' and '/'
-function selectCardsByType(cardType, count, selectedCardsMap, cardCounts) {
-    let selectedCards = [];
-
-    // Cards that can satisfy this type (considering '/' as OR)
-    let cardsOfType = availableCards.filter(card => {
-        let types = parseCardTypes(card.type);
-        return types.includes(cardType);
-    });
-
-    // Shuffle cardsOfType
-    let shuffledCards = shuffleDeck(cardsOfType);
-
-    for (let card of shuffledCards) {
-        if (selectedCards.length >= count) break;
-
-        const cardId = card.card + card.contents;
-        if (selectedCardsMap.has(cardId)) continue;
-
-        // Check if card has '+' types (AND types)
-        let andTypes = card.type.split('+').map(s => s.trim());
-
-        if (andTypes.length > 1) {
-            // For '+' types, ensure all types have counts remaining
-            let canSelect = true;
-            for (let typePart of andTypes) {
-                let orTypes = typePart.split('/').map(s => s.trim());
-                let matched = false;
-                for (let t of orTypes) {
-                    if (cardCounts[t] > 0) {
-                        matched = true;
-                        break;
-                    }
-                }
-                if (!matched) {
-                    canSelect = false;
-                    break;
-                }
-            }
-
-            if (canSelect) {
-                selectedCards.push(card);
-                selectedCardsMap.set(cardId, true);
-
-                // Decrease counts for all types
-                for (let typePart of andTypes) {
-                    let orTypes = typePart.split('/').map(s => s.trim());
-                    for (let t of orTypes) {
-                        if (cardCounts[t] > 0) {
-                            cardCounts[t]--;
-                            break; // Only decrease once per '+'
-                        }
-                    }
-                }
-            }
-        } else {
-            // For single type or '/' types
-            if (cardCounts[cardType] > 0) {
-                selectedCards.push(card);
-                selectedCardsMap.set(cardId, true);
-                cardCounts[cardType]--;
-            }
-        }
+// Function to shuffle the deck
+function shuffleDeck(deck) {
+    let shuffledDeck = [...deck];
+    for (let i = shuffledDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]];
     }
-
-    return selectedCards;
+    return shuffledDeck;
 }
+
+// Function to display the current card
+function showCurrentCard() {
+    const output = document.getElementById('deckOutput');
+    output.style.opacity = 0; // Start with transparent
+
+    setTimeout(() => {
+        output.innerHTML = ''; // Clear previous content
+
+        let contentHTML = '';
+
+        if (currentIndex === -1) {
+            // Display back.jpg
+            contentHTML = `
+                <div class="card-item">
+                    <strong>Start the Game</strong><br>
+                    <img src="cardimages/back.jpg" alt="Card Back" class="card-image img-fluid">
+                </div>
+            `;
+        } else {
+            const card = currentDeck[currentIndex];
+            // Use .png extension for card images
+            contentHTML = `
+                <div class="card-item">
+                    <strong>${card.card}</strong>${card.type ? ` (${card.type})` : ''}<br>
+                    <img src="cardimages/${card.contents.replace(/\.\w+$/, '.png')}" alt="${card.card}" class="card-image img-fluid">
+                </div>
+            `;
+        }
+
+        output.innerHTML = contentHTML;
+
+        // Update progress bar
+        updateProgressBar();
+
+        // Fade in
+        output.style.opacity = 1;
+
+        // Scroll the card display area into view
+        output.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 200);
+}
+
+// Function to display the deck
+function displayDeck() {
+    const output = document.getElementById('deckOutput');
+    output.innerHTML = ''; // Clear previous deck
+
+    const navButtons = document.getElementById('navigationButtons');
+
+    if (currentDeck.length === 0) {
+        output.innerHTML = '<p>No cards selected.</p>';
+        navButtons.style.display = 'none';
+        document.getElementById('deckProgress').style.display = 'none';
+    } else {
+        navButtons.style.display = 'block';
+        document.getElementById('deckProgress').style.display = 'block';
+        showCurrentCard();
+    }
+}
+
+// Event listeners for navigation buttons
+document.getElementById('prevCard').addEventListener('click', () => {
+    if (currentIndex > -1) {
+        currentIndex--;
+        showCurrentCard();
+    }
+});
+
+// Attach event listener to the generate button
+document.getElementById('generateDeck').addEventListener('click', generateDeck);
+
+// Automatically save configuration when card counts change
+document.addEventListener('input', (event) => {
+    if (event.target.matches('.card-type-input input')) {
+        saveConfiguration();
+    }
+});
 
 // Function to generate the deck
 function generateDeck() {
@@ -466,267 +450,6 @@ function resetAvailableCards() {
 
     // Copy allCards to availableCards
     availableCards = [...allCards];
-}
-
-// Function to shuffle the deck
-function shuffleDeck(deck) {
-    let shuffledDeck = [...deck];
-    for (let i = shuffledDeck.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]];
-    }
-    return shuffledDeck;
-}
-
-// Function to display the current card
-function showCurrentCard() {
-    const output = document.getElementById('deckOutput');
-    output.style.opacity = 0; // Start with transparent
-
-    setTimeout(() => {
-        output.innerHTML = ''; // Clear previous content
-
-        let contentHTML = '';
-
-        if (currentIndex === -1) {
-            // Display back.jpg
-            contentHTML = `
-                <div class="card-item">
-                    <strong>Start the Game</strong><br>
-                    <img src="cardimages/back.jpg" alt="Card Back" class="card-image img-fluid">
-                </div>
-            `;
-        } else {
-            const card = currentDeck[currentIndex];
-            // Use .png extension for card images
-            contentHTML = `
-                <div class="card-item">
-                    <strong>${card.card}</strong>${card.type ? ` (${card.type})` : ''}<br>
-                    <img src="cardimages/${card.contents.replace(/\.\w+$/, '.png')}" alt="${card.card}" class="card-image img-fluid">
-                </div>
-            `;
-        }
-
-        output.innerHTML = contentHTML;
-
-        // Update progress bar
-        updateProgressBar();
-
-        // Fade in
-        output.style.opacity = 1;
-
-        // Scroll the card display area into view
-        output.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 200);
-}
-
-// Function to display the deck
-function displayDeck() {
-    const output = document.getElementById('deckOutput');
-    output.innerHTML = ''; // Clear previous deck
-
-    const navButtons = document.getElementById('navigationButtons');
-
-    if (currentDeck.length === 0) {
-        output.innerHTML = '<p>No cards selected.</p>';
-        navButtons.style.display = 'none';
-        document.getElementById('deckProgress').style.display = 'none';
-    } else {
-        navButtons.style.display = 'block';
-        document.getElementById('deckProgress').style.display = 'block';
-        showCurrentCard();
-    }
-}
-
-// Function to update the progress bar
-function updateProgressBar() {
-    const progressBar = document.getElementById('progressBar');
-
-    if (currentDeck.length === 0) {
-        progressBar.style.width = '0%';
-        progressBar.setAttribute('aria-valuenow', '0');
-        progressBar.textContent = 'No cards available';
-        return;
-    }
-
-    let totalCards = currentDeck.length + 1; // Including the back card
-    let currentCardNumber = Math.max(1, currentIndex + 2); // Ensure at least 1 for the back card
-
-    let progressPercentage = (currentCardNumber / totalCards) * 100;
-
-    progressBar.style.width = `${progressPercentage}%`;
-    progressBar.setAttribute('aria-valuenow', progressPercentage.toFixed(0));
-
-    progressBar.textContent = `Card ${currentCardNumber} of ${totalCards}`;
-}
-
-// Event listeners for navigation buttons
-document.getElementById('prevCard').addEventListener('click', () => {
-    if (currentIndex > -1) {
-        currentIndex--;
-        showCurrentCard();
-    }
-});
-
-document.getElementById('nextCard').addEventListener('click', () => {
-    if (currentIndex < currentDeck.length - 1) {
-        currentIndex++;
-        showCurrentCard();
-    }
-});
-
-// Attach event listener to the generate button
-document.getElementById('generateDeck').addEventListener('click', generateDeck);
-
-// Automatically save configuration when card counts change
-document.addEventListener('input', (event) => {
-    if (event.target.matches('.card-type-input input')) {
-        saveConfiguration();
-    }
-});
-
-// Toggle visibility of the top N input based on the card action selected
-document.getElementById('cardAction').addEventListener('change', (event) => {
-    const cardAction = event.target.value;
-    const actionTopNInput = document.getElementById('actionTopNInput');
-
-    if (cardAction === 'shuffleTopN') {
-        actionTopNInput.style.display = 'block'; // Show input
-    } else {
-        actionTopNInput.style.display = 'none'; // Hide input
-    }
-});
-
-// Apply card action to the active card
-document.getElementById('applyCardAction').addEventListener('click', () => {
-    const cardAction = document.getElementById('cardAction').value;
-
-    if (currentIndex === -1) {
-        showToast('No active card to apply action.');
-        return;
-    }
-
-    // The active card before any action
-    const activeCard = currentDeck[currentIndex];
-
-    console.log('Current Index:', currentIndex);
-    console.log('Active Card Before Action:', activeCard);
-    console.log('Current Deck Before Action:', currentDeck);
-
-    if (cardAction === 'shuffleAnywhere') {
-        // Existing logic for shuffleAnywhere
-        // Remove the active card from the deck
-        currentDeck.splice(currentIndex, 1);
-
-        // Generate a random insertion index after the current index
-        const insertionIndex = Math.floor(Math.random() * (currentDeck.length - currentIndex)) + currentIndex + 1;
-
-        // Insert the card back into the deck
-        currentDeck.splice(insertionIndex, 0, activeCard);
-
-        showToast('Card shuffled back into the deck.');
-
-        // Move to the previous card
-        if (currentIndex > 0) {
-            currentIndex--;
-        } else {
-            currentIndex = -1; // Go back to the start (back.jpg)
-        }
-    } else if (cardAction === 'shuffleTopN') {
-        // Existing logic for shuffleTopN
-        let topN = parseInt(document.getElementById('actionN').value);
-        if (isNaN(topN) || topN <= 0) {
-            showToast('Please enter a valid number for N.');
-            return;
-        }
-
-        // Calculate the number of remaining cards after the current card
-        const remainingCards = currentDeck.length - (currentIndex + 1);
-
-        // Adjust topN if it exceeds the number of remaining cards
-        if (topN > remainingCards) {
-            topN = remainingCards;
-            showToast(`Only ${remainingCards} cards remaining. Shuffling into the next ${remainingCards} cards.`);
-        }
-
-        if (topN > 0) {
-            // Remove the active card from the deck
-            currentDeck.splice(currentIndex, 1);
-
-            // Calculate the insertion range starting from the next card
-            const startRange = currentIndex + 1;
-            const endRange = currentIndex + topN;
-
-            // Generate a random insertion index within the specified range
-            const insertionIndex = Math.floor(Math.random() * (endRange - startRange + 1)) + startRange;
-
-            // Insert the card back into the deck
-            currentDeck.splice(insertionIndex, 0, activeCard);
-
-            showToast(`Card shuffled into the next ${topN} cards.`);
-        } else {
-            showToast('No remaining cards to shuffle into.');
-        }
-
-        // Move to the previous card
-        if (currentIndex > 0) {
-            currentIndex--;
-        } else {
-            currentIndex = -1; // Go back to the start (back.jpg)
-        }
-    } else if (cardAction === 'replaceSameType') {
-        // Logic for replacing the active card with an unseen card of the same type
-        replaceActiveCardWithUnseenSameType();
-    } else {
-        showToast('Please select a valid action.');
-        return;
-    }
-
-    console.log('Current Deck After Action:', currentDeck);
-
-    // Refresh the display
-    showCurrentCard();
-});
-
-function replaceActiveCardWithUnseenSameType() {
-    const activeCard = currentDeck[currentIndex];
-    const activeCardTypes = parseCardTypes(activeCard.type).map(type => type.trim().toLowerCase()).sort();
-
-    console.log('Active Card:', activeCard);
-    console.log('Active Card Types:', activeCardTypes);
-
-    // Get all cards of the same type from availableCards
-    const allSameTypeCards = availableCards.filter(card => {
-        const cardTypes = parseCardTypes(card.type).map(type => type.trim().toLowerCase()).sort();
-        return JSON.stringify(cardTypes) === JSON.stringify(activeCardTypes);
-    });
-
-    console.log('All Same Type Cards:', allSameTypeCards);
-
-    // Exclude cards already in the currentDeck
-    const selectedCardIds = new Set(currentDeck.map(card => card.card + card.contents));
-    const unseenSameTypeCards = allSameTypeCards.filter(card => {
-        const cardId = card.card + card.contents;
-        return !selectedCardIds.has(cardId);
-    });
-
-    console.log('Unseen Same Type Cards:', unseenSameTypeCards);
-
-    if (unseenSameTypeCards.length === 0) {
-        showToast('No unseen cards of the same type are available.');
-        return;
-    }
-
-    // Randomly select a new card from unseenSameTypeCards
-    const randomIndex = Math.floor(Math.random() * unseenSameTypeCards.length);
-    const newCard = unseenSameTypeCards[randomIndex];
-
-    console.log('Selected New Card:', newCard);
-
-    // Replace the active card with the new card in the currentDeck
-    currentDeck[currentIndex] = newCard;
-
-    showToast(`Replaced the active card with a new unseen card of the same type.`);
 }
 
 // Function to show a toast message
