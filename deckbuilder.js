@@ -1,12 +1,54 @@
+// deckbuilder.js for Deck Builder Application
+
 // Register the Service Worker for PWA functionality
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./service-worker.js')
             .then((registration) => {
                 console.log('Service Worker registered with scope:', registration.scope);
+
+                // Listen for updates to the service worker
+                registration.onupdatefound = () => {
+                    const installingWorker = registration.installing;
+                    installingWorker.onstatechange = () => {
+                        if (installingWorker.state === 'installed') {
+                            if (navigator.serviceWorker.controller) {
+                                // New update available
+                                showUpdateNotification();
+                            }
+                        }
+                    };
+                };
             }, (err) => {
                 console.log('Service Worker registration failed:', err);
             });
+    });
+}
+
+// Function to show an update notification to the user
+function showUpdateNotification() {
+    const updateModal = `
+        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">Update Available</h5>
+              </div>
+              <div class="modal-body">
+                A new version of the app is available. Reload to update.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="reloadButton">Reload</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', updateModal);
+    $('#updateModal').modal('show');
+    
+    document.getElementById('reloadButton').addEventListener('click', () => {
+        window.location.reload();
     });
 }
 
@@ -283,8 +325,8 @@ function updateDifficultyDetails() {
 // Function to toggle visibility of Sentry Rules options based on the checkbox
 function toggleSentryRulesOptions() {
     const isEnabled = document.getElementById('enableSentryRules').checked;
-    // The Sentry Action Section is now removed; handle any related UI changes here if needed
-    // For this integration, no additional UI changes are required
+    // Since "Introduce Sentry Cards" is now an action, no separate UI element needs to be toggled
+    // However, you can disable/enable related UI elements if necessary
 }
 
 // Save configuration function
@@ -335,7 +377,7 @@ function loadConfiguration() {
         const sentryRulesCheckbox = document.getElementById('enableSentryRules');
         if (sentryRulesCheckbox && savedConfig.enableSentryRules !== undefined) {
             sentryRulesCheckbox.checked = savedConfig.enableSentryRules;
-            toggleSentryRulesOptions(); // Show/hide Sentry Action Section based on saved state if needed
+            toggleSentryRulesOptions(); // Handle any UI changes if necessary
         }
     } else {
         // If no configuration, set selectedGames to all games
@@ -937,77 +979,20 @@ function introduceSentryCards() {
     // Clear sentryDeck after introduction
     sentryDeck = [];
 
+    // Disable the "Introduce Sentry Cards" option to prevent multiple introductions
+    const cardActionSelect = document.getElementById('cardAction');
+    const introduceOption = cardActionSelect.querySelector('option[value="introduceSentry"]');
+    if (introduceOption) {
+        introduceOption.disabled = true;
+    }
+
     // Refresh the display
     showCurrentCard();
 
     showToast('Sentry cards have been introduced into the remaining deck.');
 }
 
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js')
-        .then((registration) => {
-            console.log('Service Worker registered with scope:', registration.scope);
-            
-            // Listen for updates to the service worker
-            registration.onupdatefound = () => {
-                const installingWorker = registration.installing;
-                installingWorker.onstatechange = () => {
-                    if (installingWorker.state === 'installed') {
-                        if (navigator.serviceWorker.controller) {
-                            // New update available
-                            showUpdateNotification();
-                        }
-                    }
-                };
-            };
-        }, (err) => {
-            console.log('Service Worker registration failed:', err);
-        });
-}
-
-// Function to show an update notification to the user
-function showUpdateNotification() {
-    const updateModal = `
-        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="updateModalLabel">Update Available</h5>
-              </div>
-              <div class="modal-body">
-                A new version of the app is available. Reload to update.
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="reloadButton">Reload</button>
-              </div>
-            </div>
-          </div>
-        </div>
-    `;
-    document.body.insertAdjacentHTML('beforeend', updateModal);
-    $('#updateModal').modal('show');
-    
-    document.getElementById('reloadButton').addEventListener('click', () => {
-        window.location.reload();
-    });
-}
-
-
 // Function to apply card action
-// This function is already handled in the event listener for "Apply Action"
-// Ensure that the "introduceSentry" action is handled correctly in the applyCardAction event listener
+// This is handled in the event listener above
 
-// Attach event listener to the introduce Sentry button
-// Removed as "Introduce Sentry Cards" is now part of card actions
-
-// Function to handle Apply Card Action
-// This is integrated into the existing event listener for "applyCardAction"
-
-// **Ensure that the "Introduce Sentry Cards" action is handled in the applyCardAction event listener**
-// This has already been integrated above in the "Apply Action to the active card" section
-
-// Function to display the deck and manage the visibility of UI elements remains unchanged
-
-// Function to handle "Apply Action" including the new "Introduce Sentry Cards" option has been updated above
-
-// No other changes needed
+// **Note:** Removed any references to the old Sentry Action Section as it's now part of card actions
