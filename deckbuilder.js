@@ -1,5 +1,3 @@
-// deckbuilder.js for Deck Builder Application
-
 // ============================
 // 1. Service Worker Registration
 // ============================
@@ -82,8 +80,8 @@ let dataStore = {};          // Stores card data from JSON
 let availableCards = [];     // Cards available for selection
 let difficultySettings = []; // Difficulty configurations
 
-// Define Sentry card types (ensure these match exactly with types in your JSON data)
-const sentryCardTypes = ['Revenants', 'Revenant', 'Malagaunt'];
+// Define Sentry card types dynamically after loading JSON
+let sentryCardTypes = [];
 
 // ============================
 // 3. Initialization and Data Loading
@@ -101,8 +99,11 @@ Promise.all([
     dataStore = cardsData; // Store cards data
     difficultySettings = difficultiesData.difficulties; // Store difficulty settings
 
+    // Extract sentry types from JSON
+    sentryCardTypes = dataStore.sentryTypes || [];
+
     // Get all games (categories) from the data
-    allGames = Object.keys(dataStore);
+    allGames = Object.keys(dataStore.games);
 
     // Generate game selection checkboxes
     generateGameSelection(allGames);
@@ -116,7 +117,7 @@ Promise.all([
     // Event listener for game selection changes
     document.getElementById('gameCheckboxes').addEventListener('change', (event) => {
         if (event.target && event.target.matches('input[type="checkbox"]')) {
-            loadCardTypes();
+            loadCardTypes(); // Now, sentryCardTypes is globally defined
             saveConfiguration(); // Automatically save configuration when games are selected/deselected
         }
     });
@@ -194,8 +195,8 @@ function loadCardTypes() {
     // Flatten cards from selected games and group by type
     let allCards = [];
     selectedGames.forEach(game => {
-        if (dataStore[game]) {
-            allCards = allCards.concat(dataStore[game]);
+        if (dataStore.games[game]) {
+            allCards = allCards.concat(dataStore.games[game]);
         }
     });
 
@@ -218,11 +219,10 @@ function loadCardTypes() {
     // Remove duplicates from allCardTypes
     allCardTypes = [...new Set(allCardTypes)];
 
-    // Ensure sentry card types are always included
+    // Dynamically include sentry card types if they exist and are non-empty
     sentryCardTypes.forEach(sentryType => {
-        if (!allCardTypes.includes(sentryType)) {
+        if (!allCardTypes.includes(sentryType) && deckDataByType[sentryType] && deckDataByType[sentryType].length > 0) {
             allCardTypes.push(sentryType);
-            deckDataByType[sentryType] = [];
         }
     });
 
@@ -578,8 +578,8 @@ function resetAvailableCards() {
     // Flatten cards from selected games
     let allCards = [];
     selectedGames.forEach(game => {
-        if (dataStore[game]) {
-            allCards = allCards.concat(dataStore[game]);
+        if (dataStore.games[game]) {
+            allCards = allCards.concat(dataStore.games[game]);
         }
     });
 
@@ -938,7 +938,7 @@ function replaceActiveCardWithUnseenSameType() {
 
     // Get all cards of the same type from availableCards
     const allSameTypeCards = availableCards.filter(card => {
-        const cardTypes = parseCardTypes(card.type).map(type => type.trim().toLowerCase()).sort();
+        let cardTypes = parseCardTypes(card.type).map(type => type.trim().toLowerCase()).sort();
         return JSON.stringify(cardTypes) === JSON.stringify(activeCardTypes);
     });
 

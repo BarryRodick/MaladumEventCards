@@ -1,4 +1,6 @@
 {
+    "sentryTypes": ["Revenant", "Malagaunt"],
+    "games": {
     "Base Game": [
         {
             "id": 1,
@@ -9,13 +11,13 @@
         {
             "id": 2,
             "card": "Life Drain",
-            "type": "Revenants",
+            "type": "Revenant",
             "contents": "Life_Drain.png"
         },
         {
             "id": 3,
             "card": "Balefire",
-            "type": "Revenants",
+            "type": "Revenant",
             "contents": "Balefire.png"
         },
         {
@@ -45,7 +47,7 @@
         {
             "id": 8,
             "card": "Fiery Touch",
-            "type": "Revenants",
+            "type": "Revenant",
             "contents": "Fiery_Touch.png"
         },
         {
@@ -63,31 +65,31 @@
         {
             "id": 11,
             "card": "Chilling Aura",
-            "type": "Revenants",
+            "type": "Revenant",
             "contents": "Chilling_Aura.png"
         },
         {
             "id": 12,
             "card": "Reanimation",
-            "type": "Revenants",
+            "type": "Revenant",
             "contents": "Reanimation.png"
         },
         {
             "id": 13,
             "card": "Get That One!",
-            "type": "Revenants",
+            "type": "Revenant",
             "contents": "Get_That_One.png"
         },
         {
             "id": 14,
             "card": "Deathly Fusion",
-            "type": "Revenants",
+            "type": "Revenant",
             "contents": "Deathly_Fusion.png"
         },
         {
             "id": 15,
             "card": "They’re Below Us!",
-            "type": "Revenants",
+            "type": "Revenant",
             "contents": "Theyre_Below_Us.png"
         },
         {
@@ -297,7 +299,7 @@
         {
             "id": 50,
             "card": "Fresh Graves",
-            "type": "Revenants + Veteran",
+            "type": "Revenant + Veteran",
             "contents": "Fresh_Graves.png"
         }
     ],
@@ -775,4 +777,4 @@
             "contents": "They_Are_Coming.png"
         }
     ]
-}
+}}
