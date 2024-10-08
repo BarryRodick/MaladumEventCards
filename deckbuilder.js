@@ -161,7 +161,7 @@ function generateCardTypeInputs() {
 
     allCardTypes.forEach(type => {
         // Adjust maxCount based on unique cards
-        const uniqueCards = new Set(deckDataByType[type].map(card => card.card + card.contents));
+        const uniqueCards = new Set(deckDataByType[type].map(card => card.id));
         const maxCount = uniqueCards.size; // Set max count to number of unique cards of this type
 
         const div = document.createElement('div');
@@ -341,7 +341,7 @@ function selectCardsByType(cardType, count, selectedCardsMap, cardCounts) {
     for (let card of shuffledCards) {
         if (selectedCards.length >= count) break;
 
-        const cardId = card.card + card.contents;
+        const cardId = card.id; // Use 'id' for uniqueness
         if (selectedCardsMap.has(cardId)) continue;
 
         // Check if card has '+' types (AND types)
@@ -704,9 +704,9 @@ function replaceActiveCardWithUnseenSameType() {
     console.log('All Same Type Cards:', allSameTypeCards);
 
     // Exclude cards already in the currentDeck
-    const selectedCardIds = new Set(currentDeck.map(card => card.card + card.contents));
+    const selectedCardIds = new Set(currentDeck.map(card => card.id));
     const unseenSameTypeCards = allSameTypeCards.filter(card => {
-        const cardId = card.card + card.contents;
+        const cardId = card.id;
         return !selectedCardIds.has(cardId);
     });
 
