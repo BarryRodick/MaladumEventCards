@@ -1,7 +1,10 @@
 {
     "sentryTypes": ["Revenant", "Malagaunt"],
+    "corrupterTypes": ["Corrupter"],
+    "heldBackCardTypes": ["Novice", "Commander", "Veteran"],
     "games": {
-    "Base Game": [
+        "Base Game": [
+            
         {
             "id": 1,
             "card": "Renewed Vigour",

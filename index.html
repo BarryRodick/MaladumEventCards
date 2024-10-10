@@ -1,54 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZMTSM9B7Q7"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-ZMTSM9B7Q7');
     </script>
-    <!-- Head content remains unchanged -->
+    
+    <!-- Head content -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deck Builder</title>
+    
     <!-- Include Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Include Font Awesome CSS for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="CORRECT_HASH_HERE" crossorigin="anonymous">
+
+    
     <!-- Include custom styles -->
     <link rel="stylesheet" href="styles.css">
+    
     <!-- Link to the manifest file for PWA -->
     <link rel="manifest" href="manifest.json">
+    
     <!-- Theme color for PWA -->
     <meta name="theme-color" content="#121212">
-</head>
+    
+    <!-- Custom Styles for FAQ Icon -->
+    <style>
+        /* Style for the FAQ icon */
+        .faq-icon {
+            font-size: 1.5rem; /* Adjust the size as needed */
+            color: #ffffff; /* Ensure the icon contrasts with the dark header */
+            text-decoration: none;
+            margin-left: 15px; /* Space between existing buttons and the icon */
+            display: flex;
+            align-items: center;
+        }
 
+        .faq-icon:hover {
+            color: #cccccc; /* Change color on hover for better UX */
+            text-decoration: none;
+        }
+
+        /* Responsive adjustments if needed */
+        @media (max-width: 576px) {
+            .faq-icon {
+                font-size: 1.2rem;
+                margin-left: 10px;
+            }
+        }
+    </style>
+</head>
 
 <body class="dark-mode">
 
     <!-- Header Section -->
-    <header class="app-header dark-green-bar d-flex align-items-center justify-content-between">
-        <h1 class="app-logo-text">Event Cards</h1>
+    <header class="app-header dark-green-bar d-flex align-items-center justify-content-between p-3">
+        <h1 class="app-logo-text mb-0">Event Cards</h1>
         
-        <div id="headerButtons" class="d-flex">
+        <div id="headerButtons" class="d-flex align-items-center">
             <!-- Select Games Button -->
             <button id="selectGamesButton" class="btn btn-link mr-3" type="button" data-toggle="collapse" data-target="#gameCheckboxes" aria-expanded="true" aria-controls="gameCheckboxes">
                 Select Games
             </button>
 
             <!-- Select Card Types Button -->
-            <button id="selectCardTypesButton" class="btn btn-link" type="button" data-toggle="collapse" data-target="#cardTypeSection" aria-expanded="true" aria-controls="cardTypeSection">
+            <button id="selectCardTypesButton" class="btn btn-link mr-3" type="button" data-toggle="collapse" data-target="#cardTypeSection" aria-expanded="true" aria-controls="cardTypeSection">
                 Select Card Types
             </button>
+
+            <!-- FAQ Icon -->
+            <a href="about.html" class="btn btn-link faq-icon" title="About / FAQ" aria-label="About / FAQ">
+                <i class="fas fa-question-circle"></i>
+            </a>
         </div>
     </header>
     
     <!-- Toast Container for Notifications -->
     <div id="toastContainer" aria-live="polite" aria-atomic="true" class="toast-container"></div>
 
-    <div class="container">
+    <div class="container my-4">
 
         <!-- Game Selection (Collapsible) -->
         <section id="gameSelection" class="mb-3">
@@ -76,6 +113,15 @@
                     <label class="form-check-label" for="enableSentryRules">Enable Sentry Rules</label>
                     <small class="form-text text-muted">
                         Sentry cards (Revenant, Malagaunt) will be introduced into the deck at a later stage.
+                    </small>
+                </div>
+
+                <!-- Enable Corrupter Rules Checkbox -->
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="enableCorrupterRules">
+                    <label class="form-check-label" for="enableCorrupterRules">Enable Corrupter Rules</label>
+                    <small class="form-text text-muted">
+                        Corrupter cards will replace 5 random cards in the deck when enabled.
                     </small>
                 </div>
             </section>
@@ -111,16 +157,15 @@
 
         <!-- Card Action Section (Initially Hidden) -->
         <section id="cardActionSection" class="mb-3" style="display: none;">
-            <!-- Card action content remains unchanged -->
             <label for="cardAction">Choose Card Action:</label>
             <select id="cardAction" class="form-control">
                 <option value="">--Select Action--</option>
                 <option value="shuffleAnywhere">Shuffle Active Card into the remaining deck</option>
                 <option value="shuffleTopN">Shuffle Active Card into Next N Cards</option>
                 <option value="replaceSameType">Replace Active Card with Unseen Card of Same Type</option>
-                <!-- **New Introduce Sentry Cards Option** -->
+                <!-- Introduce Sentry Cards Option -->
                 <option value="introduceSentry">Introduce Sentry Cards</option>
-                <!-- **End of New Option** -->
+                <!-- Introduce Corrupter Cards Option -->
             </select>
 
             <!-- Top N Input -->
@@ -130,6 +175,14 @@
             </div>
 
             <button id="applyCardAction" class="btn btn-success mt-2">Apply Action</button>
+        </section>
+
+        <!-- In Play Cards Section (Feature 2) -->
+        <section id="inPlaySection" class="mb-3" style="display: none;">
+            <h3>In Play Cards</h3>
+            <div id="inPlayCards" class="d-flex flex-wrap justify-content-center">
+                <!-- In Play cards will be displayed here -->
+            </div>
         </section>
 
     </div>

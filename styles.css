@@ -313,3 +313,50 @@ body.dark-mode .btn {
     color: #ffffff;
     opacity: 1;
 }
+
+/* In Play Cards Section Styling (Feature 2) */
+#inPlaySection {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 15px;
+    border-radius: 8px;
+    color: #ffffff;
+}
+
+#inPlayCards .card-item {
+    margin: 10px;
+    max-width: 200px;
+}
+
+#inPlayCards .card-image {
+    max-width: 100%;
+    max-height: 150px;
+}
+
+/* Additional Adjustments for In Play Cards */
+#inPlayCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+/* Style for the FAQ icon */
+.faq-icon {
+    font-size: 1.5rem; /* Adjust the size as needed */
+    color: #ffffff; /* Ensure the icon contrasts with the dark header */
+    text-decoration: none;
+    margin-left: 15px; /* Space between existing buttons and the icon */
+    display: flex;
+    align-items: center;
+}
+
+.faq-icon:hover {
+    color: #cccccc; /* Change color on hover for better UX */
+    text-decoration: none;
+}
+
+/* Responsive adjustments if needed */
+@media (max-width: 576px) {
+    .faq-icon {
+        font-size: 1.2rem;
+        margin-left: 10px;
+    }
+}

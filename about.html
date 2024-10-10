@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZMTSM9B7Q7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ZMTSM9B7Q7');
+    </script>
+    
+    <!-- Head content -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About / FAQ - Deck Builder</title>
+    
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Include Font Awesome CSS for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pA5ZFShb3RFWIczEogbRxeRsu2oVq9U3O7cFlUpqvF9PmlZIM+47eEZT9P/HnAjJAIgWXsVghKjVHY6e+kO9Ew==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Include custom styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Link to the manifest file for PWA -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Theme color for PWA -->
+    <meta name="theme-color" content="#121212">
+    
+    <!-- Custom Styles for Header and Content -->
+    <style>
+        /* Style for the FAQ icon */
+        .faq-icon {
+            font-size: 1.5rem; /* Adjust the size as needed */
+            color: #ffffff; /* Ensure the icon contrasts with the dark header */
+            text-decoration: none;
+            margin-left: 15px; /* Space between existing buttons and the icon */
+            display: flex;
+            align-items: center;
+        }
+
+        .faq-icon:hover {
+            color: #cccccc; /* Change color on hover for better UX */
+            text-decoration: none;
+        }
+
+        /* Responsive adjustments if needed */
+        @media (max-width: 576px) {
+            .faq-icon {
+                font-size: 1.2rem;
+                margin-left: 10px;
+            }
+        }
+
+        /* Highlight class for difficulty details */
+        .highlight-input {
+            animation: highlight 2s ease;
+        }
+
+        @keyframes highlight {
+            from { background-color: #ffc107; }
+            to { background-color: transparent; }
+        }
+
+        /* Custom styles for the content */
+        .content-section {
+            margin-top: 20px;
+        }
+
+        .content-section h2 {
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        /* Style for navigation button */
+        .back-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body class="dark-mode">
+
+    <!-- Header Section -->
+    <header class="app-header dark-green-bar d-flex align-items-center justify-content-between p-3">
+        <h1 class="app-logo-text mb-0">Event Cards</h1>
+        
+        <div id="headerButtons" class="d-flex align-items-center">
+            <!-- FAQ Icon (Currently on about.html, can include a home icon here) -->
+            <a href="index.html" class="btn btn-link faq-icon" title="Back to Home" aria-label="Back to Home">
+                <i class="fas fa-home"></i>
+            </a>
+        </div>
+    </header>
+    
+    <div class="container my-4">
+
+        <!-- About Section -->
+        <section class="content-section">
+            <h2>About Deck Builder</h2>
+            <p>Welcome to the <strong>Deck Builder</strong> application! This tool is designed to help you create customized decks for your favorite games, enhancing your gaming experience by allowing you to tailor the deck to your preferred playstyle and strategy.</p>
+            
+            <p>The Deck Builder aggregates cards from various game expansions, providing you with a comprehensive selection to choose from. Whether you're looking to build a balanced deck or focus on specific card types, our application offers the flexibility and functionality to meet your needs.</p>
+        </section>
+
+        <!-- Features Section -->
+        <section class="content-section">
+            <h2>Features</h2>
+            <ul>
+                <li><strong>Select Games:</strong> Choose from a range of game expansions to include their respective cards in your deck.</li>
+                <li><strong>Select Card Types:</strong> Specify the types of cards you want in your deck, such as Environment, Revenant, Novice, and more.</li>
+                <li><strong>Difficulty Levels:</strong> Adjust the number of Novice and Veteran cards based on your preferred difficulty setting.</li>
+                <li><strong>Special Rules:</strong>
+                    <ul>
+                        <li><strong>Sentry Rules:</strong> Enable the inclusion of Sentry cards (e.g., Revenant, Malagaunt) to introduce unique challenges into your deck.</li>
+                        <li><strong>Corrupter Rules:</strong> Enable Corrupter cards that replace random cards in your deck, adding unpredictability and complexity.</li>
+                    </ul>
+                </li>
+                <li><strong>Progress Tracking:</strong> Monitor your deck generation progress with a visual progress bar.</li>
+                <li><strong>Card Actions:</strong> Perform actions on individual cards, such as shuffling them back into the deck or replacing them with unseen cards.</li>
+                <li><strong>In Play Management:</strong> Keep track of cards that are currently in play and manage them effectively.</li>
+                <li><strong>Persistent Configuration:</strong> Your deck configurations are saved automatically, allowing you to return and continue building without losing your settings.</li>
+                <li><strong>Service Worker Integration:</strong> Enjoy a seamless experience with offline capabilities and update notifications.</li>
+            </ul>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="content-section">
+            <h2>Frequently Asked Questions (FAQ)</h2>
+            <h4>1. How do I select the games for my deck?</h4>
+            <p>Click on the "Select Games" button in the header to choose which game expansions you want to include. Selecting a game will load all its associated cards into the deck builder.</p>
+            
+            <h4>2. How do I select card types?</h4>
+            <p>After selecting your desired games, use the "Select Card Types" button to specify which types of cards you want in your deck. You can adjust the number of each card type using the provided controls.</p>
+            
+            <h4>3. What are Difficulty Levels?</h4>
+            <p>Difficulty Levels allow you to adjust the complexity of your deck by setting the number of Novice and Veteran cards. Higher difficulty settings increase the number of Veteran cards, making the deck more challenging.</p>
+            
+            <h4>4. What are Sentry and Corrupter Rules?</h4>
+            <p>
+                <strong>Sentry Rules:</strong> When enabled, Sentry cards such as Revenant and Malagaunt are added to your deck when you apply the correct 'Card Action'.
+                <br>
+                <strong>Corrupter Rules:</strong> Enabling Corrupter rules replaces a specified number of random cards in your deck with Corrupter cards, adding unpredictability and complexity to your gameplay.
+            </p>
+            
+            <h4>5. How does deck generation work?</h4>
+            <p>Once you've selected your games, card types, and configured any special rules, click the "Generate Deck" button. The application will compile your selections into a customized deck, applying any rules you've set. You can then navigate through your deck using the provided controls.</p>
+            
+            <h4>6. How can I manage cards that are in play?</h4>
+            <p>As you navigate through your deck, you can mark cards as "In Play" by clicking the respective button. This allows you to keep track of active cards and manage them effectively within your gameplay.</p>
+            
+            <h4>7. Will my configurations be saved?</h4>
+            <p>Yes! Your deck configurations are automatically saved in your browser's local storage. This means you can close the application and return later to find your settings intact.</p>
+            
+            <h4>8. What happens when there's an update to the application?</h4>
+            <p>If a new version of the application is available, you'll receive a notification prompting you to reload the page. This ensures you always have access to the latest features and improvements.</p>
+            
+            <h4>9. Can I use the Deck Builder offline?</h4>
+            <p>Yes! Thanks to Service Worker integration, you can use the Deck Builder even when you're offline. Any changes or configurations you make while offline will be saved and synchronized once you're back online.</p>
+            
+        </section>
+
+        <!-- Back to Home Button -->
+        <div class="text-center back-button">
+            <a href="index.html" class="btn btn-primary">
+                <i class="fas fa-home mr-2"></i> Back to Home
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Include Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Include Deck Builder JS (if any specific scripts needed for about.html) -->
+    <!-- <script src="deckbuilder.js"></script> -->
+
+</body>
+</html>
