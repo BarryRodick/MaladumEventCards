@@ -68,6 +68,9 @@ let currentDeck = [];    // Combined deck for display
 // Current card index (-1 to start with back.jpg)
 let currentIndex = -1;
 
+// Discard pile
+let discardPile = [];    // Cards that have been discarded
+
 // Lists of games and card types
 let allGames = [];       // All available games/categories
 let allCardTypes = [];   // All available card types
@@ -503,46 +506,6 @@ function restoreCardCounts() {
 // 7. Deck Generation Functions
 // ============================
 
-// ============================
-// 1. Service Worker Registration
-// ============================
-
-// ... [Your existing Service Worker code] ...
-
-// ============================
-// 2. Global Variables and Constants
-// ============================
-
-// ... [Your existing global variables and constants] ...
-
-// ============================
-// 3. Initialization and Data Loading
-// ============================
-
-// ... [Your existing initialization and data loading code] ...
-
-// ============================
-// 4. UI Generation Functions
-// ============================
-
-// ... [Your existing UI generation functions] ...
-
-// ============================
-// 5. Difficulty Selection Functions
-// ============================
-
-// ... [Your existing difficulty selection functions] ...
-
-// ============================
-// 6. Configuration Functions
-// ============================
-
-// ... [Your existing configuration functions] ...
-
-// ============================
-// 7. Deck Generation Functions
-// ============================
-
 function generateDeck() {
     if (selectedGames.length === 0) {
         showToast('Please select at least one game.');
@@ -552,6 +515,7 @@ function generateDeck() {
     currentIndex = -1; // Start with -1 to display back.jpg first
     regularDeck = [];
     specialDeck = [];
+    discardPile = []; // Reset discard pile
 
     // Reset availableCards without affecting user inputs
     resetAvailableCards();
@@ -698,14 +662,6 @@ function generateDeck() {
     $('#scenarioConfig').collapse('hide');
     $('#cardTypeSection').collapse('hide');
 }
-
-
-// ... [Rest of your code remains the same] ...
-
-// ============================
-// End of deckbuilder.js
-// ============================
-
 
 // Function to select cards by type considering '+' and '/'
 function selectCardsByType(cardType, count, selectedCardsMap, cardCounts, isSpecial = false) {
@@ -874,29 +830,6 @@ function resetAvailableCards() {
 // 8. Deck Display and Navigation Functions
 // ============================
 
-// ... [Your existing deck display and navigation functions] ...
-
-// ============================
-// 9. Card Action Functions
-// ============================
-
-// ... [Your existing card action functions] ...
-
-// ============================
-// 10. Additional Helper Functions
-// ============================
-
-// ... [Your existing helper functions] ...
-
-// ============================
-// End of deckbuilder.js
-// ============================
-
-
-// ============================
-// 8. Deck Display and Navigation Functions
-// ============================
-
 // Function to display the current card
 function showCurrentCard() {
     const output = document.getElementById('deckOutput');
@@ -979,18 +912,17 @@ function displayDeck() {
     }
 }
 
-// Function to update the progress bar
+// Updated Function to update the progress bar
 function updateProgressBar() {
     const progressBar = document.getElementById('progressBar');
 
-    const isSentryEnabled = document.getElementById('enableSentryRules').checked;
-    const isCorrupterEnabled = document.getElementById('enableCorrupterRules').checked;
+    let totalCards = currentDeck.length + 1; // Including the back card
 
-    let totalRegularCards = regularDeck.length + 1; // Including the back card
-    let totalSpecialCards = specialDeck.length;
-    let totalCards = totalRegularCards + totalSpecialCards;
+    let currentCardNumber = currentIndex + 2; // +2 because currentIndex starts at -1
 
-    let currentCardNumber = Math.max(1, currentIndex + 2); // Ensure at least 1 for the back card
+    if (currentCardNumber > totalCards) {
+        currentCardNumber = totalCards;
+    }
 
     let progressPercentage = (currentCardNumber / totalCards) * 100;
 
@@ -1000,9 +932,10 @@ function updateProgressBar() {
     progressBar.textContent = `Card ${currentCardNumber} of ${totalCards}`;
 }
 
-// Event listeners for navigation buttons
+// Updated Event listeners for navigation buttons to handle discard pile and reshuffling
 document.getElementById('prevCard').addEventListener('click', () => {
     if (currentIndex > -1) {
+        // Do not discard the current card when going back
         currentIndex--;
         showCurrentCard();
     }
@@ -1012,14 +945,33 @@ document.getElementById('nextCard').addEventListener('click', () => {
     const isSentryEnabled = document.getElementById('enableSentryRules').checked;
     const isCorrupterEnabled = document.getElementById('enableCorrupterRules').checked;
 
-    if (currentIndex < currentDeck.length - 1) {
-        currentIndex++;
-        showCurrentCard();
-    } else if ((isSentryEnabled || isCorrupterEnabled) && specialDeck.length > 0) {
-        showToast('All regular cards have been revealed. Introduce special cards to continue.');
-    } else {
-        showToast('No more cards in the deck.');
+    // Move the current card to the discard pile if it's not the starting card
+    if (currentIndex >= 0 && currentIndex < currentDeck.length) {
+        const discardedCard = currentDeck.splice(currentIndex, 1)[0];
+        discardPile.push(discardedCard);
     }
+
+    if (currentDeck.length === 0) {
+        if (discardPile.length > 0) {
+            // Reshuffle the discard pile to form a new deck
+            currentDeck = shuffleDeck(discardPile);
+            discardPile = [];
+            currentIndex = -1; // Reset to start of new deck
+            showToast('Deck reshuffled from discard pile.');
+        } else {
+            // No cards left in both deck and discard pile
+            showToast('No more cards in the deck.');
+            return;
+        }
+    } else {
+        if (currentIndex >= currentDeck.length) {
+            currentIndex = -1; // Reset to the beginning if we've reached the end
+        }
+    }
+
+    // Move to the next card
+    currentIndex++;
+    showCurrentCard();
 });
 
 // Attach event listener to the generate button
@@ -1036,212 +988,80 @@ document.addEventListener('input', (event) => {
 // 9. Card Action Functions
 // ============================
 
-// Toggle visibility and availability of Sentry Actions based on Sentry Rules
-function toggleSentryRulesOptions() {
-    const isEnabled = document.getElementById('enableSentryRules').checked;
-    const cardActionSelect = document.getElementById('cardAction');
-    const introduceOption = cardActionSelect.querySelector('option[value="introduceSentry"]');
-    
-    if (introduceOption) {
-        introduceOption.disabled = !isEnabled;
-        if (!isEnabled) {
-            // Reset cardAction to a default option if Sentry is disabled
-            cardActionSelect.value = 'shuffleAnywhere';
-        }
-    }
-
-    console.log('Toggle Sentry Rules Options:', isEnabled);
+// Function to check if a card is already in play
+function isCardInPlay(card) {
+    return inPlayCards.some(inPlayCard => inPlayCard.id === card.id);
 }
 
-// Function to apply card action
-document.getElementById('applyCardAction').addEventListener('click', () => {
-    const cardAction = document.getElementById('cardAction').value;
-    const isSentryEnabled = document.getElementById('enableSentryRules').checked;
-
-    if (currentIndex === -1) {
-        showToast('No active card to apply action.');
-        return;
-    }
-
-    // The active card before any action
-    const activeCard = currentDeck[currentIndex];
-
-    console.log('Current Index:', currentIndex);
-    console.log('Active Card Before Action:', activeCard);
-    console.log('Current Deck Before Action:', currentDeck);
-
-    if (cardAction === 'shuffleAnywhere') {
-        // Logic for shuffleAnywhere
-        // Remove the active card from the deck
-        currentDeck.splice(currentIndex, 1);
-
-        // Generate a random insertion index after the current index
-        const insertionIndex = Math.floor(Math.random() * (currentDeck.length - currentIndex)) + currentIndex + 1;
-
-        // Insert the card back into the deck
-        currentDeck.splice(insertionIndex, 0, activeCard);
-
-        showToast('Card shuffled back into the deck.');
-
-        // Move to the previous card
-        if (currentIndex > 0) {
-            currentIndex--;
-        } else {
-            currentIndex = -1; // Go back to the start (back.jpg)
-        }
-    } else if (cardAction === 'shuffleTopN') {
-        // Logic for shuffleTopN
-        let topN = parseInt(document.getElementById('actionN').value);
-        if (isNaN(topN) || topN <= 0) {
-            showToast('Please enter a valid number for N.');
-            return;
-        }
-
-        // Calculate the number of remaining cards after the current card
-        const remainingCards = currentDeck.length - (currentIndex + 1);
-
-        // Adjust topN if it exceeds the number of remaining cards
-        if (topN > remainingCards) {
-            topN = remainingCards;
-            showToast(`Only ${remainingCards} cards remaining. Shuffling into the next ${remainingCards} cards.`);
-        }
-
-        if (topN > 0) {
-            // Remove the active card from the deck
-            currentDeck.splice(currentIndex, 1);
-
-            // Calculate the insertion range starting from the next card
-            const startRange = currentIndex + 1;
-            const endRange = currentIndex + topN;
-
-            // Generate a random insertion index within the specified range
-            const insertionIndex = Math.floor(Math.random() * (endRange - startRange + 1)) + startRange;
-
-            // Insert the card back into the deck
-            currentDeck.splice(insertionIndex, 0, activeCard);
-
-            showToast(`Card shuffled into the next ${topN} cards.`);
-        } else {
-            showToast('No remaining cards to shuffle into.');
-        }
-
-        // Move to the previous card
-        if (currentIndex > 0) {
-            currentIndex--;
-        } else {
-            currentIndex = -1; // Go back to the start (back.jpg)
-        }
-    } else if (cardAction === 'replaceSameType') {
-        // Logic for replacing the active card with an unseen card of the same type
-        replaceActiveCardWithUnseenSameType();
-    } else if (cardAction === 'introduceSentry') {
-        // Introduce Sentry Cards Logic
-        if (isSentryEnabled && specialDeck.length > 0) {
-            introduceSpecialCards(sentryCardTypes);
-        } else {
-            showToast('Sentry Rules are not enabled or there are no Sentry cards to introduce.');
-        }
-    } else if (cardAction === 'introduceCorrupter') {
-        // Introduce Corrupter Cards Logic
-        const isCorrupterEnabled = document.getElementById('enableCorrupterRules').checked;
-        if (isCorrupterEnabled && specialDeck.length > 0) {
-            introduceSpecialCards(corrupterCardTypes);
-        } else {
-            showToast('Corrupter Rules are not enabled or there are no Corrupter cards to introduce.');
-        }
+// Function to mark a card as in play
+function markCardAsInPlay(card) {
+    if (!isCardInPlay(card)) {
+        inPlayCards.push(card);
+        updateInPlayCardsDisplay();
+        showToast(`Card "${card.card}" marked as in play.`);
     } else {
-        showToast('Please select a valid action.');
-        return;
+        showToast(`Card "${card.card}" is already in play.`);
     }
-
-    console.log('Current Deck After Action:', currentDeck);
-
-    // Refresh the display
-    showCurrentCard();
-});
-
-// Function to replace the active card with an unseen card of the same type
-function replaceActiveCardWithUnseenSameType() {
-    const activeCard = currentDeck[currentIndex];
-    const activeCardTypes = parseCardTypes(activeCard.type).map(type => type.trim().toLowerCase()).sort();
-
-    console.log('Active Card:', activeCard);
-    console.log('Active Card Types:', activeCardTypes);
-
-    // Get all cards of the same type from availableCards
-    const allSameTypeCards = availableCards.filter(card => {
-        let cardTypes = parseCardTypes(card.type).map(type => type.trim().toLowerCase()).sort();
-        return JSON.stringify(cardTypes) === JSON.stringify(activeCardTypes);
-    });
-
-    console.log('All Same Type Cards:', allSameTypeCards);
-
-    // Exclude cards already in the currentDeck
-    const selectedCardIds = new Set(currentDeck.map(card => card.id));
-    const unseenSameTypeCards = allSameTypeCards.filter(card => {
-        const cardId = card.id;
-        return !selectedCardIds.has(cardId);
-    });
-
-    console.log('Unseen Same Type Cards:', unseenSameTypeCards);
-
-    if (unseenSameTypeCards.length === 0) {
-        showToast('No unseen cards of the same type are available.');
-        return;
-    }
-
-    // Randomly select a new card from unseenSameTypeCards
-    const randomIndex = Math.floor(Math.random() * unseenSameTypeCards.length);
-    const newCard = unseenSameTypeCards[randomIndex];
-
-    console.log('Selected New Card:', newCard);
-
-    // Replace the active card with the new card in the currentDeck
-    currentDeck[currentIndex] = newCard;
-
-    showToast(`Replaced the active card with a new unseen card of the same type.`);
 }
 
-// Function to introduce special cards into the remaining deck
-function introduceSpecialCards(typesToIntroduce) {
-    const specialCardsToIntroduce = specialDeck.filter(card => typesToIntroduce.includes(card.type));
-    if (specialCardsToIntroduce.length === 0) {
-        showToast('No special cards to introduce.');
+// Function to update the display of in-play cards
+function updateInPlayCardsDisplay() {
+    const inPlayContainer = document.getElementById('inPlayCards');
+    inPlayContainer.innerHTML = ''; // Clear previous content
+
+    if (inPlayCards.length === 0) {
+        inPlayContainer.innerHTML = '<p>No cards in play.</p>';
         return;
     }
 
-    // Define the starting point for shuffling (after the current card)
-    const insertionStart = currentIndex + 1;
+    inPlayCards.forEach(card => {
+        const cardDiv = document.createElement('div');
+        cardDiv.classList.add('card', 'mb-2');
+        cardDiv.style.width = '100%';
 
-    // Extract the remaining deck
-    const remainingDeck = currentDeck.slice(insertionStart);
+        const cardBody = document.createElement('div');
+        cardBody.classList.add('card-body');
 
-    // Combine remaining deck with specialCardsToIntroduce
-    const combinedDeck = remainingDeck.concat(specialCardsToIntroduce);
+        const cardTitle = document.createElement('h5');
+        cardTitle.classList.add('card-title');
+        cardTitle.textContent = card.card;
 
-    // Shuffle the combined deck
-    const shuffledCombinedDeck = shuffleDeck(combinedDeck);
+        const cardImage = document.createElement('img');
+        cardImage.src = `cardimages/${card.contents.replace(/\.\w+$/, '.png')}`;
+        cardImage.alt = card.card;
+        cardImage.classList.add('card-img-top', 'mb-2');
 
-    // Replace the remaining deck with the shuffled combined deck
-    currentDeck = currentDeck.slice(0, insertionStart).concat(shuffledCombinedDeck);
+        const removeButton = document.createElement('button');
+        removeButton.classList.add('btn', 'btn-danger', 'btn-sm');
+        removeButton.textContent = 'Remove from Play';
+        removeButton.addEventListener('click', () => {
+            removeCardFromPlay(card);
+        });
 
-    // Remove introduced cards from specialDeck
-    specialDeck = specialDeck.filter(card => !typesToIntroduce.includes(card.type));
-
-    // Disable the corresponding "Introduce Special Cards" option to prevent multiple introductions
-    const cardActionSelect = document.getElementById('cardAction');
-    const introduceOptionValue = typesToIntroduce === sentryCardTypes ? 'introduceSentry' : 'introduceCorrupter';
-    const introduceOption = cardActionSelect.querySelector(`option[value="${introduceOptionValue}"]`);
-    if (introduceOption) {
-        introduceOption.disabled = true;
-        showToast('Special cards have been introduced and cannot be introduced again.');
-    }
-
-    // Refresh the display
-    showCurrentCard();
-
-    showToast('Special cards have been introduced into the remaining deck.');
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardImage);
+        cardBody.appendChild(removeButton);
+        cardDiv.appendChild(cardBody);
+        inPlayContainer.appendChild(cardDiv);
+    });
 }
+
+// Function to remove a card from play
+function removeCardFromPlay(card) {
+    inPlayCards = inPlayCards.filter(inPlayCard => inPlayCard.id !== card.id);
+    updateInPlayCardsDisplay();
+    showToast(`Card "${card.card}" removed from play.`);
+}
+
+// Function to clear all in-play cards
+function clearInPlayCards() {
+    inPlayCards = [];
+    updateInPlayCardsDisplay();
+    showToast('All in-play cards have been cleared.');
+}
+
+// Attach event listener to the "Clear In-Play Cards" button
+document.getElementById('clearInPlayCards').addEventListener('click', clearInPlayCards);
 
 // ============================
 // 10. Additional Helper Functions
@@ -1283,103 +1103,14 @@ function showToast(message) {
     }, 3000);
 }
 
-// Function to enhance buttons with ripple effect and touch feedback
+// Function to enhance buttons (e.g., tooltips)
 function enhanceButtons() {
-    document.querySelectorAll('button').forEach(button => {
-        // Handle the ripple effect on button click
-        button.addEventListener('click', function (e) {
-            // Touch feedback (vibration)
-            if ('vibrate' in navigator) {
-                navigator.vibrate(30);
-            }
-
-            // Create ripple
-            const ripple = document.createElement('span');
-            ripple.classList.add('ripple');
-            const rect = button.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            ripple.style.width = ripple.style.height = `${size}px`;
-            ripple.style.left = `${x}px`;
-            ripple.style.top = `${y}px`;
-            button.appendChild(ripple);
-
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        });
-
-        // Visual feedback for button press
-        button.addEventListener('pointerdown', function () {
-            button.classList.add('button-pressed');
-        });
-
-        button.addEventListener('pointerup', function () {
-            button.classList.remove('button-pressed');
-        });
-
-        button.addEventListener('pointerleave', function () {
-            button.classList.remove('button-pressed');
-        });
-    });
+    // Initialize any tooltips or other UI enhancements here
 }
 
-// Functions to Manage In Play Cards
-
-/** Check if a card is already in play */
-function isCardInPlay(card) {
-    return inPlayCards.some(c => c.id === card.id);
-}
-
-/** Mark a card as "In Play" */
-function markCardAsInPlay(card) {
-    if (!isCardInPlay(card)) {
-        inPlayCards.push(card);
-        showToast(`${card.card} marked as In Play.`);
-        updateInPlaySection();
-    } else {
-        showToast(`${card.card} is already In Play.`);
-    }
-}
-
-/** Update the "In Play" section display */
-function updateInPlaySection() {
-    const inPlaySection = document.getElementById('inPlaySection');
-    const inPlayCardsDiv = document.getElementById('inPlayCards');
-
-    if (inPlayCards.length === 0) {
-        inPlaySection.style.display = 'none';
-    } else {
-        inPlaySection.style.display = 'block';
-        inPlayCardsDiv.innerHTML = '';
-        inPlayCards.forEach((card, index) => {
-            let cardHTML = `
-                <div class="card-item text-center">
-                    <strong>${card.card}</strong>${card.type ? ` (${card.type})` : ''}
-                    <br>
-                    <img src="cardimages/${card.contents.replace(/\.\w+$/, '.png')}" alt="${card.card}" class="card-image img-fluid mt-2">
-                    <br>
-                    <button class="btn btn-danger mt-2 discardInPlayCard" data-index="${index}">Discard</button>
-                </div>
-            `;
-            inPlayCardsDiv.innerHTML += cardHTML;
-        });
-        // Add event listeners for discard buttons
-        document.querySelectorAll('.discardInPlayCard').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const index = e.target.getAttribute('data-index');
-                discardInPlayCard(index);
-            });
-        });
-    }
-}
-
-/** Discard a card from the "In Play" section */
-function discardInPlayCard(index) {
-    const card = inPlayCards.splice(index, 1)[0];
-    showToast(`${card.card} has been discarded from In Play.`);
-    updateInPlaySection();
+// Function to toggle Sentry Rules options
+function toggleSentryRulesOptions() {
+    // Handle UI changes if necessary when Sentry Rules are toggled
 }
 
 // ============================
