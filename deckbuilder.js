@@ -94,6 +94,9 @@ let inPlayCards = [];
 // Global variable for set aside cards
 let setAsideCards = []; // Moved outside generateDeck() for broader scope
 
+// Global variable to store the initial deck size
+let initialDeckSize = 0;
+
 // ============================
 // 3. Initialization and Data Loading
 // ============================
@@ -650,6 +653,9 @@ function generateDeck() {
     // Set currentDeck to regularDeck
     currentDeck = regularDeck.slice(); // Start with regular deck
 
+    // Set initial deck size
+    initialDeckSize = currentDeck.length;
+
     // Special cards are kept in specialDeck and introduced later
 
     displayDeck();
@@ -912,11 +918,11 @@ function displayDeck() {
     }
 }
 
-// Updated Function to update the progress bar
+// Function to update the progress bar
 function updateProgressBar() {
     const progressBar = document.getElementById('progressBar');
 
-    let totalCards = currentDeck.length + 1; // Including the back card
+    let totalCards = initialDeckSize + 1; // Including the back card
 
     let currentCardNumber = currentIndex + 2; // +2 because currentIndex starts at -1
 
@@ -932,45 +938,40 @@ function updateProgressBar() {
     progressBar.textContent = `Card ${currentCardNumber} of ${totalCards}`;
 }
 
-// Updated Event listeners for navigation buttons to handle discard pile and reshuffling
+// Event listeners for navigation buttons to handle discard pile and reshuffling
 document.getElementById('prevCard').addEventListener('click', () => {
     if (currentIndex > -1) {
-        // Do not discard the current card when going back
+        // Remove the last card from discardPile
+        discardPile.pop();
         currentIndex--;
         showCurrentCard();
     }
 });
 
 document.getElementById('nextCard').addEventListener('click', () => {
-    const isSentryEnabled = document.getElementById('enableSentryRules').checked;
-    const isCorrupterEnabled = document.getElementById('enableCorrupterRules').checked;
-
     // Move the current card to the discard pile if it's not the starting card
     if (currentIndex >= 0 && currentIndex < currentDeck.length) {
-        const discardedCard = currentDeck.splice(currentIndex, 1)[0];
-        discardPile.push(discardedCard);
+        discardPile.push(currentDeck[currentIndex]);
     }
 
-    if (currentDeck.length === 0) {
+    currentIndex++;
+
+    if (currentIndex >= currentDeck.length) {
         if (discardPile.length > 0) {
             // Reshuffle the discard pile to form a new deck
             currentDeck = shuffleDeck(discardPile);
+            initialDeckSize = currentDeck.length;
             discardPile = [];
             currentIndex = -1; // Reset to start of new deck
             showToast('Deck reshuffled from discard pile.');
         } else {
-            // No cards left in both deck and discard pile
+            // No more cards left to draw
             showToast('No more cards in the deck.');
+            currentIndex--; // Stay at the last card
             return;
-        }
-    } else {
-        if (currentIndex >= currentDeck.length) {
-            currentIndex = -1; // Reset to the beginning if we've reached the end
         }
     }
 
-    // Move to the next card
-    currentIndex++;
     showCurrentCard();
 });
 
