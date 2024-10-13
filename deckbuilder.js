@@ -64,7 +64,8 @@ let deckDataByType = {};
 
 // Generated decks
 let regularDeck = [];    // Regular cards
-let specialDeck = [];    // Special cards (Sentry and Corrupter)
+let specialDeck = [];    // Special cards (Corrupter)
+let sentryDeck = [];     // Sentry cards
 let currentDeck = [];    // Combined deck for display
 
 // Current card index (-1 to start with back.jpg)
@@ -101,6 +102,9 @@ let initialDeckSize = 0;
 
 // Variable to hold deferred restoration configuration
 let deferredDeckRestoration = null;
+
+// Global variable to store selected cards
+let selectedCardsMap = new Map(); // Declared globally for access across functions
 
 // ============================
 // 3. Initialization and Data Loading
@@ -308,7 +312,7 @@ function loadCardTypes() {
         }
     });
 
-    // Copy allCards to availableCards (Always include all cards, including special cards)
+    // Copy allCards to availableCards (Always include all cards, excluding held back cards)
     availableCards = [...allCards];
     console.log('Available Cards after reset:', availableCards);
 
@@ -327,8 +331,9 @@ function loadCardTypes() {
     // Remove duplicates from allCardTypes
     allCardTypes = [...new Set(allCardTypes)];
 
-    // Dynamically include sentry and corrupter card types if they exist and are non-empty
-    [...sentryCardTypes, ...corrupterCardTypes].forEach(specialType => {
+    // Dynamically include corrupter card types if they exist and are non-empty
+    // Note: Sentry cards are NOT included here; they are introduced via action
+    corrupterCardTypes.forEach(specialType => {
         if (!allCardTypes.includes(specialType) && deckDataByType[specialType] && deckDataByType[specialType].length > 0) {
             allCardTypes.push(specialType);
         }
@@ -503,6 +508,7 @@ function saveConfiguration() {
         selectedDifficultyIndex: document.getElementById('difficultyLevel').value,
         cardCounts: {},
         specialCardCounts: {},
+        sentryCardCounts: {},
         enableSentryRules: document.getElementById('enableSentryRules').checked,
         enableCorrupterRules: document.getElementById('enableCorrupterRules').checked,
         // Save arrays of card IDs instead of full objects
@@ -510,14 +516,16 @@ function saveConfiguration() {
         currentIndex,
         discardPileIds: discardPile.map(card => card.id),
         inPlayCardIds: inPlayCards.map(card => card.id),
-        initialDeckSize
+        initialDeckSize,
+        sentryDeckIds: sentryDeck.map(card => card.id) // New line to save Sentry Deck
     };
     allCardTypes.forEach(type => {
         const inputId = `type-${type}`;
         const element = document.getElementById(inputId);
         const count = parseInt(element.value) || 0;
-        if ((sentryCardTypes.includes(type) && config.enableSentryRules) ||
-            (corrupterCardTypes.includes(type) && config.enableCorrupterRules)) {
+        if (sentryCardTypes.includes(type) && config.enableSentryRules) {
+            config.sentryCardCounts[type] = count;
+        } else if (corrupterCardTypes.includes(type) && config.enableCorrupterRules) {
             config.specialCardCounts[type] = count;
         } else {
             config.cardCounts[type] = count;
@@ -554,8 +562,6 @@ function loadConfiguration() {
             corrupterRulesCheckbox.checked = savedConfig.enableCorrupterRules;
         }
 
-        // Restore card counts is handled in generateCardTypeInputs()
-
         // Defer deck restoration until data structures are ready
         deferredDeckRestoration = savedConfig;
         console.log('Loaded Configuration:', savedConfig);
@@ -585,26 +591,13 @@ function restoreDeckState(savedConfig) {
     if (savedConfig.initialDeckSize !== undefined) {
         initialDeckSize = savedConfig.initialDeckSize;
     }
-}
 
-// Function to find a card by its ID
-function findCardById(id) {
-    // Search in availableCards
-    let card = availableCards.find(card => card.id === id);
-    if (card) return card;
-
-    // If not found, search in setAsideCards
-    card = setAsideCards.find(card => card.id === id);
-    if (card) return card;
-
-    // If still not found, search in all data
-    for (let game in dataStore.games) {
-        card = dataStore.games[game].find(card => card.id === id);
-        if (card) return card;
+    // Restore sentryDeck
+    if (savedConfig.sentryDeckIds && Array.isArray(savedConfig.sentryDeckIds)) {
+        sentryDeck = savedConfig.sentryDeckIds.map(id => findCardById(id)).filter(card => card !== null);
+    } else {
+        sentryDeck = [];
     }
-
-    console.error(`Card with ID ${id} not found.`);
-    return null;
 }
 
 // Function to preserve and restore card counts when configuration changes
@@ -635,13 +628,13 @@ function preserveAndRestoreCardCounts() {
 // Function to restore card counts after card type inputs are generated
 function restoreCardCounts() {
     const savedConfig = JSON.parse(localStorage.getItem('savedConfig'));
-    if (savedConfig && (savedConfig.cardCounts || savedConfig.specialCardCounts)) {
+    if (savedConfig && (savedConfig.cardCounts || savedConfig.specialCardCounts || savedConfig.sentryCardCounts)) {
         allCardTypes.forEach(type => {
             const inputId = `type-${type}`;
             const element = document.getElementById(inputId);
             if (element) {
-                if (((sentryCardTypes.includes(type) && savedConfig.enableSentryRules) ||
-                    (corrupterCardTypes.includes(type) && savedConfig.enableCorrupterRules))) {
+                if ((sentryCardTypes.includes(type) && savedConfig.enableSentryRules) ||
+                    (corrupterCardTypes.includes(type) && savedConfig.enableCorrupterRules)) {
                     element.value = savedConfig.specialCardCounts[type] || 0;
                 } else {
                     element.value = savedConfig.cardCounts[type] || 0;
@@ -664,23 +657,27 @@ function generateDeck() {
 
     currentIndex = -1; // Start with -1 to display back.jpg first
     regularDeck = [];
-    specialDeck = [];
-    discardPile = []; // Reset discard pile
+    specialDeck = [];    // For Corrupter cards
+    sentryDeck = [];     // For Sentry cards
+    discardPile = [];    // Reset discard pile
+
+    // Reset selectedCardsMap
+    selectedCardsMap.clear(); // Clears the Map without changing its reference
 
     // Reset availableCards without affecting user inputs
     resetAvailableCards();
 
-    const selectedCardsMap = new Map(); // Use Map to store selected cards and their types
-
     // Copy of card counts to manage counts during selection
     const cardCounts = {};
     const specialCardCounts = {};
+    const sentryCardCounts = {}; // To store counts for Sentry cards
+
     allCardTypes.forEach(type => {
         const inputId = `type-${type}`;
         const element = document.getElementById(inputId);
         const count = parseInt(element.value) || 0;
         if (sentryCardTypes.includes(type) && document.getElementById('enableSentryRules').checked) {
-            specialCardCounts[type] = count;
+            sentryCardCounts[type] = count;
         } else if (corrupterCardTypes.includes(type) && document.getElementById('enableCorrupterRules').checked) {
             specialCardCounts[type] = count;
         } else {
@@ -691,12 +688,12 @@ function generateDeck() {
     // Add console logs to check card counts
     console.log('Card Counts:', cardCounts);
     console.log('Special Card Counts:', specialCardCounts);
+    console.log('Sentry Card Counts:', sentryCardCounts);
 
-    // Check if Sentry Rules are enabled
+    // Check if Sentry and Corrupter Rules are enabled
     const isSentryEnabled = document.getElementById('enableSentryRules').checked;
     console.log('Sentry Rules Enabled:', isSentryEnabled);
 
-    // Check if Corrupter Rules are enabled
     const isCorrupterEnabled = document.getElementById('enableCorrupterRules').checked;
     console.log('Corrupter Rules Enabled:', isCorrupterEnabled);
 
@@ -713,13 +710,13 @@ function generateDeck() {
         return true; // Keep in availableCards
     });
 
-    // Proceed with selecting regular and special cards separately
+    // Proceed with selecting regular, Corrupter, and Sentry cards separately
 
-    // Selecting regular cards based on counts from inputs (excluding special cards and held back cards)
+    // Selecting regular cards based on counts from inputs (excluding special and held back cards)
     let hasRegularCardSelection = false;
     allCardTypes.forEach(type => {
-        if (sentryCardTypes.includes(type) && isSentryEnabled) return; // Skip Sentry types when Sentry Rules are enabled
-        if (corrupterCardTypes.includes(type) && isCorrupterEnabled) return; // Skip Corrupter types when Corrupter Rules are enabled
+        if (sentryCardTypes.includes(type) && isSentryEnabled) return; // Skip Sentry types
+        if (corrupterCardTypes.includes(type) && isCorrupterEnabled) return; // Skip Corrupter types
         if (heldBackCardTypes.includes(type)) return; // Skip held back types here
         const count = cardCounts[type];
         if (count > 0) {
@@ -729,22 +726,26 @@ function generateDeck() {
         }
     });
 
-    // Selecting special cards based on counts from inputs
+    // Selecting Corrupter cards based on counts from inputs
     let hasSpecialCardSelection = false;
     allCardTypes.forEach(type => {
-        if (sentryCardTypes.includes(type) && isSentryEnabled) {
+        if (corrupterCardTypes.includes(type) && isCorrupterEnabled) {
             const count = specialCardCounts[type];
             if (count > 0) {
                 hasSpecialCardSelection = true;
                 const selectedSpecialCards = selectCardsByType(type, count, selectedCardsMap, specialCardCounts, true);
                 specialDeck = specialDeck.concat(selectedSpecialCards);
             }
-        } else if (corrupterCardTypes.includes(type) && isCorrupterEnabled) {
-            const count = specialCardCounts[type];
+        }
+    });
+
+    // Selecting Sentry cards based on counts from inputs
+    allCardTypes.forEach(type => {
+        if (sentryCardTypes.includes(type) && isSentryEnabled) {
+            const count = sentryCardCounts[type];
             if (count > 0) {
-                hasSpecialCardSelection = true;
-                const selectedSpecialCards = selectCardsByType(type, count, selectedCardsMap, specialCardCounts, true);
-                specialDeck = specialDeck.concat(selectedSpecialCards);
+                const selectedSentryCards = selectCardsByType(type, count, selectedCardsMap, sentryCardCounts, true);
+                sentryDeck = sentryDeck.concat(selectedSentryCards);
             }
         }
     });
@@ -760,10 +761,13 @@ function generateDeck() {
         }
     });
 
-    if (!hasRegularCardSelection && !hasSpecialCardSelection) {
+    if (!hasRegularCardSelection && !hasSpecialCardSelection && sentryDeck.length === 0) {
         showToast('Please select at least one card type with a count greater than zero.');
         return;
     }
+
+    // **Important Correction: Do NOT automatically include Sentry Cards here**
+    // Sentry Cards should only be introduced via user action in applyCardAction()
 
     // Apply Corrupter Rules if enabled
     if (isCorrupterEnabled) {
@@ -786,10 +790,10 @@ function generateDeck() {
     // 4. Shuffle in the selected held back cards
     regularDeck = regularDeck.concat(selectedHeldBackCards);
 
-    // 5. Shuffle the Entire Deck
+    // 5. Shuffle the Entire Regular Deck
     regularDeck = shuffleDeck(regularDeck);
 
-    // Combine regularDeck and specialDeck for display
+    // Combine regularDeck and specialDeck (Corrupter cards) for display
     currentDeck = regularDeck.concat(specialDeck);
 
     // Set initial deck size
@@ -802,6 +806,7 @@ function generateDeck() {
     console.log('Selected Games:', selectedGames);
     console.log('Regular Card Counts:', cardCounts);
     console.log('Special Card Counts:', specialCardCounts);
+    console.log('Sentry Deck:', sentryDeck);
     console.log('Available Cards:', availableCards);
     console.log('Generated Regular Deck:', regularDeck);
     console.log('Generated Special Deck:', specialDeck);
@@ -981,7 +986,7 @@ function resetAvailableCards() {
         }
     });
 
-    // Copy allCards to availableCards (Always include all cards, including special cards)
+    // Copy allCards to availableCards (Always include all cards, excluding held back cards)
     availableCards = [...allCards];
     console.log('Available Cards after reset:', availableCards);
 }
@@ -1198,26 +1203,6 @@ function clearInPlayCards() {
 // 10. Deck Restoration and Helper Functions
 // ============================
 
-// Function to restore deck state from saved configuration
-function restoreDeckState(savedConfig) {
-    // Reconstruct currentDeck from IDs
-    if (savedConfig.currentDeckIds && Array.isArray(savedConfig.currentDeckIds)) {
-        currentDeck = savedConfig.currentDeckIds.map(id => findCardById(id)).filter(card => card !== null);
-    }
-    if (savedConfig.currentIndex !== undefined) {
-        currentIndex = savedConfig.currentIndex;
-    }
-    if (savedConfig.discardPileIds && Array.isArray(savedConfig.discardPileIds)) {
-        discardPile = savedConfig.discardPileIds.map(id => findCardById(id)).filter(card => card !== null);
-    }
-    if (savedConfig.inPlayCardIds && Array.isArray(savedConfig.inPlayCardIds)) {
-        inPlayCards = savedConfig.inPlayCardIds.map(id => findCardById(id)).filter(card => card !== null);
-    }
-    if (savedConfig.initialDeckSize !== undefined) {
-        initialDeckSize = savedConfig.initialDeckSize;
-    }
-}
-
 // Function to find a card by its ID
 function findCardById(id) {
     // Search in availableCards
@@ -1226,6 +1211,10 @@ function findCardById(id) {
 
     // If not found, search in setAsideCards
     card = setAsideCards.find(card => card.id === id);
+    if (card) return card;
+
+    // If not found, search in sentryDeck
+    card = sentryDeck.find(card => card.id === id);
     if (card) return card;
 
     // If still not found, search in all data
@@ -1359,7 +1348,7 @@ function applyCardAction() {
             regularDeck.push(activeCard);
             regularDeck = shuffleDeck(regularDeck);
             currentDeck = regularDeck.concat(specialDeck);
-            currentIndex = -1;
+            currentIndex--; // Move back to previous card
             showToast(`Card "${activeCard.card}" shuffled back into the deck.`);
             break;
 
@@ -1368,19 +1357,36 @@ function applyCardAction() {
                 showToast('Please enter a valid number for N.');
                 return;
             }
-            // Shuffle active card into the next N cards
-            if (currentIndex + n >= currentDeck.length) {
-                n = currentDeck.length - currentIndex - 1;
-            }
-            if (n <= 0) {
-                showToast('Not enough cards ahead to shuffle into.');
+
+            const remainingCards = currentDeck.length - (currentIndex + 1);
+            if (remainingCards <= 0) {
+                showToast('No cards ahead to shuffle into.');
                 return;
             }
-            currentDeck.splice(currentIndex, 1);
+
+            // Adjust n if necessary
+            if (n > remainingCards) {
+                n = remainingCards;
+            }
+
+            // Remove active card from currentDeck
+            const [removedCard] = currentDeck.splice(currentIndex, 1);
+
+            // Get next N cards
             const nextNCards = currentDeck.slice(currentIndex, currentIndex + n);
-            regularDeck = nextNCards.concat(activeCard);
-            regularDeck = shuffleDeck(regularDeck);
-            currentDeck.splice(currentIndex, 0, ...regularDeck);
+
+            // Create tempDeck with activeCard and nextNCards
+            let tempDeck = nextNCards.concat(removedCard);
+
+            // Shuffle tempDeck
+            tempDeck = shuffleDeck(tempDeck);
+
+            // Replace next N cards in currentDeck with tempDeck
+            currentDeck.splice(currentIndex, n, ...tempDeck);
+
+            // Move currentIndex back to previous card
+            currentIndex--;
+
             showToast(`Card "${activeCard.card}" shuffled into the next ${n} cards.`);
             break;
 
@@ -1394,20 +1400,31 @@ function applyCardAction() {
             }
             const replacementCard = unseenCards[Math.floor(Math.random() * unseenCards.length)];
             currentDeck[currentIndex] = replacementCard;
+            selectedCardsMap.set(replacementCard.id, true); // Mark the replacement card as selected
             showToast(`Card "${activeCard.card}" replaced with "${replacementCard.card}".`);
             break;
 
         case 'introduceSentry':
-            // Introduce Sentry Cards into the deck
-            if (sentryCardTypes.length === 0) {
-                showToast('No Sentry card types available.');
+            // **Updated Functionality to Shuffle All Sentry Cards into the Remaining Deck**
+            if (!sentryDeck || sentryDeck.length === 0) {
+                showToast('No Sentry cards available to introduce.');
                 return;
             }
-            const sentryCard = getSpecialCards(1, sentryCardTypes)[0];
-            if (sentryCard) {
-                currentDeck.splice(currentIndex + 1, 0, sentryCard);
-                showToast(`Sentry Card "${sentryCard.card}" introduced into the deck.`);
-            }
+
+            // Extract the remaining deck after the current card
+            const remainingDeckAfterCurrent = currentDeck.slice(currentIndex + 1);
+
+            // Merge sentryDeck with the remaining deck
+            const mergedDeck = shuffleDeck([...remainingDeckAfterCurrent, ...sentryDeck]);
+
+            // Update currentDeck by keeping cards up to currentIndex + 1 and appending the shuffled merged deck
+            currentDeck = currentDeck.slice(0, currentIndex + 1).concat(mergedDeck);
+
+            showToast(`All Sentry cards have been shuffled into the remaining deck.`);
+
+            // Clear the sentryDeck as they have been introduced
+            sentryDeck = [];
+
             break;
 
         default:
@@ -1483,6 +1500,7 @@ function enhanceButtons() {
 function toggleSentryRulesOptions() {
     // Handle UI changes if necessary when Sentry Rules are toggled
     // For example, show/hide certain sections or inputs
+    // Currently, no additional UI changes are defined
 }
 
 // ============================
