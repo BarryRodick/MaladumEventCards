@@ -9,20 +9,25 @@
 
 /* Dark Mode Styles */
 body.dark-mode {
-    background: url('./logos/background.png') no-repeat center center fixed;
+    background-color: var(--dark-bg); /* Fallback color */
+    color: var(--text-primary);
+    background-image: url('logos/background.png'); /* Updated correct path */
     background-size: cover;
-    color: #ffffff;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
     position: relative; /* To ensure ::before overlay works correctly */
 }
 
 body.dark-mode::before {
     content: '';
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Dark overlay with 50% opacity */
+    background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
     z-index: -1;
 }
 
@@ -84,19 +89,17 @@ body.dark-mode .card {
 
 /* App Header Styling */
 .app-header {
-    background-color: rgba(0, 0, 0, 0.8); /* Black with some opacity */
-    padding: 20px;
-    border-radius: 8px;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Distribute space between header elements */
-    flex-wrap: wrap; /* Wrap content if needed for smaller screens */
+    background: linear-gradient(to right, var(--dark-surface), var(--accent-green));
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    margin-bottom: 2rem;
 }
 
 .app-logo-text {
-    margin: 0; /* Remove default margin from h1 */
-    font-size: 1.5rem; /* Adjust font size */
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 0;
 }
 
 #headerButtons {
@@ -142,20 +145,28 @@ body.dark-mode .card {
 
 /* Updated Progress Bar Styles */
 .progress {
-    height: 25px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    height: 2rem;
     margin-bottom: 10px;
-    background-color: #e0e0e0; /* Light gray background for better contrast */
-    border-radius: 8px; /* Rounded corners for a cleaner look */
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .progress-bar {
+    background: linear-gradient(to right, var(--accent-green), var(--accent-green-hover));
     font-weight: bold;
     font-size: 16px;
     line-height: 25px;
-    background-color: #015701; /* Dark green fill color */
     color: #ffffff; /* White text for contrast */
     border-radius: 8px; /* Match background corners */
-    transition: width 0.4s ease; /* Smooth transition for progress changes */
+    transition: width 0.6s ease;
+}
+
+.progress-text {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Card Type Input Container Styling */
@@ -202,7 +213,12 @@ body.dark-mode .card {
 
 /* Card Action Section Styling */
 #cardActionSection {
-    margin-top: 20px;
+    background-color: rgba(30, 30, 30, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
 }
 
 #actionTopNInput {
@@ -250,7 +266,7 @@ button {
 /* Toast Container Positioning */
 .toast-container {
     position: fixed;
-    bottom: 20px;
+    top: 20px;
     right: 20px;
     z-index: 1050;
 }
@@ -316,28 +332,30 @@ body.dark-mode .btn {
 
 /* In Play Cards Section Styling (Feature 2) */
 #inPlaySection {
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 15px;
-    border-radius: 8px;
-    color: #ffffff;
+    background-color: rgba(30, 30, 30, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
 }
 
-#inPlayCards .card-item {
-    margin: 10px;
-    max-width: 200px;
-}
-
-#inPlayCards .card-image {
-    max-width: 100%;
-    max-height: 150px;
-}
-
-/* Additional Adjustments for In Play Cards */
 #inPlayCards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
 }
+
+#inPlayCards img {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+#inPlayCards img:hover {
+    transform: scale(1.05);
+}
+
 /* Style for the FAQ icon */
 .faq-icon {
     font-size: 1.5rem; /* Adjust the size as needed */
@@ -359,4 +377,248 @@ body.dark-mode .btn {
         font-size: 1.2rem;
         margin-left: 10px;
     }
+}
+
+/* Dark theme enhancements */
+:root {
+    --dark-bg: #121212;
+    --dark-surface: #1e1e1e;
+    --dark-surface-lighter: #2d2d2d;
+    --accent-green: #1b5e20;
+    --accent-green-hover: #2e7d32;
+    --text-primary: rgba(255, 255, 255, 0.87);
+    --text-secondary: rgba(255, 255, 255, 0.6);
+}
+
+/* Enhanced Card Display */
+#deckOutput {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+    perspective: 1000px;
+}
+
+#deckOutput img {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+#deckOutput img:hover {
+    transform: scale(1.02);
+}
+
+/* Improved Form Controls */
+.form-control-dark {
+    background-color: var(--dark-surface);
+    border-color: var(--dark-surface-lighter);
+    color: var(--text-primary);
+}
+
+.form-control-dark:focus {
+    background-color: var(--dark-surface-lighter);
+    border-color: var(--accent-green);
+    box-shadow: 0 0 0 0.2rem rgba(27, 94, 32, 0.25);
+    color: var(--text-primary);
+}
+
+/* Enhanced Buttons */
+.btn-hover-effect {
+    transition: all 0.3s ease;
+}
+
+.btn-hover-effect:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background-color: var(--accent-green);
+    border-color: var(--accent-green);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-green-hover);
+    border-color: var(--accent-green-hover);
+}
+
+/* Navigation Buttons */
+#navigationButtons {
+    margin: 1.5rem 0;
+}
+
+#navigationButtons .btn {
+    padding: 0.8rem 2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+/* Ensure content is above the overlay */
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Enhanced Section Headers */
+.section-title {
+    color: var(--accent-green);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent-green);
+}
+
+/* Enhanced Select Dropdowns */
+select.form-control-lg {
+    background-color: rgba(45, 45, 45, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+select.form-control-lg:hover {
+    background-color: rgba(55, 55, 55, 0.9);
+    border-color: var(--accent-green);
+}
+
+/* Toast Notifications Enhancement */
+.toast {
+    background: rgba(30, 30, 30, 0.95);
+    backdrop-filter: blur(10px);
+    border-left: 4px solid var(--accent-green);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Loading Animation */
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-left-color: var(--accent-green);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Improvements */
+@media (max-width: 768px) {
+    .app-header {
+        padding: 1rem;
+    }
+
+    .app-logo-text {
+        font-size: 1.4rem;
+    }
+
+    #navigationButtons .btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.8rem;
+    }
+
+    #inPlayCards {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 1rem;
+    }
+}
+
+/* Checkbox Styling */
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.custom-checkbox input[type="checkbox"] {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    appearance: none;
+    border: 2px solid var(--accent-green);
+    border-radius: 4px;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.custom-checkbox input[type="checkbox"]:checked {
+    background-color: var(--accent-green);
+}
+
+.custom-checkbox input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Card Counter Inputs */
+.card-counter {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.card-counter input[type="number"] {
+    width: 80px;
+    background-color: rgba(45, 45, 45, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    padding: 0.5rem;
+    border-radius: 6px;
 }

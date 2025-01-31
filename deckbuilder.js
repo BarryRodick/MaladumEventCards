@@ -1939,3 +1939,18 @@ function insertCardOfType(cardType, position) {
     saveConfiguration();
     return true;
 }
+
+// Add this to handle dark theme consistency
+function applyDarkTheme() {
+    // Add custom select styling
+    const selects = document.querySelectorAll('select');
+    selects.forEach(select => {
+        select.classList.add('form-control-dark');
+    });
+
+    // Add button hover effects
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(button => {
+        button.classList.add('btn-hover-effect');
+    });
+}
