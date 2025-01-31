@@ -16,7 +16,7 @@
     <!-- Head content -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About / FAQ - Deck Builder</title>
+    <title>About / FAQ - Event Cards</title>
     
     <!-- Include Bootstrap CSS with SRI -->
     <link 
@@ -121,197 +121,73 @@
     </header>
     
     <div class="container my-4">
+        <h1>About / FAQ</h1>
+        
+        <div class="card bg-dark text-white mb-4">
+            <div class="card-body">
+                <h2>General Questions</h2>
+                
+                <h4>What is this app?</h4>
+                <p>This is a digital event deck manager for Blackstone Fortress and its expansions. It helps you manage and manipulate the event deck during gameplay.</p>
 
-        <!-- About Section -->
-        <section class="content-section">
-            <h2>About Deck Builder</h2>
-            <p>
-                Deckbuilder has been designed specifically for <strong>Maladum</strong>. I found configuring the event deck to be a little clunky, and for a single-player game, the additional setup time was something I wanted to avoid.
-            </p>
-            <p>
-                Deckbuilder removes the need for you to set up and configure the event deck, select your cards, set the scenario rules, and voila—you are good to go!
-            </p>
-            <p>
-                Maladum is a great game, and I am glad to be able to offer something back to the community.
-            </p>
-        </section>
+                <h4>How do I start?</h4>
+                <p>1. Select which game boxes/expansions you want to use<br>
+                2. Choose your difficulty level<br>
+                3. Set the number of cards for each type<br>
+                4. Click "Generate Deck" to create your event deck</p>
 
-        <!-- Features Section -->
-        <section class="content-section">
-            <h2>Features</h2>
-            <ul>
-                <li><strong>Select Games:</strong> Choose from a range of game expansions to include their respective cards in your deck.</li>
-                <li><strong>Select Card Types:</strong> Specify the types of cards you want in your deck, such as Environment, Revenant, Novice, and more.</li>
-                <li><strong>Difficulty Levels:</strong> Adjust the number of Novice and Veteran cards based on your preferred difficulty setting.</li>
-                <li><strong>Special Rules:</strong>
-                    <ul>
-                        <li><strong>Sentry Rules:</strong> Enable the inclusion of Sentry cards (e.g., Revenant, Malagaunt) to introduce unique challenges into your deck.</li>
-                        <li><strong>Corrupter Rules:</strong> Enable Corrupter cards that replace random cards in your deck, adding unpredictability and complexity.</li>
-                    </ul>
-                </li>
-                <li><strong>Progress Tracking:</strong> Monitor your deck generation progress with a visual progress bar.</li>
-                <li><strong>Card Actions:</strong> Perform actions on individual cards, such as shuffling them back into the deck or replacing them with unseen cards.</li>
-                <li><strong>In Play Management:</strong> Keep track of cards that are currently in play and manage them effectively.</li>
-                <li><strong>Persistent Configuration:</strong> Your deck configurations are saved automatically, allowing you to return and continue building without losing your settings.</li>
-                <li><strong>Service Worker Integration:</strong> Enjoy a seamless experience with offline capabilities and update notifications.</li>
-            </ul>
-        </section>
+                <h4>What do the different card types mean?</h4>
+                <p>Cards are categorized by their type (e.g., Denizen, Revenant, Veteran). Some cards can have multiple types, indicated by "+" (must be both) or "/" (can be either).</p>
 
-        <!-- FAQ Section -->
-        <section class="content-section">
-            <h2>Frequently Asked Questions (FAQ)</h2>
-            <div class="accordion" id="faqAccordion">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                1. How do I select the games for my deck?
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqAccordion">
-                        <div class="card-body">
-                            Click on the "Select Games" button in the header to choose which game expansions you want to include. Selecting a game will load all its associated cards into the deck builder.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingTwo">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                2. How do I select card types?
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-                        <div class="card-body">
-                            After selecting your desired games, use the "Select Card Types" button to specify which types of cards you want in your deck. You can adjust the number of each card type using the provided controls.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingThree">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                3. What are Difficulty Levels?
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-                        <div class="card-body">
-                            Difficulty Levels allow you to adjust the complexity of your deck by setting the number of Novice and Veteran cards. Higher difficulty settings increase the number of Veteran cards, making the deck more challenging.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingFour">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                4. What are Sentry and Corrupter Rules?
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-                        <div class="card-body">
-                            <strong>Sentry Rules:</strong> When enabled, Sentry cards such as Revenant and Malagaunt are added to your deck when you apply the correct 'Card Action'.<br>
-                            <strong>Corrupter Rules:</strong> Enabling Corrupter rules replaces a specified number of random cards in your deck with Corrupter cards, adding unpredictability and complexity to your gameplay.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingFive">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                5. How does deck generation work?
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-                        <div class="card-body">
-                            Once you've selected your games, card types, and configured any special rules, click the "Generate Deck" button. The application will compile your selections into a customized deck, applying any rules you've set. You can then navigate through your deck using the provided controls.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingSix">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                                6. How can I manage cards that are in play?
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-                        <div class="card-body">
-                            As you navigate through your deck, you can mark cards as "In Play" by clicking the respective button. This allows you to keep track of active cards and manage them effectively within your gameplay.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingSeven">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                                7. Will my configurations be saved?
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-                        <div class="card-body">
-                            Yes! Your deck configurations are automatically saved in your browser's local storage. This means you can close the application and return later to find your settings intact.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingEight">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                                8. What happens when there's an update to the application?
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-                        <div class="card-body">
-                            If a new version of the application is available, you'll receive a notification prompting you to reload the page. This ensures you always have access to the latest features and improvements.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingNine">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
-                                9. Can I use the Deck Builder offline?
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#faqAccordion">
-                        <div class="card-body">
-                            Yes! Thanks to Service Worker integration, you can use the Deck Builder even when you're offline. Any changes or configurations you make while offline will be saved and synchronized once you're back online.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingTen">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
-                                10. Can we get one of these for CoreSpace?
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#faqAccordion">
-                        <div class="card-body">
-                            Yes, it's in the works. I need some images of the Event Cards so I'm just waiting on them.
-                        </div>
-                    </div>
-                </div>
+                <h2>Deck Management</h2>
+
+                <h4>How do I navigate through the deck?</h4>
+                <p>Use the "Previous" and "Next" buttons to move through the deck. The progress bar shows your current position.</p>
+
+                <h4>What are Card Actions?</h4>
+                <p>Card Actions allow you to manipulate the deck during gameplay:<br>
+                - Shuffle into remaining deck: Places the current card randomly in the remaining cards<br>
+                - Shuffle into next N cards: Places the card within the next N cards<br>
+                - Replace with same type: Swaps the current card with another of the same type<br>
+                - Introduce Sentry cards: Adds Sentry cards into the remaining deck<br>
+                - Insert card by type: Adds a new card of a specific type to the deck</p>
+
+                <h4>How do Sentry cards work?</h4>
+                <p>When enabled, Sentry cards form a separate deck that can be introduced manually using the "Introduce Sentry cards" action. This matches the game's mechanics where Sentry cards are added during specific events.</p>
+
+                <h4>How do Corrupter cards work?</h4>
+                <p>When enabled, 5 random cards in your initial deck will be replaced with Corrupter cards. This creates additional challenges during gameplay.</p>
+
+                <h4>What is the "In Play Cards" section?</h4>
+                <p>This area shows cards that are currently active or in play. You can clear these cards when they're no longer needed.</p>
+
+                <h2>Technical Details</h2>
+
+                <h4>Does the app save my progress?</h4>
+                <p>Yes, your current deck state, position, and settings are automatically saved and will persist even if you refresh the page or close the browser.</p>
+
+                <h4>Can I use this offline?</h4>
+                <p>Yes, this is a Progressive Web App (PWA) that can be installed on your device and used offline.</p>
+
+                <h4>How do I handle duplicate cards?</h4>
+                <p>The app respects duplicate cards in the source material - if a card appears multiple times in the game, it can appear multiple times in your deck.</p>
+
+                <h4>What should I do if I encounter an error?</h4>
+                <p>Try refreshing the page. If the problem persists, you can clear your saved state by clicking "Reset All" in the deck builder options.</p>
+
+                <h2>Game Rules</h2>
+
+                <h4>What are the recommended difficulty settings?</h4>
+                <p>- Standard: Default game experience<br>
+                - Hard: Increases challenging encounters<br>
+                - Brutal: Maximum difficulty with additional challenges</p>
+
+                <h4>How do I handle special game scenarios?</h4>
+                <p>Use the card type insertion feature to add specific types of cards when required by special game rules or scenarios.</p>
             </div>
-        </section>
-
-        <!-- Back to Home Button -->
-        <div class="text-center back-button">
-            <a href="index.html" class="btn btn-primary">
-                <i class="fas fa-home mr-2"></i> Back to Home
-            </a>
         </div>
 
+        <a href="index.html" class="btn btn-primary mb-4">Back to Deck Builder</a>
     </div>
 
     <!-- Include jQuery JS with SRI -->

@@ -30,28 +30,91 @@
     <!-- Theme color for PWA -->
     <meta name="theme-color" content="#121212">
     
-    <!-- Custom Styles for FAQ Icon -->
+    <!-- Add additional style for collapsible sections -->
     <style>
         /* Style for the FAQ icon */
         .faq-icon {
-            font-size: 1.5rem; /* Adjust the size as needed */
-            color: #ffffff; /* Ensure the icon contrasts with the dark header */
+            font-size: 1.5rem;
+            color: #ffffff;
             text-decoration: none;
-            margin-left: 15px; /* Space between existing buttons and the icon */
+            margin-left: 15px;
             display: flex;
             align-items: center;
         }
 
         .faq-icon:hover {
-            color: #cccccc; /* Change color on hover for better UX */
+            color: #cccccc;
             text-decoration: none;
         }
 
-        /* Responsive adjustments if needed */
+        /* Updated Progress bar styling */
+        .progress {
+            background-color: #2d2d2d;
+            height: 2rem;
+            position: relative; /* Added for absolute positioning of text */
+        }
+
+        .progress-bar {
+            background-color: #007bff; /* Bootstrap primary color for better contrast */
+            color: white;
+            font-size: 1rem;
+            line-height: 2rem;
+            transition: width .3s ease;
+        }
+
+        /* New style for progress text */
+        .progress-text {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            right: 0;
+            text-align: center;
+            line-height: 2rem;
+            color: white;
+            font-size: 1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Text shadow for better readability */
+            z-index: 1; /* Ensure text is always on top */
+        }
+
+        /* Card action section styling */
+        #actionTopNInput {
+            margin-top: 1rem;
+        }
+
+        /* Collapsible section styling */
+        .section-header {
+            background-color: #2d2d2d;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .section-header .btn-link {
+            color: white;
+            text-decoration: none;
+            width: 100%;
+            text-align: left;
+            padding: 0;
+        }
+
+        .section-header .btn-link:hover {
+            color: #cccccc;
+        }
+
+        /* Active deck section styling */
+        #activeDeckSection {
+            margin-top: 2rem;
+        }
+
+        /* Responsive adjustments */
         @media (max-width: 576px) {
             .faq-icon {
                 font-size: 1.2rem;
                 margin-left: 10px;
+            }
+            
+            .progress-text {
+                font-size: 0.875rem;
             }
         }
     </style>
@@ -64,17 +127,7 @@
         <h1 class="app-logo-text mb-0">Event Cards</h1>
         
         <div id="headerButtons" class="d-flex align-items-center">
-            <!-- Select Games Button -->
-            <button id="selectGamesButton" class="btn btn-link mr-3" type="button" data-toggle="collapse" data-target="#gameCheckboxes" aria-expanded="true" aria-controls="gameCheckboxes">
-                Select Games
-            </button>
-
-            <!-- Select Card Types Button -->
-            <button id="selectCardTypesButton" class="btn btn-link mr-3" type="button" data-toggle="collapse" data-target="#cardTypeSection" aria-expanded="true" aria-controls="cardTypeSection">
-                Select Card Types
-            </button>
-
-            <!-- FAQ Icon -->
+            <!-- FAQ Icon only - removed other header buttons as they'll be part of the collapsible section -->
             <a href="about.html" class="btn btn-link faq-icon" title="About / FAQ" aria-label="About / FAQ">
                 <i class="fas fa-question-circle"></i>
             </a>
@@ -82,109 +135,121 @@
     </header>
     
     <!-- Toast Container for Notifications -->
-    <div id="toastContainer" aria-live="polite" aria-atomic="true" class="toast-container"></div>
+    <div id="toastContainer" aria-live="polite" aria-atomic="true" class="toast-container position-fixed top-0 end-0 p-3"></div>
 
     <div class="container my-4">
-
-        <!-- Game Selection (Collapsible) -->
-        <section id="gameSelection" class="mb-3">
-            <div id="gameCheckboxes" class="collapse show">
-                <!-- Game checkboxes will be populated here -->
-            </div>
-        </section>
-
-        <!-- Card Type Selection and Scenario Config (Collapsible) -->
-        <section id="cardTypeSection" class="mb-3 collapse show">
-            <!-- Scenario Config Section -->
-            <section id="scenarioConfig" class="mb-3">
-                <!-- Difficulty Selection -->
-                <div class="form-group">
-                    <label for="difficultyLevel">Select Difficulty Level:</label>
-                    <select id="difficultyLevel" class="form-control">
-                        <!-- Options will be populated dynamically -->
-                    </select>
-                    <p id="difficultyDetails" class="mt-2"></p>
+        <!-- Deck Builder Controls - Wrapping all builder controls in one div -->
+        <div id="deckBuilderControls">
+            <!-- Game Selection -->
+            <section id="gameSelection" class="mb-4">
+                <div class="section-header">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#gameCheckboxes" aria-expanded="true" aria-controls="gameCheckboxes">
+                        <i class="fas fa-chevron-down mr-2"></i>Select Games
+                    </button>
                 </div>
-
-                <!-- Enable Sentry Rules Checkbox -->
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="enableSentryRules">
-                    <label class="form-check-label" for="enableSentryRules">Enable Sentry Rules</label>
-                    <small class="form-text text-muted">
-                        Sentry cards (Revenant, Malagaunt) will be introduced into the deck at a later stage.
-                    </small>
-                </div>
-
-                <!-- Enable Corrupter Rules Checkbox -->
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="enableCorrupterRules">
-                    <label class="form-check-label" for="enableCorrupterRules">Enable Corrupter Rules</label>
-                    <small class="form-text text-muted">
-                        Corrupter cards will replace 5 random cards in the deck when enabled.
-                    </small>
+                <div id="gameCheckboxes" class="collapse show">
+                    <!-- Game checkboxes will be populated here -->
                 </div>
             </section>
 
-            <!-- Card Type Selection -->
-            <div id="cardTypeInputs" class="row">
-                <!-- Card type inputs will be populated here -->
-            </div>
-        </section>
+            <!-- Card Type Selection and Scenario Config -->
+            <section id="cardTypeSection" class="mb-4">
+                <div class="section-header">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#cardTypeContent" aria-expanded="true" aria-controls="cardTypeContent">
+                        <i class="fas fa-chevron-down mr-2"></i>Configure Deck
+                    </button>
+                </div>
+                <div id="cardTypeContent" class="collapse show">
+                    <!-- Scenario Config Section -->
+                    <section id="scenarioConfig" class="mb-3">
+                        <!-- Difficulty Selection -->
+                        <div class="form-group">
+                            <label for="difficultyLevel">Difficulty Level:</label>
+                            <select id="difficultyLevel" class="form-control">
+                                <!-- Options populated dynamically -->
+                            </select>
+                            <small id="difficultyDetails" class="form-text text-muted mt-2"></small>
+                        </div>
 
-        <!-- Generate Deck Button -->
-        <div class="mb-3">
-            <button id="generateDeck" class="btn btn-primary btn-block">Generate Deck</button>
+                        <!-- Enable Sentry Rules Checkbox -->
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="enableSentryRules">
+                            <label class="form-check-label" for="enableSentryRules">Enable Sentry Rules</label>
+                            <small class="form-text text-muted">Sentry cards will be introduced later in the game.</small>
+                        </div>
+
+                        <!-- Enable Corrupter Rules Checkbox -->
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="enableCorrupterRules">
+                            <label class="form-check-label" for="enableCorrupterRules">Enable Corrupter Rules</label>
+                            <small class="form-text text-muted">Corrupter cards will replace 5 random cards.</small>
+                        </div>
+                    </section>
+
+                    <!-- Card Type Selection -->
+                    <div id="cardTypeInputs" class="row">
+                        <!-- Card type inputs populated dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Generate Deck Button -->
+            <button id="generateDeck" class="btn btn-primary btn-lg btn-block mb-4">Generate Deck</button>
         </div>
 
-        <!-- Deck Output -->
-        <section id="deckOutput" class="mb-3"></section>
+        <!-- Active Deck Section -->
+        <div id="activeDeckSection">
+            <!-- Deck Output -->
+            <section id="deckOutput" class="mb-4 text-center"></section>
 
-        <!-- Progress Bar -->
-        <div id="deckProgress" class="mb-3" style="display: none;">
-            <div class="progress">
-                <div id="progressBar" class="progress-bar" role="progressbar">
-                    <!-- Progress text will be inserted here -->
+            <!-- Progress Bar -->
+            <div id="deckProgress" class="mb-4" style="display: none;">
+                <div class="progress">
+                    <div id="progressBar" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div id="progressText" class="progress-text"></div>
                 </div>
             </div>
-        </div>
 
-        <!-- Navigation Buttons -->
-        <div id="navigationButtons" style="display: none;" class="mb-3 text-center">
-            <button id="prevCard" class="btn btn-secondary mr-2">Previous Card</button>
-            <button id="nextCard" class="btn btn-secondary">Next Card</button>
-        </div>
-
-        <!-- Card Action Section (Initially Hidden) -->
-        <section id="cardActionSection" class="mb-3" style="display: none;">
-            <label for="cardAction">Choose Card Action:</label>
-            <select id="cardAction" class="form-control">
-                <option value="">--Select Action--</option>
-                <option value="shuffleAnywhere">Shuffle Active Card into the remaining deck</option>
-                <option value="shuffleTopN">Shuffle Active Card into Next N Cards</option>
-                <option value="replaceSameType">Replace Active Card with Unseen Card of Same Type</option>
-                <!-- Introduce Sentry Cards Option -->
-                <option value="introduceSentry">Introduce Sentry Cards</option>
-                <!-- Introduce Corrupter Cards Option -->
-            </select>
-
-            <!-- Top N Input -->
-            <div id="actionTopNInput" style="display: none;">
-                <label for="actionN">Enter N (number of cards):</label>
-                <input type="number" id="actionN" class="form-control" value="3" min="1">
+            <!-- Navigation Buttons -->
+            <div id="navigationButtons" class="mb-4 text-center" style="display: none;">
+                <button id="prevCard" class="btn btn-secondary btn-lg mr-3">
+                    <i class="fas fa-chevron-left mr-2"></i>Previous
+                </button>
+                <button id="nextCard" class="btn btn-secondary btn-lg">
+                    Next<i class="fas fa-chevron-right ml-2"></i>
+                </button>
             </div>
 
-            <button id="applyCardAction" class="btn btn-success mt-2">Apply Action</button>
-        </section>
+            <!-- Card Action Section -->
+            <section id="cardActionSection" class="mb-4" style="display: none;">
+                <div class="form-group">
+                    <label for="cardAction">Card Action:</label>
+                    <select id="cardAction" class="form-control form-control-lg">
+                        <option value="">Select an action...</option>
+                        <option value="shuffleAnywhere">Shuffle into remaining deck</option>
+                        <option value="shuffleTopN">Shuffle into next N cards</option>
+                        <option value="replaceSameType">Replace with same type</option>
+                        <option value="introduceSentry">Introduce Sentry cards</option>
+                    </select>
 
-        <!-- In Play Cards Section -->
-        <section id="inPlaySection" class="mb-3">
-            <h3>In Play Cards</h3>
-            <div id="inPlayCards" class="d-flex flex-wrap justify-content-center">
-                <!-- In Play cards will be displayed here -->
-            </div>
-            <button id="clearInPlayCards" class="btn btn-danger mt-2">Clear In-Play Cards</button>
-        </section>
+                    <div id="actionTopNInput" class="mt-3" style="display: none;">
+                        <label for="actionN">Number of cards (N):</label>
+                        <input type="number" id="actionN" class="form-control form-control-lg" value="3" min="1">
+                    </div>
 
+                    <button id="applyCardAction" class="btn btn-success btn-lg btn-block mt-3">Apply Action</button>
+                </div>
+            </section>
+
+            <!-- In Play Cards Section -->
+            <section id="inPlaySection" class="mb-4">
+                <h3 class="mb-3">In Play Cards</h3>
+                <div id="inPlayCards" class="d-flex flex-wrap justify-content-center mb-3">
+                    <!-- In Play cards populated dynamically -->
+                </div>
+                <button id="clearInPlayCards" class="btn btn-danger btn-lg btn-block">Clear In-Play Cards</button>
+            </section>
+        </div>
     </div>
 
     <!-- Include Bootstrap JS and dependencies -->
