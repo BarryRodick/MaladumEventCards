@@ -130,8 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Enable dark mode by default (optional)
     document.body.classList.add('dark-mode');
 
-    // Load saved configuration first
-    const savedConfig = JSON.parse(localStorage.getItem('savedConfig'));
+    // Load saved configuration first, with storage check
+    let savedConfig = null;
+    if (isStorageAvailable()) {
+        savedConfig = loadSavedConfig();
+    }
     
     // Fetch the JSON files and load the data
     Promise.all([
@@ -1953,4 +1956,29 @@ function applyDarkTheme() {
     buttons.forEach(button => {
         button.classList.add('btn-hover-effect');
     });
+}
+
+// Add this helper function at the start of the file
+function isStorageAvailable() {
+    try {
+        const test = '__storage_test__';
+        localStorage.setItem(test, test);
+        localStorage.removeItem(test);
+        return true;
+    } catch(e) {
+        return false;
+    }
+}
+
+function loadSavedConfig() {
+    if (!isStorageAvailable()) {
+        console.warn('Local storage is not available');
+        return null;
+    }
+    try {
+        return JSON.parse(localStorage.getItem('savedConfig'));
+    } catch (e) {
+        console.warn('Error loading saved config:', e);
+        return null;
+    }
 }

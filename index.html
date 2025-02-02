@@ -117,6 +117,67 @@
                 font-size: 0.875rem;
             }
         }
+
+        /* Add spacing between header icons */
+        .faq-icon + .faq-icon {
+            margin-left: 15px;
+        }
+
+        /* Optional: Add hover effect for the campaign icon */
+        .faq-icon:hover .fa-scroll {
+            transform: scale(1.1);
+            transition: transform 0.2s ease;
+        }
+
+        /* Campaign Modal Styling */
+        .campaign-item {
+            background-color: #2d2d2d;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .campaign-item:hover {
+            background-color: #3d3d3d;
+            text-decoration: none;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .campaign-item h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .campaign-item small {
+            display: block;
+        }
+
+        /* Modal Close Button */
+        .modal .close {
+            opacity: 0.8;
+        }
+
+        .modal .close:hover {
+            opacity: 1;
+        }
+
+        /* Modal Background */
+        .modal-content {
+            border: 1px solid #444;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #444;
+        }
+
+        /* Campaign Icon */
+        .fa-scroll {
+            transition: transform 0.2s ease;
+        }
+
+        .faq-icon:hover .fa-scroll {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 
@@ -127,10 +188,20 @@
         <h1 class="app-logo-text mb-0">Event Cards</h1>
         
         <div id="headerButtons" class="d-flex align-items-center">
-            <!-- FAQ Icon only - removed other header buttons as they'll be part of the collapsible section -->
-            <a href="about.html" class="btn btn-link faq-icon" title="About / FAQ" aria-label="About / FAQ">
+            <!-- Add Campaign Manager Icon -->
+            <a href="#" class="faq-icon" title="Campaign Manager" data-toggle="modal" data-target="#campaignModal">
+                <i class="fas fa-scroll"></i>
+            </a>
+            
+            <!-- FAQ Icon -->
+            <a href="about.html" class="faq-icon" title="About / FAQ">
                 <i class="fas fa-question-circle"></i>
             </a>
+
+            <!-- Buy Me a Coffee Button -->
+            <div class="bmc-button-container ml-3">
+                <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="barryrodics" data-color="#000000" data-emoji="🎲" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#ffffff" data-font-color="#ffffff" data-coffee-color="#FFDD00"></script>
+            </div>
         </div>
     </header>
     
@@ -143,11 +214,11 @@
             <!-- Game Selection -->
             <section id="gameSelection" class="mb-4">
                 <div class="section-header">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#gameCheckboxes" aria-expanded="true" aria-controls="gameCheckboxes">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#gameCheckboxes" aria-expanded="false" aria-controls="gameCheckboxes">
                         <i class="fas fa-chevron-down mr-2"></i>Select Games
                     </button>
                 </div>
-                <div id="gameCheckboxes" class="collapse show">
+                <div id="gameCheckboxes" class="collapse">
                     <!-- Game checkboxes will be populated here -->
                 </div>
             </section>
@@ -155,11 +226,11 @@
             <!-- Card Type Selection and Scenario Config -->
             <section id="cardTypeSection" class="mb-4">
                 <div class="section-header">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#cardTypeContent" aria-expanded="true" aria-controls="cardTypeContent">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#cardTypeContent" aria-expanded="false" aria-controls="cardTypeContent">
                         <i class="fas fa-chevron-down mr-2"></i>Configure Deck
                     </button>
                 </div>
-                <div id="cardTypeContent" class="collapse show">
+                <div id="cardTypeContent" class="collapse">
                     <!-- Scenario Config Section -->
                     <section id="scenarioConfig" class="mb-3">
                         <!-- Difficulty Selection -->
@@ -197,8 +268,8 @@
             <button id="generateDeck" class="btn btn-primary btn-lg btn-block mb-4">Generate Deck</button>
         </div>
 
-        <!-- Active Deck Section -->
-        <div id="activeDeckSection">
+        <!-- Simplified Active Deck Section - No header, just content -->
+        <div id="activeDeckSection" style="display: none;">
             <!-- Deck Output -->
             <section id="deckOutput" class="mb-4 text-center"></section>
 
@@ -259,6 +330,142 @@
 
     <!-- Include Deck Builder JS -->
     <script src="deckbuilder.js"></script>
+
+    <!-- Add Campaign Modal -->
+    <div class="modal fade" id="campaignModal" tabindex="-1" role="dialog" aria-labelledby="campaignModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="campaignModalLabel">Campaign Manager</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="campaign-list">
+                        <a href="dungeons_of_enveron.html" class="campaign-item d-block p-3 mb-2 rounded">
+                            <h4>Dungeons of Enveron</h4>
+                            <small class="text-muted">Track your progress through the dungeons</small>
+                        </a>
+                        <a href="forbidden_creed.html" class="campaign-item d-block p-3 mb-2 rounded">
+                            <h4>The Forbidden Creed</h4>
+                            <small class="text-muted">Follow the path of the forbidden ones</small>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update the script section -->
+    <script>
+    // Add these functions to handle state persistence
+    function saveGameState() {
+        const state = {
+            // Save card type inputs
+            cardTypeInputs: {},
+            // Save game selections
+            gameSelections: {},
+            // Save the current deck state
+            deckState: {
+                currentCard: document.getElementById('deckOutput').innerHTML,
+                progressBar: document.getElementById('progressBar')?.style.width,
+                progressText: document.getElementById('progressText')?.innerText
+            }
+        };
+
+        // Save all card type input values
+        document.querySelectorAll('#cardTypeInputs input[type="number"]').forEach(input => {
+            state.cardTypeInputs[input.id] = input.value;
+        });
+
+        // Save all game checkbox states
+        document.querySelectorAll('#gameCheckboxes input[type="checkbox"]').forEach(checkbox => {
+            state.gameSelections[checkbox.id] = checkbox.checked;
+        });
+
+        localStorage.setItem('eventCardsState', JSON.stringify(state));
+    }
+
+    function loadGameState() {
+        const savedState = localStorage.getItem('eventCardsState');
+        if (savedState) {
+            const state = JSON.parse(savedState);
+            
+            // Restore card type input values
+            for (const [id, value] of Object.entries(state.cardTypeInputs)) {
+                const input = document.getElementById(id);
+                if (input) input.value = value;
+            }
+
+            // Restore game selections
+            for (const [id, checked] of Object.entries(state.gameSelections)) {
+                const checkbox = document.getElementById(id);
+                if (checkbox) checkbox.checked = checked;
+            }
+
+            // If there's a deck state, show all relevant controls
+            if (state.deckState.currentCard) {
+                const activeDeckSection = document.getElementById('activeDeckSection');
+                const deckOutput = document.getElementById('deckOutput');
+                const navigationButtons = document.getElementById('navigationButtons');
+                const cardActionSection = document.getElementById('cardActionSection');
+                const deckProgress = document.getElementById('deckProgress');
+
+                if (activeDeckSection) {
+                    activeDeckSection.style.display = 'block';
+                }
+                
+                if (deckOutput) {
+                    deckOutput.innerHTML = state.deckState.currentCard;
+                }
+
+                // Show navigation buttons
+                if (navigationButtons) {
+                    navigationButtons.style.display = 'block';
+                }
+
+                // Show card action section
+                if (cardActionSection) {
+                    cardActionSection.style.display = 'block';
+                }
+
+                // Show and update progress bar
+                if (deckProgress) {
+                    deckProgress.style.display = 'block';
+                    const progressBar = document.getElementById('progressBar');
+                    const progressText = document.getElementById('progressText');
+                    
+                    if (progressBar && state.deckState.progressBar) {
+                        progressBar.style.width = state.deckState.progressBar;
+                    }
+                    if (progressText && state.deckState.progressText) {
+                        progressText.innerText = state.deckState.progressText;
+                    }
+                }
+            }
+        }
+    }
+
+    // Save state when changes occur
+    document.addEventListener('change', saveGameState);
+    document.addEventListener('click', function(e) {
+        if (e.target.matches('#prevCard, #nextCard, #generateDeck')) {
+            setTimeout(saveGameState, 100); // Small delay to ensure card state is updated
+        }
+    });
+
+    // Load state when page loads
+    document.addEventListener('DOMContentLoaded', loadGameState);
+
+    // Keep existing generate deck click handler
+    document.getElementById('generateDeck').addEventListener('click', function() {
+        const activeDeckSection = document.getElementById('activeDeckSection');
+        if (activeDeckSection) {
+            activeDeckSection.style.display = 'block';
+        }
+    });
+    </script>
 
 </body>
 </html>

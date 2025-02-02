@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Forbidden Creed - Campaign Tracker</title>
+    <style>
+        body {
+            background-image: url('logos/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-color: #000; /* Fallback color */
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: #fff;
+        }
+
+        /* Reuse existing styles from dungeons_of_enveron.html */
+        .campaign-card {
+            background-color: rgba(244, 241, 234, 0.95);
+            color: #000;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+        }
+
+        /* Container for campaign cards */
+        .campaign-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 24px;
+            border-bottom: 2px solid #333;
+            margin-bottom: 15px;
+            font-variant: small-caps;
+            padding-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-variant: small-caps;
+        }
+
+        .section-title {
+            font-variant: small-caps;
+            font-weight: bold;
+            border-bottom: 1px solid #333;
+            margin: 15px 0;
+            padding-bottom: 5px;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #333;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+
+        .achievement-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            align-items: center;
+        }
+
+        .checkbox-track {
+            display: flex;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .companions-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .companion-item {
+            text-align: center;
+        }
+
+        .note-text {
+            font-size: 0.9em;
+            font-style: italic;
+            margin: 10px 0;
+            color: #666;
+        }
+
+        .number-input {
+            width: 60px;
+            padding: 5px;
+            border: 2px solid #333;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+            margin-left: 10px;
+            background-color: transparent;
+        }
+
+        .track-section {
+            margin: 15px 0;
+        }
+
+        .track-row {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .notes-section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 900px) {
+            .campaign-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .campaign-card {
+                width: 90%;
+                margin: 10px 0;
+            }
+        }
+
+        .servant-section {
+            margin: 15px 0;
+            line-height: 1.4;
+        }
+
+        .servant-section p {
+            margin-bottom: 15px;
+        }
+
+        .servant-section ul {
+            list-style-type: none;
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .servant-section li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .servant-section li:before {
+            content: "•";
+            position: absolute;
+            left: -15px;
+        }
+
+        .checkbox {
+            transition: background-color 0.2s ease;
+        }
+        
+        .checkbox:hover {
+            transform: scale(1.1);
+        }
+
+        .notes-content {
+            display: none;
+            padding: 10px;
+            background-color: #f4f1ea;
+            border: 1px solid #333;
+            margin-top: 10px;
+        }
+
+        .notes-content.visible {
+            display: block;
+        }
+
+        .notes-header {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #f4f1ea;
+            border: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .collapse-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .collapse-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        #notesTextarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid #666;
+            margin-top: 10px;
+            font-family: inherit;
+        }
+
+        .app-header {
+            background-color: #001300;
+            color: white;
+            padding: 10px 20px;
+        }
+
+        .app-logo-text {
+            font-size: 24px;
+            font-weight: normal;
+            margin-right: 10px;
+        }
+
+        .faq-icon {
+            color: white;
+            font-size: 1.5rem;
+            margin-left: 20px;
+            transition: transform 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .faq-icon:hover {
+            color: #cccccc;
+            text-decoration: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="app-header dark-green-bar d-flex align-items-center justify-content-between p-3">
+        <div class="d-flex align-items-center">
+            <a href="index.html" class="text-white text-decoration-none d-flex align-items-center">
+                <h1 class="app-logo-text mb-0">Event Cards</h1>
+                <i class="fas fa-scroll ml-2"></i>
+            </a>
+        </div>
+        
+        <div id="headerButtons" class="d-flex align-items-center">
+            <!-- FAQ Button -->
+            <a href="about.html" class="faq-icon" title="About / FAQ">
+                <i class="fas fa-question-circle"></i>
+            </a>
+            
+            <!-- Buy Me a Coffee Button -->
+            <div class="bmc-button-container ml-3">
+                <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="barryrodics" data-color="#000000" data-emoji="🎲" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#ffffff" data-font-color="#ffffff" data-coffee-color="#FFDD00"></script>
+            </div>
+        </div>
+    </header>
+
+    <div class="notes-section">
+        <div class="notes-header" onclick="toggleNotes()">
+            Campaign Notes <span class="collapse-icon">▼</span>
+        </div>
+        <div class="notes-content" id="notesContent">
+            <textarea id="notesTextarea" placeholder="Add your campaign notes here..."></textarea>
+        </div>
+    </div>
+
+    <div class="campaign-container">
+        <!-- Page 1 -->
+        <div class="campaign-card">
+            <div class="title">The Forbidden Creed</div>
+            <div class="subtitle">Campaign Log - Page 1</div>
+
+            <div class="section-title">Achievements</div>
+            <div class="achievements">
+                <div class="achievement-row">
+                    <span>We've Been Expecting You... <div class="checkbox"></div></span>
+                </div>
+
+                <div class="achievement-row">
+                    <span>Cadaverous Clues:</span>
+                    <div class="checkbox-track">
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                    </div>
+                </div>
+
+                <div class="achievement-row">
+                    <span>Cabal Correspondence: <div class="checkbox"></div></span>
+                </div>
+
+                <div class="achievement-row">
+                    <span>Ongoing Rituals:</span>
+                    <div class="checkbox-track">
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                    </div>
+                </div>
+
+                <div class="note-text">
+                    Note: If you are required to mark a space here and cannot, mark the Ascendant Domination track instead.
+                </div>
+
+                <div class="achievement-row">
+                    <span>Pillars Extinguished:</span>
+                    <div class="checkbox-track">
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title">Chiau's Arrival</div>
+            <div class="arrival-track">
+                <div class="achievement-row">
+                    <span>Unexpectedly Early <div class="checkbox"></div></span>
+                    <span>"Arrives Precisely When She Means To" <div class="checkbox"></div></span>
+                    <span>"A Maladaar is Sometimes Late" <div class="checkbox"></div></span>
+                </div>
+            </div>
+
+            <div class="achievements">
+                <div class="achievement-row">
+                    <span>The Way is Shut: <div class="checkbox"></div></span>
+                    <span>Corazon's Curse: <div class="checkbox"></div></span>
+                </div>
+
+                <div class="achievement-row">
+                    <span>Revealed Plans:</span>
+                    <div class="checkbox-track">
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title">Companions</div>
+            <div class="companions-grid">
+                <div class="companion-item">
+                    <div>Astet</div>
+                    <div class="checkbox"></div>
+                </div>
+                <div class="companion-item">
+                    <div>Miri</div>
+                    <div class="checkbox"></div>
+                </div>
+                <div class="companion-item">
+                    <div>Nynn</div>
+                    <div class="checkbox"></div>
+                </div>
+                <div class="companion-item">
+                    <div>Reeki</div>
+                    <div class="checkbox"></div>
+                </div>
+                <div class="companion-item">
+                    <div>Tilik'eti</div>
+                    <div class="checkbox"></div>
+                </div>
+            </div>
+
+            <div class="note-text">
+                Companions controlled by the Cabal use their master's Warded value.<br>
+                Mark above when defeated or hired by Adventurers.<br>
+                Notes: Only the Freed version of Miri is used. Reeki is used when specified and cannot be randomly selected.
+            </div>
+        </div>
+
+        <!-- Page 2 -->
+        <div class="campaign-card">
+            <div class="title">The Forbidden Creed</div>
+            <div class="subtitle">Campaign Log - Page 2</div>
+
+            <div class="section-title">Ascendant Domination</div>
+            <div class="track-section">
+                <div class="track-row">
+                    <div class="checkbox-track">
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                    </div>
+                </div>
+                <div class="track-row">
+                    <div class="checkbox-track">
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                    </div>
+                </div>
+                <div class="note-text">
+                    • Mark one space in each Assessment Phase while the Cabal control the Ascendant.<br>
+                    • Erase two spaces each time a Cabal member is defeated.<br><br>
+                    If this track is filled, the Cabal have assimilated the Ascendant's power and the campaign is over. Remove the Cabal from play, if applicable. Once Adventurers have escaped the current quest, refer to the Consequences section of Quest FC-F on page 24.
+                </div>
+            </div>
+
+            <div class="section-title">Corazon the "Servant"</div>
+            <div class="servant-section">
+                <p>When noted by a quest, Corazon does not enter play as a Cabal member. Instead, he is Phedra's Companion. He will not engage enemies. He has one Health and uses Phedra's Warded value, boosted as normal.</p>
+                
+                <p>If Corazon is defeated, Corrupt the Adventurer that defeated him and mark a Corazon's Curse Achievement.</p>
+                
+                <p>When Corazon activates, if he is unengaged and there are Adventurers within short range and LoS, he expends his actions to manipulate them. The closest Adventurer makes a Persuade roll against Corazon.</p>
+                
+                <ul>
+                    <li>If they exceed his Persuade value, there is no effect.</li>
+                    <li>If they equal his Persuade value, they make one action as if they were an Adversary.</li>
+                    <li>If they roll less than his Persuade value, they make two actions as if they were an Adversary.</li>
+                </ul>
+                
+                <p>The Adventurer becomes Fatigued for each action taken.</p>
+                
+                <p>This is repeated with his next action for the next closest Adventurer if applicable. Otherwise, he follows his normal rules for any remaining actions.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get references to elements
+        const notesContent = document.getElementById('notesContent');
+        const notesTextarea = document.getElementById('notesTextarea');
+        const collapseIcon = document.querySelector('.collapse-icon');
+        const checkboxes = document.querySelectorAll('.checkbox');
+
+        // Function to toggle notes visibility
+        function toggleNotes() {
+            notesContent.classList.toggle('visible');
+            collapseIcon.classList.toggle('rotated');
+            saveState();
+        }
+
+        // Add click handler to all checkboxes
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('click', function() {
+                this.style.backgroundColor = this.style.backgroundColor ? '' : '#333';
+                saveState();
+            });
+        });
+
+        // Add storage availability check
+        function isStorageAvailable() {
+            try {
+                const test = '__storage_test__';
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+                return true;
+            } catch(e) {
+                return false;
+            }
+        }
+
+        function saveState() {
+            if (!isStorageAvailable()) {
+                console.warn('Local storage is not available');
+                return;
+            }
+            try {
+                const state = {
+                    checkboxes: Array.from(document.querySelectorAll('.checkbox')).map(cb => cb.style.backgroundColor === 'black'),
+                    inputs: Array.from(document.querySelectorAll('.input-field')).map(input => input.value),
+                    notes: notesTextarea.value,
+                    notesVisible: notesContent.classList.contains('visible')
+                };
+                localStorage.setItem('forbiddenCreedState', JSON.stringify(state));
+            } catch (e) {
+                console.warn('Error saving state:', e);
+            }
+        }
+
+        function loadState() {
+            if (!isStorageAvailable()) {
+                console.warn('Local storage is not available');
+                return;
+            }
+            try {
+                const savedState = localStorage.getItem('forbiddenCreedState');
+                if (savedState) {
+                    const state = JSON.parse(savedState);
+                    
+                    // Restore notes
+                    if (state.notes) {
+                        notesTextarea.value = state.notes;
+                    }
+                    
+                    // Restore notes visibility
+                    if (state.notesVisible) {
+                        notesContent.classList.add('visible');
+                        collapseIcon.classList.add('rotated');
+                    }
+
+                    // Restore checkboxes
+                    state.checkboxes.forEach((isChecked, index) => {
+                        if (isChecked && checkboxes[index]) {
+                            checkboxes[index].style.backgroundColor = '#333';
+                        }
+                    });
+                }
+            } catch (e) {
+                console.warn('Error loading state:', e);
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            if (isStorageAvailable()) {
+                loadState();
+            }
+        });
+
+        // Save notes as they're typed
+        notesTextarea.addEventListener('input', saveState);
+    </script>
+</body>
+</html> 
