@@ -532,44 +532,52 @@ function updateDifficultyDetails() {
 
 // Function to save configuration
 function saveConfiguration() {
-    const config = {
-        selectedGames,
-        selectedDifficultyIndex: document.getElementById('difficultyLevel').value,
-        cardCounts: {},
-        specialCardCounts: {},
-        sentryCardCounts: {},
-        enableSentryRules: document.getElementById('enableSentryRules').checked,
-        enableCorrupterRules: document.getElementById('enableCorrupterRules').checked,
-        // Save arrays of card IDs instead of full objects
-        currentDeckIds: currentDeck.map(card => card.id),
-        currentIndex,
-        discardPileIds: discardPile.map(card => card.id),
-        inPlayCardIds: inPlayCards.map(card => card.id),
-        initialDeckSize,
-        sentryDeckIds: sentryDeck.map(card => card.id),
-        selectedCardsMapIds: Array.from(selectedCardsMap.keys()), // Save selected cards
-        lastSaved: new Date().getTime(),
-        isBuilderCollapsed: document.getElementById('deckBuilderControls')?.classList.contains('collapsed') || false,
-    };
+    if (!isStorageAvailable()) {
+        console.warn('Local storage is not available');
+        return;
+    }
 
-    // Save card counts
-    allCardTypes.forEach(type => {
-        const inputId = `type-${type}`;
-        const element = document.getElementById(inputId);
-        if (element) {
-            const count = parseInt(element.value) || 0;
-            if (sentryCardTypes.includes(type) && config.enableSentryRules) {
-                config.sentryCardCounts[type] = count;
-            } else if (corrupterCardTypes.includes(type) && config.enableCorrupterRules) {
-                config.specialCardCounts[type] = count;
-            } else {
-                config.cardCounts[type] = count;
+    try {
+        const config = {
+            selectedGames: selectedGames,
+            selectedDifficultyIndex: document.getElementById('difficultyLevel')?.value,
+            cardCounts: {},
+            specialCardCounts: {},
+            sentryCardCounts: {},
+            enableSentryRules: document.getElementById('enableSentryRules')?.checked,
+            enableCorrupterRules: document.getElementById('enableCorrupterRules')?.checked,
+            currentDeck: currentDeck,
+            currentIndex: currentIndex,
+            discardPile: discardPile,
+            sentryDeck: sentryDeck,
+            initialDeckSize: initialDeckSize,
+            inPlayCardsHTML: document.getElementById('inPlayCards')?.innerHTML || ''
+        };
+
+        // Save all card type input values
+        allCardTypes.forEach(type => {
+            const inputElement = document.getElementById(`type-${type}`);
+            if (inputElement) {
+                if (sentryCardTypes.includes(type) && config.enableSentryRules) {
+                    config.sentryCardCounts[type] = parseInt(inputElement.value) || 0;
+                } else if (corrupterCardTypes.includes(type) && config.enableCorrupterRules) {
+                    config.specialCardCounts[type] = parseInt(inputElement.value) || 0;
+                } else {
+                    config.cardCounts[type] = parseInt(inputElement.value) || 0;
+                }
             }
-        }
-    });
+        });
 
-    localStorage.setItem('savedConfig', JSON.stringify(config));
-    console.log('Configuration Saved:', config);
+        // Save game selections
+        config.selectedGames = Array.from(document.querySelectorAll('#gameCheckboxes input[type="checkbox"]'))
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+
+        localStorage.setItem('savedConfig', JSON.stringify(config));
+        console.log('Configuration Saved:', config);
+    } catch (e) {
+        console.error('Error saving configuration:', e);
+    }
 }
 
 // Function to restore deck state from saved configuration
@@ -577,69 +585,88 @@ function restoreDeckState(savedConfig) {
     if (!savedConfig) return;
 
     try {
-        // Restore selected cards map
-        selectedCardsMap.clear();
-        if (savedConfig.selectedCardsMapIds) {
-            savedConfig.selectedCardsMapIds.forEach(id => selectedCardsMap.set(id, true));
+        // Restore game selections
+        if (savedConfig.selectedGames) {
+            document.querySelectorAll('#gameCheckboxes input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = savedConfig.selectedGames.includes(checkbox.value);
+            });
+            selectedGames = savedConfig.selectedGames;
         }
 
-        // Reconstruct currentDeck from IDs
-        if (savedConfig.currentDeckIds && Array.isArray(savedConfig.currentDeckIds)) {
-            currentDeck = savedConfig.currentDeckIds
-                .map(id => findCardById(id))
-                .filter(card => card !== null);
+        // Restore card counts
+        if (savedConfig.cardCounts) {
+            Object.entries(savedConfig.cardCounts).forEach(([type, count]) => {
+                const inputElement = document.getElementById(`type-${type}`);
+                if (inputElement) {
+                    inputElement.value = count;
+                }
+            });
         }
 
-        // Restore current index
-        if (savedConfig.currentIndex !== undefined) {
+        // Restore special card counts
+        if (savedConfig.specialCardCounts) {
+            Object.entries(savedConfig.specialCardCounts).forEach(([type, count]) => {
+                const inputElement = document.getElementById(`type-${type}`);
+                if (inputElement) {
+                    inputElement.value = count;
+                }
+            });
+        }
+
+        // Restore sentry card counts
+        if (savedConfig.sentryCardCounts) {
+            Object.entries(savedConfig.sentryCardCounts).forEach(([type, count]) => {
+                const inputElement = document.getElementById(`type-${type}`);
+                if (inputElement) {
+                    inputElement.value = count;
+                }
+            });
+        }
+
+        // Restore rule settings
+        if (document.getElementById('enableSentryRules')) {
+            document.getElementById('enableSentryRules').checked = savedConfig.enableSentryRules || false;
+        }
+        if (document.getElementById('enableCorrupterRules')) {
+            document.getElementById('enableCorrupterRules').checked = savedConfig.enableCorrupterRules || false;
+        }
+
+        // Restore deck state
+        if (savedConfig.currentDeck) {
+            currentDeck = savedConfig.currentDeck;
             currentIndex = savedConfig.currentIndex;
-        }
-
-        // Restore discard pile
-        if (savedConfig.discardPileIds && Array.isArray(savedConfig.discardPileIds)) {
-            discardPile = savedConfig.discardPileIds
-                .map(id => findCardById(id))
-                .filter(card => card !== null);
+            discardPile = savedConfig.discardPile || [];
+            sentryDeck = savedConfig.sentryDeck || [];
+            initialDeckSize = savedConfig.initialDeckSize || 0;
         }
 
         // Restore in-play cards
-        if (savedConfig.inPlayCardIds && Array.isArray(savedConfig.inPlayCardIds)) {
-            inPlayCards = savedConfig.inPlayCardIds
-                .map(id => findCardById(id))
-                .filter(card => card !== null);
+        const inPlayCards = document.getElementById('inPlayCards');
+        if (inPlayCards && savedConfig.inPlayCardsHTML) {
+            inPlayCards.innerHTML = savedConfig.inPlayCardsHTML;
+            
+            // Reattach event listeners to discard buttons
+            inPlayCards.querySelectorAll('.btn-danger').forEach(button => {
+                button.onclick = function() {
+                    button.closest('.mb-3').remove();
+                    saveConfiguration();
+                };
+            });
         }
 
-        // Restore initial deck size
-        if (savedConfig.initialDeckSize !== undefined) {
-            initialDeckSize = savedConfig.initialDeckSize;
-        }
-
-        // Restore sentry deck
-        if (savedConfig.sentryDeckIds && Array.isArray(savedConfig.sentryDeckIds)) {
-            sentryDeck = savedConfig.sentryDeckIds
-                .map(id => findCardById(id))
-                .filter(card => card !== null);
+        // Show the deck if it exists
+        if (currentDeck && currentDeck.length > 0) {
+            document.getElementById('activeDeckSection').style.display = 'block';
+            showCurrentCard();
         }
 
         console.log('Deck state restored:', {
             currentDeckSize: currentDeck.length,
             currentIndex: currentIndex,
             discardPileSize: discardPile.length,
-            inPlayCardsSize: inPlayCards.length,
+            inPlayCardsSize: inPlayCards?.children.length || 0,
             sentryDeckSize: sentryDeck.length
         });
-
-        // Restore deck display and card actions
-        if (currentDeck && currentDeck.length > 0) {
-            displayDeck();
-            
-            // Ensure card action section is visible and initialized
-            const cardActionSection = document.getElementById('cardActionSection');
-            if (cardActionSection) {
-                cardActionSection.style.display = 'block';
-                updateCardActionSelect();
-            }
-        }
     } catch (error) {
         console.error('Error restoring deck state:', error);
         localStorage.removeItem('savedConfig');
@@ -859,6 +886,12 @@ function generateDeck() {
     console.log('Sentry Rules Enabled:', isSentryEnabled);
     console.log('Corrupter Rules Enabled:', isCorrupterEnabled);
 
+    // After deck generation, make sure to show the active deck section
+    const activeDeckSection = document.getElementById('activeDeckSection');
+    if (activeDeckSection) {
+        activeDeckSection.style.display = 'block';
+    }
+
     // Display the deck
     displayDeck();
 
@@ -868,7 +901,19 @@ function generateDeck() {
         cardActionSection.style.display = 'block';
     }
 
-    // Collapse the "Select Games" and "Scenario Config" sections
+    // Show navigation buttons
+    const navigationButtons = document.getElementById('navigationButtons');
+    if (navigationButtons) {
+        navigationButtons.style.display = 'block';
+    }
+
+    // Show the current card
+    showCurrentCard();
+
+    // Save configuration after generation
+    saveConfiguration();
+
+    // Collapse the configuration sections (optional)
     $('#gameCheckboxes').collapse('hide');
     $('#scenarioConfig').collapse('hide');
     $('#cardTypeSection').collapse('hide');

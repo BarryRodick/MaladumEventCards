@@ -271,7 +271,12 @@
         <!-- Simplified Active Deck Section - No header, just content -->
         <div id="activeDeckSection" style="display: none;">
             <!-- Deck Output -->
-            <section id="deckOutput" class="mb-4 text-center"></section>
+            <section id="deckOutput" class="mb-4 text-center">
+                <!-- Add clear button for active card -->
+                <button id="clearActiveCard" class="btn btn-danger btn-sm position-absolute" style="top: 5px; right: 5px; display: none;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </section>
 
             <!-- Progress Bar -->
             <div id="deckProgress" class="mb-4" style="display: none;">
@@ -285,6 +290,9 @@
             <div id="navigationButtons" class="mb-4 text-center" style="display: none;">
                 <button id="prevCard" class="btn btn-secondary btn-lg mr-3">
                     <i class="fas fa-chevron-left mr-2"></i>Previous
+                </button>
+                <button id="markInPlay" class="btn btn-warning btn-lg mr-3">
+                    <i class="fas fa-play-circle mr-2"></i>Mark In Play
                 </button>
                 <button id="nextCard" class="btn btn-secondary btn-lg">
                     Next<i class="fas fa-chevron-right ml-2"></i>
@@ -359,110 +367,32 @@
 
     <!-- Update the script section -->
     <script>
-    // Add these functions to handle state persistence
-    function saveGameState() {
-        const state = {
-            // Save card type inputs
-            cardTypeInputs: {},
-            // Save game selections
-            gameSelections: {},
-            // Save the current deck state
-            deckState: {
-                currentCard: document.getElementById('deckOutput').innerHTML,
-                progressBar: document.getElementById('progressBar')?.style.width,
-                progressText: document.getElementById('progressText')?.innerText
-            }
-        };
-
-        // Save all card type input values
-        document.querySelectorAll('#cardTypeInputs input[type="number"]').forEach(input => {
-            state.cardTypeInputs[input.id] = input.value;
-        });
-
-        // Save all game checkbox states
-        document.querySelectorAll('#gameCheckboxes input[type="checkbox"]').forEach(checkbox => {
-            state.gameSelections[checkbox.id] = checkbox.checked;
-        });
-
-        localStorage.setItem('eventCardsState', JSON.stringify(state));
-    }
-
-    function loadGameState() {
-        const savedState = localStorage.getItem('eventCardsState');
-        if (savedState) {
-            const state = JSON.parse(savedState);
+    // Only keep the event listener for marking cards in play
+    document.getElementById('markInPlay')?.addEventListener('click', function() {
+        const currentCard = document.getElementById('deckOutput').firstElementChild;
+        const inPlayCards = document.getElementById('inPlayCards');
+        
+        if (currentCard && inPlayCards) {
+            // Create wrapper div
+            const wrapper = document.createElement('div');
+            wrapper.className = 'mb-3 text-center';
             
-            // Restore card type input values
-            for (const [id, value] of Object.entries(state.cardTypeInputs)) {
-                const input = document.getElementById(id);
-                if (input) input.value = value;
-            }
-
-            // Restore game selections
-            for (const [id, checked] of Object.entries(state.gameSelections)) {
-                const checkbox = document.getElementById(id);
-                if (checkbox) checkbox.checked = checked;
-            }
-
-            // If there's a deck state, show all relevant controls
-            if (state.deckState.currentCard) {
-                const activeDeckSection = document.getElementById('activeDeckSection');
-                const deckOutput = document.getElementById('deckOutput');
-                const navigationButtons = document.getElementById('navigationButtons');
-                const cardActionSection = document.getElementById('cardActionSection');
-                const deckProgress = document.getElementById('deckProgress');
-
-                if (activeDeckSection) {
-                    activeDeckSection.style.display = 'block';
-                }
-                
-                if (deckOutput) {
-                    deckOutput.innerHTML = state.deckState.currentCard;
-                }
-
-                // Show navigation buttons
-                if (navigationButtons) {
-                    navigationButtons.style.display = 'block';
-                }
-
-                // Show card action section
-                if (cardActionSection) {
-                    cardActionSection.style.display = 'block';
-                }
-
-                // Show and update progress bar
-                if (deckProgress) {
-                    deckProgress.style.display = 'block';
-                    const progressBar = document.getElementById('progressBar');
-                    const progressText = document.getElementById('progressText');
-                    
-                    if (progressBar && state.deckState.progressBar) {
-                        progressBar.style.width = state.deckState.progressBar;
-                    }
-                    if (progressText && state.deckState.progressText) {
-                        progressText.innerText = state.deckState.progressText;
-                    }
-                }
-            }
-        }
-    }
-
-    // Save state when changes occur
-    document.addEventListener('change', saveGameState);
-    document.addEventListener('click', function(e) {
-        if (e.target.matches('#prevCard, #nextCard, #generateDeck')) {
-            setTimeout(saveGameState, 100); // Small delay to ensure card state is updated
-        }
-    });
-
-    // Load state when page loads
-    document.addEventListener('DOMContentLoaded', loadGameState);
-
-    // Keep existing generate deck click handler
-    document.getElementById('generateDeck').addEventListener('click', function() {
-        const activeDeckSection = document.getElementById('activeDeckSection');
-        if (activeDeckSection) {
-            activeDeckSection.style.display = 'block';
+            // Clone the card
+            const cardClone = currentCard.cloneNode(true);
+            wrapper.appendChild(cardClone);
+            
+            // Add discard button
+            const discardButton = document.createElement('button');
+            discardButton.className = 'btn btn-danger mt-2';
+            discardButton.innerHTML = '<i class="fas fa-trash"></i> Discard';
+            discardButton.onclick = function() {
+                wrapper.remove();
+                window.saveConfiguration(); // Use deckbuilder.js saveConfiguration
+            };
+            wrapper.appendChild(discardButton);
+            
+            inPlayCards.appendChild(wrapper);
+            window.saveConfiguration(); // Use deckbuilder.js saveConfiguration
         }
     });
     </script>

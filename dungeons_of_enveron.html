@@ -269,6 +269,12 @@
             color: #cccccc;
             text-decoration: none;
         }
+
+        .checkbox-group {
+            display: flex;
+            gap: 5px;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -417,7 +423,10 @@
             <div class="section-title">Necrotic Knowledge Rewards</div>
             <div class="rewards">
                 <div class="reward-item">
-                    <div class="checkbox"></div>
+                    <div class="checkbox-group">
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                    </div>
                     <div class="reward-text">
                         <strong>Tactical Insight:</strong> Add one <img src="logos/Novice.jpg" class="icon" alt="Novice"> card to the deck for each space marked.
                     </div>
@@ -435,7 +444,11 @@
                     </div>
                 </div>
                 <div class="reward-item">
-                    <div class="checkbox"></div>
+                    <div class="checkbox-group">
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                        <div class="checkbox"></div>
+                    </div>
                     <div class="reward-text">
                         <strong>Target Weakness:</strong> Adventurers may spend a Skill peg (reaction) following an attack roll against a Revenant of rank up to the spaces marked to cause 1 damage.
                     </div>
@@ -559,7 +572,10 @@
             }
             try {
                 const state = {
-                    checkboxes: Array.from(document.querySelectorAll('.checkbox')).map(cb => cb.style.backgroundColor === 'black'),
+                    checkboxGroups: Array.from(document.querySelectorAll('.checkbox-group')).map(group => 
+                        Array.from(group.querySelectorAll('.checkbox')).map(cb => cb.style.backgroundColor === 'black')
+                    ),
+                    checkboxes: Array.from(document.querySelectorAll('.reward-item:not(:has(.checkbox-group)) .checkbox')).map(cb => cb.style.backgroundColor === 'black'),
                     delayTrack: Array.from(document.querySelectorAll('.delay-checkbox')).map(cb => cb.style.backgroundColor === 'black'),
                     malagauntTrack: Array.from(document.querySelectorAll('.malagaunt-checkbox')).map(cb => cb.style.backgroundColor === 'black'),
                     numberedCircles: Array.from(document.querySelectorAll('.numbered-circle')).map(circle => circle.style.backgroundColor === 'black'),
@@ -583,7 +599,15 @@
                 if (savedState) {
                     const state = JSON.parse(savedState);
                     
-                    document.querySelectorAll('.checkbox').forEach((cb, i) => {
+                    // Load checkbox groups
+                    document.querySelectorAll('.checkbox-group').forEach((group, groupIndex) => {
+                        group.querySelectorAll('.checkbox').forEach((cb, cbIndex) => {
+                            cb.style.backgroundColor = state.checkboxGroups?.[groupIndex]?.[cbIndex] ? 'black' : '';
+                        });
+                    });
+
+                    // Load single checkboxes
+                    document.querySelectorAll('.reward-item:not(:has(.checkbox-group)) .checkbox').forEach((cb, i) => {
                         cb.style.backgroundColor = state.checkboxes[i] ? 'black' : '';
                     });
 
