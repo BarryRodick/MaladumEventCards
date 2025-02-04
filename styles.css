@@ -625,6 +625,75 @@ select.form-control-lg:hover {
 
 /* Mobile-specific improvements */
 @media (max-width: 768px) {
+    /* Adjust standard buttons */
+    button, 
+    .btn {
+        min-height: 36px;
+        min-width: 36px;
+        padding: 6px 12px;
+        margin: 2px;
+        font-size: 0.9rem;
+    }
+
+    /* Navigation buttons specific styling */
+    #navigationButtons .btn {
+        min-height: 40px;
+        padding: 8px 16px;
+        margin: 4px;
+        flex: 0 1 auto;
+        min-width: auto;
+    }
+
+    /* Number input group buttons */
+    .input-group .btn {
+        min-height: 32px;
+        min-width: 32px;
+        padding: 4px 8px;
+    }
+
+    /* Header buttons */
+    .app-header .btn {
+        padding: 4px 8px;
+        min-height: 32px;
+    }
+
+    /* Buy me coffee button container */
+    .bmc-button-container {
+        transform: scale(0.8);
+        transform-origin: right center;
+    }
+
+    /* Adjust modal buttons */
+    .modal-footer .btn {
+        padding: 6px 12px;
+        min-width: 80px;
+    }
+
+    /* Card action buttons */
+    #cardActionSection .btn {
+        padding: 8px 16px;
+        margin: 4px;
+        min-width: auto;
+    }
+
+    /* Keep form controls consistent */
+    .form-control {
+        height: 36px;
+        font-size: 0.9rem;
+    }
+
+    /* Adjust select dropdowns */
+    select.form-control {
+        height: 36px;
+        padding: 4px 24px 4px 8px;
+    }
+
+    /* Maintain spacing but smaller */
+    .container {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
     /* Reset checkbox sizing to more reasonable dimensions */
     input[type="checkbox"] {
         min-height: 20px;
