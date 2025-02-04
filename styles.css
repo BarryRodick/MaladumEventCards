@@ -625,15 +625,95 @@ select.form-control-lg:hover {
 
 /* Mobile-specific improvements */
 @media (max-width: 768px) {
-    /* Improve touch targets */
+    /* Reset checkbox sizing to more reasonable dimensions */
+    input[type="checkbox"] {
+        min-height: 20px;
+        min-width: 20px;
+        padding: 0;
+        margin: 4px;
+    }
+
+    /* Improve form group layout */
+    .form-group {
+        margin-bottom: 1rem;
+        position: relative;
+        clear: both;
+    }
+
+    /* Adjust checkbox container */
+    .form-check {
+        padding-left: 1.75rem;
+        margin-bottom: 0.5rem;
+        min-height: 24px;
+        display: flex;
+        align-items: center;
+    }
+
+    .form-check-input {
+        position: absolute;
+        left: 0;
+        margin-top: 0.25rem;
+    }
+
+    /* Fix number input buttons */
+    input[type="number"] {
+        -webkit-appearance: none;
+        -moz-appearance: textfield;
+        appearance: none;
+        padding-right: 5px;
+        height: 38px;
+    }
+
+    /* Style number input spinner buttons */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Card type input container */
+    #cardTypeInputs .input-group {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    /* Adjust input group layout */
+    .input-group {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    /* Style number adjustment buttons */
+    .input-group .btn {
+        min-height: 38px;
+        min-width: 38px;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Ensure input fields don't overflow */
+    .input-group input[type="number"] {
+        width: 60px;
+        text-align: center;
+        flex: 0 0 auto;
+    }
+
+    /* Adjust label spacing */
+    .input-group label {
+        margin-right: 10px;
+        margin-bottom: 0;
+        flex: 1;
+    }
+
+    /* Other mobile adjustments remain the same */
     button, 
     .btn,
-    select,
-    input[type="checkbox"],
-    input[type="radio"] {
+    select {
         min-height: 44px;
-        min-width: 44px;
-        padding: 12px 16px;
+        padding: 8px 16px;
         margin: 4px;
     }
 

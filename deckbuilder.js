@@ -289,6 +289,9 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.error('Element with ID "nextCard" not found.');
     }
+
+    // Call this function when the page loads
+    setupNumberInputs();
 });
 
 // ============================
@@ -1917,4 +1920,48 @@ function loadSavedConfig() {
         console.warn('Error loading saved config:', e);
         return null;
     }
+}
+
+// Add this function to handle number input adjustments
+function setupNumberInputs() {
+    document.querySelectorAll('.input-group').forEach(group => {
+        const input = group.querySelector('input[type="number"]');
+        const minusBtn = group.querySelector('.btn-minus');
+        const plusBtn = group.querySelector('.btn-plus');
+
+        if (input && minusBtn && plusBtn) {
+            // Minus button click handler
+            minusBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const currentValue = parseInt(input.value) || 0;
+                const minValue = parseInt(input.min) || 0;
+                if (currentValue > minValue) {
+                    input.value = currentValue - 1;
+                    input.dispatchEvent(new Event('change'));
+                }
+            });
+
+            // Plus button click handler
+            plusBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const currentValue = parseInt(input.value) || 0;
+                const maxValue = parseInt(input.max);
+                if (!maxValue || currentValue < maxValue) {
+                    input.value = currentValue + 1;
+                    input.dispatchEvent(new Event('change'));
+                }
+            });
+
+            // Touch event handlers for better mobile response
+            minusBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                minusBtn.click();
+            });
+
+            plusBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                plusBtn.click();
+            });
+        }
+    });
 }
