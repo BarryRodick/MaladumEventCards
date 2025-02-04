@@ -12,7 +12,7 @@
     
     <!-- Head content -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Deck Builder</title>
     
     <!-- Include Bootstrap CSS -->
@@ -29,6 +29,17 @@
     
     <!-- Theme color for PWA -->
     <meta name="theme-color" content="#121212">
+    
+    <!-- Add these meta tags in the head section after the existing meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Deck Builder">
+    
+    <!-- Add iOS icons -->
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="icons/icon-167x167.png">
     
     <!-- Add additional style for collapsible sections -->
     <style>
@@ -177,6 +188,76 @@
 
         .faq-icon:hover .fa-scroll {
             transform: scale(1.1);
+        }
+
+        /* Improved mobile styling */
+        @media (max-width: 576px) {
+            .container {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            /* Adjust header for mobile */
+            .app-header {
+                padding: 0.5rem !important;
+            }
+
+            .app-logo-text {
+                font-size: 1.5rem;
+            }
+
+            /* Make buttons more touch-friendly */
+            .btn {
+                padding: 12px 20px;
+                margin: 5px 0;
+            }
+
+            /* Adjust navigation buttons for mobile */
+            #navigationButtons .btn {
+                padding: 15px;
+                margin: 5px;
+                min-width: 100px;
+            }
+
+            /* Stack navigation buttons on very small screens */
+            @media (max-width: 400px) {
+                #navigationButtons {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                #navigationButtons .btn {
+                    width: 100%;
+                    margin: 5px 0;
+                }
+            }
+
+            /* Adjust modal for mobile */
+            .modal-dialog {
+                margin: 0.5rem;
+            }
+
+            /* Improve touch targets */
+            .section-header .btn-link {
+                padding: 15px 0;
+            }
+
+            /* Adjust Buy Me Coffee button for mobile */
+            .bmc-button-container {
+                transform: scale(0.8);
+                transform-origin: right center;
+            }
+        }
+
+        /* Add overscroll behavior to prevent bounce effect */
+        html {
+            overscroll-behavior: none;
+        }
+
+        /* Add touch-action manipulation for better touch handling */
+        body {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
@@ -367,6 +448,27 @@
 
     <!-- Update the script section -->
     <script>
+    // Function to show navigation buttons and card actions
+    function showGameControls() {
+        const navigationButtons = document.getElementById('navigationButtons');
+        const cardActionSection = document.getElementById('cardActionSection');
+        const deckProgress = document.getElementById('deckProgress');
+        const activeDeckSection = document.getElementById('activeDeckSection');
+        
+        if (navigationButtons) navigationButtons.style.display = 'block';
+        if (cardActionSection) cardActionSection.style.display = 'block';
+        if (deckProgress) deckProgress.style.display = 'block';
+        if (activeDeckSection) activeDeckSection.style.display = 'block';
+    }
+
+    // Check if there's an active deck on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const deckOutput = document.getElementById('deckOutput');
+        if (deckOutput && deckOutput.firstElementChild) {
+            showGameControls();
+        }
+    });
+
     // Only keep the event listener for marking cards in play
     document.getElementById('markInPlay')?.addEventListener('click', function() {
         const currentCard = document.getElementById('deckOutput').firstElementChild;

@@ -1,6 +1,7 @@
 // service-worker.js for PWA functionality
 
-const CACHE_NAME = 'deck-builder-v1.6'; // Incremented version
+const CACHE_NAME = 'deck-builder-v1.7'; // Increment version
+const APP_VERSION = '1.7'; // Add version number
 const urlsToCache = [
     './',
     './index.html',
@@ -9,6 +10,8 @@ const urlsToCache = [
     './manifest.json',
     './logos/gameicon.jpg',
     './maladumcards.json',
+    './difficulties.json',
+    './version.json' // Add this new file
     // Add paths to other assets
     // Example:
     // './cardimages/back.jpg',
@@ -33,8 +36,9 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
     console.log('[Service Worker] Activate Event');
     event.waitUntil(
-        caches.keys()
-            .then((cacheNames) => {
+        Promise.all([
+            // Clear old caches
+            caches.keys().then((cacheNames) => {
                 return Promise.all(
                     cacheNames.map((cache) => {
                         if (cache !== CACHE_NAME) {
@@ -43,11 +47,26 @@ self.addEventListener('activate', (event) => {
                         }
                     })
                 );
-            })
-            .then(() => self.clients.claim()) // Take control of all clients as soon as the service worker activates
-            .catch((error) => {
-                console.error('[Service Worker] Failed to delete old caches', error);
-            })
+            }),
+            // Check for new version
+            fetch('./version.json?nocache=' + new Date().getTime())
+                .then(response => response.json())
+                .then(data => {
+                    if (data.version !== APP_VERSION) {
+                        // New version available
+                        self.clients.matchAll().then(clients => {
+                            clients.forEach(client => {
+                                client.postMessage({
+                                    type: 'NEW_VERSION',
+                                    version: data.version
+                                });
+                            });
+                        });
+                    }
+                })
+                .catch(err => console.error('Version check failed:', err))
+        ])
+        .then(() => self.clients.claim())
     );
 });
 
