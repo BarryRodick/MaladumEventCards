@@ -1,7 +1,7 @@
 {
-    "sentryTypes": ["Revenant", "Malagaunt"],
+    "sentryTypes": ["Revenant", "Malagaunt", "Cabal"],
     "corrupterTypes": ["Corrupter"],
-    "heldBackCardTypes": ["Novice", "Commander", "Veteran"],
+    "heldBackCardTypes": ["Novice", "Commander", "Veteran", "Mountain"],
     "games": {
         "Base Game": [
             
@@ -91,7 +91,7 @@
         },
         {
             "id": 15,
-            "card": "They’re Below Us!",
+            "card": "They're Below Us!",
             "type": "Revenant",
             "contents": "Theyre_Below_Us.png"
         },
@@ -139,7 +139,7 @@
         },
         {
             "id": 23,
-            "card": "They’re Everywhere",
+            "card": "They're Everywhere",
             "type": "Environment",
             "contents": "Theyre_Everywhere.png"
         },
@@ -369,7 +369,7 @@
         },
         {
             "id": 61,
-            "card": "It’s A Trap!",
+            "card": "It's A Trap!",
             "type": "Novice",
             "contents": "Its_A_Trap.png"
         },
@@ -491,7 +491,7 @@
         },
         {
             "id": 81,
-            "card": "They’re In The Walls!",
+            "card": "They're In The Walls!",
             "type": "Veteran + Environment",
             "contents": "Theyre_In_The_Walls.png"
         },
@@ -579,7 +579,7 @@
         },
         {
             "id": 95,
-            "card": "It’s Alive",
+            "card": "It's Alive",
             "type": "Environment",
             "contents": "Its_Alive.png"
         },
@@ -596,7 +596,7 @@
             "contents": "Unmasked.png"
         }
     ],
-    "Oblivion’s Maw": [
+    "Oblivion's Maw": [
         {
             "id": 98,
             "card": "Eldritch Tentacle",
@@ -617,7 +617,7 @@
         },
         {
             "id": 101,
-            "card": "It’s Behind You!",
+            "card": "It's Behind You!",
             "type": "Corrupter",
             "contents": "Its_Behind_You.png"
         },
@@ -641,7 +641,7 @@
         },
         {
             "id": 105,
-            "card": "Don’t Look Up",
+            "card": "Don't Look Up",
             "type": "Dungeon",
             "contents": "Dont_Look_Up.png"
         },

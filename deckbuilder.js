@@ -89,6 +89,56 @@ function showUpdateNotification(newVersion) {
 // 2. Global Variables and Constants
 // ============================
 
+// 1. Consolidate configuration constants
+const CONFIG = {
+    deck: {
+        sentry: {
+            defaultCount: 4,
+            minCount: 3,
+            maxCount: 5
+        },
+        corrupter: {
+            defaultCount: 5,
+            minCount: 3,
+            maxCount: 7,
+            preferredDeckSection: 'middle'
+        }
+    },
+    storage: {
+        key: 'savedConfig',
+        testKey: '__storage_test__'
+    }
+};
+
+// 2. Rename global variables for clarity
+const state = {
+    deck: {
+        main: [],           
+        special: [],        
+        sentry: [],         
+        combined: [],       
+        discard: [],        
+        inPlay: []          
+    },
+    cards: {
+        available: [],      
+        selected: new Map() 
+    },
+    games: {
+        all: [],           
+        selected: []       
+    },
+    cardTypes: {
+        all: [],           
+        sentry: [],        
+        corrupter: [],     
+        heldBack: []       
+    },
+    currentIndex: -1,
+    initialDeckSize: 0,    // Add this line to initialize initialDeckSize
+    difficulty: null       // Optional: Add this if you want to track difficulty
+};
+
 // Grouping of cards by type
 let deckDataByType = {};
 
@@ -127,14 +177,8 @@ let inPlayCards = [];
 // Global variable for set aside cards
 let setAsideCards = []; // Moved outside generateDeck() for broader scope
 
-// Global variable to store the initial deck size
-let initialDeckSize = 0;
-
 // Variable to hold deferred restoration configuration
 let deferredDeckRestoration = null;
-
-// Global variable to store selected cards
-let selectedCardsMap = new Map(); // Declared globally for access across functions
 
 // Simplify configuration storage by combining related settings
 const GAME_CONFIG = {
@@ -159,64 +203,88 @@ document.addEventListener('DOMContentLoaded', () => {
     // Enable dark mode by default (optional)
     document.body.classList.add('dark-mode');
 
+    // Initialize empty data structures
+    dataStore = {
+        games: {},
+        sentryTypes: [],
+        corrupterTypes: [],
+        heldBackCardTypes: []
+    };
+    
     // Load saved configuration first, with storage check
     let savedConfig = null;
     if (isStorageAvailable()) {
-        savedConfig = loadSavedConfig();
+        try {
+            savedConfig = loadSavedConfig();
+        } catch (e) {
+            console.warn('Error loading saved config:', e);
+        }
     }
     
     // Fetch the JSON files and load the data
     Promise.all([
-        fetch('maladumcards.json').then(response => response.json()),
-        fetch('difficulties.json').then(response => response.json())
+        fetch('maladumcards.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .catch(error => {
+                console.error('Error loading maladumcards.json:', error);
+                return { games: {}, sentryTypes: [], corrupterTypes: [], heldBackCardTypes: [] };
+            }),
+        fetch('difficulties.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .catch(error => {
+                console.error('Error loading difficulties.json:', error);
+                return { difficulties: [] };
+            })
     ])
     .then(([cardsData, difficultiesData]) => {
-        dataStore = cardsData;
-        difficultySettings = difficultiesData.difficulties;
+        // Safely assign data
+        dataStore = cardsData || { games: {} };
+        difficultySettings = difficultiesData?.difficulties || [];
 
-        // Extract special types
+        // Extract special types with fallbacks
         sentryCardTypes = dataStore.sentryTypes || [];
         corrupterCardTypes = dataStore.corrupterTypes || [];
         heldBackCardTypes = dataStore.heldBackCardTypes || [];
 
         // Get all games (categories) from the data
-        allGames = Object.keys(dataStore.games);
+        allGames = Object.keys(dataStore.games || {});
 
-        // Restore selected games from saved config or use all games
-        if (savedConfig && savedConfig.selectedGames) {
-            selectedGames = savedConfig.selectedGames;
+        // Only proceed with UI generation if we have data
+        if (allGames.length > 0) {
+            // Restore selected games from saved config or use all games
+            selectedGames = (savedConfig && savedConfig.selectedGames) || allGames.slice();
+
+            // Generate UI elements
+            generateGameSelection(allGames);
+            populateDifficultySelection();
+            loadCardTypes();
+
+            // Restore saved state if available
+            if (savedConfig) {
+                restoreSavedState(savedConfig);
+            }
         } else {
-            selectedGames = allGames.slice();
-        }
-
-        // Generate UI elements
-        generateGameSelection(allGames);
-        populateDifficultySelection();
-        loadCardTypes();
-
-        // Restore saved state
-        if (savedConfig) {
-            // Restore rule settings
-            if (document.getElementById('enableSentryRules')) {
-                document.getElementById('enableSentryRules').checked = savedConfig.enableSentryRules || false;
-            }
-            if (document.getElementById('enableCorrupterRules')) {
-                document.getElementById('enableCorrupterRules').checked = savedConfig.enableCorrupterRules || false;
-            }
-
-            // Restore card counts and deck state
-            restoreCardCounts();
-            restoreDeckState(savedConfig);
+            showToast('No game data available. Please check your connection and refresh.');
         }
 
         // Set up event listeners
         setupEventListeners();
         enhanceButtons();
-
-        // Update card action select
-        updateCardActionSelect();
     })
-    .catch(error => console.error('Error loading the JSON files:', error));
+    .catch(error => {
+        console.error('Error loading the JSON files:', error);
+        showToast('Failed to load game data. Please refresh the page.');
+    });
 
     // Attach event listener to the generate button
     const generateDeckButton = document.getElementById('generateDeck');
@@ -306,24 +374,26 @@ function generateGameSelection(games) {
         return;
     }
     gameCheckboxes.innerHTML = ''; // Clear existing checkboxes
+    
+    // Create a container for each checkbox
     games.forEach(game => {
+        const div = document.createElement('div');
+        div.classList.add('form-check');
+
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.id = `game-${game}`;
         checkbox.value = game;
-        checkbox.checked = selectedGames.length === 0 || selectedGames.includes(game); // Default to checked if no selection
-        checkbox.classList.add('form-check-input', 'mr-2');
+        checkbox.checked = selectedGames.length === 0 || selectedGames.includes(game);
+        checkbox.classList.add('form-check-input');
 
         const label = document.createElement('label');
         label.htmlFor = `game-${game}`;
         label.textContent = game;
         label.classList.add('form-check-label');
 
-        const div = document.createElement('div');
-        div.classList.add('form-check', 'mb-2');
         div.appendChild(checkbox);
         div.appendChild(label);
-
         gameCheckboxes.appendChild(div);
     });
 
@@ -333,10 +403,21 @@ function generateGameSelection(games) {
     }
 }
 
-// Function to parse card types considering '+' and '/'
+// Function to parse card types correctly
 function parseCardTypes(typeString) {
-    if (!typeString) return [];
-    return typeString.split(/[+\/]/).map(t => t.trim());
+    // Split by + first to get AND groups
+    const andGroups = typeString.split('+').map(group => group.trim());
+    
+    // For each AND group, split by / to get OR options
+    const parsedGroups = andGroups.map(group => {
+        const orOptions = group.split('/').map(option => option.trim());
+        return orOptions;
+    });
+
+    return {
+        andGroups: parsedGroups, // Array of arrays, each inner array contains OR options
+        allTypes: [...new Set(parsedGroups.flat())] // Unique list of all types
+    };
 }
 
 // Function to load card types based on selected games
@@ -350,11 +431,12 @@ function loadCardTypes() {
         }
     });
 
-    // Reset deckDataByType and allCardTypes
+    // Reset data structures
     deckDataByType = {};
     allCardTypes = [];
+    let uniqueTypes = new Set();
 
-    // Flatten cards from selected games and group by type
+    // Flatten cards from selected games
     let allCards = [];
     selectedGames.forEach(game => {
         if (dataStore.games[game]) {
@@ -362,32 +444,28 @@ function loadCardTypes() {
         }
     });
 
-    // Copy allCards to availableCards (Always include all cards, excluding held back cards)
+    // Copy allCards to availableCards
     availableCards = [...allCards];
     console.log('Available Cards after reset:', availableCards);
 
-    // Group cards by their types
+    // Process each card's type correctly
     allCards.forEach(card => {
-        let types = parseCardTypes(card.type);
-        types.forEach(type => {
+        const typeInfo = parseCardTypes(card.type);
+        
+        // Add all unique types to our set
+        typeInfo.allTypes.forEach(type => uniqueTypes.add(type));
+        
+        // Add card to each of its possible types
+        typeInfo.allTypes.forEach(type => {
             if (!deckDataByType[type]) {
                 deckDataByType[type] = [];
-                allCardTypes.push(type);
             }
             deckDataByType[type].push({ ...card });
         });
     });
 
-    // Remove duplicates from allCardTypes
-    allCardTypes = [...new Set(allCardTypes)];
-
-    // Dynamically include corrupter card types if they exist and are non-empty
-    // Note: Sentry cards are NOT included here; they are introduced via action
-    corrupterCardTypes.forEach(specialType => {
-        if (!allCardTypes.includes(specialType) && deckDataByType[specialType] && deckDataByType[specialType].length > 0) {
-            allCardTypes.push(specialType);
-        }
-    });
+    // Convert unique types to array
+    allCardTypes = Array.from(uniqueTypes);
 
     // Generate card type inputs with logos
     generateCardTypeInputs();
@@ -451,18 +529,34 @@ function generateCardTypeInputs() {
     });
 }
 
-// Helper function to get saved card count
+// Function to get saved card count with proper error handling
 function getSavedCardCount(type) {
-    const savedConfig = JSON.parse(localStorage.getItem('savedConfig'));
-    if (savedConfig) {
-        if ((sentryCardTypes.includes(type) && savedConfig.enableSentryRules) ||
-            (corrupterCardTypes.includes(type) && savedConfig.enableCorrupterRules)) {
-            return savedConfig.specialCardCounts[type] || 0;
-        } else {
-            return savedConfig.cardCounts[type] || 0;
+    try {
+        if (!isStorageAvailable()) {
+            return 0;
         }
+        
+        const savedConfig = localStorage.getItem(CONFIG.storage.key);
+        if (!savedConfig) {
+            return 0;
+        }
+
+        const config = JSON.parse(savedConfig);
+        if (!config) {
+            return 0;
+        }
+
+        // Check if the card is a special type and if special rules are enabled
+        if ((sentryCardTypes.includes(type) && config.enableSentryRules) ||
+            (corrupterCardTypes.includes(type) && config.enableCorrupterRules)) {
+            return (config.specialCardCounts && config.specialCardCounts[type]) || 0;
+        } else {
+            return (config.cardCounts && config.cardCounts[type]) || 0;
+        }
+    } catch (e) {
+        console.warn('Error getting saved card count:', e);
+        return 0;
     }
-    return 0;
 }
 
 // ============================
@@ -509,42 +603,25 @@ function savedDifficultyIndex() {
 // Function to update difficulty details display and adjust counts
 function updateDifficultyDetails() {
     const difficultySelect = document.getElementById('difficultyLevel');
-    const selectedOption = difficultySelect.options[difficultySelect.selectedIndex];
-    const noviceCount = selectedOption.getAttribute('data-novice');
-    const veteranCount = selectedOption.getAttribute('data-veteran');
-
     const difficultyDetails = document.getElementById('difficultyDetails');
-    if (difficultyDetails) {
-        difficultyDetails.textContent = `Novice Cards: ${noviceCount}, Veteran Cards: ${veteranCount}`;
+    
+    if (!difficultySelect || !difficultyDetails || !difficultySettings) {
+        return; // Exit if elements aren't found or settings aren't loaded
     }
 
-    // Update the counts for Novice and Veteran card types
-    const noviceInput = document.getElementById('type-Novice');
-    if (noviceInput) {
-        noviceInput.value = noviceCount;
-        // Add highlight class
-        noviceInput.classList.add('highlight-input');
+    const selectedDifficulty = difficultySettings.find(
+        d => d.level === difficultySelect.value
+    );
 
-        // Remove the highlight after a short delay
-        setTimeout(() => {
-            noviceInput.classList.remove('highlight-input');
-        }, 2000); // Highlight lasts for 2 seconds
+    if (selectedDifficulty) {
+        difficultyDetails.textContent = selectedDifficulty.description || '';
+        state.difficulty = selectedDifficulty.level;
+        
+        // Only save if we have a valid configuration
+        if (state.initialDeckSize > 0) {
+            saveConfiguration();
+        }
     }
-
-    const veteranInput = document.getElementById('type-Veteran');
-    if (veteranInput) {
-        veteranInput.value = veteranCount;
-        // Add highlight class
-        veteranInput.classList.add('highlight-input');
-
-        // Remove the highlight after a short delay
-        setTimeout(() => {
-            veteranInput.classList.remove('highlight-input');
-        }, 2000); // Highlight lasts for 2 seconds
-    }
-
-    // Save the updated counts
-    saveConfiguration();
 }
 
 // ============================
@@ -554,36 +631,35 @@ function updateDifficultyDetails() {
 // Function to save configuration
 function saveConfiguration() {
     if (!isStorageAvailable()) {
-        console.warn('Local storage is not available');
+        console.warn('Storage is not available, configuration will not be saved');
         return;
     }
 
-    const config = {
-        selectedGames: Array.from(document.querySelectorAll('#gameCheckboxes input:checked')).map(cb => cb.value),
-        selectedDifficultyIndex: document.getElementById('difficultyLevel')?.value,
-        cardCounts: Object.fromEntries(
-            allCardTypes.map(type => [
-                type,
-                parseInt(document.getElementById(`type-${type}`)?.value) || 0
-            ])
-        ),
-        enableSentryRules: document.getElementById('enableSentryRules')?.checked,
-        enableCorrupterRules: document.getElementById('enableCorrupterRules')?.checked,
-        deckState: {
-            currentDeck,
-            currentIndex,
-            discardPile,
-            sentryDeck,
-            initialDeckSize,
-            inPlayCardsHTML: document.getElementById('inPlayCards')?.innerHTML || ''
-        }
-    };
-
     try {
-        localStorage.setItem('savedConfig', JSON.stringify(config));
-        console.log('Configuration Saved:', config);
+        const config = {
+            selectedGames: selectedGames,
+            cardCounts: {},
+            specialCardCounts: {},
+            enableSentryRules: document.getElementById('enableSentryRules')?.checked || false,
+            enableCorrupterRules: document.getElementById('enableCorrupterRules')?.checked || false
+        };
+
+        // Save card counts
+        allCardTypes.forEach(type => {
+            const input = document.getElementById(`type-${type}`);
+            if (input) {
+                if ((sentryCardTypes.includes(type) && config.enableSentryRules) ||
+                    (corrupterCardTypes.includes(type) && config.enableCorrupterRules)) {
+                    config.specialCardCounts[type] = parseInt(input.value) || 0;
+                } else {
+                    config.cardCounts[type] = parseInt(input.value) || 0;
+                }
+            }
+        });
+
+        localStorage.setItem(CONFIG.storage.key, JSON.stringify(config));
     } catch (e) {
-        console.error('Error saving configuration:', e);
+        console.warn('Error saving configuration:', e);
     }
 }
 
@@ -722,7 +798,7 @@ function generateDeck() {
     discardPile = [];    // Reset discard pile
 
     // Reset selectedCardsMap
-    selectedCardsMap.clear(); // Clears the Map without changing its reference
+    state.cards.selected.clear(); // Clears the Map without changing its reference
 
     // Reset availableCards without affecting user inputs
     resetAvailableCards();
@@ -762,8 +838,10 @@ function generateDeck() {
 
     // Separate held back cards
     availableCards = availableCards.filter(card => {
-        let types = parseCardTypes(card.type);
-        if (types.some(type => heldBackCardTypes.includes(type))) {
+        const typeInfo = parseCardTypes(card.type);
+        // Check if any of the card's types are in heldBackCardTypes
+        const isHeldBack = typeInfo.allTypes.some(type => heldBackCardTypes.includes(type));
+        if (isHeldBack) {
             setAsideCards.push(card);
             return false; // Remove from availableCards
         }
@@ -781,7 +859,7 @@ function generateDeck() {
         const count = cardCounts[type];
         if (count > 0) {
             hasRegularCardSelection = true;
-            const selectedCards = selectCardsByType(type, count, selectedCardsMap, cardCounts, false);
+            const selectedCards = selectCardsByType(type, count, state.cards.selected, cardCounts, false);
             regularDeck = regularDeck.concat(selectedCards);
         }
     });
@@ -793,22 +871,29 @@ function generateDeck() {
             const count = specialCardCounts[type];
             if (count > 0) {
                 hasSpecialCardSelection = true;
-                const selectedSpecialCards = selectCardsByType(type, count, selectedCardsMap, specialCardCounts, true);
+                const selectedSpecialCards = selectCardsByType(type, count, state.cards.selected, specialCardCounts, true);
                 specialDeck = specialDeck.concat(selectedSpecialCards);
             }
         }
     });
 
     // Selecting Sentry cards based on counts from inputs
-    allCardTypes.forEach(type => {
-        if (sentryCardTypes.includes(type) && isSentryEnabled) {
-            const count = sentryCardCounts[type];
-            if (count > 0) {
-                const selectedSentryCards = selectCardsByType(type, count, selectedCardsMap, sentryCardCounts, true);
-                sentryDeck = sentryDeck.concat(selectedSentryCards);
+    if (isSentryEnabled) {
+        sentryDeck = []; // Reset sentry deck
+        allCardTypes.forEach(type => {
+            if (sentryCardTypes.includes(type)) {
+                const count = sentryCardCounts[type];
+                if (count > 0) {
+                    const selectedSentryCards = selectCardsByType(type, count, state.cards.selected, sentryCardCounts, true);
+                    sentryDeck = sentryDeck.concat(selectedSentryCards);
+                }
             }
-        }
-    });
+        });
+        
+        // Important: Sentry cards should NOT be added to the main deck yet
+        // They will be introduced later via the introduceSentryCards action
+        console.log(`Selected ${sentryDeck.length} Sentry cards for later introduction`);
+    }
 
     // Selecting held back cards based on counts from inputs
     let selectedHeldBackCards = [];
@@ -816,7 +901,7 @@ function generateDeck() {
         const count = cardCounts[type];
         if (count > 0) {
             hasRegularCardSelection = true;
-            const selectedCards = selectHeldBackCardsByType(type, count, selectedCardsMap, cardCounts);
+            const selectedCards = selectHeldBackCardsByType(type, count, state.cards.selected, cardCounts);
             selectedHeldBackCards = selectedHeldBackCards.concat(selectedCards);
         }
     });
@@ -911,16 +996,11 @@ function selectCardsByType(cardType, count, selectedCardsMap, cardCounts, isSpec
     let selectedCards = [];
     console.log(`Selecting ${count} cards for type: "${cardType}"`);
 
-    // Get all available cards that could satisfy this type, including duplicates
+    // Get all available cards that could satisfy this type
     let cardsOfType = availableCards.filter(card => {
-        let cardTypes = card.type.split('+').map(t => t.trim());
-        
-        // For each AND group in the card
-        return cardTypes.some(typeGroup => {
-            // Split OR conditions
-            let orTypes = typeGroup.split('/').map(t => t.trim());
-            return orTypes.includes(cardType);
-        });
+        const typeInfo = parseCardTypes(card.type);
+        // Check if any of the card's types match the requested type
+        return typeInfo.allTypes.includes(cardType);
     });
 
     console.log(`Found ${cardsOfType.length} potential cards for type "${cardType}"`);
@@ -932,42 +1012,39 @@ function selectCardsByType(cardType, count, selectedCardsMap, cardCounts, isSpec
     for (let card of shuffledCards) {
         if (selectedCards.length >= count) break;
 
-        // Allow duplicates by checking if this specific instance can be selected
+        // Skip if card is already selected
+        if (selectedCardsMap.has(card.id)) continue;
+
+        // Check if we can select this card based on its type requirements
+        const typeInfo = parseCardTypes(card.type);
         let canSelect = true;
-        let andGroups = card.type.split('+').map(t => t.trim());
-        
-        // Check if we can select this card
-        canSelect = andGroups.every(group => {
-            let orTypes = group.split('/').map(t => t.trim());
-            
-            // For OR types, we need at least one type to have remaining count
-            return orTypes.some(type => {
-                // For the requested type, use the passed count
-                if (type === cardType) return true;
-                // For other types, check if we have remaining count
-                return cardCounts[type] && cardCounts[type] > 0;
+
+        // For each AND group, we need to ensure we have enough count for at least one type in the OR options
+        typeInfo.andGroups.forEach(orOptions => {
+            let hasValidOption = orOptions.some(type => {
+                if (type === cardType) return true; // This is the type we're selecting for
+                return cardCounts[type] && cardCounts[type] > 0; // Check other required types
             });
+            if (!hasValidOption) canSelect = false;
         });
 
         if (canSelect) {
             selectedCards.push(card);
+            selectedCardsMap.set(card.id, true);
             
-            // Decrease counts for all required types
-            andGroups.forEach(group => {
-                let orTypes = group.split('/').map(t => t.trim());
+            // Decrease counts for required types
+            typeInfo.andGroups.forEach(orOptions => {
                 // Find the first available type in OR group and decrease its count
-                for (let type of orTypes) {
+                for (let type of orOptions) {
                     if (cardCounts[type] && cardCounts[type] > 0) {
                         cardCounts[type]--;
                         console.log(`Decreased count for type "${type}" to ${cardCounts[type]}`);
-                        break; // Only decrease one count per OR group
+                        break; // Only decrease one count per AND group
                     }
                 }
             });
             
             console.log(`Selected card ID ${card.id}: "${card.card}"`);
-        } else {
-            console.log(`Cannot select card ID ${card.id} due to insufficient type counts`);
         }
     }
 
@@ -978,13 +1055,12 @@ function selectCardsByType(cardType, count, selectedCardsMap, cardCounts, isSpec
 // Function to select held back cards by type
 function selectHeldBackCardsByType(cardType, count, selectedCardsMap, cardCounts) {
     let selectedCards = [];
-
     console.log(`Selecting ${count} held back cards for type: "${cardType}"`);
 
-    // Cards that can satisfy this type (considering '/' as OR)
+    // Get cards that can satisfy this type
     let cardsOfType = setAsideCards.filter(card => {
-        let types = parseCardTypes(card.type);
-        return types.includes(cardType);
+        const typeInfo = parseCardTypes(card.type);
+        return typeInfo.allTypes.includes(cardType);
     });
 
     console.log(`Available held back cards for type "${cardType}":`, cardsOfType);
@@ -996,7 +1072,7 @@ function selectHeldBackCardsByType(cardType, count, selectedCardsMap, cardCounts
     for (let card of shuffledCards) {
         if (selectedCards.length >= count) break;
 
-        const cardId = card.id; // Use 'id' for uniqueness
+        const cardId = card.id;
         if (selectedCardsMap.has(cardId)) {
             console.log(`Card ID ${cardId} already selected.`);
             continue;
@@ -1185,13 +1261,13 @@ function updateProgressBar() {
 
 // Function to check if a card is already in play
 function isCardInPlay(card) {
-    return inPlayCards.some(inPlayCard => inPlayCard.id === card.id);
+    return state.deck.inPlay.some(inPlayCard => inPlayCard.id === card.id);
 }
 
 // Function to mark a card as in play
 function markCardAsInPlay(card) {
     if (!isCardInPlay(card)) {
-        inPlayCards.push(card);
+        state.deck.inPlay.push(card);
         updateInPlayCardsDisplay();
         showToast(`Card "${card.card}" marked as in play.`);
         saveConfiguration();
@@ -1210,13 +1286,13 @@ function updateInPlayCardsDisplay() {
     }
     inPlayContainer.innerHTML = ''; // Clear previous content
 
-    if (inPlayCards.length === 0) {
+    if (state.deck.inPlay.length === 0) {
         inPlayContainer.innerHTML = '<p>No cards in play.</p>';
         inPlaySection.style.display = 'none';
         return;
     }
 
-    inPlayCards.forEach(card => {
+    state.deck.inPlay.forEach(card => {
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('card', 'mb-2');
         cardDiv.style.width = '100%';
@@ -1253,7 +1329,7 @@ function updateInPlayCardsDisplay() {
 
 // Function to remove a card from play
 function removeCardFromPlay(card) {
-    inPlayCards = inPlayCards.filter(inPlayCard => inPlayCard.id !== card.id);
+    state.deck.inPlay = state.deck.inPlay.filter(inPlayCard => inPlayCard.id !== card.id);
     updateInPlayCardsDisplay();
     showToast(`Card "${card.card}" removed from play.`);
     saveConfiguration();
@@ -1261,7 +1337,7 @@ function removeCardFromPlay(card) {
 
 // Function to clear all in-play cards
 function clearInPlayCards() {
-    inPlayCards = [];
+    state.deck.inPlay = [];
     updateInPlayCardsDisplay();
     showToast('All in-play cards have been cleared.');
     saveConfiguration();
@@ -1381,30 +1457,37 @@ function setupEventListeners() {
 // 12. Card Action Functions
 // ============================
 
+// 3. Consolidate card action handlers
 const cardActions = {
     shuffleAnywhere: (card) => {
-        currentDeck.splice(currentIndex, 1);
-        regularDeck.push(card);
-        regularDeck = shuffleDeck(regularDeck);
-        currentDeck = regularDeck.concat(specialDeck);
-        currentIndex--;
+        state.deck.main.push(card);
+        state.deck.main = shuffleDeck(state.deck.main);
+        state.deck.combined = state.deck.main.concat(state.deck.special);
         return `Card "${card.card}" shuffled back into the deck.`;
     },
     
     shuffleTopN: (card, n) => {
         if (n <= 0) return 'Please enter a valid number for N.';
-        const remainingCards = currentDeck.length - (currentIndex + 1);
+        
+        const remainingCards = state.deck.combined.length - (state.currentIndex + 1);
         if (remainingCards <= 0) return 'No cards ahead to shuffle into.';
         
         n = Math.min(n, remainingCards);
-        currentDeck.splice(currentIndex, 1);
-        const nextNCards = currentDeck.slice(currentIndex, currentIndex + n);
+        const nextNCards = state.deck.combined.slice(state.currentIndex + 1, state.currentIndex + 1 + n);
         const shuffledSection = shuffleDeck([...nextNCards, card]);
-        currentDeck.splice(currentIndex, n, ...shuffledSection);
-        currentIndex--;
+        
+        state.deck.combined.splice(state.currentIndex + 1, n, ...shuffledSection);
         return `Card "${card.card}" shuffled into the next ${n} cards.`;
-    }
-    // Add other actions similarly
+    },
+    
+    introduceSentry: () => {
+        if (introduceSentryCards()) {
+            return 'Sentry cards have been introduced into the remaining deck.';
+        }
+        return 'Failed to introduce Sentry cards.';
+    },
+    
+    // Add other actions as needed
 };
 
 function applyCardAction() {
@@ -1577,7 +1660,7 @@ function handleCorrupterRules(regularDeck) {
 
     const corrupterCards = availableCards.filter(card => {
         let cardTypes = parseCardTypes(card.type);
-        return cardTypes.some(type => corrupterCardTypes.includes(type));
+        return cardTypes.andTypes.some(type => corrupterCardTypes.includes(type));
     });
 
     if (corrupterCards.length === 0) {
@@ -1617,10 +1700,10 @@ function handleCorrupterRules(regularDeck) {
     // Replace cards with Corrupters
     let corruptersAdded = 0;
     positions.forEach(pos => {
-        const availableCorrupters = corrupterCards.filter(card => !selectedCardsMap.has(card.id));
+        const availableCorrupters = corrupterCards.filter(card => !state.cards.selected.has(card.id));
         if (availableCorrupters.length > 0) {
             const corrupterCard = availableCorrupters[Math.floor(Math.random() * availableCorrupters.length)];
-            selectedCardsMap.set(corrupterCard.id, true);
+            state.cards.selected.set(corrupterCard.id, true);
             regularDeck[pos] = corrupterCard;
             corruptersAdded++;
         }
@@ -1639,7 +1722,7 @@ function handleSentryRules(regularDeck) {
     // Get all available Sentry cards (cards with types Revenant or Malagaunt)
     const sentryCards = availableCards.filter(card => {
         let cardTypes = parseCardTypes(card.type);
-        return cardTypes.some(type => sentryCardTypes.includes(type));
+        return cardTypes.andTypes.some(type => sentryCardTypes.includes(type));
     });
 
     if (sentryCards.length === 0) {
@@ -1652,9 +1735,9 @@ function handleSentryRules(regularDeck) {
     
     // Select random Sentry cards that haven't been used yet
     for (let card of shuffleDeck([...sentryCards])) {
-        if (selectedCardsMap.has(card.id)) continue;
+        if (state.cards.selected.has(card.id)) continue;
         sentryDeck.push(card);
-        selectedCardsMap.set(card.id, true);
+        state.cards.selected.set(card.id, true);
         
         if (sentryDeck.length >= GAME_CONFIG.sentry.defaultCount) break;
     }
@@ -1678,8 +1761,11 @@ function introduceSentryCards() {
         return false;
     }
 
+    // Create a copy of the Sentry cards to introduce
+    const sentryCardsToAdd = [...sentryDeck];
+    
     // Shuffle Sentry cards into the remaining deck
-    const updatedRemainingCards = shuffleDeck([...remainingCards, ...sentryDeck]);
+    const updatedRemainingCards = shuffleDeck([...remainingCards, ...sentryCardsToAdd]);
     
     // Update the current deck
     currentDeck = [
@@ -1692,6 +1778,8 @@ function introduceSentryCards() {
     sentryDeck = [];
 
     showToast(`Introduced ${sentryCount} Sentry cards into the remaining deck.`);
+    updateProgressBar();
+    saveConfiguration();
     return true;
 }
 
@@ -1900,24 +1988,27 @@ function applyDarkTheme() {
 // Add this helper function at the start of the file
 function isStorageAvailable() {
     try {
-        const test = '__storage_test__';
-        localStorage.setItem(test, test);
-        localStorage.removeItem(test);
+        const storage = window.localStorage;
+        const x = '__storage_test__';
+        storage.setItem(x, x);
+        storage.removeItem(x);
         return true;
-    } catch(e) {
+    } catch (e) {
         return false;
     }
 }
 
 function loadSavedConfig() {
     if (!isStorageAvailable()) {
-        console.warn('Local storage is not available');
+        console.warn('Storage is not available, using default configuration');
         return null;
     }
+
     try {
-        return JSON.parse(localStorage.getItem('savedConfig'));
+        const savedConfig = localStorage.getItem(CONFIG.storage.key);
+        return savedConfig ? JSON.parse(savedConfig) : null;
     } catch (e) {
-        console.warn('Error loading saved config:', e);
+        console.warn('Error loading saved configuration:', e);
         return null;
     }
 }
@@ -1964,4 +2055,47 @@ function setupNumberInputs() {
             });
         }
     });
+}
+
+// Add this function near the top of the file, after dataStore initialization
+function restoreSavedState() {
+    if (!isStorageAvailable()) return;
+    
+    try {
+        const savedState = localStorage.getItem('deckBuilderState');
+        if (savedState) {
+            const state = JSON.parse(savedState);
+            // Restore card counts
+            if (state.cardCounts) {
+                Object.keys(state.cardCounts).forEach(cardId => {
+                    const input = document.querySelector(`input[data-card-id="${cardId}"]`);
+                    if (input) {
+                        input.value = state.cardCounts[cardId];
+                    }
+                });
+            }
+            // Restore difficulty selection if it exists
+            if (state.difficulty) {
+                const difficultySelect = document.getElementById('difficultySelect');
+                if (difficultySelect) {
+                    difficultySelect.value = state.difficulty;
+                }
+            }
+        }
+    } catch (error) {
+        console.warn('Error restoring saved state:', error);
+    }
+}
+
+// Use this check before any localStorage operations
+function saveState(state) {
+    if (!isStorageAvailable()) {
+        console.warn('Local storage is not available');
+        return;
+    }
+    try {
+        localStorage.setItem('deckBuilderState', JSON.stringify(state));
+    } catch (error) {
+        console.warn('Error saving state:', error);
+    }
 }

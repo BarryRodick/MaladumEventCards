@@ -7,7 +7,9 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-ZMTSM9B7Q7');
+      gtag('config', 'G-ZMTSM9B7Q7', {
+          'transport_url': 'https://www.googletagmanager.com'
+      });
     </script>
     
     <!-- Head content -->
@@ -260,13 +262,22 @@
             -webkit-tap-highlight-color: transparent;
         }
     </style>
+
+    <!-- Add this in the head section -->
+    <link rel="icon" type="image/x-icon" href="logos/gameicon.jpg">
+
+    <!-- Add font imports in head -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body class="dark-mode">
 
     <!-- Header Section -->
     <header class="app-header dark-green-bar d-flex align-items-center justify-content-between p-3">
-        <h1 class="app-logo-text mb-0">Event Cards</h1>
+        <div class="d-flex align-items-center">
+            <img src="logos/gameicon.jpg" alt="Maladum" class="mr-3" style="height: 40px; width: auto;">
+            <h1 class="app-logo-text mb-0">Maladum Event Cards</h1>
+        </div>
         
         <div id="headerButtons" class="d-flex align-items-center">
             <!-- Add Campaign Manager Icon -->

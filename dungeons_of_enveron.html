@@ -8,41 +8,9 @@
     <title>Dungeons of Enveron - Campaign Tracker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
     <style>
-        body {
-            background-image: url('logos/background.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            background-color: #000; /* Fallback color */
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            color: #fff;
-        }
-
-        .campaign-card {
-            background-color: rgba(244, 241, 234, 0.95);
-            color: #000;
-            padding: 20px;
-            margin: 20px auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            max-width: 800px;
-            font-family: 'Crimson Text', serif;
-            border: 1px solid #333;
-        }
-
-        .title {
-            text-align: center;
-            font-size: 24px;
-            border-bottom: 2px solid #333;
-            margin-bottom: 15px;
-            font-variant: small-caps;
-            padding-bottom: 10px;
-        }
-
+        /* Styles specific to Dungeons of Enveron */
         .delay-track {
             margin: 15px 0;
             display: flex;
@@ -66,215 +34,7 @@
             border-color: #e24a4a;
         }
 
-        .circle {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #333;
-            border-radius: 50%;
-            margin: 0 5px;
-            cursor: pointer;
-        }
-
-        .blue-border {
-            border: 2px solid #4a90e2;
-        }
-
-        .red-border {
-            border: 2px solid #e24a4a;
-        }
-
-        .checked {
-            background-color: black;
-        }
-
-        .achievements {
-            margin: 15px 0;
-        }
-
-        .achievement-row {
-            display: flex;
-            justify-content: space-between;
-            margin: 5px 0;
-            align-items: center;
-        }
-
-        .checkbox {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #333;
-            border-radius: 50%;
-            display: inline-block;
-            cursor: pointer;
-            vertical-align: middle;
-        }
-
-        .numbered-circles {
-            display: flex;
-            gap: 5px;
-        }
-
-        .numbered-circle {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #333;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .rewards {
-            margin-top: 20px;
-        }
-
-        .reward-item {
-            margin: 10px 0;
-            display: flex;
-            align-items: start;
-            gap: 10px;
-        }
-
-        .reward-text {
-            flex: 1;
-        }
-
-        .section-title {
-            font-variant: small-caps;
-            font-weight: bold;
-            border-bottom: 1px solid #333;
-            margin: 15px 0;
-            padding-bottom: 5px;
-        }
-
-        .input-field {
-            border: none;
-            border-bottom: 1px solid #333;
-            background: transparent;
-            width: 50px;
-            margin: 0 5px;
-        }
-
-        .apprentice-section {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 10px 0;
-        }
-
-        .apprentice-name {
-            width: 150px;
-        }
-
-        .notes-section {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-
-        .notes-header {
-            cursor: pointer;
-            padding: 10px;
-            background-color: #f4f1ea;
-            border: 1px solid #333;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0;
-        }
-
-        .notes-header:hover {
-            background-color: #d5d1ca;
-        }
-
-        .notes-content {
-            display: none;
-            padding: 10px;
-            background-color: #f4f1ea;
-            border: 1px solid #333;
-            border-top: none;
-            margin-top: 0;
-        }
-
-        .notes-content.visible {
-            display: block;
-        }
-
-        #notesTextarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 10px;
-            border: 1px solid #666;
-            margin-top: 10px;
-            font-family: inherit;
-        }
-
-        .collapse-icon {
-            transition: transform 0.3s ease;
-        }
-
-        .collapse-icon.rotated {
-            transform: rotate(180deg);
-        }
-
-        .malagaunt-track {
-            margin: 15px 0;
-            display: flex;
-            gap: 5px;
-        }
-
-        .malagaunt-checkbox {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #333;
-            border-radius: 50%;
-            display: inline-block;
-            cursor: pointer;
-        }
-
-        .icon {
-            width: 15px;
-            height: 15px;
-            vertical-align: middle;
-            display: inline-block;
-        }
-
-        .campaign-container {
-            margin-top: 20px;
-        }
-
-        .app-header {
-            background-color: #001300;
-            color: white;
-            padding: 10px 20px;
-        }
-
-        .app-logo-text {
-            font-size: 24px;
-            font-weight: normal;
-            margin-right: 10px;
-        }
-
-        .faq-icon {
-            color: white;
-            font-size: 1.5rem;
-            margin-left: 20px;
-            transition: transform 0.2s ease;
-            display: flex;
-            align-items: center;
-        }
-
-        .faq-icon:hover {
-            color: #cccccc;
-            text-decoration: none;
-        }
-
-        .checkbox-group {
-            display: flex;
-            gap: 5px;
-            margin-right: 10px;
-        }
+        /* Other page-specific styles... */
     </style>
 </head>
 <body>
@@ -339,14 +99,32 @@
                     <span>Skeletal Trails <div class="checkbox"></div></span>
                 </div>
                 <div class="achievement-row">
-                    <span>Entry Points Mapped:</span>
-                    <div class="numbered-circles">
-                        <div class="numbered-circle">1</div>
-                        <div class="numbered-circle">2</div>
-                        <div class="numbered-circle">3</div>
-                        <div class="numbered-circle">4</div>
-                        <div class="numbered-circle">5</div>
-                        <div class="numbered-circle">6</div>
+                    <span>Entry Points Mapped</span>
+                    <div class="entry-points-list">
+                        <div class="entry-point-item">
+                            <div class="checkbox"></div>
+                            <span class="entry-point-number">1</span>
+                        </div>
+                        <div class="entry-point-item">
+                            <div class="checkbox"></div>
+                            <span class="entry-point-number">2</span>
+                        </div>
+                        <div class="entry-point-item">
+                            <div class="checkbox"></div>
+                            <span class="entry-point-number">3</span>
+                        </div>
+                        <div class="entry-point-item">
+                            <div class="checkbox"></div>
+                            <span class="entry-point-number">4</span>
+                        </div>
+                        <div class="entry-point-item">
+                            <div class="checkbox"></div>
+                            <span class="entry-point-number">5</span>
+                        </div>
+                        <div class="entry-point-item">
+                            <div class="checkbox"></div>
+                            <span class="entry-point-number">6</span>
+                        </div>
                     </div>
                 </div>
                 <div class="achievement-row">
