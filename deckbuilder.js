@@ -200,6 +200,11 @@ const GAME_CONFIG = {
 // ============================
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Track app initialization
+    if (typeof gtag === 'function') {
+        trackEvent('App', 'Initialize', 'Maladum Event Cards');
+    }
+    
     // Enable dark mode by default (optional)
     document.body.classList.add('dark-mode');
 
@@ -271,7 +276,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Restore saved state if available
             if (savedConfig) {
+                // First restore basic config
                 restoreSavedState(savedConfig);
+                
+                // Then restore full deck state if it exists
+                restoreDeckState(savedConfig);
             }
         } else {
             showToast('No game data available. Please check your connection and refresh.');
@@ -314,11 +323,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prevCardButton) {
         prevCardButton.addEventListener('click', () => {
             if (currentIndex > -1) {
-                // Remove the last card from discardPile
-                discardPile.pop();
-                currentIndex--;
+                // Going back from a card
+                if (currentIndex === 0) {
+                    // When going back from the first card to the card back
+                    currentIndex = -1;
+                } else {
+                    // Remove the last card from discardPile if we're moving from one card to another
+                    // (not when we're moving from card 1 to card back)
+                    discardPile.pop();
+                    currentIndex--;
+                }
                 showCurrentCard();
                 saveConfiguration();
+                trackEvent('Navigation', 'Previous Card', `Index: ${currentIndex}`);
             }
         });
     } else {
@@ -328,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextCardButton = document.getElementById('nextCard');
     if (nextCardButton) {
         nextCardButton.addEventListener('click', () => {
-            // Move the current card to the discard pile if it's not the starting card
+            // Move the current card to the discard pile if it's not the starting card back
             if (currentIndex >= 0 && currentIndex < currentDeck.length) {
                 discardPile.push(currentDeck[currentIndex]);
             }
@@ -343,6 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     discardPile = [];
                     currentIndex = -1; // Reset to start of new deck
                     showToast('Deck reshuffled from discard pile.');
+                    trackEvent('Navigation', 'Reshuffle Deck', `Cards: ${initialDeckSize}`);
                 } else {
                     // No more cards left to draw
                     showToast('No more cards in the deck.');
@@ -352,7 +370,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             showCurrentCard();
+            updateProgressBar(); // Make sure progress bar is updated
             saveConfiguration();
+            trackEvent('Navigation', 'Next Card', `Index: ${currentIndex}`);
         });
     } else {
         console.error('Element with ID "nextCard" not found.');
@@ -609,18 +629,38 @@ function updateDifficultyDetails() {
         return; // Exit if elements aren't found or settings aren't loaded
     }
 
-    const selectedDifficulty = difficultySettings.find(
-        d => d.level === difficultySelect.value
-    );
+    const selectedIndex = difficultySelect.selectedIndex;
+    const selectedDifficulty = difficultySettings[selectedIndex];
 
     if (selectedDifficulty) {
+        // Update difficulty description
         difficultyDetails.textContent = selectedDifficulty.description || '';
-        state.difficulty = selectedDifficulty.level;
+        
+        // Update novice and veteran card counts based on selected difficulty
+        const noviceInput = document.getElementById('type-Novice');
+        const veteranInput = document.getElementById('type-Veteran');
+        
+        if (noviceInput) {
+            noviceInput.value = selectedDifficulty.novice || 0;
+        }
+        
+        if (veteranInput) {
+            veteranInput.value = selectedDifficulty.veteran || 0;
+        }
+        
+        // Save state
+        state.selectedDifficultyIndex = selectedIndex;
         
         // Only save if we have a valid configuration
         if (state.initialDeckSize > 0) {
             saveConfiguration();
         }
+        
+        console.log('Updated difficulty settings:', {
+            name: selectedDifficulty.name,
+            novice: selectedDifficulty.novice,
+            veteran: selectedDifficulty.veteran
+        });
     }
 }
 
@@ -641,7 +681,16 @@ function saveConfiguration() {
             cardCounts: {},
             specialCardCounts: {},
             enableSentryRules: document.getElementById('enableSentryRules')?.checked || false,
-            enableCorrupterRules: document.getElementById('enableCorrupterRules')?.checked || false
+            enableCorrupterRules: document.getElementById('enableCorrupterRules')?.checked || false,
+            // Add deckState object to store all deck-related state
+            deckState: {
+                currentDeck: currentDeck,
+                currentIndex: currentIndex,
+                discardPile: discardPile,
+                sentryDeck: sentryDeck,
+                initialDeckSize: initialDeckSize,
+                inPlayCardsHTML: document.getElementById('inPlayCards')?.innerHTML || ''
+            }
         };
 
         // Save card counts
@@ -658,6 +707,17 @@ function saveConfiguration() {
         });
 
         localStorage.setItem(CONFIG.storage.key, JSON.stringify(config));
+        console.log('Game state saved:', {
+            deckSize: currentDeck.length,
+            currentIndex: currentIndex,
+            discardPileSize: discardPile.length
+        });
+        
+        // Don't track every save to avoid flooding analytics
+        // Only track saves when there's a significant state change
+        if (currentDeck.length > 0) {
+            trackEvent('App State', 'Save Configuration', null, currentDeck.length);
+        }
     } catch (e) {
         console.warn('Error saving configuration:', e);
     }
@@ -696,40 +756,64 @@ function restoreDeckState(savedConfig) {
 
         // Restore deck state
         if (savedConfig.deckState) {
-            currentDeck = savedConfig.deckState.currentDeck;
-            currentIndex = savedConfig.deckState.currentIndex;
+            currentDeck = savedConfig.deckState.currentDeck || [];
+            currentIndex = savedConfig.deckState.currentIndex || -1;
             discardPile = savedConfig.deckState.discardPile || [];
             sentryDeck = savedConfig.deckState.sentryDeck || [];
             initialDeckSize = savedConfig.deckState.initialDeckSize || 0;
-        }
-
-        // Restore in-play cards
-        const inPlayCards = document.getElementById('inPlayCards');
-        if (inPlayCards && savedConfig.deckState.inPlayCardsHTML) {
-            inPlayCards.innerHTML = savedConfig.deckState.inPlayCardsHTML;
-            
-            // Reattach event listeners to discard buttons
-            inPlayCards.querySelectorAll('.btn-danger').forEach(button => {
-                button.onclick = function() {
-                    button.closest('.mb-3').remove();
-                    saveConfiguration();
-                };
+        
+            // Restore in-play cards
+            const inPlayCards = document.getElementById('inPlayCards');
+            if (inPlayCards && savedConfig.deckState.inPlayCardsHTML) {
+                inPlayCards.innerHTML = savedConfig.deckState.inPlayCardsHTML;
+                
+                // Reattach event listeners to discard buttons
+                inPlayCards.querySelectorAll('.btn-danger').forEach(button => {
+                    button.onclick = function() {
+                        button.closest('.mb-3').remove();
+                        saveConfiguration();
+                    };
+                });
+            }
+    
+            // Show the deck if it exists
+            if (currentDeck && currentDeck.length > 0) {
+                const activeDeckSection = document.getElementById('activeDeckSection');
+                if (activeDeckSection) {
+                    activeDeckSection.style.display = 'block';
+                }
+                
+                // Display the current card
+                showCurrentCard();
+                
+                // Update progress bar
+                updateProgressBar();
+                
+                // Show the navigation buttons
+                const navigationButtons = document.getElementById('navigationButtons');
+                if (navigationButtons) {
+                    navigationButtons.style.display = 'block';
+                }
+                
+                // Show the card action section
+                const cardActionSection = document.getElementById('cardActionSection');
+                if (cardActionSection) {
+                    cardActionSection.style.display = 'block';
+                    updateCardActionSelect();
+                }
+                
+                // Toggle deck builder UI
+                toggleDeckBuilderUI(true);
+            }
+    
+            console.log('Deck state restored:', {
+                currentDeckSize: currentDeck.length,
+                currentIndex: currentIndex,
+                discardPileSize: discardPile.length,
+                inPlayCardsSize: inPlayCards?.children.length || 0,
+                sentryDeckSize: sentryDeck.length
             });
         }
-
-        // Show the deck if it exists
-        if (currentDeck && currentDeck.length > 0) {
-            document.getElementById('activeDeckSection').style.display = 'block';
-            showCurrentCard();
-        }
-
-        console.log('Deck state restored:', {
-            currentDeckSize: currentDeck.length,
-            currentIndex: currentIndex,
-            discardPileSize: discardPile.length,
-            inPlayCardsSize: inPlayCards?.children.length || 0,
-            sentryDeckSize: sentryDeck.length
-        });
     } catch (error) {
         console.error('Error restoring deck state:', error);
         localStorage.removeItem('savedConfig');
@@ -985,6 +1069,9 @@ function generateDeck() {
     // Save configuration after generation
     saveConfiguration();
 
+    // Track deck generation in analytics
+    trackEvent('Deck', 'Generate', `Games: ${selectedGames.join(', ')}`, currentDeck.length);
+
     // Collapse the configuration sections (optional)
     $('#gameCheckboxes').collapse('hide');
     $('#scenarioConfig').collapse('hide');
@@ -1160,16 +1247,15 @@ function showCurrentCard() {
     // Show back of card if index is -1
     if (currentIndex === -1) {
         output.innerHTML = `<img src="cardimages/back.jpg" alt="Card Back" class="img-fluid">`;
-        return;
+    } else {
+        // Show current card
+        const currentCard = currentDeck[currentIndex];
+        if (currentCard) {
+            output.innerHTML = `<img src="cardimages/${currentCard.contents}" alt="${currentCard.card}" class="img-fluid">`;
+        }
     }
 
-    // Show current card
-    const currentCard = currentDeck[currentIndex];
-    if (currentCard) {
-        output.innerHTML = `<img src="cardimages/${currentCard.contents}" alt="${currentCard.card}" class="img-fluid">`;
-    }
-
-    // Update progress bar
+    // Always update the progress bar
     updateProgressBar();
     
     // Save current state
@@ -1224,26 +1310,34 @@ function updateProgressBar() {
         return;
     }
 
-    // Calculate total cards in active pool (including the back card)
-    let totalCards = currentDeck.length + 1; // +1 for the back card
+    // Calculate total cards in active pool (not including the back card)
+    let totalCards = currentDeck.length;
     
-    // Calculate current position (accounting for back card at -1)
+    // Calculate current position 
     let currentCardNumber;
     if (currentIndex === -1) {
-        currentCardNumber = 1; // Back card
+        // When showing the back card, we're at position 0
+        currentCardNumber = 0;
+        progressText.textContent = `Card Back`;
     } else {
-        currentCardNumber = currentIndex + 2; // +2 because we start at -1 and want to count the back card
+        // For actual cards, count from 1
+        currentCardNumber = currentIndex + 1;
+        progressText.textContent = `Card ${currentCardNumber} of ${totalCards}`;
     }
 
-    // Calculate progress percentage
-    let progressPercentage = (currentCardNumber / totalCards) * 100;
+    // Calculate progress percentage (only if we have cards)
+    let progressPercentage = 0;
+    if (totalCards > 0) {
+        if (currentIndex === -1) {
+            progressPercentage = 0; // At the back card, progress is 0%
+        } else {
+            progressPercentage = (currentCardNumber / totalCards) * 100;
+        }
+    }
 
     // Update progress bar
     progressBar.style.width = `${progressPercentage}%`;
     progressBar.setAttribute('aria-valuenow', progressPercentage.toFixed(0));
-
-    // Update text
-    progressText.textContent = `Card ${currentCardNumber} of ${totalCards}`;
 
     // Log for debugging
     console.log('Progress Update:', {
@@ -1271,6 +1365,7 @@ function markCardAsInPlay(card) {
         updateInPlayCardsDisplay();
         showToast(`Card "${card.card}" marked as in play.`);
         saveConfiguration();
+        trackEvent('Card Status', 'Mark In Play', card.card);
     } else {
         showToast(`Card "${card.card}" is already in play.`);
     }
@@ -1292,6 +1387,7 @@ function updateInPlayCardsDisplay() {
         return;
     }
 
+    inPlaySection.style.display = 'block';
     state.deck.inPlay.forEach(card => {
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('card', 'mb-2');
@@ -1322,9 +1418,6 @@ function updateInPlayCardsDisplay() {
         cardDiv.appendChild(cardBody);
         inPlayContainer.appendChild(cardDiv);
     });
-
-    // Show the In Play section
-    inPlaySection.style.display = 'block';
 }
 
 // Function to remove a card from play
@@ -1480,6 +1573,34 @@ const cardActions = {
         return `Card "${card.card}" shuffled into the next ${n} cards.`;
     },
     
+    replaceSameType: (card) => {
+        // Extract the card's types
+        const typeInfo = parseCardTypes(card.type);
+        const cardTypes = typeInfo.allTypes;
+        
+        // Find all available cards of the same type that aren't already in the deck
+        const availableReplacements = availableCards.filter(availableCard => {
+            // Skip if it's the same card
+            if (availableCard.id === card.id) return false;
+            
+            // Check if the card has at least one matching type
+            const availableTypeInfo = parseCardTypes(availableCard.type);
+            return availableTypeInfo.allTypes.some(type => cardTypes.includes(type));
+        });
+        
+        if (availableReplacements.length === 0) {
+            return `No available cards of type "${cardTypes.join(', ')}" to replace with.`;
+        }
+        
+        // Select a random replacement
+        const replacement = availableReplacements[Math.floor(Math.random() * availableReplacements.length)];
+        
+        // Replace the current card with the replacement
+        currentDeck[currentIndex] = replacement;
+        
+        return `Card "${card.card}" replaced with "${replacement.card}".`;
+    },
+    
     introduceSentry: () => {
         if (introduceSentryCards()) {
             return 'Sentry cards have been introduced into the remaining deck.';
@@ -1487,16 +1608,50 @@ const cardActions = {
         return 'Failed to introduce Sentry cards.';
     },
     
-    // Add other actions as needed
+    insertCardType: () => {
+        const cardType = document.getElementById('insertCardType')?.value;
+        const position = document.getElementById('insertPosition')?.value || 'next';
+        
+        if (!cardType) {
+            return 'Please select a card type to insert.';
+        }
+        
+        const result = insertCardOfType(cardType, position);
+        if (result) {
+            return `New ${cardType} card inserted.`;
+        }
+        return 'Failed to insert card.';
+    }
 };
 
 function applyCardAction() {
     const action = document.getElementById('cardAction').value;
-    if (!action || currentIndex === -1) {
-        showToast('Invalid action or no active card.');
+    if (!action) {
+        showToast('Please select an action.');
+        return;
+    }
+    
+    // For all actions except insertCardType, we need a current card
+    if (action !== 'insertCardType' && currentIndex === -1) {
+        showToast('No active card to perform action on.');
         return;
     }
 
+    // Handle insertCardType separately as it doesn't need a current card
+    if (action === 'insertCardType') {
+        const result = cardActions[action]();
+        if (result) {
+            showToast(result);
+            displayDeck();
+            updateInPlayCardsDisplay();
+            saveConfiguration();
+            // Track card insertion
+            trackEvent('Card Action', 'Insert Card', document.getElementById('insertCardType')?.value);
+        }
+        return;
+    }
+
+    // For all other actions
     const activeCard = currentDeck[currentIndex];
     const n = parseInt(document.getElementById('actionN')?.value) || 0;
     
@@ -1506,6 +1661,13 @@ function applyCardAction() {
         displayDeck();
         updateInPlayCardsDisplay();
         saveConfiguration();
+        
+        // Track card action with details
+        let actionDetails = activeCard ? activeCard.card : 'Unknown Card';
+        if (action === 'shuffleTopN') {
+            actionDetails += ` (N=${n})`;
+        }
+        trackEvent('Card Action', action, actionDetails);
     }
 }
 
@@ -1552,6 +1714,31 @@ function showToast(message) {
             toast.remove();
         });
     }, 3000);
+}
+
+// Function to track events in Google Analytics
+function trackEvent(eventCategory, eventAction, eventLabel = null, eventValue = null) {
+    if (typeof gtag !== 'function') {
+        console.warn('Google Analytics not available');
+        return;
+    }
+    
+    const eventParams = {
+        event_category: eventCategory,
+        event_label: eventLabel,
+        value: eventValue,
+        stream_id: '9783920401',
+        stream_name: 'Maladum Event Cards'
+    };
+    
+    // Remove undefined properties
+    Object.keys(eventParams).forEach(key => 
+        eventParams[key] === null && delete eventParams[key]
+    );
+    
+    // Send the event to Google Analytics
+    gtag('event', eventAction, eventParams);
+    console.log('GA Event:', eventAction, eventParams);
 }
 
 // Function to enhance buttons (e.g., tooltips)
@@ -2058,28 +2245,26 @@ function setupNumberInputs() {
 }
 
 // Add this function near the top of the file, after dataStore initialization
-function restoreSavedState() {
-    if (!isStorageAvailable()) return;
+function restoreSavedState(savedConfig) {
+    if (!isStorageAvailable() || !savedConfig) return;
     
     try {
-        const savedState = localStorage.getItem('deckBuilderState');
-        if (savedState) {
-            const state = JSON.parse(savedState);
-            // Restore card counts
-            if (state.cardCounts) {
-                Object.keys(state.cardCounts).forEach(cardId => {
-                    const input = document.querySelector(`input[data-card-id="${cardId}"]`);
-                    if (input) {
-                        input.value = state.cardCounts[cardId];
-                    }
-                });
-            }
-            // Restore difficulty selection if it exists
-            if (state.difficulty) {
-                const difficultySelect = document.getElementById('difficultySelect');
-                if (difficultySelect) {
-                    difficultySelect.value = state.difficulty;
+        // Restore card counts from the savedConfig parameter
+        if (savedConfig.cardCounts) {
+            Object.keys(savedConfig.cardCounts).forEach(cardType => {
+                const input = document.getElementById(`type-${cardType}`);
+                if (input) {
+                    input.value = savedConfig.cardCounts[cardType];
                 }
+            });
+        }
+        
+        // Restore difficulty selection if it exists
+        if (savedConfig.selectedDifficultyIndex !== undefined) {
+            const difficultySelect = document.getElementById('difficultyLevel');
+            if (difficultySelect) {
+                difficultySelect.selectedIndex = savedConfig.selectedDifficultyIndex;
+                updateDifficultyDetails();
             }
         }
     } catch (error) {

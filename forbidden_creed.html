@@ -6,12 +6,16 @@
     <title>The Forbidden Creed - Campaign Tracker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="logos/gameicon.jpg" type="image/jpeg">
     <style>
         /* Styles specific to Forbidden Creed */
         .servant-section {
             margin: 15px 0;
             line-height: 1.4;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
         }
 
         /* Other page-specific styles... */
@@ -22,11 +26,33 @@
         }
 
         .campaign-card {
-            background: white;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             padding: 20px;
             margin-bottom: 20px;
+            background-color: var(--parchment);
+            border: 1px solid var(--border-ornate);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .campaign-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('logos/background.png');
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .campaign-card > * {
+            position: relative;
+            z-index: 1;
         }
 
         .title {
@@ -37,7 +63,7 @@
 
         .subtitle {
             font-size: 18px;
-            color: #666;
+            color: #333;
             margin-bottom: 20px;
         }
 
@@ -47,6 +73,7 @@
             margin: 20px 0 10px;
             padding-bottom: 5px;
             border-bottom: 2px solid #333;
+            color: #333;
         }
 
         .checkbox {
@@ -56,6 +83,7 @@
             display: inline-block;
             margin: 0 5px;
             cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.5);
         }
 
         .checkbox-track {
@@ -73,7 +101,7 @@
 
         .note-text {
             font-size: 14px;
-            color: #666;
+            color: #333;
             margin: 10px 0;
         }
 
@@ -81,6 +109,7 @@
             margin: 20px;
             border: 1px solid #ccc;
             border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
         }
 
         .notes-header {
@@ -88,11 +117,13 @@
             background: #f5f5f5;
             cursor: pointer;
             border-radius: 8px 8px 0 0;
+            color: #333;
         }
 
         .notes-content {
             display: none;
             padding: 10px;
+            background-color: white;
         }
 
         .notes-content.visible {
@@ -103,6 +134,9 @@
             width: 100%;
             min-height: 100px;
             padding: 10px;
+            background-color: white;
+            color: #333;
+            border: 1px solid #666;
         }
 
         .dark-green-bar {
@@ -141,9 +175,15 @@
             justify-content: space-between;
             padding: 5px;
         }
+
+        /* Add styles to ensure text is readable on all elements */
+        p, span, div:not(.notes-content), li {
+            color: #333;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+        }
     </style>
 </head>
-<body>
+<body class="dark-mode">
     <header class="app-header dark-green-bar d-flex align-items-center justify-content-between p-3">
         <div class="d-flex align-items-center">
             <a href="index.html" class="text-white text-decoration-none d-flex align-items-center">
@@ -392,11 +432,12 @@
         }
 
         function saveState() {
-            if (!isStorageAvailable()) {
-                console.warn('Local storage is not available');
-                return;
-            }
             try {
+                if (!isStorageAvailable()) {
+                    console.warn('Local storage is not available');
+                    return;
+                }
+                
                 const state = {
                     checkboxes: Array.from(document.querySelectorAll('.checkbox')).map(cb => cb.style.backgroundColor === 'black'),
                     inputs: Array.from(document.querySelectorAll('.input-field')).map(input => input.value),
@@ -410,11 +451,12 @@
         }
 
         function loadState() {
-            if (!isStorageAvailable()) {
-                console.warn('Local storage is not available');
-                return;
-            }
             try {
+                if (!isStorageAvailable()) {
+                    console.warn('Local storage is not available');
+                    return;
+                }
+                
                 const savedState = localStorage.getItem('forbiddenCreedState');
                 if (savedState) {
                     const state = JSON.parse(savedState);

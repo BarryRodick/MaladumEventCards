@@ -8,7 +8,8 @@
     <title>Dungeons of Enveron - Campaign Tracker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="logos/gameicon.jpg" type="image/jpeg">
     <style>
         /* Styles specific to Dungeons of Enveron */
         .delay-track {
@@ -44,11 +45,32 @@
         }
 
         .campaign-card {
-            background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             padding: 20px;
             margin-bottom: 20px;
+            background-color: var(--parchment);
+            border: 1px solid var(--border-ornate);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .campaign-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('logos/background.png');
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .campaign-card > * {
+            position: relative;
+            z-index: 1;
         }
 
         .title {
@@ -69,6 +91,7 @@
             margin: 20px 0 10px;
             padding-bottom: 5px;
             border-bottom: 2px solid #333;
+            color: #333;
         }
 
         .checkbox {
@@ -78,6 +101,7 @@
             display: inline-block;
             margin: 0 5px;
             cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.5);
         }
 
         .reward-item {
@@ -89,12 +113,14 @@
 
         .reward-text {
             flex: 1;
+            color: #333;
         }
 
         .notes-section {
             margin: 20px;
             border: 1px solid #ccc;
             border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
         }
 
         .notes-header {
@@ -102,11 +128,13 @@
             background: #f5f5f5;
             cursor: pointer;
             border-radius: 8px 8px 0 0;
+            color: #333;
         }
 
         .notes-content {
             display: none;
             padding: 10px;
+            background-color: white;
         }
 
         .notes-content.visible {
@@ -117,10 +145,9 @@
             width: 100%;
             min-height: 100px;
             padding: 10px;
-        }
-
-        .dark-green-bar {
-            background-color: #2c3e50;
+            background-color: white;
+            color: #333;
+            border: 1px solid #666;
         }
 
         .app-logo-text {
@@ -146,6 +173,8 @@
             padding: 5px;
             margin: 0 5px;
             width: 60px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #333;
         }
 
         .input-field.apprentice-name {
@@ -174,9 +203,51 @@
             border: 2px solid #333;
             cursor: pointer;
         }
+
+        /* Add styles to ensure text is readable on all elements */
+        p, span, div:not(.notes-content) {
+            color: #333;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Fix the reset button */
+        .reset-button {
+            margin: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #001300, #015701);
+            color: white !important;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Make entry points more readable */
+        .entry-points-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .entry-point-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+
+        /* Fix the icon paths */
+        .terrifying-icon {
+            height: 20px;
+            vertical-align: middle;
+        }
     </style>
 </head>
-<body>
+<body class="dark-mode">
     <header class="app-header dark-green-bar d-flex align-items-center justify-content-between p-3">
         <div class="d-flex align-items-center">
             <a href="index.html" class="text-white text-decoration-none d-flex align-items-center">
@@ -320,7 +391,7 @@
                 <div class="reward-item">
                     <div class="checkbox"></div>
                     <div class="reward-text">
-                        <strong>Soulshield:</strong> While item marked "X" is intact and in play, Adventurers gain 1 free Magic peg to resist applicable <img src="logos/Revenant.jpg" class="icon" alt="Revenant"> card effects. Item may be used as normal, and bearer gains <img src="logos/Terrifying.png" class="icon" alt="Terrifying">. Revenants are not immune to this.
+                        <strong>Soulshield:</strong> While item marked "X" is intact and in play, Adventurers gain 1 free Magic peg to resist applicable <img src="logos/Revenant.jpg" class="icon" alt="Revenant"> card effects. Item may be used as normal, and bearer gains <img src="logos/Malagaunt.jpg" class="terrifying-icon" alt="Terrifying">. Revenants are not immune to this.
                     </div>
                 </div>
                 <div class="reward-item">
@@ -483,11 +554,12 @@
         }
 
         function saveState() {
-            if (!isStorageAvailable()) {
-                console.warn('Local storage is not available');
-                return;
-            }
             try {
+                if (!isStorageAvailable()) {
+                    console.warn('Local storage is not available');
+                    return;
+                }
+                
                 const state = {
                     checkboxGroups: Array.from(document.querySelectorAll('.checkbox-group')).map(group => 
                         Array.from(group.querySelectorAll('.checkbox')).map(cb => cb.style.backgroundColor === 'black')
@@ -507,11 +579,12 @@
         }
 
         function loadState() {
-            if (!isStorageAvailable()) {
-                console.warn('Local storage is not available');
-                return;
-            }
             try {
+                if (!isStorageAvailable()) {
+                    console.warn('Local storage is not available');
+                    return;
+                }
+                
                 const savedState = localStorage.getItem('dungeonState');
                 if (savedState) {
                     const state = JSON.parse(savedState);
@@ -566,9 +639,7 @@
 
         const resetButton = document.createElement('button');
         resetButton.textContent = 'Reset Campaign';
-        resetButton.style.margin = '20px';
-        resetButton.style.padding = '10px';
-        resetButton.style.cursor = 'pointer';
+        resetButton.className = 'reset-button';
         resetButton.addEventListener('click', function() {
             if (confirm('Are you sure you want to reset the campaign? This will clear all progress.')) {
                 localStorage.removeItem('dungeonState');
