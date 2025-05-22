@@ -163,7 +163,7 @@ body.dark-mode .card {
     }
 
     .app-logo-text {
-        font-size: 1.5rem;
+        font-size: 1.5rem; /* from index.html, slightly different from styles.css original 1.4rem if it was there */
     }
 
     .faq-icon {
@@ -220,33 +220,44 @@ body.dark-mode .card {
 
 /* Updated Progress Bar Styles */
 .progress {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.3); /* from styles.css (original had #2d2d2d) */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* from styles.css */
+    backdrop-filter: blur(5px); /* from styles.css */
     height: 2rem;
-    margin-bottom: 10px;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px; /* from styles.css (original had no margin-bottom here) */
+    border-radius: 1rem; /* from styles.css */
+    overflow: hidden; /* from styles.css */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* from styles.css */
+    position: relative; /* from index.html */
 }
 
 .progress-bar {
-    background: linear-gradient(to right, var(--accent-green), var(--accent-green-hover));
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 25px;
-    color: #ffffff; /* White text for contrast */
-    border-radius: 8px; /* Match background corners */
-    transition: width 0.6s ease;
+    background: linear-gradient(to right, var(--accent-green), var(--accent-green-hover)); /* from styles.css (original had #007bff) */
+    font-weight: bold; /* from styles.css */
+    font-size: 1rem; /* from index.html (original styles.css had 16px) */
+    line-height: 2rem; /* from index.html (original styles.css had 25px) */
+    color: #ffffff; 
+    border-radius: 8px; /* from styles.css */
+    transition: width .3s ease; /* from index.html (original styles.css had 0.6s) */
 }
 
 .progress-text {
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* from index.html (original styles.css had 0.5 opacity) */
+    position: absolute; /* from index.html */
+    width: 100%; /* from index.html */
+    left: 0; /* from index.html */
+    right: 0; /* from index.html */
+    text-align: center; /* from index.html */
+    line-height: 2rem; /* from index.html */
+    color: white; /* from index.html */
+    font-size: 1rem; /* from index.html */
+    z-index: 1; /* from index.html */
 }
+
 
 /* Card Type Input Container Styling */
 .card-type-input {
-    background-color: rgba(0, 0, 0, 0.8); /* Black with some opacity */
+    background-color: rgba(0, 0, 0, 0.8); 
     padding: 10px;
     border-radius: 8px;
     color: #ffffff;
@@ -296,10 +307,6 @@ body.dark-mode .card {
     margin-top: 2rem;
 }
 
-#actionTopNInput {
-    margin-top: 10px;
-}
-
 /* Decrease and Increase Button Styling within Card Type Inputs */
 .card-type-input .decrease-btn,
 .card-type-input .increase-btn {
@@ -324,17 +331,17 @@ button {
 
 /* Highlight input fields when counts are updated */
 .highlight-input {
-    background-color: #ffeb3b; /* Bright yellow background */
+    background-color: #ffeb3b; 
     transition: background-color 0.5s ease;
 }
 
 /* Adjusted CSS for Scenario Config section */
 #scenarioConfig {
     padding: 15px;
-    border: 1px solid #444; /* Darker border for contrast */
+    border: 1px solid #444; 
     border-radius: 5px;
-    background-color: #333; /* Dark background to match dark mode */
-    color: #ffffff; /* White text for better readability */
+    background-color: #333; 
+    color: #ffffff; 
     margin-bottom: 20px;
 }
 
@@ -429,29 +436,6 @@ body.dark-mode .btn {
 
 #inPlayCards img:hover {
     transform: scale(1.05);
-}
-
-/* Style for the FAQ icon */
-.faq-icon {
-    font-size: 1.5rem; /* Adjust the size as needed */
-    color: #ffffff; /* Ensure the icon contrasts with the dark header */
-    text-decoration: none;
-    margin-left: 15px; /* Space between existing buttons and the icon */
-    display: flex;
-    align-items: center;
-}
-
-.faq-icon:hover {
-    color: #cccccc; /* Change color on hover for better UX */
-    text-decoration: none;
-}
-
-/* Responsive adjustments if needed */
-@media (max-width: 576px) {
-    .faq-icon {
-        font-size: 1.2rem;
-        margin-left: 10px;
-    }
 }
 
 /* Dark theme enhancements */
@@ -646,12 +630,10 @@ select.form-control-lg:hover {
         padding: 1rem;
     }
 
-    .app-logo-text {
-        font-size: 1.4rem;
-    }
-
+    /* .app-logo-text font-size handled by index.html specific @media (max-width: 576px) */
+    
     #navigationButtons .btn {
-        padding: 0.6rem 1.5rem;
+        padding: 0.6rem 1.5rem; /* General campaign pages, index.html has more specific one */
         font-size: 0.8rem;
     }
 
@@ -725,7 +707,7 @@ select.form-control-lg:hover {
     }
 
     /* Navigation buttons specific styling */
-    #navigationButtons .btn {
+    #navigationButtons .btn { /* This is general, index.html has a more specific one */
         min-height: 40px;
         padding: 8px 16px;
         margin: 4px;
@@ -746,11 +728,7 @@ select.form-control-lg:hover {
         min-height: 32px;
     }
 
-    /* Buy me coffee button container */
-    .bmc-button-container {
-        transform: scale(0.8);
-        transform-origin: right center;
-    }
+    /* Buy me coffee button container already handled by index.html specific style */
 
     /* Adjust modal buttons */
     .modal-footer .btn {
@@ -779,8 +757,8 @@ select.form-control-lg:hover {
 
     /* Maintain spacing but smaller */
     .container {
-        padding-left: 8px;
-        padding-right: 8px;
+        padding-left: 8px; /* general, index.html has 10px */
+        padding-right: 8px; /* general, index.html has 10px */
     }
 
     /* Reset checkbox sizing to more reasonable dimensions */
@@ -908,18 +886,11 @@ select.form-control-lg:hover {
         min-width: 120px;
     }
 
-    /* Adjust header for mobile */
-    .app-header {
-        padding: 0.5rem !important;
-    }
-
-    .app-logo-text {
-        font-size: 1.25rem;
-    }
+    /* Adjust header for mobile handled by index.html specific styles */
 
     /* Improve modal experience on mobile */
-    .modal-dialog {
-        margin: 0.5rem;
+    .modal-dialog { /* General, index.html has 0.5rem */
+        margin: 0.5rem; /* from index.html */
         max-width: 95vw;
     }
 
@@ -937,10 +908,7 @@ select.form-control-lg:hover {
     }
 
     /* Adjust spacing for mobile */
-    .container {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
+    /* .container padding handled by index.html specific styles */
 
     /* Improve form elements for mobile */
     .form-control {
@@ -1056,3 +1024,112 @@ img:error {
     background-color: #333;
     position: relative;
 }
+
+/* Styles from index.html */
+/* Styles for .faq-icon, .progress, .progress-bar, .progress-text are merged or omitted if redundant */
+
+#actionTopNInput { /* Specific to index.html */
+    margin-top: 1rem;
+}
+
+.section-header { /* From index.html, potentially generic */
+    background-color: #2d2d2d;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.section-header .btn-link {
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+}
+
+.section-header .btn-link:hover {
+    color: #cccccc;
+}
+
+#activeDeckSection { /* Specific to index.html */
+    margin-top: 2rem;
+}
+
+/* Responsive adjustments for .faq-icon and .progress-text from index.html are covered by general responsive rules */
+
+.faq-icon + .faq-icon { /* From index.html, useful spacing */
+    margin-left: 15px;
+}
+
+.faq-icon:hover .fa-scroll { /* From index.html, useful hover effect */
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+/* Campaign Modal Styling from index.html */
+.campaign-item {
+    background-color: #2d2d2d;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.campaign-item:hover {
+    background-color: #3d3d3d;
+    text-decoration: none;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.campaign-item h4 {
+    margin-bottom: 0.5rem;
+}
+
+.campaign-item small {
+    display: block;
+}
+
+.modal .close { /* Applied to all modals, might need namespacing if other modals differ */
+    opacity: 0.8;
+}
+
+.modal .close:hover {
+    opacity: 1;
+}
+
+.modal-content { /* Applied to all modals */
+    border: 1px solid #444;
+}
+
+.modal-header { /* Applied to all modals */
+    border-bottom: 1px solid #444;
+}
+
+/* Specific mobile overrides from index.html's style block */
+@media (max-width: 576px) {
+    /* This is more specific for #navigationButtons .btn in index.html */
+    #navigationButtons .btn { 
+        padding: 15px; 
+        margin: 5px; 
+        min-width: 100px; 
+    }
+
+    /* .section-header .btn-link padding is specific from index.html. */
+    .section-header .btn-link { 
+        padding: 15px 0;
+    }
+}
+
+@media (max-width: 400px) { /* This is a new breakpoint, specific to index.html */
+    #navigationButtons {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #navigationButtons .btn { /* Styles for stacked buttons */
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+/* html overscroll-behavior and body touch-action are already in existing styles.css */

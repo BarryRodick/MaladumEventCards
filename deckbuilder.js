@@ -1,114 +1,12 @@
 // deckbuilder.js
 
-// ============================
-// 1. Service Worker Registration
-// ============================
-
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js')
-            .then((registration) => {
-                console.log('Service Worker registered with scope:', registration.scope);
-
-                // Listen for updates to the service worker
-                registration.onupdatefound = () => {
-                    const installingWorker = registration.installing;
-                    installingWorker.onstatechange = () => {
-                        if (installingWorker.state === 'installed') {
-                            if (navigator.serviceWorker.controller) {
-                                // New update available
-                                showUpdateNotification();
-                            }
-                        }
-                    };
-                };
-            }, (err) => {
-                console.error('Service Worker registration failed:', err);
-            });
-    });
-
-    navigator.serviceWorker.addEventListener('message', (event) => {
-        if (event.data.type === 'NEW_VERSION') {
-            showUpdateNotification(event.data.version);
-        }
-    });
-}
-
-// Function to show an update notification to the user
-function showUpdateNotification(newVersion) {
-    const updateModal = `
-        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content bg-dark text-white">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="updateModalLabel">New Version Available</h5>
-                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>A new version (${newVersion}) of the app is available.</p>
-                        <p>Update now to get the latest features and improvements.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Later</button>
-                        <button type="button" class="btn btn-primary" id="updateNowButton">Update Now</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    // Remove existing update modal if present
-    const existingModal = document.getElementById('updateModal');
-    if (existingModal) {
-        existingModal.remove();
-    }
-    
-    document.body.insertAdjacentHTML('beforeend', updateModal);
-    const modal = $('#updateModal');
-    modal.modal('show');
-
-    document.getElementById('updateNowButton').addEventListener('click', () => {
-        // Clear cache and reload
-        if ('caches' in window) {
-            caches.keys().then(cacheNames => {
-                return Promise.all(
-                    cacheNames.map(cacheName => caches.delete(cacheName))
-                );
-            }).then(() => {
-                window.location.reload(true);
-            });
-        } else {
-            window.location.reload(true);
-        }
-    });
-}
+// Service Worker setup moved to js/serviceWorkerSetup.js
 
 // ============================
 // 2. Global Variables and Constants
 // ============================
 
-// 1. Consolidate configuration constants
-const CONFIG = {
-    deck: {
-        sentry: {
-            defaultCount: 4,
-            minCount: 3,
-            maxCount: 5
-        },
-        corrupter: {
-            defaultCount: 5,
-            minCount: 3,
-            maxCount: 7,
-            preferredDeckSection: 'middle'
-        }
-    },
-    storage: {
-        key: 'savedConfig',
-        testKey: '__storage_test__'
-    }
-};
+// CONFIG constant moved to js/config.js
 
 // 2. Rename global variables for clarity
 const state = {
@@ -180,20 +78,7 @@ let setAsideCards = []; // Moved outside generateDeck() for broader scope
 // Variable to hold deferred restoration configuration
 let deferredDeckRestoration = null;
 
-// Simplify configuration storage by combining related settings
-const GAME_CONFIG = {
-    corrupter: {
-        defaultCount: 5,
-        minCount: 3,
-        maxCount: 7,
-        preferredDeckSection: 'middle'
-    },
-    sentry: {
-        defaultCount: 4,
-        minCount: 3,
-        maxCount: 5
-    }
-};
+// GAME_CONFIG constant moved to js/config.js
 
 // ============================
 // 3. Initialization and Data Loading
@@ -423,22 +308,7 @@ function generateGameSelection(games) {
     }
 }
 
-// Function to parse card types correctly
-function parseCardTypes(typeString) {
-    // Split by + first to get AND groups
-    const andGroups = typeString.split('+').map(group => group.trim());
-    
-    // For each AND group, split by / to get OR options
-    const parsedGroups = andGroups.map(group => {
-        const orOptions = group.split('/').map(option => option.trim());
-        return orOptions;
-    });
-
-    return {
-        andGroups: parsedGroups, // Array of arrays, each inner array contains OR options
-        allTypes: [...new Set(parsedGroups.flat())] // Unique list of all types
-    };
-}
+// parseCardTypes function moved to js/utils.js
 
 // Function to load card types based on selected games
 function loadCardTypes() {
@@ -763,12 +633,12 @@ function restoreDeckState(savedConfig) {
             initialDeckSize = savedConfig.deckState.initialDeckSize || 0;
         
             // Restore in-play cards
-            const inPlayCards = document.getElementById('inPlayCards');
-            if (inPlayCards && savedConfig.deckState.inPlayCardsHTML) {
-                inPlayCards.innerHTML = savedConfig.deckState.inPlayCardsHTML;
+            const inPlayCardsContainer = document.getElementById('inPlayCards'); // Renamed for clarity
+            if (inPlayCardsContainer && savedConfig.deckState.inPlayCardsHTML) { // Check container existence
+                inPlayCardsContainer.innerHTML = savedConfig.deckState.inPlayCardsHTML;
                 
                 // Reattach event listeners to discard buttons
-                inPlayCards.querySelectorAll('.btn-danger').forEach(button => {
+                inPlayCardsContainer.querySelectorAll('.btn-danger').forEach(button => {
                     button.onclick = function() {
                         button.closest('.mb-3').remove();
                         saveConfiguration();
@@ -810,7 +680,7 @@ function restoreDeckState(savedConfig) {
                 currentDeckSize: currentDeck.length,
                 currentIndex: currentIndex,
                 discardPileSize: discardPile.length,
-                inPlayCardsSize: inPlayCards?.children.length || 0,
+                inPlayCardsSize: inPlayCardsContainer?.children.length || 0, // Use optional chaining
                 sentryDeckSize: sentryDeck.length
             });
         }
@@ -1192,25 +1062,7 @@ function getSpecialCards(count, specialTypes) {
     return shuffledSpecialCards.slice(0, count);
 }
 
-// Function to shuffle the deck
-function shuffleDeck(deck) {
-    let currentIndex = deck.length;
-    let temporaryValue, randomIndex;
-
-    // While there remain elements to shuffle
-    while (0 !== currentIndex) {
-        // Pick a remaining element
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // Swap it with the current element
-        temporaryValue = deck[currentIndex];
-        deck[currentIndex] = deck[randomIndex];
-        deck[randomIndex] = temporaryValue;
-    }
-
-    return deck;
-}
+// shuffleDeck function moved to js/utils.js
 
 // Function to reset availableCards without affecting the DOM
 function resetAvailableCards() {
@@ -1440,29 +1292,7 @@ function clearInPlayCards() {
 // 10. Deck Restoration and Helper Functions
 // ============================
 
-// Function to find a card by its ID
-function findCardById(id) {
-    // Search in availableCards
-    let card = availableCards.find(card => card.id === id);
-    if (card) return card;
-
-    // If not found, search in setAsideCards
-    card = setAsideCards.find(card => card.id === id);
-    if (card) return card;
-
-    // If not found, search in sentryDeck
-    card = sentryDeck.find(card => card.id === id);
-    if (card) return card;
-
-    // If still not found, search in all data
-    for (let game in dataStore.games) {
-        card = dataStore.games[game].find(card => card.id === id);
-        if (card) return card;
-    }
-
-    console.error(`Card with ID ${id} not found.`);
-    return null;
-}
+// findCardById function moved to js/utils.js
 
 // ============================
 // 11. Setup Event Listeners
@@ -1675,71 +1505,9 @@ function applyCardAction() {
 // 13. Helper Functions
 // ============================
 
-// Function to show a toast message
-function showToast(message) {
-    const toastContainer = document.getElementById('toastContainer');
-    if (!toastContainer) {
-        console.error('Element with ID "toastContainer" not found.');
-        return;
-    }
+// showToast function moved to js/utils.js
 
-    const toast = document.createElement('div');
-    toast.classList.add('toast', 'show', 'align-items-center', 'text-white', 'bg-secondary', 'border-0');
-    toast.setAttribute('role', 'alert');
-    toast.setAttribute('aria-live', 'assertive');
-    toast.setAttribute('aria-atomic', 'true');
-
-    const toastBody = document.createElement('div');
-    toastBody.classList.add('d-flex');
-    const toastMessage = document.createElement('div');
-    toastMessage.classList.add('toast-body');
-    toastMessage.textContent = message;
-    toastBody.appendChild(toastMessage);
-
-    const closeButton = document.createElement('button');
-    closeButton.type = 'button';
-    closeButton.classList.add('ml-auto', 'mb-1', 'close');
-    closeButton.setAttribute('data-dismiss', 'toast');
-    closeButton.setAttribute('aria-label', 'Close');
-    closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
-    toastBody.appendChild(closeButton);
-
-    toast.appendChild(toastBody);
-    toastContainer.appendChild(toast);
-
-    // Automatically remove the toast after 3 seconds
-    setTimeout(() => {
-        $(toast).toast('hide');
-        toast.addEventListener('hidden.bs.toast', () => {
-            toast.remove();
-        });
-    }, 3000);
-}
-
-// Function to track events in Google Analytics
-function trackEvent(eventCategory, eventAction, eventLabel = null, eventValue = null) {
-    if (typeof gtag !== 'function') {
-        console.warn('Google Analytics not available');
-        return;
-    }
-    
-    const eventParams = {
-        event_category: eventCategory,
-        event_label: eventLabel,
-        value: eventValue,
-        stream_id: '9783920401',
-        stream_name: 'Maladum Event Cards'
-    };
-    
-    // Remove undefined properties
-    Object.keys(eventParams).forEach(key => 
-        eventParams[key] === null && delete eventParams[key]
-    );
-    
-    // Send the event to Google Analytics
-    gtag('event', eventAction, eventParams);
-    console.log('GA Event:', eventAction, eventParams);
-}
+// trackEvent function moved to js/utils.js
 
 // Function to enhance buttons (e.g., tooltips)
 function enhanceButtons() {
@@ -2061,7 +1829,7 @@ function showCardTypeInsertUI() {
         <div class="form-group mt-3" id="specificCardSelect" style="display: none;">
             <label for="insertSpecificCard">Select Specific Card:</label>
             <select id="insertSpecificCard" class="form-control form-control-lg">
-                <option value="">Select a card...</option>
+                <option value="">Random ${this.value}</option>
             </select>
         </div>
         <div class="form-group mt-3">
@@ -2172,18 +1940,7 @@ function applyDarkTheme() {
     });
 }
 
-// Add this helper function at the start of the file
-function isStorageAvailable() {
-    try {
-        const storage = window.localStorage;
-        const x = '__storage_test__';
-        storage.setItem(x, x);
-        storage.removeItem(x);
-        return true;
-    } catch (e) {
-        return false;
-    }
-}
+// isStorageAvailable function moved to js/utils.js
 
 function loadSavedConfig() {
     if (!isStorageAvailable()) {
@@ -2273,14 +2030,87 @@ function restoreSavedState(savedConfig) {
 }
 
 // Use this check before any localStorage operations
-function saveState(state) {
+function saveState(state) { // Note: This 'state' parameter is different from the global 'state' object.
     if (!isStorageAvailable()) {
         console.warn('Local storage is not available');
         return;
     }
     try {
+        // It seems this function was intended to save a generic 'deckBuilderState',
+        // but the main save logic is in saveConfiguration().
+        // For now, I'll keep it as is, but it might need review if it's actually used.
         localStorage.setItem('deckBuilderState', JSON.stringify(state));
     } catch (error) {
         console.warn('Error saving state:', error);
     }
 }
+
+// =========================================================================
+// Scripts moved from index.html
+// =========================================================================
+
+// Function to show navigation buttons and card actions
+function showGameControls() {
+    const navigationButtons = document.getElementById('navigationButtons');
+    const cardActionSection = document.getElementById('cardActionSection');
+    const deckProgress = document.getElementById('deckProgress');
+    const activeDeckSection = document.getElementById('activeDeckSection');
+    
+    if (navigationButtons) navigationButtons.style.display = 'block';
+    if (cardActionSection) cardActionSection.style.display = 'block';
+    if (deckProgress) deckProgress.style.display = 'block';
+    if (activeDeckSection) activeDeckSection.style.display = 'block';
+}
+
+// Check if there's an active deck on page load
+// This listener is already part of the main DOMContentLoaded in deckbuilder.js,
+// but the logic within it needs to be executed.
+// It's better to integrate this into the main DOMContentLoaded logic if possible,
+// or ensure it runs after necessary elements are available.
+document.addEventListener('DOMContentLoaded', function() {
+    const deckOutput = document.getElementById('deckOutput');
+    if (deckOutput && deckOutput.firstElementChild) {
+        showGameControls();
+    }
+
+    // Event listener for marking cards in play (moved from index.html)
+    // Ensure this is attached after the element exists.
+    const markInPlayButton = document.getElementById('markInPlay');
+    if (markInPlayButton) {
+        markInPlayButton.addEventListener('click', function() {
+            const currentCardElement = document.getElementById('deckOutput')?.firstElementChild; // Get the img element
+            const inPlayCardsContainer = document.getElementById('inPlayCards');
+            
+            if (currentIndex >= 0 && currentDeck[currentIndex] && currentCardElement && inPlayCardsContainer) {
+                const actualCardObject = currentDeck[currentIndex]; // Get the card object from the deck
+
+                // Create wrapper div
+                const wrapper = document.createElement('div');
+                wrapper.className = 'mb-3 text-center';
+                
+                // Clone the displayed card image
+                const cardClone = currentCardElement.cloneNode(true);
+                wrapper.appendChild(cardClone);
+                
+                // Add discard button
+                const discardButton = document.createElement('button');
+                discardButton.className = 'btn btn-danger mt-2';
+                discardButton.innerHTML = '<i class="fas fa-trash"></i> Discard';
+                discardButton.onclick = function() {
+                    wrapper.remove();
+                    // Update the inPlayCards array in the main state if you're tracking it there
+                    // For now, this just removes from UI and calls saveConfiguration
+                    // which should save the inPlayCardsHTML.
+                    // A more robust way would be to manage an inPlayCards array in the `state` object.
+                    saveConfiguration(); 
+                };
+                wrapper.appendChild(discardButton);
+                
+                inPlayCardsContainer.appendChild(wrapper);
+                // This saveConfiguration will save the innerHTML of inPlayCardsContainer.
+                // Consider also updating a structured inPlayCards array in the `state` object if needed elsewhere.
+                saveConfiguration(); 
+            }
+        });
+    }
+});

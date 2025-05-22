@@ -1,0 +1,242 @@
+/* Styles from dungeons_of_enveron.html */
+        /* Styles specific to Dungeons of Enveron */
+        .delay-track {
+            margin: 15px 0;
+            display: flex;
+            gap: 5px;
+        }
+
+        .delay-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #333;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .delay-blue {
+            border-color: #4a90e2;
+        }
+
+        .delay-red {
+            border-color: #e24a4a;
+        }
+
+        /* Other page-specific styles... */
+
+        /* Add after existing styles */
+        .campaign-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .campaign-card {
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: var(--parchment);
+            border: 1px solid var(--border-ornate);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .campaign-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('logos/background.png');
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .campaign-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #333;
+            color: #333;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #333;
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .reward-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 10px 0;
+            gap: 10px;
+        }
+
+        .reward-text {
+            flex: 1;
+            color: #333;
+        }
+
+        .notes-section {
+            margin: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .notes-header {
+            padding: 10px;
+            background: #f5f5f5;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            color: #333;
+        }
+
+        .notes-content {
+            display: none;
+            padding: 10px;
+            background-color: white;
+        }
+
+        .notes-content.visible {
+            display: block;
+        }
+
+        .notes-content textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            background-color: white;
+            color: #333;
+            border: 1px solid #666;
+        }
+
+        /* .app-logo-text and .faq-icon are for header, will be handled by styles.css or _header.html if loaded by JS */
+        /* These are general styles that might be better in main styles.css or specific to campaign pages */
+        /* For now, including them here as they were in this page's style block */
+        /* However, .app-logo-text and .faq-icon are defined in styles.css already. */
+        /* .app-logo-text {
+            color: white;
+            font-size: 24px;
+        }
+
+        .faq-icon {
+            color: white;
+            font-size: 24px;
+            margin-right: 15px;
+        } */
+
+        .collapse-icon {
+            transition: transform 0.3s;
+        }
+
+        .collapse-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        .input-field {
+            padding: 5px;
+            margin: 0 5px;
+            width: 60px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #333;
+        }
+
+        .input-field.apprentice-name {
+            width: 150px;
+        }
+
+        .icon {
+            height: 20px;
+            vertical-align: middle;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        .malagaunt-track {
+            display: flex;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .malagaunt-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #333;
+            cursor: pointer;
+        }
+
+        /* Add styles to ensure text is readable on all elements */
+        /* This is a broad rule, ensure it doesn't override more specific text color styles. */
+        .campaign-container p, 
+        .campaign-container span, 
+        .campaign-container div:not(.notes-content) { /* Scoped to campaign-container */
+            color: #333;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Fix the reset button */
+        .reset-button {
+            margin: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #001300, #015701);
+            color: white !important; /* Important to override other text colors */
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Make entry points more readable */
+        .entry-points-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .entry-point-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+
+        /* Fix the icon paths */
+        .terrifying-icon {
+            height: 20px;
+            vertical-align: middle;
+        }
