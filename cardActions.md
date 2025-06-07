@@ -41,8 +41,8 @@ When an enemy retreats but is likely to return very soon, or when a beneficial e
 ### 3. Replace with Same Type
 **Action Name:** `replaceSameType`
 
-**Description:**  
-This action replaces the current card with another card of the same type from the available pool. This allows you to introduce variety while maintaining the same category of encounter.
+**Description:**
+This action replaces the current card with another card of the same type from the available pool. This allows you to introduce variety while maintaining the same category of encounter. You can use it through the **Replace with same type** option in the deck builder.
 
 **Behavior:**
 - The current card is removed
@@ -52,7 +52,7 @@ This action replaces the current card with another card of the same type from th
 **Example Use Case:**  
 When you want to change the specific enemy or environment without changing the overall type of encounter.
 
-**Note:** This functionality appears to be listed in the UI but might not be fully implemented in the current version.
+**Note:** This functionality is fully implemented and available in the current version of the deck builder.
 
 ---
 
