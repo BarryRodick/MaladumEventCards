@@ -7,8 +7,8 @@ function loadParseCardTypes() {
   const code = fs.readFileSync(file, 'utf8');
   const match = code.match(/function parseCardTypes[\s\S]*?\n\}/);
   if (!match) throw new Error('parseCardTypes function not found');
-  // Evaluate in current context so Array prototypes match
-  return (new Function(match[0] + '; return parseCardTypes;'))();
+  // Provide cache map in the evaluation context
+  return (new Function('const parseCardTypesCache = new Map();\n' + match[0] + '; return parseCardTypes;'))();
 }
 
 const parseCardTypes = loadParseCardTypes();
