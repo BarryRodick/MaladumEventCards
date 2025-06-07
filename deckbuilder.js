@@ -689,7 +689,11 @@ function saveConfiguration() {
                 discardPile: discardPile,
                 sentryDeck: sentryDeck,
                 initialDeckSize: state.initialDeckSize,
-                inPlayCardsHTML: document.getElementById('inPlayCards')?.innerHTML || ''
+                inPlayCardsHTML: document.getElementById('inPlayCards')?.innerHTML || '',
+                // Persist individual deck arrays for accurate restoration
+                mainDeck: state.deck.main,
+                specialDeck: state.deck.special,
+                combinedDeck: state.deck.combined
             }
         };
 
@@ -761,6 +765,11 @@ function restoreDeckState(savedConfig) {
             discardPile = savedConfig.deckState.discardPile || [];
             sentryDeck = savedConfig.deckState.sentryDeck || [];
             state.initialDeckSize = savedConfig.deckState.initialDeckSize || 0;
+
+            // Restore individual deck arrays
+            state.deck.main = savedConfig.deckState.mainDeck || [];
+            state.deck.special = savedConfig.deckState.specialDeck || [];
+            state.deck.combined = savedConfig.deckState.combinedDeck || [];
         
             // Restore in-play cards
             const inPlayCards = document.getElementById('inPlayCards');
@@ -1024,6 +1033,11 @@ function generateDeck() {
 
     // Combine regularDeck and specialDeck (Corrupter cards) for display
     currentDeck = regularDeck.concat(specialDeck);
+
+    // Sync deck arrays with state for consistency
+    state.deck.main = regularDeck;
+    state.deck.special = specialDeck;
+    state.deck.combined = currentDeck;
 
     // Set initial deck size
     state.initialDeckSize = currentDeck.length;
