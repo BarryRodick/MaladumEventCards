@@ -651,6 +651,37 @@ select.form-control-lg:hover {
     }
 }
 
+/* Flip Animations */
+@keyframes flipInForward {
+    from {
+        transform: rotateY(90deg);
+        opacity: 0;
+    }
+    to {
+        transform: rotateY(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes flipInBackward {
+    from {
+        transform: rotateY(-90deg);
+        opacity: 0;
+    }
+    to {
+        transform: rotateY(0deg);
+        opacity: 1;
+    }
+}
+
+.flip-forward {
+    animation: flipInForward 0.3s ease-out;
+}
+
+.flip-backward {
+    animation: flipInBackward 0.3s ease-out;
+}
+
 /* Responsive Improvements */
 @media (max-width: 768px) {
     .app-header {

@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentIndex--;
                 }
                 state.currentIndex = currentIndex;
-                showCurrentCard();
+                showCurrentCard('backward');
                 saveConfiguration();
                 trackEvent('Navigation', 'Previous Card', `Index: ${currentIndex}`);
             }
@@ -373,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            showCurrentCard();
+            showCurrentCard('forward');
             updateProgressBar(); // Make sure progress bar is updated
             saveConfiguration();
             trackEvent('Navigation', 'Next Card', `Index: ${currentIndex}`);
@@ -1252,7 +1252,7 @@ function resetAvailableCards() {
 // ============================
 
 // Function to display the current card
-function showCurrentCard() {
+function showCurrentCard(direction = null) {
     const output = document.getElementById('deckOutput');
     const cardActionSection = document.getElementById('cardActionSection');
     
@@ -1273,6 +1273,15 @@ function showCurrentCard() {
         if (currentCard) {
             output.innerHTML = `<img src="cardimages/${currentCard.contents}" alt="${currentCard.card}" class="img-fluid">`;
         }
+    }
+
+    const img = output.querySelector('img');
+    if (direction && img) {
+        const className = direction === 'forward' ? 'flip-forward' : 'flip-backward';
+        img.classList.add(className);
+        img.addEventListener('animationend', () => {
+            img.classList.remove(className);
+        }, { once: true });
     }
 
     // Always update the progress bar
