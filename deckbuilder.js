@@ -333,6 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     discardPile.pop();
                     currentIndex--;
                 }
+                state.currentIndex = currentIndex;
                 showCurrentCard();
                 saveConfiguration();
                 trackEvent('Navigation', 'Previous Card', `Index: ${currentIndex}`);
@@ -351,6 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             currentIndex++;
+            state.currentIndex = currentIndex;
 
             if (currentIndex >= currentDeck.length) {
                 if (discardPile.length > 0) {
@@ -359,12 +361,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     state.initialDeckSize = currentDeck.length;
                     discardPile = [];
                     currentIndex = -1; // Reset to start of new deck
+                    state.currentIndex = currentIndex;
                     showToast('Deck reshuffled from discard pile.');
                     trackEvent('Navigation', 'Reshuffle Deck', `Cards: ${state.initialDeckSize}`);
                 } else {
                     // No more cards left to draw
                     showToast('No more cards in the deck.');
                     currentIndex--; // Stay at the last card
+                    state.currentIndex = currentIndex;
                     return;
                 }
             }
@@ -762,6 +766,7 @@ function restoreDeckState(savedConfig) {
         if (savedConfig.deckState) {
             currentDeck = savedConfig.deckState.currentDeck || [];
             currentIndex = savedConfig.deckState.currentIndex || -1;
+            state.currentIndex = currentIndex;
             discardPile = savedConfig.deckState.discardPile || [];
             sentryDeck = savedConfig.deckState.sentryDeck || [];
             state.initialDeckSize = savedConfig.deckState.initialDeckSize || 0;
@@ -885,6 +890,7 @@ function generateDeck() {
     }
 
     currentIndex = -1; // Start with -1 to display back.jpg first
+    state.currentIndex = currentIndex;
     regularDeck = [];
     specialDeck = [];    // For Corrupter cards
     sentryDeck = [];     // For Sentry cards
