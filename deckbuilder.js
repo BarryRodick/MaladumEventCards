@@ -1087,6 +1087,9 @@ function generateDeck() {
     // Show the current card
     showCurrentCard();
 
+    // Preload the first few upcoming cards
+    preloadUpcomingCards();
+
     // Save configuration after generation
     saveConfiguration();
 
@@ -1287,9 +1290,26 @@ function showCurrentCard(direction = null) {
 
     // Always update the progress bar
     updateProgressBar();
-    
+
     // Save current state
     saveConfiguration();
+
+    // Preload upcoming card images for smoother navigation
+    preloadUpcomingCards();
+}
+
+// Function to preload upcoming card images
+function preloadUpcomingCards(count = 2) {
+    for (let i = 1; i <= count; i++) {
+        const index = currentIndex + i;
+        if (index >= 0 && index < currentDeck.length) {
+            const card = currentDeck[index];
+            if (card && card.contents) {
+                const img = new Image();
+                img.src = `cardimages/${card.contents}`;
+            }
+        }
+    }
 }
 
 // Function to display the deck
