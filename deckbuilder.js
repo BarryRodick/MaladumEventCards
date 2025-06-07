@@ -309,12 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Attach event listener to the generate button
-    const generateDeckButton = document.getElementById('generateDeck');
-    if (generateDeckButton) {
-        generateDeckButton.addEventListener('click', generateDeck);
-    } else {
-        console.error('Element with ID "generateDeck" not found.');
-    }
+    domUtils.addEvent('generateDeck', 'click', generateDeck);
 
     // Automatically save configuration when card counts change
     document.addEventListener('input', (event) => {
@@ -324,15 +319,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Attach event listener to the "Clear In-Play Cards" button
-    const clearInPlayCardsButton = document.getElementById('clearInPlayCards');
-    if (clearInPlayCardsButton) {
-        clearInPlayCardsButton.addEventListener('click', clearInPlayCards);
-    } else {
-        console.error('Element with ID "clearInPlayCards" not found.');
-    }
+    domUtils.addEvent('clearInPlayCards', 'click', clearInPlayCards);
 
     // Attach event listeners for navigation buttons
-    const prevCardButton = document.getElementById('prevCard');
+    const prevCardButton = domUtils.getEl('prevCard');
     if (prevCardButton) {
         prevCardButton.addEventListener('click', () => {
             if (currentIndex > -1) {
@@ -352,11 +342,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 trackEvent('Navigation', 'Previous Card', `Index: ${currentIndex}`);
             }
         });
-    } else {
-        console.error('Element with ID "prevCard" not found.');
     }
 
-    const nextCardButton = document.getElementById('nextCard');
+    const nextCardButton = domUtils.getEl('nextCard');
     if (nextCardButton) {
         nextCardButton.addEventListener('click', () => {
             // Move the current card to the discard pile if it's not the starting card back
@@ -391,8 +379,6 @@ document.addEventListener('DOMContentLoaded', () => {
             debouncedSaveConfiguration();
             trackEvent('Navigation', 'Next Card', `Index: ${currentIndex}`);
         });
-    } else {
-        console.error('Element with ID "nextCard" not found.');
     }
 
     // Call this function when the page loads
