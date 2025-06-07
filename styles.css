@@ -41,6 +41,17 @@ body.dark-mode::before {
     color: #ffffff;
 }
 
+/* Ensure the Select Games section fully collapses */
+#gameCheckboxes.collapse:not(.show),
+#gameCheckboxes.collapsing {
+    display: none;
+    padding: 0;
+}
+
+#gameCheckboxes.collapse.show {
+    display: grid !important;
+}
+
 /* Dark Mode Card Styling */
 body.dark-mode .card {
     background-color: var(--parchment);
