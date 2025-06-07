@@ -327,11 +327,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (currentIndex === 0) {
                     // When going back from the first card to the card back
                     currentIndex = -1;
+                    state.currentIndex = currentIndex;
                 } else {
                     // Remove the last card from discardPile if we're moving from one card to another
                     // (not when we're moving from card 1 to card back)
                     discardPile.pop();
                     currentIndex--;
+                    state.currentIndex = currentIndex;
                 }
                 showCurrentCard();
                 saveConfiguration();
@@ -351,6 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             currentIndex++;
+            state.currentIndex = currentIndex;
 
             if (currentIndex >= currentDeck.length) {
                 if (discardPile.length > 0) {
@@ -359,12 +362,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     state.initialDeckSize = currentDeck.length;
                     discardPile = [];
                     currentIndex = -1; // Reset to start of new deck
+                    state.currentIndex = currentIndex;
+                    state.deck.main = [...currentDeck];
+                    state.deck.special = [];
+                    state.deck.combined = [...currentDeck];
                     showToast('Deck reshuffled from discard pile.');
                     trackEvent('Navigation', 'Reshuffle Deck', `Cards: ${state.initialDeckSize}`);
                 } else {
                     // No more cards left to draw
                     showToast('No more cards in the deck.');
                     currentIndex--; // Stay at the last card
+                    state.currentIndex = currentIndex;
                     return;
                 }
             }
@@ -758,6 +766,10 @@ function restoreDeckState(savedConfig) {
         if (savedConfig.deckState) {
             currentDeck = savedConfig.deckState.currentDeck || [];
             currentIndex = savedConfig.deckState.currentIndex || -1;
+            state.currentIndex = currentIndex;
+            state.deck.main = [...currentDeck];
+            state.deck.special = [];
+            state.deck.combined = [...currentDeck];
             discardPile = savedConfig.deckState.discardPile || [];
             sentryDeck = savedConfig.deckState.sentryDeck || [];
             state.initialDeckSize = savedConfig.deckState.initialDeckSize || 0;
@@ -876,6 +888,7 @@ function generateDeck() {
     }
 
     currentIndex = -1; // Start with -1 to display back.jpg first
+    state.currentIndex = currentIndex;
     regularDeck = [];
     specialDeck = [];    // For Corrupter cards
     sentryDeck = [];     // For Sentry cards
@@ -1024,6 +1037,11 @@ function generateDeck() {
 
     // Combine regularDeck and specialDeck (Corrupter cards) for display
     currentDeck = regularDeck.concat(specialDeck);
+
+    // Sync state deck arrays for card actions
+    state.deck.main = [...regularDeck];
+    state.deck.special = [...specialDeck];
+    state.deck.combined = [...currentDeck];
 
     // Set initial deck size
     state.initialDeckSize = currentDeck.length;
@@ -1656,6 +1674,11 @@ function applyCardAction() {
     const n = parseInt(document.getElementById('actionN')?.value) || 0;
     
     const result = cardActions[action]?.(activeCard, n);
+
+    if (action === 'shuffleAnywhere' || action === 'shuffleTopN') {
+        currentDeck = [...state.deck.combined];
+    }
+
     if (result) {
         showToast(result);
         displayDeck();
