@@ -1,5 +1,5 @@
-const CACHE_NAME = 'maladum-event-cards-v3';
-const VERSION = '1.0.2'; // Add version tracking
+const CACHE_NAME = 'maladum-event-cards-v4';
+const VERSION = '1.0.3'; // Add version tracking
 const GOOGLE_ANALYTICS_ID = 'G-ZMTSM9B7Q7';
 
 self.addEventListener('message', (event) => {
