@@ -14,7 +14,7 @@ self.addEventListener('install', (event) => {
             return cache.addAll([
                 '/',
                 '/index.html',
-                '/styles/main.css',
+                '/styles.css',
                 '/dungeons_of_enveron.html',
                 '/forbidden_creed.html',
                 '/about.html',
