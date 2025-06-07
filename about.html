@@ -56,11 +56,13 @@
             <a href="index.html" class="btn btn-link faq-icon" title="Back to Home" aria-label="Back to Home">
                 <i class="fas fa-home"></i>
             </a>
-            
+
             <!-- Buy Me a Coffee Button -->
             <div class="bmc-button-container ml-3">
                 <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="barryrodics" data-color="#000000" data-emoji="🎲" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#ffffff" data-font-color="#ffffff" data-coffee-color="#FFDD00"></script>
             </div>
+
+            <button id="checkUpdateBtn" class="btn btn-info ml-3">Check for Updates</button>
         </div>
         </div>
     </header>
@@ -160,6 +162,80 @@
 
     <!-- Include Deck Builder JS (if any specific scripts needed for about.html) -->
     <!-- <script src="deckbuilder.js"></script> -->
+
+    <script>
+      function showUpdateNotification(newVersion) {
+        const updateModal = `
+          <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content bg-dark text-white">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="updateModalLabel">New Version Available</h5>
+                          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          <p>A new version (${newVersion}) of the app is available.</p>
+                          <p>Update now to get the latest features and improvements.</p>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Later</button>
+                          <button type="button" class="btn btn-primary" id="updateNowButton">Update Now</button>
+                      </div>
+                  </div>
+              </div>
+          </div>`;
+
+        const existingModal = document.getElementById('updateModal');
+        if (existingModal) {
+          existingModal.remove();
+        }
+
+        document.body.insertAdjacentHTML('beforeend', updateModal);
+        const modal = $('#updateModal');
+        modal.modal('show');
+
+        document.getElementById('updateNowButton').addEventListener('click', () => {
+          if ('caches' in window) {
+            caches.keys().then(cacheNames => {
+              return Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)));
+            }).then(() => {
+              window.location.reload(true);
+            });
+          } else {
+            window.location.reload(true);
+          }
+        });
+      }
+
+      document.getElementById('checkUpdateBtn').addEventListener('click', () => {
+        const fetchAndCompare = installedVersion => {
+          fetch('./version.json?nocache=' + Date.now())
+            .then(resp => resp.json())
+            .then(data => {
+              if (installedVersion && data.version !== installedVersion) {
+                showUpdateNotification(data.version);
+              } else if (installedVersion) {
+                alert('No update needed.');
+              } else {
+                alert('Current version: ' + data.version);
+              }
+            })
+            .catch(() => alert('Unable to check for updates.'));
+        };
+
+        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+          const channel = new MessageChannel();
+          channel.port1.onmessage = event => {
+            fetchAndCompare(event.data);
+          };
+          navigator.serviceWorker.controller.postMessage('GET_VERSION', [channel.port2]);
+        } else {
+          fetchAndCompare(null);
+        }
+      });
+    </script>
 
 </body>
 </html>
