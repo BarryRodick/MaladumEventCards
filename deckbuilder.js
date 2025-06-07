@@ -356,11 +356,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (discardPile.length > 0) {
                     // Reshuffle the discard pile to form a new deck
                     currentDeck = shuffleDeck(discardPile);
-                    initialDeckSize = currentDeck.length;
+                    state.initialDeckSize = currentDeck.length;
                     discardPile = [];
                     currentIndex = -1; // Reset to start of new deck
                     showToast('Deck reshuffled from discard pile.');
-                    trackEvent('Navigation', 'Reshuffle Deck', `Cards: ${initialDeckSize}`);
+                    trackEvent('Navigation', 'Reshuffle Deck', `Cards: ${state.initialDeckSize}`);
                 } else {
                     // No more cards left to draw
                     showToast('No more cards in the deck.');
@@ -688,7 +688,7 @@ function saveConfiguration() {
                 currentIndex: currentIndex,
                 discardPile: discardPile,
                 sentryDeck: sentryDeck,
-                initialDeckSize: initialDeckSize,
+                initialDeckSize: state.initialDeckSize,
                 inPlayCardsHTML: document.getElementById('inPlayCards')?.innerHTML || ''
             }
         };
@@ -760,7 +760,7 @@ function restoreDeckState(savedConfig) {
             currentIndex = savedConfig.deckState.currentIndex || -1;
             discardPile = savedConfig.deckState.discardPile || [];
             sentryDeck = savedConfig.deckState.sentryDeck || [];
-            initialDeckSize = savedConfig.deckState.initialDeckSize || 0;
+            state.initialDeckSize = savedConfig.deckState.initialDeckSize || 0;
         
             // Restore in-play cards
             const inPlayCards = document.getElementById('inPlayCards');
@@ -1026,7 +1026,7 @@ function generateDeck() {
     currentDeck = regularDeck.concat(specialDeck);
 
     // Set initial deck size
-    initialDeckSize = currentDeck.length;
+    state.initialDeckSize = currentDeck.length;
 
     // Save the current configuration
     saveConfiguration();
