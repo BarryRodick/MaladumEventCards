@@ -169,6 +169,7 @@ let selectedGames = [];  // Games selected by the user
 let dataStore = {};          // Stores card data from JSON
 let availableCards = [];     // Cards available for selection
 let difficultySettings = []; // Difficulty configurations
+let cardMap = new Map();     // Map from card ID to card object
 
 // Define special card types dynamically after loading JSON
 let sentryCardTypes = [];
@@ -259,6 +260,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Safely assign data
         dataStore = cardsData || { games: {} };
         difficultySettings = difficultiesData?.difficulties || [];
+
+        // Build a lookup map for cards by ID
+        cardMap.clear();
+        Object.keys(dataStore.games || {}).forEach(game => {
+            (dataStore.games[game] || []).forEach(card => {
+                cardMap.set(card.id, card);
+            });
+        });
 
         // Extract special types with fallbacks
         sentryCardTypes = dataStore.sentryTypes || [];
@@ -1520,22 +1529,10 @@ function clearInPlayCards() {
 
 // Function to find a card by its ID
 function findCardById(id) {
-    // Search in availableCards
-    let card = availableCards.find(card => card.id === id);
-    if (card) return card;
-
-    // If not found, search in setAsideCards
-    card = setAsideCards.find(card => card.id === id);
-    if (card) return card;
-
-    // If not found, search in sentryDeck
-    card = sentryDeck.find(card => card.id === id);
-    if (card) return card;
-
-    // If still not found, search in all data
-    for (let game in dataStore.games) {
-        card = dataStore.games[game].find(card => card.id === id);
-        if (card) return card;
+    const numericId = typeof id === 'string' ? parseInt(id, 10) : id;
+    const card = cardMap.get(numericId);
+    if (card) {
+        return card;
     }
 
     console.error(`Card with ID ${id} not found.`);
@@ -2189,7 +2186,7 @@ function insertCardOfType(cardType, position) {
 
     if (specificCardId) {
         // Use specifically selected card
-        selectedCard = availableCards.find(card => card.id === specificCardId);
+        selectedCard = findCardById(specificCardId);
         if (!selectedCard) {
             showToast('Selected card not found.');
             return false;
