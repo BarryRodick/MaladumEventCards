@@ -428,21 +428,31 @@ function generateGameSelection(games) {
     }
 }
 
-// Function to parse card types correctly
+// Cache for parsed card types
+const parseCardTypesCache = new Map();
+
+// Function to parse card types correctly with caching
 function parseCardTypes(typeString) {
+    if (parseCardTypesCache.has(typeString)) {
+        return parseCardTypesCache.get(typeString);
+    }
+
     // Split by + first to get AND groups
     const andGroups = typeString.split('+').map(group => group.trim());
-    
+
     // For each AND group, split by / to get OR options
     const parsedGroups = andGroups.map(group => {
         const orOptions = group.split('/').map(option => option.trim());
         return orOptions;
     });
 
-    return {
+    const result = {
         andGroups: parsedGroups, // Array of arrays, each inner array contains OR options
         allTypes: [...new Set(parsedGroups.flat())] // Unique list of all types
     };
+
+    parseCardTypesCache.set(typeString, result);
+    return result;
 }
 
 // Function to load card types based on selected games
@@ -2094,11 +2104,9 @@ function showCardTypeInsertUI() {
     cardTypeSelect.className = 'mt-3';
     
     // Get unique card types from available cards
-    const cardTypes = [...new Set(availableCards.flatMap(card => 
-        card.type.split('+').flatMap(t => 
-            t.trim().split('/').map(st => st.trim())
-        )
-    ))].sort();
+    const cardTypes = [...new Set(
+        availableCards.flatMap(card => parseCardTypes(card.type).allTypes)
+    )].sort();
 
     cardTypeSelect.innerHTML = `
         <div class="form-group">
@@ -2140,9 +2148,7 @@ function showCardTypeInsertUI() {
 
         // Get available cards of the selected type
         const availableCardsOfType = availableCards.filter(card => {
-            const cardTypes = card.type.split('+').flatMap(t => 
-                t.trim().split('/').map(st => st.trim())
-            );
+            const cardTypes = parseCardTypes(card.type).allTypes;
             return cardTypes.includes(this.value);
         });
 
@@ -2173,9 +2179,7 @@ function insertCardOfType(cardType, position) {
     } else {
         // Get random card of the selected type
         const availableCardsOfType = availableCards.filter(card => {
-            const cardTypes = card.type.split('+').flatMap(t => 
-                t.trim().split('/').map(st => st.trim())
-            );
+            const cardTypes = parseCardTypes(card.type).allTypes;
             return cardTypes.includes(cardType);
         });
 
