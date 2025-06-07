@@ -1847,7 +1847,7 @@ function handleCorrupterRules(regularDeck) {
 
     const corrupterCards = availableCards.filter(card => {
         let cardTypes = parseCardTypes(card.type);
-        return cardTypes.andTypes.some(type => corrupterCardTypes.includes(type));
+        return cardTypes.allTypes.some(type => corrupterCardTypes.includes(type));
     });
 
     if (corrupterCards.length === 0) {
@@ -1909,7 +1909,7 @@ function handleSentryRules(regularDeck) {
     // Get all available Sentry cards (cards with types Revenant or Malagaunt)
     const sentryCards = availableCards.filter(card => {
         let cardTypes = parseCardTypes(card.type);
-        return cardTypes.andTypes.some(type => sentryCardTypes.includes(type));
+        return cardTypes.allTypes.some(type => sentryCardTypes.includes(type));
     });
 
     if (sentryCards.length === 0) {
