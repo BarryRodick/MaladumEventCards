@@ -17,6 +17,10 @@ const urlsToCache = [
     './maladumcards.json',
     './difficulties.json',
     './version.json',
+    './cardimages/back.jpg',
+    './cardimages/Ambush.png',
+    './cardimages/Chilling_Aura.png',
+    './cardimages/Bounty.png',
     'https://www.googletagmanager.com/gtag/js?id=' + GOOGLE_ANALYTICS_ID,
 ];
 
