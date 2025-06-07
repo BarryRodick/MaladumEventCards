@@ -1,6 +1,9 @@
 // deckbuilder.js
 // Requires storage-utils.js for persistence helpers
 
+// Toggle verbose logging
+const DEBUG = false;
+
 // ============================
 // 1. Service Worker Registration
 // ============================
@@ -9,7 +12,7 @@ if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./service-worker.js')
             .then((registration) => {
-                console.log('Service Worker registered with scope:', registration.scope);
+                if (DEBUG) console.log('Service Worker registered with scope:', registration.scope);
 
                 // Listen for updates to the service worker
                 registration.onupdatefound = () => {
@@ -471,7 +474,7 @@ function loadCardTypes() {
 
     // Copy allCards to availableCards
     availableCards = [...allCards];
-    console.log('Available Cards after reset:', availableCards);
+    if (DEBUG) console.log('Available Cards after reset:', availableCards);
 
     // Process each card's type correctly
     allCards.forEach(card => {
@@ -665,7 +668,7 @@ function updateDifficultyDetails() {
             saveConfiguration();
         }
         
-        console.log('Updated difficulty settings:', {
+        if (DEBUG) console.log('Updated difficulty settings:', {
             name: selectedDifficulty.name,
             novice: selectedDifficulty.novice,
             veteran: selectedDifficulty.veteran
@@ -720,7 +723,7 @@ function saveConfiguration() {
         });
 
         localStorage.setItem(CONFIG.storage.key, JSON.stringify(config));
-        console.log('Game state saved:', {
+        if (DEBUG) console.log('Game state saved:', {
             deckSize: currentDeck.length,
             currentIndex: currentIndex,
             discardPileSize: discardPile.length
@@ -825,7 +828,7 @@ function restoreDeckState(savedConfig) {
                 toggleDeckBuilderUI(true);
             }
     
-            console.log('Deck state restored:', {
+            if (DEBUG) console.log('Deck state restored:', {
                 currentDeckSize: currentDeck.length,
                 currentIndex: currentIndex,
                 discardPileSize: discardPile.length,
@@ -880,7 +883,7 @@ function restoreCardCounts() {
                 }
             }
         });
-        console.log('Restored Card Counts from Configuration');
+        if (DEBUG) console.log('Restored Card Counts from Configuration');
     }
 }
 
@@ -925,17 +928,16 @@ function generateDeck() {
         }
     });
 
-    // Add console logs to check card counts
-    console.log('Card Counts:', cardCounts);
-    console.log('Special Card Counts:', specialCardCounts);
-    console.log('Sentry Card Counts:', sentryCardCounts);
+    if (DEBUG) console.log('Card Counts:', cardCounts);
+    if (DEBUG) console.log('Special Card Counts:', specialCardCounts);
+    if (DEBUG) console.log('Sentry Card Counts:', sentryCardCounts);
 
     // Check if Sentry and Corrupter Rules are enabled
     const isSentryEnabled = document.getElementById('enableSentryRules').checked;
-    console.log('Sentry Rules Enabled:', isSentryEnabled);
+    if (DEBUG) console.log('Sentry Rules Enabled:', isSentryEnabled);
 
     const isCorrupterEnabled = document.getElementById('enableCorrupterRules').checked;
-    console.log('Corrupter Rules Enabled:', isCorrupterEnabled);
+    if (DEBUG) console.log('Corrupter Rules Enabled:', isCorrupterEnabled);
 
     // 1. Set Aside Cards Based on heldBackCardTypes
     setAsideCards = []; // Reset setAsideCards
@@ -996,7 +998,7 @@ function generateDeck() {
         
         // Important: Sentry cards should NOT be added to the main deck yet
         // They will be introduced later via the introduceSentryCards action
-        console.log(`Selected ${sentryDeck.length} Sentry cards for later introduction`);
+        if (DEBUG) console.log(`Selected ${sentryDeck.length} Sentry cards for later introduction`);
     }
 
     // Selecting held back cards based on counts from inputs
@@ -1057,15 +1059,15 @@ function generateDeck() {
     saveConfiguration();
 
     // Log for debugging
-    console.log('Selected Games:', selectedGames);
-    console.log('Regular Card Counts:', cardCounts);
-    console.log('Special Card Counts:', specialCardCounts);
-    console.log('Sentry Deck:', sentryDeck);
-    console.log('Available Cards:', availableCards);
-    console.log('Generated Regular Deck:', regularDeck);
-    console.log('Generated Special Deck:', specialDeck);
-    console.log('Sentry Rules Enabled:', isSentryEnabled);
-    console.log('Corrupter Rules Enabled:', isCorrupterEnabled);
+    if (DEBUG) console.log('Selected Games:', selectedGames);
+    if (DEBUG) console.log('Regular Card Counts:', cardCounts);
+    if (DEBUG) console.log('Special Card Counts:', specialCardCounts);
+    if (DEBUG) console.log('Sentry Deck:', sentryDeck);
+    if (DEBUG) console.log('Available Cards:', availableCards);
+    if (DEBUG) console.log('Generated Regular Deck:', regularDeck);
+    if (DEBUG) console.log('Generated Special Deck:', specialDeck);
+    if (DEBUG) console.log('Sentry Rules Enabled:', isSentryEnabled);
+    if (DEBUG) console.log('Corrupter Rules Enabled:', isCorrupterEnabled);
 
     // After deck generation, make sure to show the active deck section
     const activeDeckSection = document.getElementById('activeDeckSection');
@@ -1109,7 +1111,7 @@ function generateDeck() {
 // Function to select cards by type considering '+' and '/'
 function selectCardsByType(cardType, count, selectedCardsMap, cardCounts, isSpecial = false) {
     let selectedCards = [];
-    console.log(`Selecting ${count} cards for type: "${cardType}"`);
+    if (DEBUG) console.log(`Selecting ${count} cards for type: "${cardType}"`);
 
     // Get all available cards that could satisfy this type
     let cardsOfType = availableCards.filter(card => {
@@ -1118,7 +1120,7 @@ function selectCardsByType(cardType, count, selectedCardsMap, cardCounts, isSpec
         return typeInfo.allTypes.includes(cardType);
     });
 
-    console.log(`Found ${cardsOfType.length} potential cards for type "${cardType}"`);
+    if (DEBUG) console.log(`Found ${cardsOfType.length} potential cards for type "${cardType}"`);
     
     // Shuffle the candidate cards
     let shuffledCards = shuffleDeck([...cardsOfType]);
@@ -1153,24 +1155,24 @@ function selectCardsByType(cardType, count, selectedCardsMap, cardCounts, isSpec
                 for (let type of orOptions) {
                     if (cardCounts[type] && cardCounts[type] > 0) {
                         cardCounts[type]--;
-                        console.log(`Decreased count for type "${type}" to ${cardCounts[type]}`);
+                        if (DEBUG) console.log(`Decreased count for type "${type}" to ${cardCounts[type]}`);
                         break; // Only decrease one count per AND group
                     }
                 }
             });
             
-            console.log(`Selected card ID ${card.id}: "${card.card}"`);
+            if (DEBUG) console.log(`Selected card ID ${card.id}: "${card.card}"`);
         }
     }
 
-    console.log(`Selected ${selectedCards.length} cards for type "${cardType}"`);
+    if (DEBUG) console.log(`Selected ${selectedCards.length} cards for type "${cardType}"`);
     return selectedCards;
 }
 
 // Function to select held back cards by type
 function selectHeldBackCardsByType(cardType, count, selectedCardsMap, cardCounts) {
     let selectedCards = [];
-    console.log(`Selecting ${count} held back cards for type: "${cardType}"`);
+    if (DEBUG) console.log(`Selecting ${count} held back cards for type: "${cardType}"`);
 
     // Get cards that can satisfy this type
     let cardsOfType = setAsideCards.filter(card => {
@@ -1178,28 +1180,28 @@ function selectHeldBackCardsByType(cardType, count, selectedCardsMap, cardCounts
         return typeInfo.allTypes.includes(cardType);
     });
 
-    console.log(`Available held back cards for type "${cardType}":`, cardsOfType);
+    if (DEBUG) console.log(`Available held back cards for type "${cardType}":`, cardsOfType);
 
     // Shuffle cardsOfType
     let shuffledCards = shuffleDeck(cardsOfType);
-    console.log(`Shuffled held back cards for type "${cardType}":`, shuffledCards);
+    if (DEBUG) console.log(`Shuffled held back cards for type "${cardType}":`, shuffledCards);
 
     for (let card of shuffledCards) {
         if (selectedCards.length >= count) break;
 
         const cardId = card.id;
         if (selectedCardsMap.has(cardId)) {
-            console.log(`Card ID ${cardId} already selected.`);
+            if (DEBUG) console.log(`Card ID ${cardId} already selected.`);
             continue;
         }
 
         selectedCards.push(card);
         selectedCardsMap.set(cardId, true);
         cardCounts[cardType]--;
-        console.log(`Selected held back card ID ${cardId} for type "${cardType}". New count: ${cardCounts[cardType]}.`);
+        if (DEBUG) console.log(`Selected held back card ID ${cardId} for type "${cardType}". New count: ${cardCounts[cardType]}.`);
     }
 
-    console.log(`Selected Held Back Cards for type "${cardType}":`, selectedCards);
+    if (DEBUG) console.log(`Selected Held Back Cards for type "${cardType}":`, selectedCards);
     return selectedCards;
 }
 
@@ -1252,7 +1254,7 @@ function resetAvailableCards() {
 
     // Copy allCards to availableCards (Always include all cards, excluding held back cards)
     availableCards = [...allCards];
-    console.log('Available Cards after reset:', availableCards);
+    if (DEBUG) console.log('Available Cards after reset:', availableCards);
 }
 
 // ============================
@@ -1394,7 +1396,7 @@ function updateProgressBar() {
     progressBar.setAttribute('aria-valuenow', progressPercentage.toFixed(0));
 
     // Log for debugging
-    console.log('Progress Update:', {
+    if (DEBUG) console.log('Progress Update:', {
         currentIndex: currentIndex,
         currentCardNumber: currentCardNumber,
         totalCards: totalCards,
@@ -1565,7 +1567,7 @@ function setupEventListeners() {
     if (corrupterRulesCheckbox) {
         corrupterRulesCheckbox.addEventListener('change', () => {
             saveConfiguration(); // Save configuration when Corrupter Rules option changes
-            console.log('Corrupter Rules Enabled:', corrupterRulesCheckbox.checked);
+            if (DEBUG) console.log('Corrupter Rules Enabled:', corrupterRulesCheckbox.checked);
         });
     } else {
         console.error('Element with ID "enableCorrupterRules" not found.');
@@ -1792,7 +1794,7 @@ function trackEvent(eventCategory, eventAction, eventLabel = null, eventValue = 
     
     // Send the event to Google Analytics
     gtag('event', eventAction, eventParams);
-    console.log('GA Event:', eventAction, eventParams);
+    if (DEBUG) console.log('GA Event:', eventAction, eventParams);
 }
 
 // Function to enhance buttons (e.g., tooltips)
@@ -1822,10 +1824,10 @@ function toggleSentryRulesOptions() {
 // Add this function to help with debugging
 function debugConfiguration() {
     const savedConfig = localStorage.getItem('savedConfig');
-    console.log('Current localStorage savedConfig:', savedConfig ? JSON.parse(savedConfig) : 'No saved config');
-    console.log('Current selectedGames:', selectedGames);
-    console.log('Current deck size:', currentDeck.length);
-    console.log('Current index:', currentIndex);
+    if (DEBUG) console.log('Current localStorage savedConfig:', savedConfig ? JSON.parse(savedConfig) : 'No saved config');
+    if (DEBUG) console.log('Current selectedGames:', selectedGames);
+    if (DEBUG) console.log('Current deck size:', currentDeck.length);
+    if (DEBUG) console.log('Current index:', currentIndex);
 }
 
 // Function to toggle deck builder UI based on active deck
