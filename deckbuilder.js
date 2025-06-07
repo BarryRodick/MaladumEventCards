@@ -507,6 +507,8 @@ function generateCardTypeInputs() {
 
     allCardTypes.sort(); // Sort the card types alphabetically
 
+    const fragment = document.createDocumentFragment();
+
     allCardTypes.forEach(type => {
         // Adjust maxCount based on unique cards
         const uniqueCards = new Set(deckDataByType[type].map(card => card.id));
@@ -527,8 +529,10 @@ function generateCardTypeInputs() {
         `;
 
         div.innerHTML = cardHTML;
-        cardTypeInputs.appendChild(div);
+        fragment.appendChild(div);
     });
+
+    cardTypeInputs.appendChild(fragment);
 
     // Add event listeners for +/- buttons
     document.querySelectorAll('.increase-btn').forEach(button => {
