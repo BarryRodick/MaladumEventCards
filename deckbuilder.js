@@ -1,4 +1,5 @@
 // deckbuilder.js
+// Requires storage-utils.js for persistence helpers
 
 // ============================
 // 1. Service Worker Registration
@@ -218,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Load saved configuration first, with storage check
     let savedConfig = null;
-    if (isStorageAvailable()) {
+    if (storageUtils.isStorageAvailable()) {
         try {
             savedConfig = loadSavedConfig();
         } catch (e) {
@@ -556,7 +557,7 @@ function generateCardTypeInputs() {
 // Function to get saved card count with proper error handling
 function getSavedCardCount(type) {
     try {
-        if (!isStorageAvailable()) {
+        if (!storageUtils.isStorageAvailable()) {
             return 0;
         }
         
@@ -674,7 +675,7 @@ function updateDifficultyDetails() {
 
 // Function to save configuration
 function saveConfiguration() {
-    if (!isStorageAvailable()) {
+    if (!storageUtils.isStorageAvailable()) {
         console.warn('Storage is not available, configuration will not be saved');
         return;
     }
@@ -2192,21 +2193,8 @@ function applyDarkTheme() {
     });
 }
 
-// Add this helper function at the start of the file
-function isStorageAvailable() {
-    try {
-        const storage = window.localStorage;
-        const x = '__storage_test__';
-        storage.setItem(x, x);
-        storage.removeItem(x);
-        return true;
-    } catch (e) {
-        return false;
-    }
-}
-
 function loadSavedConfig() {
-    if (!isStorageAvailable()) {
+    if (!storageUtils.isStorageAvailable()) {
         console.warn('Storage is not available, using default configuration');
         return null;
     }
@@ -2266,7 +2254,7 @@ function setupNumberInputs() {
 
 // Add this function near the top of the file, after dataStore initialization
 function restoreSavedState(savedConfig) {
-    if (!isStorageAvailable() || !savedConfig) return;
+    if (!storageUtils.isStorageAvailable() || !savedConfig) return;
     
     try {
         // Restore card counts from the savedConfig parameter
@@ -2293,14 +2281,3 @@ function restoreSavedState(savedConfig) {
 }
 
 // Use this check before any localStorage operations
-function saveState(state) {
-    if (!isStorageAvailable()) {
-        console.warn('Local storage is not available');
-        return;
-    }
-    try {
-        localStorage.setItem('deckBuilderState', JSON.stringify(state));
-    } catch (error) {
-        console.warn('Error saving state:', error);
-    }
-}

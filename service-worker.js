@@ -1,103 +1,83 @@
-// service-worker.js for PWA functionality
+// Unified service worker combining caching and version logic
+const CACHE_NAME = 'maladum-event-cards-v5';
+const APP_VERSION = '2.2';
+const GOOGLE_ANALYTICS_ID = 'G-ZMTSM9B7Q7';
 
-const CACHE_NAME = 'deck-builder-v1.9'; // Incremented version
-const APP_VERSION = '2.2'; // Incremented version
 const urlsToCache = [
     './',
     './index.html',
     './styles.css',
     './deckbuilder.js',
+    './dungeons_of_enveron.html',
+    './forbidden_creed.html',
+    './about.html',
     './manifest.json',
     './logos/gameicon.jpg',
+    './logos/background.png',
     './maladumcards.json',
     './difficulties.json',
-    './version.json' // Add this new file
-    // Add paths to other assets
-    // Example:
-    // './cardimages/back.jpg',
-    // './logos/logo1.jpg',
+    './version.json',
+    'https://www.googletagmanager.com/gtag/js?id=' + GOOGLE_ANALYTICS_ID,
 ];
 
-self.addEventListener('install', (event) => {
-    console.log('[Service Worker] Install Event');
+self.addEventListener('message', (event) => {
+    if (event.data === 'GET_VERSION') {
+        event.ports[0].postMessage(APP_VERSION);
+    }
+});
+
+self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then((cache) => {
-                console.log('[Service Worker] Caching all assets');
-                return cache.addAll(urlsToCache);
-            })
-            .then(() => self.skipWaiting()) // Force the waiting service worker to become the active service worker
-            .catch((error) => {
-                console.error('[Service Worker] Failed to cache assets', error);
-            })
+        caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)).then(() => self.skipWaiting())
     );
 });
 
-self.addEventListener('activate', (event) => {
-    console.log('[Service Worker] Activate Event');
+self.addEventListener('activate', event => {
     event.waitUntil(
         Promise.all([
-            // Clear old caches
-            caches.keys().then((cacheNames) => {
-                return Promise.all(
-                    cacheNames.map((cache) => {
-                        if (cache !== CACHE_NAME) {
-                            console.log(`[Service Worker] Deleting old cache: ${cache}`);
-                            return caches.delete(cache);
-                        }
-                    })
-                );
-            }),
-            // Check for new version
-            fetch('./version.json?nocache=' + new Date().getTime())
-                .then(response => response.json())
+            caches.keys().then(names => Promise.all(names.map(name => {
+                if (name !== CACHE_NAME) {
+                    return caches.delete(name);
+                }
+            }))),
+            fetch('./version.json?nocache=' + Date.now())
+                .then(resp => resp.json())
                 .then(data => {
                     if (data.version !== APP_VERSION) {
-                        // New version available
                         self.clients.matchAll().then(clients => {
-                            clients.forEach(client => {
-                                client.postMessage({
-                                    type: 'NEW_VERSION',
-                                    version: data.version
-                                });
-                            });
+                            clients.forEach(client => client.postMessage({ type: 'NEW_VERSION', version: data.version }));
                         });
                     }
                 })
-                .catch(err => console.error('Version check failed:', err))
-        ])
-        .then(() => self.clients.claim())
+                .catch(() => {})
+        ]).then(() => self.clients.claim())
     );
 });
 
-self.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', event => {
+    if (event.request.url.includes('google-analytics.com')) {
+        if (!navigator.onLine) {
+            event.respondWith(new Response('', { status: 200, statusText: 'OK' }));
+            return;
+        }
+    }
+
     event.respondWith(
-        caches.match(event.request)
-            .then((response) => {
-                // Cache hit - return response
-                if (response) {
-                    return response;
+        caches.match(event.request).then(response => {
+            if (response) {
+                return response;
+            }
+            const fetchRequest = event.request.clone();
+            return fetch(fetchRequest).then(networkResponse => {
+                if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+                    return networkResponse;
                 }
-                // Clone the request as it's a stream and can only be consumed once
-                const fetchRequest = event.request.clone();
-                return fetch(fetchRequest).then(
-                    (networkResponse) => {
-                        // Check if we received a valid response
-                        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-                            return networkResponse;
-                        }
-                        // Clone the response as it's a stream and can only be consumed once
-                        const responseToCache = networkResponse.clone();
-                        caches.open(CACHE_NAME)
-                            .then((cache) => {
-                                cache.put(event.request, responseToCache);
-                            });
-                        return networkResponse;
-                    }
-                ).catch((error) => {
-                    console.error('[Service Worker] Fetch failed:', error);
-                    // Optionally, return a fallback page or image here
+                const responseToCache = networkResponse.clone();
+                caches.open(CACHE_NAME).then(cache => {
+                    cache.put(event.request, responseToCache);
                 });
-            })
+                return networkResponse;
+            });
+        })
     );
 });

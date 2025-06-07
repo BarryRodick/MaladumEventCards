@@ -396,6 +396,7 @@
             </div>
         </div>
     </div>
+    <script src="storage-utils.js"></script>
 
     <script>
         // Get references to elements
@@ -419,32 +420,15 @@
             });
         });
 
-        // Add storage availability check
-        function isStorageAvailable() {
-            try {
-                const test = '__storage_test__';
-                localStorage.setItem(test, test);
-                localStorage.removeItem(test);
-                return true;
-            } catch(e) {
-                return false;
-            }
-        }
-
         function saveState() {
             try {
-                if (!isStorageAvailable()) {
-                    console.warn('Local storage is not available');
-                    return;
-                }
-                
                 const state = {
                     checkboxes: Array.from(document.querySelectorAll('.checkbox')).map(cb => cb.style.backgroundColor === 'black'),
                     inputs: Array.from(document.querySelectorAll('.input-field')).map(input => input.value),
                     notes: notesTextarea.value,
                     notesVisible: notesContent.classList.contains('visible')
                 };
-                localStorage.setItem('forbiddenCreedState', JSON.stringify(state));
+                storageUtils.saveState('forbiddenCreedState', state);
             } catch (e) {
                 console.warn('Error saving state:', e);
             }
@@ -452,14 +436,8 @@
 
         function loadState() {
             try {
-                if (!isStorageAvailable()) {
-                    console.warn('Local storage is not available');
-                    return;
-                }
-                
-                const savedState = localStorage.getItem('forbiddenCreedState');
-                if (savedState) {
-                    const state = JSON.parse(savedState);
+                const state = storageUtils.loadState('forbiddenCreedState');
+                if (state) {
                     
                     // Restore notes
                     if (state.notes) {
@@ -486,7 +464,7 @@
 
         // Initialize when DOM is ready
         document.addEventListener('DOMContentLoaded', () => {
-            if (isStorageAvailable()) {
+            if (storageUtils.isStorageAvailable()) {
                 loadState();
             }
         });

@@ -462,6 +462,7 @@
             </div>
         </div>
     </div>
+    <script src="storage-utils.js"></script>
 
     <script>
         document.querySelectorAll('.checkbox').forEach(checkbox => {
@@ -542,26 +543,10 @@
             });
         });
 
-        function isStorageAvailable() {
-            try {
-                const test = '__storage_test__';
-                localStorage.setItem(test, test);
-                localStorage.removeItem(test);
-                return true;
-            } catch(e) {
-                return false;
-            }
-        }
-
         function saveState() {
             try {
-                if (!isStorageAvailable()) {
-                    console.warn('Local storage is not available');
-                    return;
-                }
-                
                 const state = {
-                    checkboxGroups: Array.from(document.querySelectorAll('.checkbox-group')).map(group => 
+                    checkboxGroups: Array.from(document.querySelectorAll('.checkbox-group')).map(group =>
                         Array.from(group.querySelectorAll('.checkbox')).map(cb => cb.style.backgroundColor === 'black')
                     ),
                     checkboxes: Array.from(document.querySelectorAll('.reward-item:not(:has(.checkbox-group)) .checkbox')).map(cb => cb.style.backgroundColor === 'black'),
@@ -572,7 +557,7 @@
                     notes: notesTextarea.value,
                     notesVisible: notesContent.classList.contains('visible')
                 };
-                localStorage.setItem('dungeonState', JSON.stringify(state));
+                storageUtils.saveState('dungeonState', state);
             } catch (e) {
                 console.warn('Error saving state:', e);
             }
@@ -580,14 +565,8 @@
 
         function loadState() {
             try {
-                if (!isStorageAvailable()) {
-                    console.warn('Local storage is not available');
-                    return;
-                }
-                
-                const savedState = localStorage.getItem('dungeonState');
-                if (savedState) {
-                    const state = JSON.parse(savedState);
+                const state = storageUtils.loadState('dungeonState');
+                if (state) {
                     
                     // Load checkbox groups
                     document.querySelectorAll('.checkbox-group').forEach((group, groupIndex) => {
@@ -649,7 +628,7 @@
         document.body.appendChild(resetButton);
 
         document.addEventListener('DOMContentLoaded', () => {
-            if (isStorageAvailable()) {
+            if (storageUtils.isStorageAvailable()) {
                 loadState();
             }
         });
