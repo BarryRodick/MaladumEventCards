@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Automatically save configuration when card counts change
     document.addEventListener('input', (event) => {
         if (event.target.matches('.card-type-input input')) {
-            saveConfiguration();
+            debouncedSaveConfiguration();
         }
     });
 
@@ -339,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 state.currentIndex = currentIndex;
                 showCurrentCard('backward');
-                saveConfiguration();
+                debouncedSaveConfiguration();
                 trackEvent('Navigation', 'Previous Card', `Index: ${currentIndex}`);
             }
         });
@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             showCurrentCard('forward');
             updateProgressBar(); // Make sure progress bar is updated
-            saveConfiguration();
+            debouncedSaveConfiguration();
             trackEvent('Navigation', 'Next Card', `Index: ${currentIndex}`);
         });
     } else {
@@ -554,7 +554,7 @@ function generateCardTypeInputs() {
             const input = document.getElementById(`type-${type}`);
             if (parseInt(input.value) < parseInt(input.max)) {
                 input.value = parseInt(input.value) + 1;
-                saveConfiguration(); // Save configuration after every change
+                debouncedSaveConfiguration(); // Save configuration after every change
             }
         });
     });
@@ -565,7 +565,7 @@ function generateCardTypeInputs() {
             const input = document.getElementById(`type-${type}`);
             if (parseInt(input.value) > 0) {
                 input.value = parseInt(input.value) - 1;
-                saveConfiguration(); // Save configuration after every change
+                debouncedSaveConfiguration(); // Save configuration after every change
             }
         });
     });
@@ -690,6 +690,15 @@ function updateDifficultyDetails() {
 // 6. Configuration Functions
 // ============================
 
+// Simple debounce utility to limit how often a function executes
+function debounce(fn, delay = 400) {
+    let timeout;
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
 // Function to save configuration
 function saveConfiguration() {
     if (!storageUtils.isStorageAvailable()) {
@@ -748,6 +757,9 @@ function saveConfiguration() {
         console.warn('Error saving configuration:', e);
     }
 }
+
+// Debounced version used for rapid events
+const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
 
 // Function to restore deck state from saved configuration
 function restoreDeckState(savedConfig) {
@@ -1308,7 +1320,7 @@ function showCurrentCard(direction = null) {
     updateProgressBar();
 
     // Save current state
-    saveConfiguration();
+    debouncedSaveConfiguration();
 
     // Preload upcoming card images for smoother navigation
     preloadUpcomingCards();
