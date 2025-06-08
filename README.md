@@ -10,6 +10,18 @@ Install dependencies if needed and run the test suite with:
 npm test
 ```
 
+### Updating the Version
+
+The application version is stored in `version.json`. After changing this file
+run:
+
+```bash
+npm run build
+```
+
+This script syncs the version inside `service-worker.js` so you only need to
+update it in one place.
+
 ## License
 
 This project is released under the [MIT License](LICENSE).
