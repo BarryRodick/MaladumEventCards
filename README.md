@@ -22,6 +22,13 @@ npm run build
 This script syncs the version inside `service-worker.js` so you only need to
 update it in one place.
 
+## Image Notes
+
+The campaign tracker pages let you attach photos from your device. Images are
+stored as Base64 data inside your browser's `localStorage`. Most browsers limit
+this storage to roughly 5&nbsp;MB, so keep images small and few in number. All
+image data stays on your device and is never uploaded anywhere.
+
 ## License
 
 This project is released under the [MIT License](LICENSE).
