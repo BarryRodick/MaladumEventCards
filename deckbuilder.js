@@ -178,7 +178,6 @@ let corrupterCardTypes = [];
 let heldBackCardTypes = []; // New variable for held back card types
 
 // Global variable for In Play Cards (Feature 2)
-let inPlayCards = [];
 
 // Global variable for set aside cards
 let setAsideCards = []; // Moved outside generateDeck() for broader scope
@@ -705,7 +704,7 @@ function saveConfiguration() {
                 discardPile: discardPile,
                 sentryDeck: sentryDeck,
                 initialDeckSize: state.initialDeckSize,
-                inPlayCardsHTML: document.getElementById('inPlayCards')?.innerHTML || '',
+                inPlayCards: state.deck.inPlay,
                 // Persist individual deck arrays for accurate restoration
                 mainDeck: state.deck.main,
                 specialDeck: state.deck.special,
@@ -792,18 +791,10 @@ function restoreDeckState(savedConfig) {
             state.deck.combined = savedConfig.deckState.combinedDeck || [];
         
             // Restore in-play cards
-            const inPlayCards = document.getElementById('inPlayCards');
-            if (inPlayCards && savedConfig.deckState.inPlayCardsHTML) {
-                inPlayCards.innerHTML = savedConfig.deckState.inPlayCardsHTML;
-                
-                // Reattach event listeners to discard buttons
-                inPlayCards.querySelectorAll('.btn-danger').forEach(button => {
-                    button.onclick = function() {
-                        button.closest('.mb-3').remove();
-                        saveConfiguration();
-                    };
-                });
-            }
+            state.deck.inPlay = savedConfig.deckState.inPlayCards || [];
+
+            // Update the UI for in-play cards
+            updateInPlayCardsDisplay();
     
             // Show the deck if it exists
             if (currentDeck && currentDeck.length > 0) {
@@ -839,7 +830,7 @@ function restoreDeckState(savedConfig) {
                 currentDeckSize: currentDeck.length,
                 currentIndex: currentIndex,
                 discardPileSize: discardPile.length,
-                inPlayCardsSize: inPlayCards?.children.length || 0,
+                inPlayCardsSize: state.deck.inPlay.length,
                 sentryDeckSize: sentryDeck.length
             });
         }
