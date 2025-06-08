@@ -58,6 +58,8 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
     if (event.request.url.includes('google-analytics.com')) {
+        // Drop analytics requests while offline so they don't queue up and retry
+        // once connectivity is restored.
         if (!navigator.onLine) {
             event.respondWith(new Response('', { status: 200, statusText: 'OK' }));
             return;
