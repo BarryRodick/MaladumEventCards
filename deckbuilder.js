@@ -1,3 +1,4 @@
+import { parseCardTypes, shuffleDeck } from "./card-utils.js";
 // deckbuilder.js
 // Requires storage-utils.js for persistence helpers
 
@@ -425,34 +426,7 @@ function generateGameSelection(games) {
         selectedGames = games.slice();
     }
 }
-
-// Cache for parsed card types
-const parseCardTypesCache = new Map();
-
-// Function to parse card types correctly with caching
-function parseCardTypes(typeString) {
-    if (parseCardTypesCache.has(typeString)) {
-        return parseCardTypesCache.get(typeString);
-    }
-
-    // Split by + first to get AND groups
-    const andGroups = typeString.split('+').map(group => group.trim());
-
-    // For each AND group, split by / to get OR options
-    const parsedGroups = andGroups.map(group => {
-        const orOptions = group.split('/').map(option => option.trim());
-        return orOptions;
-    });
-
-    const result = {
-        andGroups: parsedGroups, // Array of arrays, each inner array contains OR options
-        allTypes: [...new Set(parsedGroups.flat())] // Unique list of all types
-    };
-
-    parseCardTypesCache.set(typeString, result);
-    return result;
-}
-
+
 // Function to load card types based on selected games
 function loadCardTypes() {
     // Get selected games
@@ -1240,24 +1214,6 @@ function getSpecialCards(count, specialTypes) {
 }
 
 // Function to shuffle the deck
-function shuffleDeck(deck) {
-    let currentIndex = deck.length;
-    let temporaryValue, randomIndex;
-
-    // While there remain elements to shuffle
-    while (0 !== currentIndex) {
-        // Pick a remaining element
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // Swap it with the current element
-        temporaryValue = deck[currentIndex];
-        deck[currentIndex] = deck[randomIndex];
-        deck[randomIndex] = temporaryValue;
-    }
-
-    return deck;
-}
 
 // Function to reset availableCards without affecting the DOM
 function resetAvailableCards() {
@@ -1282,6 +1238,7 @@ function resetAvailableCards() {
 function showCurrentCard(direction = null) {
     const output = document.getElementById('deckOutput');
     const cardActionSection = document.getElementById('cardActionSection');
+    const clearButton = document.getElementById('clearActiveCard');
     
     if (!output) return;
 
@@ -1294,11 +1251,13 @@ function showCurrentCard(direction = null) {
     // Show back of card if index is -1
     if (currentIndex === -1) {
         output.innerHTML = `<img src="cardimages/back.jpg" alt="Card Back" class="img-fluid">`;
+        if (clearButton) clearButton.style.display = 'none';
     } else {
         // Show current card
         const currentCard = currentDeck[currentIndex];
         if (currentCard) {
             output.innerHTML = `<img src="cardimages/${currentCard.contents}" alt="${currentCard.card}" class="img-fluid">`;
+            if (clearButton) clearButton.style.display = 'block';
         }
     }
 
@@ -1509,6 +1468,13 @@ function clearInPlayCards() {
     saveConfiguration();
 }
 
+// Function to clear the currently displayed card
+function clearActiveCard() {
+    currentIndex = -1;
+    showCurrentCard();
+    saveConfiguration();
+}
+
 // ============================
 // 10. Deck Restoration and Helper Functions
 // ============================
@@ -1604,6 +1570,22 @@ function setupEventListeners() {
         });
     } else {
         console.error('Element with ID "cardAction" not found.');
+    }
+
+    // Event listener for Mark In Play button
+    const markInPlayButton = document.getElementById('markInPlay');
+    if (markInPlayButton) {
+        markInPlayButton.addEventListener('click', () => {
+            if (currentIndex >= 0 && currentDeck[currentIndex]) {
+                markCardAsInPlay(currentDeck[currentIndex]);
+            }
+        });
+    }
+
+    // Event listener for Clear Active Card button
+    const clearActiveCardButton = document.getElementById('clearActiveCard');
+    if (clearActiveCardButton) {
+        clearActiveCardButton.addEventListener('click', clearActiveCard);
     }
 }
 

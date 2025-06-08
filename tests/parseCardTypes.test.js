@@ -1,17 +1,5 @@
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
-
-function loadParseCardTypes() {
-  const file = path.join(__dirname, '..', 'deckbuilder.js');
-  const code = fs.readFileSync(file, 'utf8');
-  const match = code.match(/function parseCardTypes[\s\S]*?\n\}/);
-  if (!match) throw new Error('parseCardTypes function not found');
-  // Provide cache map in the evaluation context
-  return (new Function('const parseCardTypesCache = new Map();\n' + match[0] + '; return parseCardTypes;'))();
-}
-
-const parseCardTypes = loadParseCardTypes();
+import assert from 'assert';
+import { parseCardTypes } from '../card-utils.js';
 
 assert.deepStrictEqual(
   parseCardTypes('A/B+C'),

@@ -17,10 +17,6 @@ const urlsToCache = [
     './maladumcards.json',
     './difficulties.json',
     './version.json',
-    './cardimages/back.jpg',
-    './cardimages/Ambush.png',
-    './cardimages/Chilling_Aura.png',
-    './cardimages/Bounty.png',
     'https://www.googletagmanager.com/gtag/js?id=' + GOOGLE_ANALYTICS_ID,
 ];
 
@@ -71,15 +67,16 @@ self.addEventListener('fetch', event => {
             if (response) {
                 return response;
             }
-            const fetchRequest = event.request.clone();
-            return fetch(fetchRequest).then(networkResponse => {
+            return fetch(event.request).then(networkResponse => {
                 if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
                     return networkResponse;
                 }
-                const responseToCache = networkResponse.clone();
-                caches.open(CACHE_NAME).then(cache => {
-                    cache.put(event.request, responseToCache);
-                });
+                if (event.request.url.includes('/cardimages/')) {
+                    const responseToCache = networkResponse.clone();
+                    caches.open(CACHE_NAME).then(cache => {
+                        cache.put(event.request, responseToCache);
+                    });
+                }
                 return networkResponse;
             });
         })
