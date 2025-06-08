@@ -8,6 +8,7 @@ const urlsToCache = [
     './index.html',
     './styles.css',
     './deckbuilder.js',
+    './card-utils.js',
     './dungeons_of_enveron.html',
     './forbidden_creed.html',
     './about.html',
@@ -18,9 +19,6 @@ const urlsToCache = [
     './difficulties.json',
     './version.json',
     './cardimages/back.jpg',
-    './cardimages/Ambush.png',
-    './cardimages/Chilling_Aura.png',
-    './cardimages/Bounty.png',
     'https://www.googletagmanager.com/gtag/js?id=' + GOOGLE_ANALYTICS_ID,
 ];
 
@@ -66,22 +64,29 @@ self.addEventListener('fetch', event => {
         }
     }
 
-    event.respondWith(
-        caches.match(event.request).then(response => {
-            if (response) {
-                return response;
-            }
-            const fetchRequest = event.request.clone();
-            return fetch(fetchRequest).then(networkResponse => {
-                if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-                    return networkResponse;
+    if (event.request.method !== 'GET') return;
+
+    if (event.request.url.includes('/cardimages/')) {
+        event.respondWith(
+            caches.match(event.request).then(response => {
+                if (response) {
+                    return response;
                 }
-                const responseToCache = networkResponse.clone();
-                caches.open(CACHE_NAME).then(cache => {
-                    cache.put(event.request, responseToCache);
+                return fetch(event.request).then(networkResponse => {
+                    if (networkResponse && networkResponse.status === 200) {
+                        const responseToCache = networkResponse.clone();
+                        caches.open(CACHE_NAME).then(cache => {
+                            cache.put(event.request, responseToCache);
+                        });
+                    }
+                    return networkResponse;
                 });
-                return networkResponse;
-            });
-        })
+            })
+        );
+        return;
+    }
+
+    event.respondWith(
+        caches.match(event.request).then(response => response || fetch(event.request))
     );
 });

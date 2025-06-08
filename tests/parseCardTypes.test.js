@@ -3,12 +3,12 @@ const fs = require('fs');
 const path = require('path');
 
 function loadParseCardTypes() {
-  const file = path.join(__dirname, '..', 'deckbuilder.js');
+  const file = path.join(__dirname, '..', 'card-utils.js');
   const code = fs.readFileSync(file, 'utf8');
-  const match = code.match(/function parseCardTypes[\s\S]*?\n\}/);
+  const match = code.match(/export function parseCardTypes[\s\S]*?\n\}/);
   if (!match) throw new Error('parseCardTypes function not found');
-  // Provide cache map in the evaluation context
-  return (new Function('const parseCardTypesCache = new Map();\n' + match[0] + '; return parseCardTypes;'))();
+  const fnBody = match[0].replace('export ', '');
+  return (new Function('const parseCardTypesCache = new Map();\n' + fnBody + '; return parseCardTypes;'))();
 }
 
 const parseCardTypes = loadParseCardTypes();
