@@ -441,7 +441,7 @@
     <script src="storage-utils.js"></script>
     <script src="dom-utils.js"></script>
     <!-- Include Deck Builder JS -->
-    <script src="deckbuilder.js"></script>
+    <script type="module" src="deckbuilder.js"></script>
 
     <!-- Add Campaign Modal -->
     <div class="modal fade" id="campaignModal" tabindex="-1" role="dialog" aria-labelledby="campaignModalLabel" aria-hidden="true">
@@ -492,34 +492,6 @@
         }
     });
 
-    // Only keep the event listener for marking cards in play
-    document.getElementById('markInPlay')?.addEventListener('click', function() {
-        const currentCard = document.getElementById('deckOutput').firstElementChild;
-        const inPlayCards = document.getElementById('inPlayCards');
-        
-        if (currentCard && inPlayCards) {
-            // Create wrapper div
-            const wrapper = document.createElement('div');
-            wrapper.className = 'mb-3 text-center';
-            
-            // Clone the card
-            const cardClone = currentCard.cloneNode(true);
-            wrapper.appendChild(cardClone);
-            
-            // Add discard button
-            const discardButton = document.createElement('button');
-            discardButton.className = 'btn btn-danger mt-2';
-            discardButton.innerHTML = '<i class="fas fa-trash"></i> Discard';
-            discardButton.onclick = function() {
-                wrapper.remove();
-                window.saveConfiguration(); // Use deckbuilder.js saveConfiguration
-            };
-            wrapper.appendChild(discardButton);
-            
-            inPlayCards.appendChild(wrapper);
-            window.saveConfiguration(); // Use deckbuilder.js saveConfiguration
-        }
-    });
     </script>
 
 </body>

@@ -1,5 +1,6 @@
 // deckbuilder.js
 // Requires storage-utils.js for persistence helpers
+import { parseCardTypes, shuffleDeck } from './card-utils.js';
 
 // Toggle verbose logging
 const DEBUG = false;
@@ -381,6 +382,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const markInPlayButton = domUtils.getEl('markInPlay');
+    if (markInPlayButton) {
+        markInPlayButton.addEventListener('click', () => {
+            if (currentIndex >= 0 && currentDeck[currentIndex]) {
+                markCardAsInPlay(currentDeck[currentIndex]);
+            }
+        });
+    }
+
+    const clearActiveCardButton = domUtils.getEl('clearActiveCard');
+    if (clearActiveCardButton) {
+        clearActiveCardButton.addEventListener('click', clearActiveCard);
+    }
+
     // Call this function when the page loads
     setupNumberInputs();
 });
@@ -426,32 +441,7 @@ function generateGameSelection(games) {
     }
 }
 
-// Cache for parsed card types
-const parseCardTypesCache = new Map();
 
-// Function to parse card types correctly with caching
-function parseCardTypes(typeString) {
-    if (parseCardTypesCache.has(typeString)) {
-        return parseCardTypesCache.get(typeString);
-    }
-
-    // Split by + first to get AND groups
-    const andGroups = typeString.split('+').map(group => group.trim());
-
-    // For each AND group, split by / to get OR options
-    const parsedGroups = andGroups.map(group => {
-        const orOptions = group.split('/').map(option => option.trim());
-        return orOptions;
-    });
-
-    const result = {
-        andGroups: parsedGroups, // Array of arrays, each inner array contains OR options
-        allTypes: [...new Set(parsedGroups.flat())] // Unique list of all types
-    };
-
-    parseCardTypesCache.set(typeString, result);
-    return result;
-}
 
 // Function to load card types based on selected games
 function loadCardTypes() {
@@ -1239,25 +1229,6 @@ function getSpecialCards(count, specialTypes) {
     return shuffledSpecialCards.slice(0, count);
 }
 
-// Function to shuffle the deck
-function shuffleDeck(deck) {
-    let currentIndex = deck.length;
-    let temporaryValue, randomIndex;
-
-    // While there remain elements to shuffle
-    while (0 !== currentIndex) {
-        // Pick a remaining element
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // Swap it with the current element
-        temporaryValue = deck[currentIndex];
-        deck[currentIndex] = deck[randomIndex];
-        deck[randomIndex] = temporaryValue;
-    }
-
-    return deck;
-}
 
 // Function to reset availableCards without affecting the DOM
 function resetAvailableCards() {
@@ -1300,6 +1271,11 @@ function showCurrentCard(direction = null) {
         if (currentCard) {
             output.innerHTML = `<img src="cardimages/${currentCard.contents}" alt="${currentCard.card}" class="img-fluid">`;
         }
+    }
+
+    const clearBtn = document.getElementById('clearActiveCard');
+    if (clearBtn) {
+        clearBtn.style.display = currentIndex >= 0 ? 'block' : 'none';
     }
 
     const img = output.querySelector('img');
@@ -1507,6 +1483,14 @@ function clearInPlayCards() {
     updateInPlayCardsDisplay();
     showToast('All in-play cards have been cleared.');
     saveConfiguration();
+}
+
+// Function to clear the currently displayed card
+function clearActiveCard() {
+    currentIndex = -1;
+    state.currentIndex = currentIndex;
+    showCurrentCard();
+    debouncedSaveConfiguration();
 }
 
 // ============================
