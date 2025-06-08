@@ -8,6 +8,7 @@ const urlsToCache = [
     './index.html',
     './styles.css',
     './deckbuilder.js',
+    './update-utils.js',
     './card-utils.js',
     './dungeons_of_enveron.html',
     './forbidden_creed.html',
