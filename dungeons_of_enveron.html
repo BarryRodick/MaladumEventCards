@@ -263,6 +263,40 @@
             display: block;
             margin-top: 5px;
         }
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .image-modal.show {
+            display: flex;
+        }
+
+        .image-modal img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .image-input-label {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px 15px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #001300, #015701);
+            color: white !important;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body class="dark-mode">
@@ -294,8 +328,10 @@
         </div>
     </div>
 
-    <input id="imageInput" type="file" accept="image/*" capture="environment">
+    <input id="imageInput" type="file" accept="image/*" capture="environment" style="display:none;">
+    <label for="imageInput" class="image-input-label">Camera</label>
     <div id="imageGallery" class="image-gallery"></div>
+    <div id="imageModal" class="image-modal"><img id="modalImage"></div>
 
     <div class="campaign-container">
         <div class="campaign-card">
@@ -548,6 +584,9 @@
         const collapseIcon = document.querySelector('.collapse-icon');
         const imageInput = document.getElementById('imageInput');
         const imageGallery = document.getElementById('imageGallery');
+        const imageModal = document.getElementById("imageModal");
+        const modalImage = document.getElementById("modalImage");
+        imageModal.addEventListener("click", () => imageModal.classList.remove("show"));
         let images = [];
 
         imageInput.addEventListener('change', handleImageUpload);
@@ -582,6 +621,11 @@
             imageInput.value = '';
         }
 
+        function openModal(src) {
+            modalImage.src = src;
+            imageModal.classList.add("show");
+        }
+
         function renderGallery() {
             imageGallery.innerHTML = '';
             images.forEach((src, index) => {
@@ -589,6 +633,7 @@
                 wrapper.className = 'image-item';
                 const img = document.createElement('img');
                 img.src = src;
+                img.addEventListener('click', () => openModal(src));
                 const btn = document.createElement('button');
                 btn.textContent = 'Remove';
                 btn.addEventListener('click', () => {
