@@ -7,6 +7,11 @@
     padding: 10px;
 }
 
+/* Support devices with display cutouts */
+body {
+    padding-top: env(safe-area-inset-top);
+}
+
 /* Dark Mode Styles */
 body.dark-mode {
     background-color: var(--dark-bg);
@@ -191,6 +196,7 @@ body.dark-mode .card {
 #headerButtons {
     display: flex;
     gap: 10px; /* Space between the buttons */
+    flex-wrap: wrap; /* allow wrapping on narrow screens */
 }
 
 #headerButtons .btn {
