@@ -82,10 +82,10 @@ function showUpdateNotification(newVersion) {
                     cacheNames.map(cacheName => caches.delete(cacheName))
                 );
             }).then(() => {
-                window.location.reload(true);
+                window.location.reload();
             });
         } else {
-            window.location.reload(true);
+            window.location.reload();
         }
     });
 }
