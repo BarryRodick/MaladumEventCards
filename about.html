@@ -164,6 +164,18 @@
     <!-- <script src="deckbuilder.js"></script> -->
 
     <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./service-worker.js');
+        });
+
+        navigator.serviceWorker.addEventListener('message', event => {
+          if (event.data.type === 'NEW_VERSION') {
+            showUpdateNotification(event.data.version);
+          }
+        });
+      }
+
       function showUpdateNotification(newVersion) {
         const updateModal = `
           <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
@@ -231,6 +243,12 @@
             fetchAndCompare(event.data);
           };
           navigator.serviceWorker.controller.postMessage('GET_VERSION', [channel.port2]);
+
+          navigator.serviceWorker.getRegistration().then(reg => {
+            if (reg) {
+              reg.update();
+            }
+          });
         } else {
           fetchAndCompare(null);
         }
