@@ -238,16 +238,14 @@
         };
 
         if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-          const channel = new MessageChannel();
-          channel.port1.onmessage = event => {
-            fetchAndCompare(event.data);
-          };
-          navigator.serviceWorker.controller.postMessage('GET_VERSION', [channel.port2]);
-
           navigator.serviceWorker.getRegistration().then(reg => {
-            if (reg) {
-              reg.update();
-            }
+            if (reg) reg.update();
+
+            const channel = new MessageChannel();
+            channel.port1.onmessage = event => {
+              fetchAndCompare(event.data);
+            };
+            navigator.serviceWorker.controller.postMessage('GET_VERSION', [channel.port2]);
           });
         } else {
           fetchAndCompare(null);
