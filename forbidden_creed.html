@@ -181,6 +181,24 @@
             color: #333;
             text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
         }
+
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .image-item img {
+            max-width: 150px;
+            max-height: 150px;
+            display: block;
+        }
+
+        .image-item button {
+            display: block;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body class="dark-mode">
@@ -213,6 +231,9 @@
             <textarea id="notesTextarea" placeholder="Add your campaign notes here..."></textarea>
         </div>
     </div>
+
+    <input id="imageInput" type="file" accept="image/*" capture="environment">
+    <div id="imageGallery" class="image-gallery"></div>
 
     <div class="campaign-container">
         <!-- Page 1 -->
@@ -404,6 +425,11 @@
         const notesTextarea = document.getElementById('notesTextarea');
         const collapseIcon = document.querySelector('.collapse-icon');
         const checkboxes = document.querySelectorAll('.checkbox');
+        const imageInput = document.getElementById('imageInput');
+        const imageGallery = document.getElementById('imageGallery');
+        let images = [];
+
+        imageInput.addEventListener('change', handleImageUpload);
 
         // Function to toggle notes visibility
         function toggleNotes() {
@@ -420,13 +446,47 @@
             });
         });
 
+        function handleImageUpload(event) {
+            Array.from(event.target.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    images.push(e.target.result);
+                    renderGallery();
+                    saveState();
+                };
+                reader.readAsDataURL(file);
+            });
+            imageInput.value = '';
+        }
+
+        function renderGallery() {
+            imageGallery.innerHTML = '';
+            images.forEach((src, index) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'image-item';
+                const img = document.createElement('img');
+                img.src = src;
+                const btn = document.createElement('button');
+                btn.textContent = 'Remove';
+                btn.addEventListener('click', () => {
+                    images.splice(index, 1);
+                    renderGallery();
+                    saveState();
+                });
+                wrapper.appendChild(img);
+                wrapper.appendChild(btn);
+                imageGallery.appendChild(wrapper);
+            });
+        }
+
         function saveState() {
             try {
                 const state = {
                     checkboxes: Array.from(document.querySelectorAll('.checkbox')).map(cb => cb.style.backgroundColor === 'black'),
                     inputs: Array.from(document.querySelectorAll('.input-field')).map(input => input.value),
                     notes: notesTextarea.value,
-                    notesVisible: notesContent.classList.contains('visible')
+                    notesVisible: notesContent.classList.contains('visible'),
+                    images
                 };
                 storageUtils.saveState('forbiddenCreedState', state);
             } catch (e) {
@@ -456,6 +516,9 @@
                             checkboxes[index].style.backgroundColor = '#333';
                         }
                     });
+
+                    images = state.images || [];
+                    renderGallery();
                 }
             } catch (e) {
                 console.warn('Error loading state:', e);
