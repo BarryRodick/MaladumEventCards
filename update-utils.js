@@ -5,16 +5,14 @@ export function showUpdateNotification(newVersion) {
                 <div class="modal-content bg-dark text-white">
                     <div class="modal-header">
                         <h5 class="modal-title" id="updateModalLabel">New Version Available</h5>
-                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <p>A new version (${newVersion}) of the app is available.</p>
                         <p>Update now to get the latest features and improvements.</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Later</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Later</button>
                         <button type="button" class="btn btn-primary" id="updateNowButton">Update Now</button>
                     </div>
                 </div>
@@ -28,8 +26,9 @@ export function showUpdateNotification(newVersion) {
     }
 
     document.body.insertAdjacentHTML('beforeend', updateModal);
-    const modal = $('#updateModal');
-    modal.modal('show');
+    const modalEl = document.getElementById('updateModal');
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
 
     document.getElementById('updateNowButton').addEventListener('click', () => {
         if ('caches' in window) {
