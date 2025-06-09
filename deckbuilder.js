@@ -1052,9 +1052,13 @@ function generateDeck() {
     trackEvent('Deck', 'Generate', `Games: ${selectedGames.join(', ')}`, currentDeck.length);
 
     // Collapse the configuration sections (optional)
-    $('#gameCheckboxes').collapse('hide');
-    $('#scenarioConfig').collapse('hide');
-    $('#cardTypeSection').collapse('hide');
+    ['gameCheckboxes', 'scenarioConfig', 'cardTypeSection'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            const collapse = bootstrap.Collapse.getOrCreateInstance(el);
+            collapse.hide();
+        }
+    });
 }
 
 // Function to select cards by type considering '+' and '/'
@@ -1685,8 +1689,8 @@ function showToast(message) {
 
     const closeButton = document.createElement('button');
     closeButton.type = 'button';
-    closeButton.classList.add('ml-auto', 'mb-1', 'close');
-    closeButton.setAttribute('data-dismiss', 'toast');
+    closeButton.classList.add('ms-auto', 'mb-1', 'btn-close');
+    closeButton.setAttribute('data-bs-dismiss', 'toast');
     closeButton.setAttribute('aria-label', 'Close');
     closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
     toastBody.appendChild(closeButton);
@@ -1694,9 +1698,10 @@ function showToast(message) {
     toast.appendChild(toastBody);
     toastContainer.appendChild(toast);
 
-    // Automatically remove the toast after 3 seconds
+    const bsToast = new bootstrap.Toast(toast);
+    bsToast.show();
     setTimeout(() => {
-        $(toast).toast('hide');
+        bsToast.hide();
         toast.addEventListener('hidden.bs.toast', () => {
             toast.remove();
         });
@@ -1731,7 +1736,9 @@ function trackEvent(eventCategory, eventAction, eventLabel = null, eventValue = 
 // Function to enhance buttons (e.g., tooltips)
 function enhanceButtons() {
     // Initialize any tooltips or other UI enhancements here
-    $('[data-toggle="tooltip"]').tooltip();
+    document.querySelectorAll('[data-toggle="tooltip"], [data-bs-toggle="tooltip"]').forEach(el => {
+        new bootstrap.Tooltip(el);
+    });
 }
 
 // Function to toggle Sentry Rules options
