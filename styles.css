@@ -504,6 +504,7 @@ body.dark-mode .btn {
     max-width: 100%;
     height: auto;
     transition: transform 0.3s ease;
+    cursor: pointer;
 }
 
 #deckOutput img:hover {
@@ -940,6 +941,7 @@ select.form-control-lg:hover {
         max-width: 100%;
         height: auto;
         touch-action: manipulation;
+        cursor: pointer;
     }
 
     /* Improve mobile navigation */
