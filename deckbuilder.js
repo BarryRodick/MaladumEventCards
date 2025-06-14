@@ -297,38 +297,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const nextCardButton = domUtils.getEl('nextCard');
     if (nextCardButton) {
-        nextCardButton.addEventListener('click', () => {
-            // Move the current card to the discard pile if it's not the starting card back
-            if (currentIndex >= 0 && currentIndex < currentDeck.length) {
-                discardPile.push(currentDeck[currentIndex]);
+        nextCardButton.addEventListener('click', advanceToNextCard);
+    }
+
+    const deckOutput = domUtils.getEl('deckOutput');
+    if (deckOutput) {
+        deckOutput.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG' && !e.target.closest('#clearActiveCard')) {
+                advanceToNextCard();
             }
-
-            currentIndex++;
-            state.currentIndex = currentIndex;
-
-            if (currentIndex >= currentDeck.length) {
-                if (discardPile.length > 0) {
-                    // Reshuffle the discard pile to form a new deck
-                    currentDeck = shuffleDeck(discardPile);
-                    state.initialDeckSize = currentDeck.length;
-                    discardPile = [];
-                    currentIndex = -1; // Reset to start of new deck
-                    state.currentIndex = currentIndex;
-                    showToast('Deck reshuffled from discard pile.');
-                    trackEvent('Navigation', 'Reshuffle Deck', `Cards: ${state.initialDeckSize}`);
-                } else {
-                    // No more cards left to draw
-                    showToast('No more cards in the deck.');
-                    currentIndex--; // Stay at the last card
-                    state.currentIndex = currentIndex;
-                    return;
-                }
-            }
-
-            showCurrentCard('forward');
-            updateProgressBar(); // Make sure progress bar is updated
-            debouncedSaveConfiguration();
-            trackEvent('Navigation', 'Next Card', `Index: ${currentIndex}`);
         });
     }
 
@@ -1342,6 +1319,41 @@ function updateProgressBar() {
         deckLength: currentDeck.length,
         percentage: progressPercentage
     });
+}
+
+// Function to advance to the next card (used by button and card click)
+function advanceToNextCard() {
+    // Move the current card to the discard pile if it's not the starting card back
+    if (currentIndex >= 0 && currentIndex < currentDeck.length) {
+        discardPile.push(currentDeck[currentIndex]);
+    }
+
+    currentIndex++;
+    state.currentIndex = currentIndex;
+
+    if (currentIndex >= currentDeck.length) {
+        if (discardPile.length > 0) {
+            // Reshuffle the discard pile to form a new deck
+            currentDeck = shuffleDeck(discardPile);
+            state.initialDeckSize = currentDeck.length;
+            discardPile = [];
+            currentIndex = -1; // Reset to start of new deck
+            state.currentIndex = currentIndex;
+            showToast('Deck reshuffled from discard pile.');
+            trackEvent('Navigation', 'Reshuffle Deck', `Cards: ${state.initialDeckSize}`);
+        } else {
+            // No more cards left to draw
+            showToast('No more cards in the deck.');
+            currentIndex--; // Stay at the last card
+            state.currentIndex = currentIndex;
+            return;
+        }
+    }
+
+    showCurrentCard('forward');
+    updateProgressBar();
+    debouncedSaveConfiguration();
+    trackEvent('Navigation', 'Next Card', `Index: ${currentIndex}`);
 }
 
 // ============================
