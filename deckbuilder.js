@@ -6,6 +6,13 @@ import { showUpdateNotification } from './update-utils.js';
 // Toggle verbose logging
 const DEBUG = false;
 
+// Helper to convert game names to safe ID strings
+function slugify(text) {
+    return text.toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
+}
+
 // ============================
 // 1. Service Worker Registration
 // ============================
@@ -345,15 +352,17 @@ function generateGameSelection(games) {
         const div = document.createElement('div');
         div.classList.add('form-check');
 
+        const id = `game-${slugify(game)}`;
+
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-        checkbox.id = `game-${game}`;
+        checkbox.id = id;
         checkbox.value = game;
         checkbox.checked = selectedGames.length === 0 || selectedGames.includes(game);
         checkbox.classList.add('form-check-input');
 
         const label = document.createElement('label');
-        label.htmlFor = `game-${game}`;
+        label.htmlFor = id;
         label.textContent = game;
         label.classList.add('form-check-label');
 
@@ -375,7 +384,7 @@ function loadCardTypes() {
     // Get selected games
     selectedGames = [];
     allGames.forEach(game => {
-        const checkbox = document.getElementById(`game-${game}`);
+        const checkbox = document.getElementById(`game-${slugify(game)}`);
         if (checkbox && checkbox.checked) {
             selectedGames.push(game);
         }
