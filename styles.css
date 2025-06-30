@@ -852,6 +852,7 @@ select.form-control-lg:hover {
         padding-left: 1.75rem;
         margin-bottom: 0.5rem;
         min-height: 24px;
+        position: relative;
         display: flex;
         align-items: center;
     }
