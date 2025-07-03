@@ -2186,11 +2186,16 @@ function insertCardOfType(cardType, position) {
             showToast('Selected card not found.');
             return false;
         }
+        // Skip if the card is already in the deck
+        if (state.cards.selected.has(selectedCard.id)) {
+            showToast('Card already in deck.');
+            return false;
+        }
     } else {
         // Get random card of the selected type
         const availableCardsOfType = availableCards.filter(card => {
             const cardTypes = parseCardTypes(card.type).allTypes;
-            return cardTypes.includes(cardType);
+            return cardTypes.includes(cardType) && !state.cards.selected.has(card.id);
         });
 
         if (availableCardsOfType.length === 0) {
@@ -2202,18 +2207,31 @@ function insertCardOfType(cardType, position) {
     }
 
     // Insert the card based on the chosen position
+    let insertIndex = currentIndex + 1;
+
     switch (position) {
         case 'next':
-            currentDeck.splice(currentIndex + 1, 0, selectedCard);
+            // insertIndex already set
             break;
         case 'random':
-            const randomPos = currentIndex + 1 + Math.floor(Math.random() * (currentDeck.length - currentIndex - 1));
-            currentDeck.splice(randomPos, 0, selectedCard);
+            insertIndex = currentIndex + 1 + Math.floor(Math.random() * (currentDeck.length - currentIndex - 1));
             break;
         case 'bottom':
-            currentDeck.push(selectedCard);
+            insertIndex = currentDeck.length;
             break;
     }
+
+    currentDeck.splice(insertIndex, 0, selectedCard);
+
+    const mainLen = state.deck.main.length;
+    if (insertIndex <= mainLen) {
+        state.deck.main.splice(insertIndex, 0, selectedCard);
+    } else {
+        state.deck.special.splice(insertIndex - mainLen, 0, selectedCard);
+    }
+
+    state.cards.selected.set(selectedCard.id, true);
+    state.deck.combined = state.deck.main.concat(state.deck.special);
 
     showToast(`Inserted ${selectedCard.card} into the deck.`);
     updateProgressBar();
