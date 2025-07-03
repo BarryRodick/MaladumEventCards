@@ -1592,15 +1592,38 @@ const cardActions = {
     
     shuffleTopN: (card, n) => {
         if (n <= 0) return 'Please enter a valid number for N.';
-        
-        const remainingCards = state.deck.combined.length - (state.currentIndex + 1);
-        if (remainingCards <= 0) return 'No cards ahead to shuffle into.';
-        
-        n = Math.min(n, remainingCards);
-        const nextNCards = state.deck.combined.slice(state.currentIndex + 1, state.currentIndex + 1 + n);
-        const shuffledSection = shuffleDeck([...nextNCards, card]);
-        
-        state.deck.combined.splice(state.currentIndex + 1, n, ...shuffledSection);
+
+        const remaining = currentDeck.length - (currentIndex + 1);
+        if (remaining <= 0) return 'No cards ahead to shuffle into.';
+
+        // Limit N to the number of cards actually remaining
+        n = Math.min(n, remaining);
+
+        // Remove the card from the current deck and main deck if present
+        currentDeck.splice(currentIndex, 1);
+        const mainIdx = state.deck.main.findIndex(c => c.id === card.id);
+        if (mainIdx !== -1) {
+            state.deck.main.splice(mainIdx, 1);
+        }
+
+        // Determine a random position within the next N cards
+        const sliceStart = currentIndex;
+        const insertIdx = sliceStart + Math.floor(Math.random() * (n + 1));
+
+        currentDeck.splice(insertIdx, 0, card);
+        const mainInsertIdx = Math.min(insertIdx, state.deck.main.length);
+        if (mainIdx !== -1) {
+            state.deck.main.splice(mainInsertIdx, 0, card);
+        }
+
+        // Sync combined deck with updated arrays
+        state.deck.combined = state.deck.main.concat(state.deck.special);
+
+        // Reveal the next card and update progress
+        showCurrentCard();
+        updateProgressBar();
+        saveConfiguration();
+
         return `Card "${card.card}" shuffled into the next ${n} cards.`;
     },
     
