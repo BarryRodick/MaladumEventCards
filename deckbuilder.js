@@ -2025,6 +2025,11 @@ function introduceSentryCards() {
         ...updatedRemainingCards
     ];
 
+    // Sync deck arrays
+    state.deck.main = currentDeck;        // Treat Sentry cards as regular
+    state.deck.special = [];              // Clear special deck to keep order
+    state.deck.combined = currentDeck;
+
     // Clear the Sentry deck as it's now been used
     const sentryCount = sentryDeck.length;
     sentryDeck = [];
