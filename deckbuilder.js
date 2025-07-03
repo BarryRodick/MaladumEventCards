@@ -1565,9 +1565,28 @@ function setupEventListeners() {
 // 3. Consolidate card action handlers
 const cardActions = {
     shuffleAnywhere: (card) => {
-        state.deck.main.push(card);
-        state.deck.main = shuffleDeck(state.deck.main);
+        // Remove the current card from the visible and main decks
+        currentDeck.splice(currentIndex, 1);
+        const mainIdx = state.deck.main.findIndex(c => c.id === card.id);
+        if (mainIdx !== -1) {
+            state.deck.main.splice(mainIdx, 1);
+        }
+
+        // Insert the card at a random position after the current index
+        const insertIdx = currentIndex + 1 + Math.floor(Math.random() * (currentDeck.length - currentIndex));
+        currentDeck.splice(insertIdx, 0, card);
+        const mainInsertIdx = Math.min(insertIdx, state.deck.main.length);
+        state.deck.main.splice(mainInsertIdx, 0, card);
+
+        // Sync the combined deck with the updated main deck
         state.deck.combined = state.deck.main.concat(state.deck.special);
+
+        // Advance index to reveal the next card
+        currentIndex++;
+        state.currentIndex = currentIndex;
+        showCurrentCard();
+        saveConfiguration();
+
         return `Card "${card.card}" shuffled back into the deck.`;
     },
     
