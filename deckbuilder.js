@@ -1634,9 +1634,10 @@ const cardActions = {
         
         // Find all available cards of the same type that aren't already in the deck
         const availableReplacements = availableCards.filter(availableCard => {
-            // Skip if it's the same card
+            // Skip if it's the same card or already selected in the deck
             if (availableCard.id === card.id) return false;
-            
+            if (state.cards.selected.has(availableCard.id)) return false;
+
             // Check if the card has at least one matching type
             const availableTypeInfo = parseCardTypes(availableCard.type);
             return availableTypeInfo.allTypes.some(type => cardTypes.includes(type));
@@ -1651,7 +1652,14 @@ const cardActions = {
         
         // Replace the current card with the replacement
         currentDeck[currentIndex] = replacement;
-        
+
+        // Update selected cards map
+        state.cards.selected.delete(card.id);
+        state.cards.selected.set(replacement.id, true);
+
+        // Sync combined deck with the updated deck
+        state.deck.combined = currentDeck;
+
         return `Card "${card.card}" replaced with "${replacement.card}".`;
     },
     
