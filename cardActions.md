@@ -148,4 +148,4 @@ If your game state isn't persisting properly across page refreshes:
 1. Make sure you're using the same browser and device where you started the game
 2. Check that your browser allows local storage and cookies for this site
 3. Ensure you're accessing the app through the same URL (e.g., always use http://localhost:8000 and not http://127.0.0.1:8000)
-4. If issues persist, try clearing browser cookies/storage and starting a new game 
+4. If issues persist, try clearing your browser cookies/storage and starting a new game.
