@@ -101,6 +101,9 @@ This removes a card from the "In-Play Cards" section when its effects are no lon
 ### Clear All In-Play Cards
 This removes all cards from the "In-Play Cards" section at once, which is useful when moving to a new area or scenario.
 
+### Clear Active Card
+Use the "Clear" button on the active card to hide it and show the card back. This is helpful when you want to pause the game without revealing a card. Clicking the button resets the current card index and preserves the game state.
+
 ## Tips for Using Card Actions
 
 1. **Strategic Planning**: Use card actions to control the pacing and difficulty of your adventure. For example, introduce Sentry cards when the party feels too comfortable.
