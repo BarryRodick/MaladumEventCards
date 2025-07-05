@@ -22,6 +22,8 @@ npm run build
 This script syncs the version inside `service-worker.js` so you only need to
 update it in one place.
 
+- See [Card Actions Reference](cardActions.md) for details on manipulating the deck during play.
+
 ## Image Notes
 
 The campaign tracker pages let you attach photos from your device. Images are
