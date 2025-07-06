@@ -1568,7 +1568,7 @@ const cardActions = {
         const cardId = card.id;
 
         // 1. Remove the card from currentDeck.
-        // currentDeck[currentIndex] now points to the card that should be revealed next.
+        // currentDeck[currentIndex] now points to the card that used to be before it.
         currentDeck.splice(currentIndex, 1);
 
         // (Original state.deck.main/special manipulation removed here)
@@ -1583,11 +1583,13 @@ const cardActions = {
         // 3. Synchronize derived deck states
         synchronizeDeckState();
 
-        // 4. The card that was at currentDeck[currentIndex] (after splice, before re-insertion) is the next card.
-        //    No change to the global `currentIndex` value is needed before calling showCurrentCard.
-        state.currentIndex = currentIndex; // Sync state with the global currentIndex which is now correct.
+        // 4. Reveal the previous card in the sequence.
+        if (currentIndex > 0) {
+            currentIndex--;
+        }
+        state.currentIndex = currentIndex; // Sync state with the global currentIndex.
 
-        showCurrentCard();
+        showCurrentCard('backward');
         saveConfiguration();
 
         return `Card "${card.card}" shuffled back into the deck.`;

@@ -13,7 +13,7 @@ This action takes the current card and shuffles it randomly back into the remain
 **Behavior:**
 - The current card is removed from its position
 - The card is inserted at a random position among the remaining undrawn cards
-- The next card in the sequence is then revealed
+- The previous card in the sequence is then revealed
 
 **Example Use Case:**  
 When a threat appears that your party manages to drive away temporarily, but might return later in the expedition.
