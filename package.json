@@ -2,7 +2,7 @@
   "name": "maladum-event-cards",
   "version": "1.0.0",
   "scripts": {
-    "test": "node tests/parseCardTypes.test.js",
+    "test": "node tests/parseCardTypes.test.js && node tests/shuffleDeck.test.js",
     "build": "node scripts/update-version.js"
   }
 }
