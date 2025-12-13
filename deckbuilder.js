@@ -456,9 +456,11 @@ function generateCardTypeInputs() {
             <div class="d-flex align-items-center">
                 <img src="logos/${imageName}.jpg" alt="${type}" class="mr-2" style="width: 30px; height: 30px;">
                 <span class="card-title mr-auto">${type} Cards</span>
-                <button class="btn btn-sm btn-outline-secondary decrease-btn" data-type="${type}" style="margin-right: 5px;">-</button>
-                <input type="number" id="type-${type}" min="0" max="${maxCount}" value="${getSavedCardCount(type)}" class="form-control form-control-sm input-count" style="width: 60px;">
-                <button class="btn btn-sm btn-outline-secondary increase-btn" data-type="${type}" style="margin-left: 5px;">+</button>
+                <div class="input-group" style="width: auto;">
+                    <button class="btn btn-sm btn-outline-secondary decrease-btn btn-minus" data-type="${type}">-</button>
+                    <input type="number" id="type-${type}" min="0" max="${maxCount}" value="${getSavedCardCount(type)}" class="form-control form-control-sm input-count text-center" style="width: 50px;">
+                    <button class="btn btn-sm btn-outline-secondary increase-btn btn-plus" data-type="${type}">+</button>
+                </div>
             </div>
         `;
 
@@ -468,28 +470,8 @@ function generateCardTypeInputs() {
 
     cardTypeInputs.appendChild(fragment);
 
-    // Add event listeners for +/- buttons
-    document.querySelectorAll('.increase-btn').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const type = e.target.getAttribute('data-type');
-            const input = document.getElementById(`type-${type}`);
-            if (parseInt(input.value) < parseInt(input.max)) {
-                input.value = parseInt(input.value) + 1;
-                debouncedSaveConfiguration(); // Save configuration after every change
-            }
-        });
-    });
-
-    document.querySelectorAll('.decrease-btn').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const type = e.target.getAttribute('data-type');
-            const input = document.getElementById(`type-${type}`);
-            if (parseInt(input.value) > 0) {
-                input.value = parseInt(input.value) - 1;
-                debouncedSaveConfiguration(); // Save configuration after every change
-            }
-        });
-    });
+    // Re-bind events to all number inputs (both existing and newly created)
+    setupNumberInputs();
 }
 
 // Function to get saved card count with proper error handling
@@ -1540,19 +1522,8 @@ function setupEventListeners() {
     // Event listener for Card Action selection changes
     const cardActionSelect = document.getElementById('cardAction');
     if (cardActionSelect) {
-        cardActionSelect.addEventListener('change', () => {
-            const selectedAction = cardActionSelect.value;
-            const topNInput = document.getElementById('actionTopNInput');
-            if (selectedAction === 'shuffleTopN') {
-                if (topNInput) {
-                    topNInput.style.display = 'block';
-                }
-            } else {
-                if (topNInput) {
-                    topNInput.style.display = 'none';
-                }
-            }
-        });
+        // Use the consolidated change handler
+        cardActionSelect.addEventListener('change', handleCardActionChange);
     } else {
         console.error('Element with ID "cardAction" not found.');
     }
@@ -1679,14 +1650,13 @@ const cardActions = {
         const position = document.getElementById('insertPosition')?.value || 'next';
 
         if (!cardType) {
-            return 'Please select a card type to insert.';
+            showToast('Please select a card type to insert.');
+            return null;
         }
 
-        const result = insertCardOfType(cardType, position);
-        if (result) {
-            return `New ${cardType} card inserted.`;
-        }
-        return 'Failed to insert card.';
+        // insertCardOfType handles all UI feedback (success and error toasts)
+        insertCardOfType(cardType, position);
+        return null;
     }
 };
 
@@ -1705,59 +1675,14 @@ function applyCardAction() {
 
     // Handle insertCardType separately as it doesn't need a current card
     if (action === 'insertCardType') {
-        const result = cardActions[action](); // This calls the method in cardActions, which then calls insertCardOfType
-        // The actual insertCardOfType function handles its own toast, save, etc.
-        // So, we might not need to duplicate displayDeck/saveConfiguration here if insertCardOfType handles it.
-        // Let's check insertCardOfType: it does call showToast, updateProgressBar, saveConfiguration.
-        // So, the 'if (result)' block here for 'insertCardType' might be redundant if the messages are consistent.
-        // For now, let's assume cardActions.insertCardType returns the message string, and applyCardAction shows it.
-        if (typeof result === 'string' && (result.includes("inserted") || result.includes("Failed"))) { // Check if it's a message from the action
-             showToast(result); // Show the message from insertCardOfType
+        const result = cardActions[action]();
+        // insertCardOfType handles its own UI feedback (success and error toasts),
+        // so we don't need to call showToast(result) here unless we want to log it or handle it differently.
+        // cardActions.insertCardType returns null to signal that UI is already handled.
+        if (result) {
+            showToast(result);
         }
-        // displayDeck, updateInPlayCardsDisplay, saveConfiguration are called inside insertCardOfType if successful.
-        // No, they are not. insertCardOfType returns true/false.
-        // The message is constructed in cardActions.insertCardType.
-        // Let's re-verify the flow for insertCardType.
-        // cardActions.insertCardType -> calls insertCardOfType.
-        // insertCardOfType (if successful) calls showToast, updateProgressBar, saveConfiguration.
-        // cardActions.insertCardType returns a message string.
-        // applyCardAction then shows this message string using showToast. This is duplicative toast.
-
-        // Corrected flow for insertCardType in applyCardAction:
-        // The cardActions.insertCardType itself returns the message.
-        // insertCardOfType performs the actual work *including* toasts and saves.
-        // So applyCardAction should just call it and trust it.
-        // The `result` from `cardActions[action]()` for `insertCardType` is the string message.
-        // `insertCardOfType` returns true/false.
-
-        // Let's simplify: `cardActions.insertCardType` should just do the work or call `insertCardOfType` which does the work.
-        // `applyCardAction` then just handles the generic success/failure display for other actions.
-
-        // Current structure:
-        // applyCardAction -> cardActions.insertCardType() -> insertCardOfType()
-        // insertCardOfType() calls showToast, updateProgressBar, saveConfiguration.
-        // cardActions.insertCardType() returns a string like "New X card inserted." or "Failed..."
-        // applyCardAction then calls showToast(result) again if it's insertCardType. This is a double toast.
-
-        // Simplest fix for applyCardAction regarding insertCardType:
-        // cardActions.insertCardType already calls insertCardOfType, which handles its own UI updates and save.
-        // So, for insertCardType, applyCardAction doesn't need to do much with the result string other than perhaps logging.
-        // The toast is already handled.
-
-        // Let cardActions.insertCardType return true/false based on insertCardOfType's result.
-        // And let insertCardOfType handle its own user feedback.
-        // This means the `if (result)` block for insertCardType in `applyCardAction` is mostly not needed for UI.
-
-        // For now, the existing structure in applyCardAction for insertCardType will cause a double toast.
-        // This is outside the scope of the current bug fix for insertCardOfType's internal logic.
-        // The original request was to fix insertCardOfType.
-        if (result) { // `result` is the message string from `cardActions.insertCardType`
-            showToast(result); // This is the potentially double toast.
-            // displayDeck(); // These are called by insertCardOfType itself.
-            // updateInPlayCardsDisplay();
-            // saveConfiguration();
-        }
-        return; // Return because insertCardOfType handles its own save & UI for deck.
+        return;
     }
 
     // For all other actions
@@ -2128,11 +2053,16 @@ function updateCardActionSelect() {
     `;
 }
 
-// Update the card action change handler
-document.getElementById('cardAction').addEventListener('change', function() {
+// Consolidated card action change handler
+function handleCardActionChange() {
+    const actionSelect = document.getElementById('cardAction');
     const actionTopNInput = document.getElementById('actionTopNInput');
     const cardTypeInsertUI = document.getElementById('cardTypeInsertUI');
     const applyActionButton = document.getElementById('applyCardAction');
+
+    if (DEBUG) console.log('Card action changed to:', actionSelect.value);
+
+    if (!actionSelect) return;
 
     // Remove existing card type insert UI if it exists
     if (cardTypeInsertUI) {
@@ -2145,7 +2075,7 @@ document.getElementById('cardAction').addEventListener('change', function() {
     }
 
     // If no action is selected, hide everything
-    if (!this.value) {
+    if (!actionSelect.value) {
         if (actionTopNInput) actionTopNInput.style.display = 'none';
         return;
     }
@@ -2155,19 +2085,19 @@ document.getElementById('cardAction').addEventListener('change', function() {
         applyActionButton.style.display = 'block';
     }
 
-    switch (this.value) {
+    switch (actionSelect.value) {
         case 'shuffleTopN':
-            actionTopNInput.style.display = 'block';
+            if (actionTopNInput) actionTopNInput.style.display = 'block';
             break;
         case 'insertCardType':
             showCardTypeInsertUI();
-            actionTopNInput.style.display = 'none';
+            if (actionTopNInput) actionTopNInput.style.display = 'none';
             break;
         default:
-            actionTopNInput.style.display = 'none';
+            if (actionTopNInput) actionTopNInput.style.display = 'none';
             break;
     }
-});
+}
 
 // Update showCardTypeInsertUI to show specific cards
 function showCardTypeInsertUI() {
@@ -2246,7 +2176,8 @@ function showCardTypeInsertUI() {
 
 // Update insertCardOfType to handle specific card selection
 function insertCardOfType(cardType, position) {
-    const specificCardId = document.getElementById('insertSpecificCard').value;
+    const insertSpecificCardElement = document.getElementById('insertSpecificCard');
+    const specificCardId = insertSpecificCardElement ? insertSpecificCardElement.value : null;
     let selectedCard;
 
     if (specificCardId) {
@@ -2343,12 +2274,20 @@ function loadSavedConfig() {
 
 // Add this function to handle number input adjustments
 function setupNumberInputs() {
+    // Remove existing listeners to avoid duplicates if called multiple times
+    // Since we can't easily remove anonymous listeners, we'll clone the buttons to strip listeners
+    // This is a bit heavy but ensures we don't have duplicate listeners
+
     document.querySelectorAll('.input-group').forEach(group => {
         const input = group.querySelector('input[type="number"]');
         const minusBtn = group.querySelector('.btn-minus');
         const plusBtn = group.querySelector('.btn-plus');
 
         if (input && minusBtn && plusBtn) {
+            // Check if already initialized to avoid duplicate listeners
+            if (group.dataset.initialized) return;
+            group.dataset.initialized = "true";
+
             // Minus button click handler
             minusBtn.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -2357,6 +2296,7 @@ function setupNumberInputs() {
                 if (currentValue > minValue) {
                     input.value = currentValue - 1;
                     input.dispatchEvent(new Event('change'));
+                    input.dispatchEvent(new Event('input')); // Trigger input event for debounced save
                 }
             });
 
@@ -2365,22 +2305,24 @@ function setupNumberInputs() {
                 e.preventDefault();
                 const currentValue = parseInt(input.value) || 0;
                 const maxValue = parseInt(input.max);
-                if (!maxValue || currentValue < maxValue) {
+                if (isNaN(maxValue) || currentValue < maxValue) {
                     input.value = currentValue + 1;
                     input.dispatchEvent(new Event('change'));
+                    input.dispatchEvent(new Event('input')); // Trigger input event for debounced save
                 }
             });
 
             // Touch event handlers for better mobile response
-            minusBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                minusBtn.click();
-            });
+             minusBtn.addEventListener('touchstart', (e) => {
+                 // Prevent default only if it's not scrolling
+                 // e.preventDefault();
+                 // Simple touchstart might be enough if click is also handled,
+                 // but let's leave click handle it.
+             }, {passive: true});
 
-            plusBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                plusBtn.click();
-            });
+             plusBtn.addEventListener('touchstart', (e) => {
+                 // e.preventDefault();
+             }, {passive: true});
         }
     });
 }
