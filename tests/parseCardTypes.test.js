@@ -29,4 +29,20 @@ assert.deepStrictEqual(
   }
 );
 
+assert.deepStrictEqual(
+  parseCardTypes(''),
+  {
+    andGroups: [['']],
+    allTypes: ['']
+  }
+);
+
+assert.deepStrictEqual(
+  parseCardTypes('A//B'),
+  {
+    andGroups: [['A', '', 'B']],
+    allTypes: ['A', '', 'B']
+  }
+);
+
 console.log('All tests passed.');
