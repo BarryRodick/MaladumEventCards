@@ -2,6 +2,7 @@
 
 
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -54,7 +55,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .campaign-card::before {
             content: '';
             position: absolute;
@@ -67,8 +68,8 @@
             z-index: 0;
             pointer-events: none;
         }
-        
-        .campaign-card > * {
+
+        .campaign-card>* {
             position: relative;
             z-index: 1;
         }
@@ -205,7 +206,9 @@
         }
 
         /* Add styles to ensure text is readable on all elements */
-        p, span, div:not(.notes-content) {
+        p,
+        span,
+        div:not(.notes-content) {
             color: #333;
             text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
         }
@@ -263,6 +266,7 @@
             display: block;
             margin-top: 5px;
         }
+
         .image-modal {
             display: none;
             position: fixed;
@@ -299,6 +303,7 @@
         }
     </style>
 </head>
+
 <body class="dark-mode">
     <header class="app-header dark-green-bar d-flex align-items-center justify-content-between p-3">
         <div class="d-flex align-items-center">
@@ -307,12 +312,12 @@
                 <i class="fas fa-scroll ml-2"></i>
             </a>
         </div>
-        
+
         <div id="headerButtons" class="d-flex align-items-center">
             <a href="about.html" class="btn btn-link faq-icon" title="About / FAQ" aria-label="About / FAQ">
                 <i class="fas fa-question-circle"></i>
             </a>
-            
+
         </div>
     </header>
 
@@ -334,7 +339,7 @@
         <div class="campaign-card">
             <div class="title">Dungeons of Enveron</div>
             <div class="subtitle">Campaign Log</div>
-            
+
             <div class="section-title">Delay Track</div>
             <div class="delay-track">
                 <div class="delay-checkbox delay-blue"></div>
@@ -350,7 +355,8 @@
                 <div class="delay-checkbox delay-blue"></div>
                 <div class="delay-checkbox delay-red"></div>
             </div>
-            <p>Increase starting Dread by this value. For each red space, roll Magic Die, count that many empty spaces and add green peg. When green peg replaced, draw additional Event card.</p>
+            <p>Increase starting Dread by this value. For each red space, roll Magic Die, count that many empty spaces
+                and add green peg. When green peg replaced, draw additional Event card.</p>
 
             <div class="section-title">Achievements</div>
             <div class="achievements">
@@ -406,7 +412,7 @@
                 <div class="achievement-row">
                     <span>Thinning the Horde: <input type="text" class="input-field"></span>
                 </div>
-                
+
                 <div class="apprentice-section">
                     <span>Apprentice:</span>
                     <span>Freed <div class="checkbox"></div></span>
@@ -424,7 +430,8 @@
                 <div class="malagaunt-checkbox"></div>
                 <div class="malagaunt-checkbox"></div>
             </div>
-            <p>When the Malagaunt enters play, remove one <img src="logos/Revenant.jpg" class="icon" alt="Revenant"> card from the deck for each space marked, then reshuffle.</p>
+            <p>When the Malagaunt enters play, remove one <img src="logos/Revenant.jpg" class="icon" alt="Revenant">
+                card from the deck for each space marked, then reshuffle.</p>
         </div>
 
         <div class="campaign-card">
@@ -433,31 +440,39 @@
                 <div class="reward-item">
                     <div class="checkbox"></div>
                     <div class="reward-text">
-                        <strong>Ongoing Research:</strong> In each Market Phase, mark the first unmarked Necrotic Knowledge Reward, if any.
+                        <strong>Ongoing Research:</strong> In each Market Phase, mark the first unmarked Necrotic
+                        Knowledge Reward, if any.
                     </div>
                 </div>
                 <div class="reward-item">
                     <div class="checkbox"></div>
                     <div class="reward-text">
-                        <strong>Dungeoneer's Wisdom:</strong> Reduce this total by 1 to discard a trap token or <img src="logos/Dungeon.jpg" class="icon" alt="Dungeon"> card with no effect.
+                        <strong>Dungeoneer's Wisdom:</strong> Reduce this total by 1 to discard a trap token or <img
+                            src="logos/Dungeon.jpg" class="icon" alt="Dungeon"> card with no effect.
                     </div>
                 </div>
                 <div class="reward-item">
                     <div class="checkbox"></div>
                     <div class="reward-text">
-                        <strong>Soulshield:</strong> While item marked "X" is intact and in play, Adventurers gain 1 free Magic peg to resist applicable <img src="logos/Revenant.jpg" class="icon" alt="Revenant"> card effects. Item may be used as normal, and bearer gains <img src="logos/Malagaunt.jpg" class="terrifying-icon" alt="Terrifying">. Revenants are not immune to this.
+                        <strong>Soulshield:</strong> While item marked "X" is intact and in play, Adventurers gain 1
+                        free Magic peg to resist applicable <img src="logos/Revenant.jpg" class="icon" alt="Revenant">
+                        card effects. Item may be used as normal, and bearer gains <img src="logos/Malagaunt.jpg"
+                            class="terrifying-icon" alt="Terrifying">. Revenants are not immune to this.
                     </div>
                 </div>
                 <div class="reward-item">
                     <div class="checkbox"></div>
                     <div class="reward-text">
-                        <strong>Offer of Aid:</strong> Spend 1 Renown to re-roll a Left for Dead roll. You may also draw three Denizen boards before a Rescue Mission. Spend Renown equal to one Denizen's Persuade value (min. 1) to have it join the party for that Rescue Mission only.
+                        <strong>Offer of Aid:</strong> Spend 1 Renown to re-roll a Left for Dead roll. You may also draw
+                        three Denizen boards before a Rescue Mission. Spend Renown equal to one Denizen's Persuade value
+                        (min. 1) to have it join the party for that Rescue Mission only.
                     </div>
                 </div>
                 <div class="reward-item">
                     <div class="checkbox"></div>
                     <div class="reward-text">
-                        <strong>Guild Contacts:</strong> After each game, draw 2 random Class boards. Any Campaign Phase Skills on these boards may be used at any level, spending Renown instead of Skill pegs.
+                        <strong>Guild Contacts:</strong> After each game, draw 2 random Class boards. Any Campaign Phase
+                        Skills on these boards may be used at any level, spending Renown instead of Skill pegs.
                     </div>
                 </div>
             </div>
@@ -470,19 +485,22 @@
                         <div class="checkbox"></div>
                     </div>
                     <div class="reward-text">
-                        <strong>Tactical Insight:</strong> Add one <img src="logos/Novice.jpg" class="icon" alt="Novice"> card to the deck for each space marked.
+                        <strong>Tactical Insight:</strong> Add one <img src="logos/Novice.jpg" class="icon"
+                            alt="Novice"> card to the deck for each space marked.
                     </div>
                 </div>
                 <div class="reward-item">
                     <div class="checkbox"></div>
                     <div class="reward-text">
-                        <strong>Graverobberry:</strong> When making a General Search while in contact with (but not on) a Grave Point, draw an extra token and choose one to discard (traps cannot be discarded).
+                        <strong>Graverobberry:</strong> When making a General Search while in contact with (but not on)
+                        a Grave Point, draw an extra token and choose one to discard (traps cannot be discarded).
                     </div>
                 </div>
                 <div class="reward-item">
                     <div class="checkbox"></div>
                     <div class="reward-text">
-                        <strong>Poison Resistance:</strong> Adventurers may spend a Skill peg (reaction) following a Poison roll to ignore the effects.
+                        <strong>Poison Resistance:</strong> Adventurers may spend a Skill peg (reaction) following a
+                        Poison roll to ignore the effects.
                     </div>
                 </div>
                 <div class="reward-item">
@@ -492,35 +510,38 @@
                         <div class="checkbox"></div>
                     </div>
                     <div class="reward-text">
-                        <strong>Target Weakness:</strong> Adventurers may spend a Skill peg (reaction) following an attack roll against a Revenant of rank up to the spaces marked to cause 1 damage.
+                        <strong>Target Weakness:</strong> Adventurers may spend a Skill peg (reaction) following an
+                        attack roll against a Revenant of rank up to the spaces marked to cause 1 damage.
                     </div>
                 </div>
                 <div class="reward-item">
                     <div class="checkbox"></div>
                     <div class="reward-text">
-                        <strong>Telltale Signs:</strong> Adventurers may use the Tracking Skill at a level up to their rank.
+                        <strong>Telltale Signs:</strong> Adventurers may use the Tracking Skill at a level up to their
+                        rank.
                     </div>
                 </div>
                 <div class="reward-item">
                     <div class="checkbox"></div>
                     <div class="reward-text">
-                        <strong>Combat Experience:</strong> Adventurers may re-roll one blank per roll when attacking Revenants.
+                        <strong>Combat Experience:</strong> Adventurers may re-roll one blank per roll when attacking
+                        Revenants.
                     </div>
                 </div>
                 <div class="reward-item">
                     <div class="checkbox"></div>
                     <div class="reward-text">
-                        <strong>Hallowing Ritual:</strong> Adventurers may spend a Magic peg as an action to deactivate a Grave Point in their square – mark it with a Reminder counter.
+                        <strong>Hallowing Ritual:</strong> Adventurers may spend a Magic peg as an action to deactivate
+                        a Grave Point in their square – mark it with a Reminder counter.
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="storage-utils.js"></script>
-
-    <script>
+    <script type="module">
+        import * as storageUtils from './storage-utils.js';
         document.querySelectorAll('.checkbox').forEach(checkbox => {
-            checkbox.addEventListener('click', function() {
+            checkbox.addEventListener('click', function () {
                 if (this.style.backgroundColor === 'black') {
                     this.style.backgroundColor = '';
                 } else {
@@ -531,7 +552,7 @@
         });
 
         document.querySelectorAll('.circle').forEach(circle => {
-            circle.addEventListener('click', function() {
+            circle.addEventListener('click', function () {
                 if (!this.classList.contains('numbered-circle')) {
                     if (this.classList.contains('blue-border')) {
                         this.classList.remove('blue-border');
@@ -549,7 +570,7 @@
         });
 
         document.querySelectorAll('.numbered-circle').forEach(circle => {
-            circle.addEventListener('click', function() {
+            circle.addEventListener('click', function () {
                 if (this.style.backgroundColor === 'black') {
                     this.style.backgroundColor = '';
                     this.style.color = 'black';
@@ -566,7 +587,7 @@
         });
 
         document.querySelectorAll('.delay-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('click', function() {
+            checkbox.addEventListener('click', function () {
                 if (this.style.backgroundColor === 'black') {
                     this.style.backgroundColor = '';
                 } else {
@@ -595,7 +616,7 @@
         }
 
         document.querySelectorAll('.malagaunt-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('click', function() {
+            checkbox.addEventListener('click', function () {
                 if (this.style.backgroundColor === 'black') {
                     this.style.backgroundColor = '';
                 } else {
@@ -669,7 +690,7 @@
             try {
                 const state = storageUtils.loadState('dungeonState');
                 if (state) {
-                    
+
                     // Load checkbox groups
                     document.querySelectorAll('.checkbox-group').forEach((group, groupIndex) => {
                         group.querySelectorAll('.checkbox').forEach((cb, cbIndex) => {
@@ -703,7 +724,7 @@
                     if (state.notes) {
                         notesTextarea.value = state.notes;
                     }
-                    
+
                     if (state.notesVisible) {
                         notesContent.classList.add('visible');
                         collapseIcon.classList.add('rotated');
@@ -724,7 +745,7 @@
         const resetButton = document.createElement('button');
         resetButton.textContent = 'Reset Campaign';
         resetButton.className = 'reset-button';
-        resetButton.addEventListener('click', function() {
+        resetButton.addEventListener('click', function () {
             if (confirm('Are you sure you want to reset the campaign? This will clear all progress.')) {
                 localStorage.removeItem('dungeonState');
                 location.reload();
@@ -741,4 +762,5 @@
         notesTextarea.addEventListener('input', saveState);
     </script>
 </body>
-</html> 
+
+</html>

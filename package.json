@@ -1,8 +1,11 @@
 {
   "name": "maladum-event-cards",
-  "version": "1.0.0",
+  "version": "2.12.0",
   "scripts": {
-    "test": "node tests/parseCardTypes.test.js",
+    "test": "node tests/parseCardTypes.test.js && node tests/deckGeneration.test.js && node tests/storageUtils.test.js",
+    "test:cards": "node tests/parseCardTypes.test.js",
+    "test:deck": "node tests/deckGeneration.test.js",
+    "test:storage": "node tests/storageUtils.test.js",
     "build": "node scripts/update-version.js"
   }
 }

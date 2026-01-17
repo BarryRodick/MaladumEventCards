@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -27,7 +28,7 @@
 
         .campaign-card {
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-bottom: 20px;
             background-color: var(--parchment);
@@ -36,7 +37,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .campaign-card::before {
             content: '';
             position: absolute;
@@ -49,8 +50,8 @@
             z-index: 0;
             pointer-events: none;
         }
-        
-        .campaign-card > * {
+
+        .campaign-card>* {
             position: relative;
             z-index: 1;
         }
@@ -177,7 +178,10 @@
         }
 
         /* Add styles to ensure text is readable on all elements */
-        p, span, div:not(.notes-content), li {
+        p,
+        span,
+        div:not(.notes-content),
+        li {
             color: #333;
             text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
         }
@@ -199,6 +203,7 @@
             display: block;
             margin-top: 5px;
         }
+
         .image-modal {
             display: none;
             position: fixed;
@@ -235,6 +240,7 @@
         }
     </style>
 </head>
+
 <body class="dark-mode">
     <header class="app-header dark-green-bar d-flex align-items-center justify-content-between p-3">
         <div class="d-flex align-items-center">
@@ -243,13 +249,13 @@
                 <i class="fas fa-scroll ml-2"></i>
             </a>
         </div>
-        
+
         <div id="headerButtons" class="d-flex align-items-center">
             <!-- FAQ Button -->
             <a href="about.html" class="btn btn-link faq-icon" title="About / FAQ" aria-label="About / FAQ">
                 <i class="fas fa-question-circle"></i>
             </a>
-            
+
         </div>
     </header>
 
@@ -312,7 +318,8 @@
                 </div>
 
                 <div class="note-text">
-                    Note: If you are required to mark a space here and cannot, mark the Ascendant Domination track instead.
+                    Note: If you are required to mark a space here and cannot, mark the Ascendant Domination track
+                    instead.
                 </div>
 
                 <div class="achievement-row">
@@ -379,7 +386,8 @@
             <div class="note-text">
                 Companions controlled by the Cabal use their master's Warded value.<br>
                 Mark above when defeated or hired by Adventurers.<br>
-                Notes: Only the Freed version of Miri is used. Reeki is used when specified and cannot be randomly selected.
+                Notes: Only the Freed version of Miri is used. Reeki is used when specified and cannot be randomly
+                selected.
             </div>
         </div>
 
@@ -425,33 +433,41 @@
                 <div class="note-text">
                     • Mark one space in each Assessment Phase while the Cabal control the Ascendant.<br>
                     • Erase two spaces each time a Cabal member is defeated.<br><br>
-                    If this track is filled, the Cabal have assimilated the Ascendant's power and the campaign is over. Remove the Cabal from play, if applicable. Once Adventurers have escaped the current quest, refer to the Consequences section of Quest FC-F on page 24.
+                    If this track is filled, the Cabal have assimilated the Ascendant's power and the campaign is over.
+                    Remove the Cabal from play, if applicable. Once Adventurers have escaped the current quest, refer to
+                    the Consequences section of Quest FC-F on page 24.
                 </div>
             </div>
 
             <div class="section-title">Corazon the "Servant"</div>
             <div class="servant-section">
-                <p>When noted by a quest, Corazon does not enter play as a Cabal member. Instead, he is Phedra's Companion. He will not engage enemies. He has one Health and uses Phedra's Warded value, boosted as normal.</p>
-                
-                <p>If Corazon is defeated, Corrupt the Adventurer that defeated him and mark a Corazon's Curse Achievement.</p>
-                
-                <p>When Corazon activates, if he is unengaged and there are Adventurers within short range and LoS, he expends his actions to manipulate them. The closest Adventurer makes a Persuade roll against Corazon.</p>
-                
+                <p>When noted by a quest, Corazon does not enter play as a Cabal member. Instead, he is Phedra's
+                    Companion. He will not engage enemies. He has one Health and uses Phedra's Warded value, boosted as
+                    normal.</p>
+
+                <p>If Corazon is defeated, Corrupt the Adventurer that defeated him and mark a Corazon's Curse
+                    Achievement.</p>
+
+                <p>When Corazon activates, if he is unengaged and there are Adventurers within short range and LoS, he
+                    expends his actions to manipulate them. The closest Adventurer makes a Persuade roll against
+                    Corazon.</p>
+
                 <ul>
                     <li>If they exceed his Persuade value, there is no effect.</li>
                     <li>If they equal his Persuade value, they make one action as if they were an Adversary.</li>
-                    <li>If they roll less than his Persuade value, they make two actions as if they were an Adversary.</li>
+                    <li>If they roll less than his Persuade value, they make two actions as if they were an Adversary.
+                    </li>
                 </ul>
-                
+
                 <p>The Adventurer becomes Fatigued for each action taken.</p>
-                
-                <p>This is repeated with his next action for the next closest Adventurer if applicable. Otherwise, he follows his normal rules for any remaining actions.</p>
+
+                <p>This is repeated with his next action for the next closest Adventurer if applicable. Otherwise, he
+                    follows his normal rules for any remaining actions.</p>
             </div>
         </div>
     </div>
-    <script src="storage-utils.js"></script>
-
-    <script>
+    <script type="module">
+        import * as storageUtils from './storage-utils.js';
         // Get references to elements
         const notesContent = document.getElementById('notesContent');
         const notesTextarea = document.getElementById('notesTextarea');
@@ -475,7 +491,7 @@
 
         // Add click handler to all checkboxes
         checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('click', function() {
+            checkbox.addEventListener('click', function () {
                 this.style.backgroundColor = this.style.backgroundColor ? '' : '#333';
                 saveState();
             });
@@ -539,12 +555,12 @@
             try {
                 const state = storageUtils.loadState('forbiddenCreedState');
                 if (state) {
-                    
+
                     // Restore notes
                     if (state.notes) {
                         notesTextarea.value = state.notes;
                     }
-                    
+
                     // Restore notes visibility
                     if (state.notesVisible) {
                         notesContent.classList.add('visible');
@@ -577,4 +593,5 @@
         notesTextarea.addEventListener('input', saveState);
     </script>
 </body>
-</html> 
+
+</html>

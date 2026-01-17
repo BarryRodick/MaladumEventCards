@@ -8,6 +8,16 @@ const urlsToCache = [
     './index.html',
     './styles.css',
     './deckbuilder.js',
+    './state.js',
+    './app-utils.js',
+    './config-manager.js',
+    './ui-manager.js',
+    './deck-manager.js',
+    './card-actions.js',
+    './initialization.js',
+    './events.js',
+    './storage-utils.js',
+    './dom-utils.js',
     './update-utils.js',
     './card-utils.js',
     './dungeons_of_enveron.html',
@@ -52,7 +62,7 @@ self.addEventListener('activate', event => {
                         });
                     }
                 })
-                .catch(() => {})
+                .catch(() => { })
         ]).then(() => self.clients.claim())
     );
 });

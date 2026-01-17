@@ -1110,3 +1110,133 @@ img:error {
     background-color: #333;
     position: relative;
 }
+
+/* ============================
+   Styles moved from index.html inline
+   ============================ */
+
+/* Progress text overlay positioning */
+.progress {
+    position: relative;
+}
+
+.progress-text {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    line-height: 2rem;
+    color: white;
+    font-size: 1rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    z-index: 1;
+}
+
+/* Collapsible section headers */
+.section-header {
+    background-color: #2d2d2d;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.section-header .btn-link {
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+}
+
+.section-header .btn-link:hover {
+    color: #cccccc;
+}
+
+/* Active deck section */
+#activeDeckSection {
+    margin-top: 2rem;
+}
+
+/* Campaign modal items */
+.campaign-item {
+    background-color: #2d2d2d;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.campaign-item:hover {
+    background-color: #3d3d3d;
+    text-decoration: none;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.campaign-item h4 {
+    margin-bottom: 0.5rem;
+}
+
+.campaign-item small {
+    display: block;
+}
+
+/* Modal styling */
+.modal .close {
+    opacity: 0.8;
+}
+
+.modal .close:hover {
+    opacity: 1;
+}
+
+.modal-content {
+    border: 1px solid #444;
+}
+
+.modal-header {
+    border-bottom: 1px solid #444;
+}
+
+/* Campaign icon animation */
+.fa-scroll {
+    transition: transform 0.2s ease;
+}
+
+.faq-icon:hover .fa-scroll {
+    transform: scale(1.1);
+}
+
+/* Touch behavior improvements */
+html {
+    overscroll-behavior: none;
+}
+
+body {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Mobile responsive - progress text */
+@media (max-width: 576px) {
+    .progress-text {
+        font-size: 0.875rem;
+    }
+
+    .section-header .btn-link {
+        padding: 15px 0;
+    }
+
+    /* Stack navigation buttons on very small screens */
+    @media (max-width: 400px) {
+        #navigationButtons {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #navigationButtons .btn {
+            width: 100%;
+            margin: 5px 0;
+        }
+    }
+}
