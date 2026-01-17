@@ -73,6 +73,9 @@ function removeCardFromPlay(cardId) {
 /**
  * Handles the application of selected card actions
  */
+/**
+ * Handles the application of selected card actions
+ */
 export const cardActions = {
     shuffleAnywhere: (card) => {
         state.currentDeck.splice(state.currentIndex, 1);
@@ -114,29 +117,58 @@ export const cardActions = {
 
         showCurrentCard();
         return `Card "${card.card}" replaced with "${replacement.card}".`;
+    },
+
+    introduceSentry: () => {
+        if (!state.sentryDeck || state.sentryDeck.length === 0) {
+            return "No Sentry cards available to introduce.";
+        }
+
+        // Remove current card from deck momentarily to shuffle sentries into the *remaining* deck
+        // Actually, usually sentries are just shuffled into the draw pile.
+        // Let's keep specific logic: Shuffle sentries into the portion of the deck AFTER the current card.
+
+        const pastCards = state.currentDeck.slice(0, state.currentIndex + 1);
+        const futureCards = state.currentDeck.slice(state.currentIndex + 1);
+
+        const newFuture = shuffleDeck(futureCards.concat(state.sentryDeck));
+        state.currentDeck = pastCards.concat(newFuture);
+
+        const count = state.sentryDeck.length;
+        state.sentryDeck = []; // Clear them
+
+        updateProgressBar();
+        return `${count} Sentry cards shuffled into the deck.`;
     }
 };
 
-export function applyCardAction() {
-    const action = document.getElementById('cardAction').value;
-    if (!action) {
-        showToast('Please select an action.');
-        return;
-    }
-
+/**
+ * Trigger an action by name
+ * @param {string} actionName 
+ * @param {any} param - extra parameter like N for shuffle
+ */
+export function triggerCardAction(actionName, param = null) {
     if (state.currentIndex === -1) {
         showToast('No active card to perform action on.');
         return;
     }
 
     const activeCard = state.currentDeck[state.currentIndex];
-    const n = parseInt(document.getElementById('actionN')?.value) || 0;
 
-    const result = cardActions[action]?.(activeCard, n);
+    // Check if function exists
+    if (!cardActions[actionName]) {
+        console.error(`Action ${actionName} not found`);
+        return;
+    }
+
+    // Call action
+    // Note: ensure 'introduceSentry' handles its own parameter ignoring if needed
+    const result = cardActions[actionName](activeCard, param);
+
     if (result) {
         showToast(result);
         updateInPlayCardsDisplay();
         saveConfiguration();
-        trackEvent('Card Action', action, activeCard.card);
+        trackEvent('Card Action', actionName, activeCard.card);
     }
 }

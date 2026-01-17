@@ -91,152 +91,156 @@
         class="toast-container position-fixed top-0 end-0 p-3"></div>
 
     <main id="main-content" class="container my-4" role="main">
-        <!-- Deck Builder Controls - Wrapping all builder controls in one div -->
-        <div id="deckBuilderControls" role="form" aria-label="Deck configuration">
-            <!-- Game Selection -->
-            <section id="gameSelection" class="mb-4" aria-labelledby="gameSelectionHeading">
-                <div class="section-header">
-                    <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#gameCheckboxes" aria-expanded="false" aria-controls="gameCheckboxes"
-                        id="gameSelectionHeading">
-                        <i class="fas fa-chevron-down mr-2" aria-hidden="true"></i>Select Games
-                    </button>
-                </div>
-                <div id="gameCheckboxes" class="collapse" role="group" aria-label="Available games">
-                    <!-- Game checkboxes will be populated here -->
-                </div>
-            </section>
+        <div class="glass-panel">
+            <!-- Deck Builder Controls -->
+            <div id="deckBuilderControls" role="form" aria-label="Deck configuration">
+                <!-- Game Selection -->
+                <section id="gameSelection" class="mb-4">
+                    <div class="section-header">
+                        <button class="btn btn-link collapsed text-decoration-none" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#gameCheckboxes" aria-expanded="false" aria-controls="gameCheckboxes">
+                            <h3 class="mb-0"><i class="fas fa-chevron-down mr-2 fs-5"></i> Select Games</h3>
+                        </button>
+                    </div>
+                    <div id="gameCheckboxes" class="collapse mt-3 game-selector-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
 
-            <!-- Card Type Selection and Scenario Config -->
-            <section id="cardTypeSection" class="mb-4" aria-labelledby="cardTypeSectionHeading">
-                <div class="section-header">
-                    <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#cardTypeContent" aria-expanded="false" aria-controls="cardTypeContent"
-                        id="cardTypeSectionHeading">
-                        <i class="fas fa-chevron-down mr-2" aria-hidden="true"></i>Configure Deck
-                    </button>
-                </div>
-                <div id="cardTypeContent" class="collapse" role="group" aria-label="Deck configuration options">
-                    <!-- Scenario Config Section -->
-                    <section id="scenarioConfig" class="mb-3">
-                        <!-- Difficulty Selection -->
-                        <div class="form-group">
-                            <label for="difficultyLevel">Difficulty Level:</label>
-                            <select id="difficultyLevel" class="form-control">
-                                <!-- Options populated dynamically -->
-                            </select>
-                            <small id="difficultyDetails" class="form-text text-muted mt-2"></small>
-                        </div>
+                <!-- Deck Config -->
+                <section id="cardTypeSection" class="mb-4">
+                    <div class="section-header">
+                        <button class="btn btn-link collapsed text-decoration-none" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#cardTypeContent" aria-expanded="false" aria-controls="cardTypeContent">
+                            <h3 class="mb-0"><i class="fas fa-chevron-down mr-2 fs-5"></i> Configure Deck</h3>
+                        </button>
+                    </div>
+                    <div id="cardTypeContent" class="collapse mt-3">
+                        <!-- Scenario Config -->
+                        <section id="scenarioConfig" class="p-3 mb-3" style="background: rgba(0,0,0,0.3); border-radius: 8px;">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="difficultyLevel" class="brand-text text-gold mb-2">Difficulty</label>
+                                    <select id="difficultyLevel" class="form-control form-control-lg bg-dark text-light border-secondary">
+                                        <!-- Populated by JS -->
+                                    </select>
+                                    <small id="difficultyDetails" class="text-muted mt-1 d-block"></small>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check mb-2">
+                                        <input type="checkbox" class="form-check-input" id="enableSentryRules">
+                                        <label class="form-check-label text-light" for="enableSentryRules">Enable Sentry Rules</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="enableCorrupterRules">
+                                        <label class="form-check-label text-light" for="enableCorrupterRules">Enable Corrupter Rules</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
 
-                        <!-- Enable Sentry Rules Checkbox -->
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="enableSentryRules">
-                            <label class="form-check-label" for="enableSentryRules">Enable Sentry Rules</label>
-                            <small class="form-text text-muted">Sentry cards will be introduced later in the
-                                game.</small>
-                        </div>
-
-                        <!-- Enable Corrupter Rules Checkbox -->
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="enableCorrupterRules">
-                            <label class="form-check-label" for="enableCorrupterRules">Enable Corrupter Rules</label>
-                            <small class="form-text text-muted">Corrupter cards will replace 5 random cards.</small>
-                        </div>
-                    </section>
-
-                    <!-- Card Type Selection -->
-                    <div id="cardTypeInputs" class="row">
-                        <!-- Card type inputs populated dynamically -->
-                        <div class="input-group" role="group" aria-label="Card type count adjustment">
-                            <label for="cardType1">Card Type 1:</label>
-                            <button class="btn btn-secondary btn-minus" aria-label="Decrease count"
-                                type="button">-</button>
-                            <input type="number" id="cardType1" class="form-control" value="0" min="0"
-                                aria-label="Card count">
-                            <button class="btn btn-secondary btn-plus" aria-label="Increase count"
-                                type="button">+</button>
+                        <!-- Card Counts -->
+                        <div id="cardTypeInputs" class="row g-3">
+                            <!-- Populated by JS -->
                         </div>
                     </div>
+                </section>
+
+                <div class="text-center mt-4">
+                    <button id="generateDeck" class="rune-btn primary" style="width: 100%; max-width: 300px;">
+                        <i class="fas fa-dungeon me-2"></i> Generate Deck
+                    </button>
                 </div>
-            </section>
-
-            <!-- Generate Deck Button -->
-            <button id="generateDeck" class="btn btn-primary btn-lg btn-block mb-4"
-                aria-describedby="deckStatus">Generate Deck</button>
-            <div id="deckStatus" class="visually-hidden" aria-live="polite"></div>
-        </div>
-
-        <!-- Simplified Active Deck Section - No header, just content -->
-        <div id="activeDeckSection" style="display: none;" aria-label="Active deck display">
-            <!-- Deck Output -->
-            <section id="deckOutput" class="mb-4 text-center" aria-live="polite" aria-label="Current card display">
-                <!-- Add clear button for active card -->
-                <button id="clearActiveCard" class="btn btn-danger btn-sm position-absolute"
-                    style="top: 5px; right: 5px; display: none;" aria-label="Clear active card">
-                    <i class="fas fa-times" aria-hidden="true"></i>
-                </button>
-            </section>
-
-            <!-- Progress Bar -->
-            <div id="deckProgress" class="mb-4" style="display: none;">
-                <div class="progress">
-                    <div id="progressBar" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                        aria-valuenow="0" aria-label="Deck progress"></div>
-                    <div id="progressText" class="progress-text" aria-hidden="true"></div>
-                </div>
+                <div id="deckStatus" class="visually-hidden"></div>
             </div>
 
-            <!-- Navigation Buttons -->
-            <nav id="navigationButtons" class="mb-4 text-center" style="display: none;" aria-label="Card navigation">
-                <button id="prevCard" class="btn btn-secondary btn-lg mr-3" aria-label="Go to previous card">
-                    <i class="fas fa-chevron-left mr-2" aria-hidden="true"></i>Previous
-                </button>
-                <button id="markInPlay" class="btn btn-warning btn-lg mr-3" aria-label="Mark current card as in play">
-                    <i class="fas fa-play-circle mr-2" aria-hidden="true"></i>Mark In Play
-                </button>
-                <button id="nextCard" class="btn btn-secondary btn-lg" aria-label="Go to next card">
-                    Next<i class="fas fa-chevron-right ml-2" aria-hidden="true"></i>
-                </button>
-            </nav>
+            <!-- Active Deck Section -->
+            <div id="activeDeckSection" style="display: none;" class="mt-4">
+                
+                <!-- Progress Bar -->
+                <div id="deckProgress" class="mb-3" style="display: none;">
+                    <div class="d-flex justify-content-between text-muted small mb-1">
+                        <span id="progressText">Card 0 of 0</span>
+                        <span>Depths</span>
+                    </div>
+                    <div class="progress-container">
+                        <div id="progressBar" class="progress-fill" role="progressbar" style="width: 0%"></div>
+                    </div>
+                </div>
 
-            <!-- Card Action Section -->
-            <section id="cardActionSection" class="mb-4" style="display: none;" aria-labelledby="cardActionHeading">
-                <h2 id="cardActionHeading" class="visually-hidden">Card Actions</h2>
-                <div class="form-group">
-                    <label for="cardAction">Card Action:</label>
-                    <select id="cardAction" class="form-control form-control-lg" aria-describedby="cardActionHelp">
-                        <option value="">Select an action...</option>
-                        <option value="shuffleAnywhere">Shuffle into remaining deck</option>
-                        <option value="shuffleTopN">Shuffle into next N cards</option>
-                        <option value="replaceSameType">Replace with same type</option>
-                        <option value="introduceSentry">Introduce Sentry cards</option>
-                    </select>
-                    <small id="cardActionHelp" class="visually-hidden">Select an action to apply to the current
-                        card</small>
+                <!-- Deck Output -->
+                <section id="deckOutput" class="text-center">
+                    <!-- Current Card Image will be inserted here -->
+                     <button id="clearActiveCard" class="btn btn-danger btn-sm position-absolute"
+                        style="top: 10px; right: 10px; display: none; z-index: 10;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </section>
 
-                    <div id="actionTopNInput" class="mt-3" style="display: none;">
-                        <label for="actionN">Number of cards (N):</label>
-                        <input type="number" id="actionN" class="form-control form-control-lg" value="3" min="1"
-                            aria-describedby="actionNHelp">
-                        <small id="actionNHelp" class="visually-hidden">Enter the number of cards to shuffle
-                            into</small>
+                <!-- Rune Controls -->
+                <nav id="navigationButtons" class="nav-controls" style="display: none;">
+                    <button id="prevCard" class="rune-btn">
+                        <i class="fas fa-chevron-left me-2"></i> Prev
+                    </button>
+                    <button id="markInPlay" class="rune-btn primary">
+                        <i class="fas fa-eye me-2"></i> In Play
+                    </button>
+                    <button id="nextCard" class="rune-btn">
+                        Next <i class="fas fa-chevron-right ms-2"></i>
+                    </button>
+                </nav>
+
+                <!-- Action Grid Panel -->
+                <section id="cardActionSection" class="mt-5" style="display: none;">
+                    <h4 class="text-center mb-3 brand-text" style="opacity: 0.8; font-size: 1.2rem;">Card Actions</h4>
+                    
+                    <div class="action-grid">
+                        <button class="action-card-btn" data-action="shuffleAnywhere">
+                            <i class="fas fa-random"></i>
+                            <span>Shuffle Back</span>
+                        </button>
+                        
+                        <button class="action-card-btn" data-action="shuffleTopN">
+                            <i class="fas fa-layer-group"></i>
+                            <span>Shuffle Top N</span>
+                        </button>
+                        
+                        <button class="action-card-btn" data-action="replaceSameType">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Replace</span>
+                        </button>
+                        
+                        <button class="action-card-btn" data-action="introduceSentry">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Sentry</span>
+                        </button>
                     </div>
 
-                    <button id="applyCardAction" class="btn btn-success btn-lg btn-block mt-3"
-                        aria-label="Apply selected card action">Apply Action</button>
-                </div>
-            </section>
+                    <!-- Hidden config for N -->
+                    <div id="shuffleNConfig" class="mt-3 p-3 text-center" style="display: none; background: rgba(0,0,0,0.5); border-radius: 8px;">
+                        <label class="text-gold mb-2 d-block">Shuffle into top <span id="nDisplay">3</span> cards?</label>
+                        <div class="d-flex justify-content-center align-items-center gap-2 mb-3">
+                            <button class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('actionN').stepDown(); document.getElementById('nDisplay').textContent = document.getElementById('actionN').value;">-</button>
+                            <input type="number" id="actionN" class="input-rune" value="3" min="1" max="10" style="width: 60px;">
+                            <button class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('actionN').stepUp(); document.getElementById('nDisplay').textContent = document.getElementById('actionN').value;">+</button>
+                        </div>
+                        <button id="confirmShuffleN" class="rune-btn small" style="min-width: auto; padding: 8px 16px;">
+                            Confirm
+                        </button>
+                    </div>
+                </section>
 
-            <!-- In Play Cards Section -->
-            <section id="inPlaySection" class="mb-4" aria-labelledby="inPlayHeading">
-                <h3 id="inPlayHeading" class="mb-3">In Play Cards</h3>
-                <div id="inPlayCards" class="d-flex flex-wrap justify-content-center mb-3" role="list"
-                    aria-live="polite" aria-label="Cards currently in play">
-                    <!-- In Play cards populated dynamically -->
-                </div>
-                <button id="clearInPlayCards" class="btn btn-danger btn-lg btn-block"
-                    aria-label="Remove all cards from play">Clear In-Play Cards</button>
-            </section>
+                <!-- In Play Cards -->
+                <section id="inPlaySection" class="mt-5 pt-4 border-top border-secondary" style="display: none;">
+                    <h4 class="text-center text-gold mb-4">Cards In Play</h4>
+                    <div id="inPlayCards">
+                        <!-- Populated by JS -->
+                    </div>
+                    <button id="clearInPlayCards" class="btn btn-outline-danger btn-sm mt-3 d-block mx-auto">
+                        Clear All
+                    </button>
+                </section>
+            </div>
         </div>
     </main>
 

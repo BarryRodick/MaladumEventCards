@@ -104,11 +104,10 @@ export function generateDeck() {
 
     // Apply Corrupter replacement Rules
     if (state.enableCorrupterRules && state.deck.main.length >= 5) {
-        // Randomly remove 5
-        for (let i = 0; i < 5; i++) {
-            const idx = Math.floor(Math.random() * state.deck.main.length);
-            state.deck.main.splice(idx, 1);
-        }
+        // Since we shuffle at the end, we can validly just remove the first 5 cards
+        // instead of splicing from random indices 5 times.
+        state.deck.main.splice(0, 5);
+
         // Replace with 5 special
         const corrupterCards = getSpecialCards(5, state.dataStore.corrupterTypes);
         state.deck.main = state.deck.main.concat(corrupterCards);

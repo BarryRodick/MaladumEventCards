@@ -1,18 +1,3 @@
-/* Updated CSS (styles.css) with Improved Background and Mobile Enhancements */
-
-/* Background with Subtle Gradient */
-.dark-green-bar {
-    background-color: #001300; /* Dark green color */
-    width: 100%;
-    padding: 10px;
-}
-
-/* Support devices with display cutouts */
-body {
-    padding-top: env(safe-area-inset-top);
-}
-
-/* Dark Mode Styles */
 body.dark-mode {
     background-color: var(--dark-bg);
     background-image: url('logos/background.png');

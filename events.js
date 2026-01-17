@@ -2,7 +2,7 @@
  * events.js - Handles all global event listeners
  */
 import { generateDeck, advanceToNextCard, showCurrentCard } from './deck-manager.js';
-import { applyCardAction, markCardAsInPlay } from './card-actions.js';
+import { triggerCardAction, markCardAsInPlay } from './card-actions.js';
 import { state } from './state.js';
 import { trackEvent, debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
@@ -46,8 +46,35 @@ export function setupEventListeners() {
     }
 
     // Card Actions
-    const applyActionBtn = document.getElementById('applyCardAction');
-    if (applyActionBtn) applyActionBtn.addEventListener('click', applyCardAction);
+    const actionButtons = document.querySelectorAll('.action-card-btn');
+    actionButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const action = btn.getAttribute('data-action');
+            const nConfig = document.getElementById('shuffleNConfig');
+
+            if (action === 'shuffleTopN') {
+                // Toggle UI for N configuration
+                if (nConfig) {
+                    nConfig.style.display = nConfig.style.display === 'none' ? 'block' : 'none';
+                }
+            } else {
+                // Hide N config if open
+                if (nConfig) nConfig.style.display = 'none';
+
+                // Trigger action immediately
+                triggerCardAction(action);
+            }
+        });
+    });
+
+    const confirmShuffleN = document.getElementById('confirmShuffleN');
+    if (confirmShuffleN) {
+        confirmShuffleN.addEventListener('click', () => {
+            const nVal = parseInt(document.getElementById('actionN').value) || 3;
+            triggerCardAction('shuffleTopN', nVal);
+            document.getElementById('shuffleNConfig').style.display = 'none';
+        });
+    }
 
     const markInPlayBtn = document.getElementById('markInPlay');
     if (markInPlayBtn) {
@@ -58,14 +85,4 @@ export function setupEventListeners() {
         });
     }
 
-    // Action specific UI toggles
-    const cardActionSelect = document.getElementById('cardAction');
-    if (cardActionSelect) {
-        cardActionSelect.addEventListener('change', (e) => {
-            const topNInput = document.getElementById('actionTopNInput');
-            if (topNInput) {
-                topNInput.style.display = e.target.value === 'shuffleTopN' ? 'block' : 'none';
-            }
-        });
-    }
 }
