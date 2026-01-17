@@ -6,7 +6,8 @@ body.dark-mode {
     background-attachment: fixed;
     color: var(--text-primary);
     min-height: 100vh;
-    position: relative; /* To ensure ::before overlay works correctly */
+    position: relative;
+    /* To ensure ::before overlay works correctly */
 }
 
 body.dark-mode::before {
@@ -64,19 +65,22 @@ body.dark-mode .card {
 }
 
 .card-item strong {
-    background-color: rgba(0, 0, 0, 0.7); /* Black background with 70% opacity */
-    color: #ffffff; /* White text for contrast */
-    padding: 5px 10px; /* Add some padding around the text */
-    border-radius: 4px; /* Slightly round the corners */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Black background with 70% opacity */
+    color: #ffffff;
+    /* White text for contrast */
+    padding: 5px 10px;
+    /* Add some padding around the text */
+    border-radius: 4px;
+    /* Slightly round the corners */
 }
 
-/* Enhanced Buttons */
+/* Base Button Reset - specific buttons will style themselves */
 .btn {
-    background: linear-gradient(135deg, #001300, #015701);
+    background: transparent;
     color: #ffffff;
     border: none;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -180,22 +184,26 @@ body.dark-mode .card {
 
 #headerButtons {
     display: flex;
-    gap: 10px; /* Space between the buttons */
-    flex-wrap: wrap; /* allow wrapping on narrow screens */
+    gap: 10px;
+    /* Space between the buttons */
+    flex-wrap: wrap;
+    /* allow wrapping on narrow screens */
 }
 
 #headerButtons .btn {
     color: #ffffff;
     text-decoration: none;
     font-weight: bold;
-    background: rgba(0, 19, 0, 0.6); /* Slight background for visibility */
+    background: rgba(0, 19, 0, 0.6);
+    /* Slight background for visibility */
     padding: 5px 10px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 #headerButtons .btn:hover {
-    background-color: rgba(1, 87, 1, 0.8); /* Darker green background on hover */
+    background-color: rgba(1, 87, 1, 0.8);
+    /* Darker green background on hover */
 }
 
 /* Card Item Styling */
@@ -240,8 +248,10 @@ body.dark-mode .card {
     font-weight: bold;
     font-size: 16px;
     line-height: 25px;
-    color: #ffffff; /* White text for contrast */
-    border-radius: 8px; /* Match background corners */
+    color: #ffffff;
+    /* White text for contrast */
+    border-radius: 8px;
+    /* Match background corners */
     transition: width 0.6s ease;
 }
 
@@ -251,7 +261,8 @@ body.dark-mode .card {
 
 /* Card Type Input Container Styling */
 .card-type-input {
-    background-color: rgba(0, 0, 0, 0.8); /* Black with some opacity */
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Black with some opacity */
     padding: 10px;
     border-radius: 8px;
     color: #ffffff;
@@ -273,10 +284,12 @@ body.dark-mode .card {
         flex-direction: column;
         align-items: flex-start;
     }
+
     .card-type-input .input-count {
         margin-left: 0;
         margin-top: 5px;
     }
+
     .card-type-input .d-flex {
         flex-direction: row;
         align-items: center;
@@ -329,17 +342,21 @@ button {
 
 /* Highlight input fields when counts are updated */
 .highlight-input {
-    background-color: #ffeb3b; /* Bright yellow background */
+    background-color: #ffeb3b;
+    /* Bright yellow background */
     transition: background-color 0.5s ease;
 }
 
 /* Adjusted CSS for Scenario Config section */
 #scenarioConfig {
     padding: 15px;
-    border: 1px solid #444; /* Darker border for contrast */
+    border: 1px solid #444;
+    /* Darker border for contrast */
     border-radius: 5px;
-    background-color: #333; /* Dark background to match dark mode */
-    color: #ffffff; /* White text for better readability */
+    background-color: #333;
+    /* Dark background to match dark mode */
+    color: #ffffff;
+    /* White text for better readability */
     margin-bottom: 20px;
 }
 
@@ -388,7 +405,9 @@ body.dark-mode input.form-control::placeholder {
 }
 
 /* Remove default focus outline and add custom */
-input:focus, select:focus, button:focus {
+input:focus,
+select:focus,
+button:focus {
     outline: none;
     box-shadow: 0 0 0 2px #007bff;
 }
@@ -438,16 +457,20 @@ body.dark-mode .btn {
 
 /* Style for the FAQ icon */
 .faq-icon {
-    font-size: 1.5rem; /* Adjust the size as needed */
-    color: #ffffff; /* Ensure the icon contrasts with the dark header */
+    font-size: 1.5rem;
+    /* Adjust the size as needed */
+    color: #ffffff;
+    /* Ensure the icon contrasts with the dark header */
     text-decoration: none;
-    margin-left: 15px; /* Space between existing buttons and the icon */
+    margin-left: 15px;
+    /* Space between existing buttons and the icon */
     display: flex;
     align-items: center;
 }
 
 .faq-icon:hover {
-    color: #cccccc; /* Change color on hover for better UX */
+    color: #cccccc;
+    /* Change color on hover for better UX */
     text-decoration: none;
 }
 
@@ -566,8 +589,13 @@ body.dark-mode .btn {
 
 /* Animations */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .fade-in {
@@ -634,6 +662,7 @@ select.form-control-lg:hover {
         transform: translateX(100%);
         opacity: 0;
     }
+
     to {
         transform: translateX(0);
         opacity: 1;
@@ -652,6 +681,7 @@ select.form-control-lg:hover {
         transform: rotateY(90deg);
         opacity: 0;
     }
+
     to {
         transform: rotateY(0deg);
         opacity: 1;
@@ -663,6 +693,7 @@ select.form-control-lg:hover {
         transform: rotateY(-90deg);
         opacity: 0;
     }
+
     to {
         transform: rotateY(0deg);
         opacity: 1;
@@ -751,8 +782,9 @@ select.form-control-lg:hover {
 
 /* Mobile-specific improvements */
 @media (max-width: 768px) {
+
     /* Adjust standard buttons */
-    button, 
+    button,
     .btn {
         min-height: 36px;
         min-width: 36px;
@@ -905,7 +937,7 @@ select.form-control-lg:hover {
     }
 
     /* Other mobile adjustments remain the same */
-    button, 
+    button,
     .btn,
     select {
         min-height: 44px;
@@ -914,7 +946,8 @@ select.form-control-lg:hover {
     }
 
     /* Prevent text selection on buttons */
-    button, .btn {
+    button,
+    .btn {
         user-select: none;
         -webkit-user-select: none;
     }
@@ -983,7 +1016,8 @@ select.form-control-lg:hover {
 
     /* Improve form elements for mobile */
     .form-control {
-        font-size: 16px; /* Prevents iOS zoom on focus */
+        font-size: 16px;
+        /* Prevents iOS zoom on focus */
         height: 44px;
     }
 
@@ -999,7 +1033,7 @@ select.form-control-lg:hover {
         bottom: 0;
         background: var(--dark-surface);
         padding: 10px;
-        box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
         z-index: 1000;
     }
 
@@ -1018,8 +1052,13 @@ select.form-control-lg:hover {
 
     /* Add pull-to-refresh visual indicator */
     @keyframes pullToRefresh {
-        from { transform: translateY(0); }
-        to { transform: translateY(10px); }
+        from {
+            transform: translateY(0);
+        }
+
+        to {
+            transform: translateY(10px);
+        }
     }
 
     /* Improve touch feedback */
@@ -1073,7 +1112,7 @@ select.form-control-lg:hover {
 /* Add fallback for missing images */
 img {
     /* existing styles... */
-    
+
     /* Add fallback background color */
     background-color: #333;
 }
@@ -1223,5 +1262,369 @@ body {
             width: 100%;
             margin: 5px 0;
         }
+    }
+}
+
+/* =========================================
+   Premium Section Headers - Stone Slate Style
+   ========================================= */
+
+/* Section Header Container */
+.section-header {
+    margin-bottom: 0.5rem;
+}
+
+/* Section Header Button - Stone Plate Style */
+.section-header .btn-link,
+.section-header button.btn-link {
+    background-image: url('logos/stone-header.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #1a1a1a;
+
+    border: none;
+    border-radius: 4px;
+
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.6),
+        0 3px 6px rgba(0, 0, 0, 0.4);
+
+    padding: 1.25rem 1.5rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    filter: brightness(1.2);
+}
+
+.section-header .btn-link h3,
+.section-header button.btn-link h3 {
+    color: var(--maladum-gold);
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.1rem;
+    margin: 0;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.section-header .btn-link h3 i,
+.section-header button.btn-link h3 i {
+    color: var(--maladum-gold);
+    transition: transform 0.3s ease;
+}
+
+.section-header .btn-link:not(.collapsed) h3 i,
+.section-header button.btn-link:not(.collapsed) h3 i {
+    transform: rotate(180deg);
+}
+
+.section-header .btn-link:hover,
+.section-header button.btn-link:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(201, 162, 39, 0.15);
+    filter: brightness(1.35);
+    text-decoration: none;
+}
+
+.section-header .btn-link:focus,
+.section-header button.btn-link:focus {
+    outline: none;
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.6),
+        0 0 0 3px rgba(201, 162, 39, 0.3);
+}
+
+/* =========================================
+   Generate Deck Button - Premium Stone Style
+   ========================================= */
+
+#generateDeck,
+.rune-btn {
+    background-image: url('logos/stone-button.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #1a1a1a;
+
+    border: none;
+    border-radius: 4px;
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.7),
+        0 4px 8px rgba(0, 0, 0, 0.5);
+
+    color: var(--maladum-gold);
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1rem;
+    font-weight: 600;
+
+    padding: 1.25rem 2rem;
+    min-height: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+#generateDeck:hover,
+.rune-btn:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.6),
+        0 0 25px rgba(201, 162, 39, 0.2);
+    filter: brightness(1.15);
+}
+
+#generateDeck:active,
+.rune-btn:active {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.5),
+        0 0 15px rgba(201, 162, 39, 0.2);
+}
+
+#generateDeck i,
+.rune-btn i {
+    color: var(--maladum-gold);
+}
+
+/* Primary variant with subtle gold glow */
+.rune-btn.primary {
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.7),
+        0 0 15px rgba(201, 162, 39, 0.15);
+}
+
+.rune-btn.primary:hover {
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.6),
+        0 0 30px rgba(201, 162, 39, 0.3);
+}
+
+/* =========================================
+   Premium Action Grid Styles (Reference Match)
+   ========================================= */
+
+/* Main Container - Glassmorphism with Blue/Purple Tint */
+#cardActionSection {
+    background: linear-gradient(160deg,
+            rgba(25, 30, 45, 0.85) 0%,
+            rgba(35, 25, 55, 0.75) 50%,
+            rgba(45, 30, 70, 0.65) 100%) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(132, 169, 255, 0.2);
+    box-shadow:
+        0 12px 40px 0 rgba(0, 0, 0, 0.7),
+        0 0 60px rgba(100, 80, 180, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-top: 2rem;
+    position: relative;
+    overflow: visible;
+}
+
+/* Subtle ambient glow */
+#cardActionSection::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -30%;
+    width: 160%;
+    height: 160%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(120, 100, 200, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(180, 120, 200, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Ensure content is above the background effects */
+#cardActionSection>* {
+    position: relative;
+    z-index: 1;
+}
+
+/* Section Title Enhancement */
+#cardActionSection h4 {
+    font-family: 'Cinzel', serif;
+    color: var(--maladum-gold);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 1rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+/* Action Grid Layout */
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    padding: 0.5rem;
+}
+
+/* Action Button Styling - Premium Stone Plate */
+.action-card-btn {
+    background-image: url('logos/stone-button.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #1a1a1a;
+
+    /* Subtle border to complement the image */
+    border: none;
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.7),
+        0 4px 8px rgba(0, 0, 0, 0.5);
+
+    border-radius: 4px;
+    color: var(--maladum-gold);
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    overflow: visible;
+}
+
+/* Hover Effects */
+.action-card-btn:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow:
+        0 16px 40px rgba(0, 0, 0, 0.6),
+        0 0 30px rgba(201, 162, 39, 0.25),
+        0 0 60px rgba(201, 162, 39, 0.1);
+    filter: brightness(1.15);
+}
+
+/* Active/Click Effects */
+.action-card-btn:active {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.5),
+        0 0 15px rgba(201, 162, 39, 0.2);
+}
+
+/* Icon Styling - Much Larger and More Prominent */
+.action-card-btn i {
+    font-size: 3rem;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(180deg,
+            #ffe066 0%,
+            #d4af37 40%,
+            #b8860b 70%,
+            #8b6914 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.9)) drop-shadow(0 1px 0 rgba(255, 230, 150, 0.4));
+    transition: all 0.35s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.action-card-btn:hover i {
+    transform: scale(1.12);
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 12px rgba(255, 215, 0, 0.4));
+}
+
+/* Text Styling - Bolder Gold */
+.action-card-btn span {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    background: linear-gradient(180deg,
+            #fff8dc 0%,
+            #d4af37 50%,
+            #b8860b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 1));
+    position: relative;
+    z-index: 2;
+}
+
+.action-card-btn:hover span {
+    background: linear-gradient(180deg,
+            #fffacd 0%,
+            #ffd700 50%,
+            #daa520 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* Responsive Grid for Mobile */
+@media (max-width: 576px) {
+    #cardActionSection {
+        padding: 1.5rem 1rem;
+        border-radius: 16px;
+    }
+
+    .action-grid {
+        gap: 0.875rem;
+    }
+
+    .action-card-btn {
+        min-height: 110px;
+        padding: 1.25rem 0.75rem;
+    }
+
+    .action-card-btn::before,
+    .action-card-btn::after {
+        font-size: 0.75rem;
+    }
+
+    .action-card-btn i {
+        font-size: 2.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .action-card-btn span {
+        font-size: 0.8rem;
+        letter-spacing: 1.5px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 380px) {
+    .action-card-btn {
+        min-height: 95px;
+        padding: 1rem 0.5rem;
+    }
+
+    .action-card-btn i {
+        font-size: 1.75rem;
+    }
+
+    .action-card-btn span {
+        font-size: 0.7rem;
     }
 }
