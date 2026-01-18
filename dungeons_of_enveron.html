@@ -210,7 +210,6 @@
             text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
         }
 
-        /* Fix the reset button */
         .reset-button {
             margin: 20px;
             padding: 10px 15px;
@@ -515,6 +514,8 @@
                 </div>
             </div>
         </div>
+
+        <button id="resetCampaignBtn" class="reset-button">Reset Campaign</button>
     </div>
     <script src="storage-utils.js"></script>
 
@@ -721,16 +722,15 @@
             }
         }
 
-        const resetButton = document.createElement('button');
-        resetButton.textContent = 'Reset Campaign';
-        resetButton.className = 'reset-button';
-        resetButton.addEventListener('click', function() {
-            if (confirm('Are you sure you want to reset the campaign? This will clear all progress.')) {
-                localStorage.removeItem('dungeonState');
-                location.reload();
-            }
-        });
-        document.body.appendChild(resetButton);
+        const resetButton = document.getElementById('resetCampaignBtn');
+        if (resetButton) {
+            resetButton.addEventListener('click', function() {
+                if (confirm('Are you sure you want to reset the campaign? This will clear all progress.')) {
+                    localStorage.removeItem('dungeonState');
+                    location.reload();
+                }
+            });
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             if (storageUtils.isStorageAvailable()) {
