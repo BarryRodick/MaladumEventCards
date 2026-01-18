@@ -214,6 +214,11 @@
                             <i class="fas fa-shield-alt"></i>
                             <span>Sentry</span>
                         </button>
+
+                        <button class="action-card-btn" data-action="insertCardType">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Insert Card</span>
+                        </button>
                     </div>
 
                     <!-- Hidden config for N -->
@@ -227,6 +232,41 @@
                         <button id="confirmShuffleN" class="rune-btn small" style="min-width: auto; padding: 8px 16px;">
                             Confirm
                         </button>
+                    </div>
+
+                    <!-- Hidden config for Insert Card -->
+                    <div id="insertCardConfig" class="mt-3 p-3" style="display: none; background: rgba(0,0,0,0.5); border-radius: 8px;">
+                        <h5 class="text-gold mb-3 text-center">Insert Card</h5>
+                        <div class="mb-3">
+                            <label class="text-light">Card Type</label>
+                            <select id="insertTypeSelect" class="form-control bg-dark text-light border-secondary">
+                                <!-- Populated by JS -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="text-light">Specific Card (Optional)</label>
+                            <select id="insertSpecificCardSelect" class="form-control bg-dark text-light border-secondary">
+                                <option value="">Random</option>
+                                <!-- Populated by JS -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="text-light">Position</label>
+                            <div class="btn-group w-100" role="group">
+                                <input type="radio" class="btn-check" name="insertPos" id="posNext" value="next" checked>
+                                <label class="btn btn-outline-secondary" for="posNext">Next</label>
+
+                                <input type="radio" class="btn-check" name="insertPos" id="posRandom" value="random">
+                                <label class="btn btn-outline-secondary" for="posRandom">Random</label>
+
+                                <input type="radio" class="btn-check" name="insertPos" id="posBottom" value="bottom">
+                                <label class="btn btn-outline-secondary" for="posBottom">Bottom</label>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button id="confirmInsertCard" class="rune-btn small">Confirm</button>
+                            <button id="cancelInsertCard" class="btn btn-outline-secondary btn-sm ms-2">Cancel</button>
+                        </div>
                     </div>
                 </section>
 

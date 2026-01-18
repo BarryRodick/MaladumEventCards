@@ -51,16 +51,23 @@ export function setupEventListeners() {
         btn.addEventListener('click', () => {
             const action = btn.getAttribute('data-action');
             const nConfig = document.getElementById('shuffleNConfig');
+            const insertConfig = document.getElementById('insertCardConfig');
+
+            // Hide all configs first
+            if (nConfig) nConfig.style.display = 'none';
+            if (insertConfig) insertConfig.style.display = 'none';
 
             if (action === 'shuffleTopN') {
                 // Toggle UI for N configuration
                 if (nConfig) {
-                    nConfig.style.display = nConfig.style.display === 'none' ? 'block' : 'none';
+                    nConfig.style.display = 'block';
+                }
+            } else if (action === 'insertCardType') {
+                if (insertConfig) {
+                    insertConfig.style.display = 'block';
+                    populateInsertTypes();
                 }
             } else {
-                // Hide N config if open
-                if (nConfig) nConfig.style.display = 'none';
-
                 // Trigger action immediately
                 triggerCardAction(action);
             }
@@ -85,4 +92,70 @@ export function setupEventListeners() {
         });
     }
 
+    // Insert Card Handlers
+    const insertTypeSelect = document.getElementById('insertTypeSelect');
+    if (insertTypeSelect) {
+        insertTypeSelect.addEventListener('change', populateInsertSpecificCards);
+    }
+
+    const confirmInsertCard = document.getElementById('confirmInsertCard');
+    if (confirmInsertCard) {
+        confirmInsertCard.addEventListener('click', () => {
+            const type = document.getElementById('insertTypeSelect').value;
+            const specificId = document.getElementById('insertSpecificCardSelect').value;
+            const position = document.querySelector('input[name="insertPos"]:checked').value;
+
+            triggerCardAction('insertCardType', {
+                cardType: type,
+                specificCardId: specificId,
+                position: position
+            });
+
+            document.getElementById('insertCardConfig').style.display = 'none';
+        });
+    }
+
+    const cancelInsertCard = document.getElementById('cancelInsertCard');
+    if (cancelInsertCard) {
+        cancelInsertCard.addEventListener('click', () => {
+            document.getElementById('insertCardConfig').style.display = 'none';
+        });
+    }
+}
+
+function populateInsertTypes() {
+    const select = document.getElementById('insertTypeSelect');
+    if (!select) return;
+
+    select.innerHTML = '';
+    state.allCardTypes.forEach(type => {
+        const option = document.createElement('option');
+        option.value = type;
+        option.textContent = type;
+        select.appendChild(option);
+    });
+
+    // Trigger change to populate specific cards
+    populateInsertSpecificCards();
+}
+
+function populateInsertSpecificCards() {
+    const typeSelect = document.getElementById('insertTypeSelect');
+    const specificSelect = document.getElementById('insertSpecificCardSelect');
+    if (!typeSelect || !specificSelect) return;
+
+    const type = typeSelect.value;
+    const cards = state.deckDataByType[type] || [];
+
+    specificSelect.innerHTML = '<option value="">Random</option>';
+
+    // Sort cards by name
+    const sortedCards = [...cards].sort((a, b) => a.card.localeCompare(b.card));
+
+    sortedCards.forEach(card => {
+        const option = document.createElement('option');
+        option.value = card.id;
+        option.textContent = card.card;
+        specificSelect.appendChild(option);
+    });
 }

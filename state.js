@@ -43,8 +43,18 @@ export const state = {
     allCardTypes: [],
     selectedDifficultyIndex: 0,
 
+    // Card selection map
+    cards: {
+        selected: new Map()
+    },
+
     // Deck state
     currentDeck: [],
+    deck: {
+        main: [],
+        special: [],
+        combined: []
+    },
     currentIndex: -1,
     discardPile: [],
     sentryDeck: [],

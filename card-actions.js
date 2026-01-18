@@ -139,6 +139,47 @@ export const cardActions = {
 
         updateProgressBar();
         return `${count} Sentry cards shuffled into the deck.`;
+    },
+
+    insertCardType: (activeCard, params) => {
+        const { cardType, specificCardId, position } = params;
+
+        // Find potential cards
+        let potentialCards = state.deckDataByType[cardType];
+        if (!potentialCards || potentialCards.length === 0) {
+            return `No cards of type "${cardType}" available.`;
+        }
+
+        let cardToInsert;
+        if (specificCardId) {
+            // Need to convert ID to string/number match if necessary, assuming string from select value
+            cardToInsert = potentialCards.find(c => String(c.id) === String(specificCardId));
+        }
+
+        if (!cardToInsert) {
+            // Pick random
+            cardToInsert = potentialCards[Math.floor(Math.random() * potentialCards.length)];
+        }
+
+        // Clone the card
+        cardToInsert = { ...cardToInsert };
+
+        // Determine insertion index
+        let insertIndex;
+        if (position === 'next') {
+            insertIndex = state.currentIndex + 1;
+        } else if (position === 'bottom') {
+            insertIndex = state.currentDeck.length;
+        } else { // random
+            const remaining = state.currentDeck.length - (state.currentIndex + 1);
+            insertIndex = state.currentIndex + 1 + Math.floor(Math.random() * (remaining + 1));
+        }
+
+        // Insert
+        state.currentDeck.splice(insertIndex, 0, cardToInsert);
+
+        updateProgressBar();
+        return `Inserted "${cardToInsert.card}" (${cardType}) into the deck (${position}).`;
     }
 };
 
