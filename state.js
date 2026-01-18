@@ -42,6 +42,8 @@ export const state = {
     selectedGames: [],
     allCardTypes: [],
     selectedDifficultyIndex: 0,
+    cardCounts: {},
+    specialCardCounts: {},
 
     // Card selection map
     cards: {
@@ -75,6 +77,10 @@ export function slugify(text) {
     return text.toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '');
+}
+
+export function cardTypeId(type) {
+    return `type-${slugify(type)}`;
 }
 
 // Global variable for easier debugging during transition

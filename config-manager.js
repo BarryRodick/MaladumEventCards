@@ -1,7 +1,7 @@
 /**
  * config-manager.js - Handles persistence of application configuration and state
  */
-import { state, CONFIG } from './state.js';
+import { state, CONFIG, cardTypeId } from './state.js';
 import { saveState, loadState, isStorageAvailable } from './storage-utils.js';
 import { trackEvent } from './app-utils.js';
 
@@ -37,7 +37,7 @@ export function saveConfiguration() {
 
         // Gather card counts from the state/DOM
         state.allCardTypes.forEach(type => {
-            const input = document.getElementById(`type-${type}`);
+            const input = document.getElementById(cardTypeId(type));
             if (input) {
                 const count = parseInt(input.value) || 0;
                 if ((state.dataStore.sentryTypes.includes(type) && state.enableSentryRules) ||
@@ -84,4 +84,6 @@ export function restoreBasicConfig(savedConfig) {
     state.enableSentryRules = savedConfig.enableSentryRules || false;
     state.enableCorrupterRules = savedConfig.enableCorrupterRules || false;
     state.selectedDifficultyIndex = savedConfig.selectedDifficultyIndex || 0;
+    state.cardCounts = savedConfig.cardCounts || {};
+    state.specialCardCounts = savedConfig.specialCardCounts || {};
 }

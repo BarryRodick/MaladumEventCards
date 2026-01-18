@@ -7,9 +7,10 @@
  */
 export function debounce(fn, delay = 400) {
     let timeout;
-    return (...args) => {
+    return function (...args) {
+        const context = this;
         clearTimeout(timeout);
-        timeout = setTimeout(() => fn.apply(this, args), delay);
+        timeout = setTimeout(() => fn.apply(context, args), delay);
     };
 }
 

@@ -1,7 +1,7 @@
 /**
  * ui-manager.js - Handles UI generation and DOM updates
  */
-import { state, slugify } from './state.js';
+import { state, slugify, cardTypeId } from './state.js';
 import { parseCardTypes } from './card-utils.js';
 import { debounce, showToast } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
@@ -115,7 +115,7 @@ export function generateCardTypeInputs() {
                 <img src="logos/${imageName}.jpg" alt="${type}" class="mr-2" style="width: 30px; height: 30px;">
                 <span class="card-title mr-auto">${type} Cards</span>
                 <button class="btn btn-sm btn-outline-secondary decrease-btn" data-type="${type}" style="margin-right: 5px;">-</button>
-                <input type="number" id="type-${type}" min="0" max="${maxCount}" value="${savedCount}" class="form-control form-control-sm input-count" style="width: 60px;">
+                <input type="number" id="${cardTypeId(type)}" min="0" max="${maxCount}" value="${savedCount}" class="form-control form-control-sm input-count" style="width: 60px;">
                 <button class="btn btn-sm btn-outline-secondary increase-btn" data-type="${type}" style="margin-left: 5px;">+</button>
             </div>
         `;
@@ -130,7 +130,7 @@ function setupInputListeners() {
     document.querySelectorAll('.increase-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const type = e.currentTarget.getAttribute('data-type');
-            const input = document.getElementById(`type-${type}`);
+            const input = document.getElementById(cardTypeId(type));
             if (parseInt(input.value) < parseInt(input.max)) {
                 input.value = parseInt(input.value) + 1;
                 debouncedSaveConfiguration();
@@ -141,7 +141,7 @@ function setupInputListeners() {
     document.querySelectorAll('.decrease-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const type = e.currentTarget.getAttribute('data-type');
-            const input = document.getElementById(`type-${type}`);
+            const input = document.getElementById(cardTypeId(type));
             if (parseInt(input.value) > 0) {
                 input.value = parseInt(input.value) - 1;
                 debouncedSaveConfiguration();
@@ -157,6 +157,10 @@ function setupInputListeners() {
 function getSavedCardCount(type) {
     // During initialization, we might not have the full config yet
     // This is a simplified version that checks the state or storage
+    if ((state.dataStore.sentryTypes.includes(type) && state.enableSentryRules) ||
+        (state.dataStore.corrupterTypes.includes(type) && state.enableCorrupterRules)) {
+        return state.specialCardCounts?.[type] || 0;
+    }
     return state.cardCounts?.[type] || 0;
 }
 
@@ -195,8 +199,8 @@ export function updateDifficultyDetails() {
     const selectedDifficulty = state.difficultySettings[state.selectedDifficultyIndex];
     difficultyDetails.textContent = selectedDifficulty.description || '';
 
-    const noviceInput = document.getElementById('type-Novice');
-    const veteranInput = document.getElementById('type-Veteran');
+    const noviceInput = document.getElementById(cardTypeId('Novice'));
+    const veteranInput = document.getElementById(cardTypeId('Veteran'));
 
     if (noviceInput) noviceInput.value = selectedDifficulty.novice || 0;
     if (veteranInput) veteranInput.value = selectedDifficulty.veteran || 0;

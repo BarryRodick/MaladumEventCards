@@ -1,7 +1,7 @@
 /**
  * deck-manager.js - Handles deck generation, navigation, and display
  */
-import { state, CONFIG } from './state.js';
+import { state, CONFIG, cardTypeId } from './state.js';
 import { shuffleDeck, parseCardTypes } from './card-utils.js';
 import { showToast, trackEvent, debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
@@ -30,7 +30,7 @@ export function generateDeck() {
     const sentryCardCounts = {};
 
     state.allCardTypes.forEach(type => {
-        const input = document.getElementById(`type-${type}`);
+        const input = document.getElementById(cardTypeId(type));
         if (!input) return;
         const count = parseInt(input.value) || 0;
 
