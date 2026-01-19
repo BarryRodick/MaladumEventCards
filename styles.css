@@ -314,6 +314,20 @@ body.dark-mode .card {
     margin-top: 2rem;
 }
 
+#cardActionSection .card-action-toggle {
+    width: 100%;
+    text-align: left;
+    padding: 0;
+}
+
+#cardActionSection .card-action-toggle i {
+    transition: transform 0.2s ease;
+}
+
+#cardActionSection .card-action-toggle[aria-expanded="true"] i {
+    transform: rotate(180deg);
+}
+
 #actionTopNInput {
     margin-top: 10px;
 }
@@ -1559,6 +1573,8 @@ body {
     font-size: 1rem;
     font-weight: 700;
     letter-spacing: 2px;
+    line-height: 1.2;
+    white-space: normal;
     background: linear-gradient(180deg,
             #fff8dc 0%,
             #d4af37 50%,

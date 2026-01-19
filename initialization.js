@@ -93,6 +93,26 @@ function restoreDeckState(deckState) {
     state.sentryDeck = deckState.sentryDeck || [];
     state.initialDeckSize = deckState.initialDeckSize || 0;
     state.inPlayCards = deckState.inPlayCards || [];
+    state.deck.main = deckState.mainDeck || [];
+    state.deck.special = deckState.specialDeck || [];
+    state.deck.combined = deckState.combinedDeck || state.currentDeck;
+    if (!state.cards || !state.cards.selected) {
+        state.cards = { selected: new Map() };
+    } else {
+        state.cards.selected.clear();
+    }
+
+    const selectedCards = [
+        ...state.currentDeck,
+        ...state.discardPile,
+        ...state.sentryDeck,
+        ...state.inPlayCards
+    ];
+    selectedCards.forEach(card => {
+        if (card && card.id !== undefined) {
+            state.cards.selected.set(card.id, true);
+        }
+    });
 
     if (state.currentDeck.length > 0) {
         const activeDeckSection = document.getElementById('activeDeckSection');

@@ -49,7 +49,7 @@
                 <i class="fas fa-home"></i>
             </a>
 
-            <button id="checkUpdateBtn" class="btn btn-info ml-3">Check for Updates</button>
+            <button id="checkUpdateBtn" class="btn btn-info ml-3" data-check-updates>Check for Updates</button>
         </div>
     </header>
     
@@ -131,52 +131,10 @@
     <!-- Include Deck Builder JS (if any specific scripts needed for about.html) -->
     <!-- <script src="deckbuilder.js"></script> -->
 
-    <script type="module" src="update-utils.js"></script>
-
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./service-worker.js');
-        });
-
-        navigator.serviceWorker.addEventListener('message', event => {
-          if (event.data.type === 'NEW_VERSION') {
-            showUpdateNotification(event.data.version);
-          }
-        });
-      }
-
-
-      document.getElementById('checkUpdateBtn').addEventListener('click', () => {
-        const fetchAndCompare = installedVersion => {
-          fetch('./version.json?nocache=' + Date.now())
-            .then(resp => resp.json())
-            .then(data => {
-              if (installedVersion && data.version !== installedVersion) {
-                showUpdateNotification(data.version);
-              } else if (installedVersion) {
-                alert('No update needed.');
-              } else {
-                alert('Current version: ' + data.version);
-              }
-            })
-            .catch(() => alert('Unable to check for updates.'));
-        };
-
-        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-          navigator.serviceWorker.getRegistration().then(reg => {
-            if (reg) reg.update();
-
-            const channel = new MessageChannel();
-            channel.port1.onmessage = event => {
-              fetchAndCompare(event.data);
-            };
-            navigator.serviceWorker.controller.postMessage('GET_VERSION', [channel.port2]);
-          });
-        } else {
-          fetchAndCompare(null);
-        }
-      });
+    <script type="module">
+      import { setupManualUpdateCheck, setupUpdateNotifications } from './update-utils.js';
+      setupManualUpdateCheck();
+      setupUpdateNotifications();
     </script>
 
 </body>

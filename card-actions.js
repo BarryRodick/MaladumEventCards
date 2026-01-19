@@ -83,17 +83,25 @@ export const cardActions = {
         const randomOffset = Math.floor(Math.random() * (remaining + 1));
         state.currentDeck.splice(state.currentIndex + randomOffset, 0, card);
 
-        if (state.currentIndex > 0) state.currentIndex--;
+        if (state.currentIndex > 0) {
+            state.currentIndex--;
+        } else {
+            state.currentIndex = -1;
+        }
         showCurrentCard('backward');
         return `Card "${card.card}" shuffled back into the deck.`;
     },
 
     shuffleTopN: (card, n) => {
         const remaining = state.currentDeck.length - (state.currentIndex + 1);
-        const actualN = Math.min(n, remaining);
+        if (remaining <= 0) {
+            return 'No remaining cards to shuffle into.';
+        }
+        const requestedN = Math.max(1, parseInt(n, 10) || 1);
+        const actualN = Math.min(requestedN, remaining);
 
         state.currentDeck.splice(state.currentIndex, 1);
-        const insertIdx = state.currentIndex + Math.floor(Math.random() * (actualN + 1));
+        const insertIdx = state.currentIndex + Math.floor(Math.random() * actualN);
         state.currentDeck.splice(insertIdx, 0, card);
 
         showCurrentCard();
@@ -145,8 +153,8 @@ export const cardActions = {
         const { cardType, specificCardId, position } = params;
 
         // Find potential cards
-        let potentialCards = state.deckDataByType[cardType];
-        if (!potentialCards || potentialCards.length === 0) {
+        const potentialCards = state.deckDataByType[cardType] || [];
+        if (potentialCards.length === 0) {
             return `No cards of type "${cardType}" available.`;
         }
 
@@ -154,11 +162,21 @@ export const cardActions = {
         if (specificCardId) {
             // Need to convert ID to string/number match if necessary, assuming string from select value
             cardToInsert = potentialCards.find(c => String(c.id) === String(specificCardId));
+            if (!cardToInsert) {
+                return `Selected card not found for type "${cardType}".`;
+            }
+            if (state.cards.selected.has(cardToInsert.id)) {
+                return `Card "${cardToInsert.card}" is already in the deck.`;
+            }
         }
 
         if (!cardToInsert) {
             // Pick random
-            cardToInsert = potentialCards[Math.floor(Math.random() * potentialCards.length)];
+            const availableCards = potentialCards.filter(c => !state.cards.selected.has(c.id));
+            if (availableCards.length === 0) {
+                return `No available cards of type "${cardType}" to insert.`;
+            }
+            cardToInsert = availableCards[Math.floor(Math.random() * availableCards.length)];
         }
 
         // Clone the card
@@ -177,6 +195,7 @@ export const cardActions = {
 
         // Insert
         state.currentDeck.splice(insertIndex, 0, cardToInsert);
+        state.cards.selected.set(cardToInsert.id, true);
 
         updateProgressBar();
         return `Inserted "${cardToInsert.card}" (${cardType}) into the deck (${position}).`;

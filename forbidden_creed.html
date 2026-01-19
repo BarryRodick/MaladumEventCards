@@ -251,6 +251,9 @@
         </div>
 
         <div id="headerButtons" class="d-flex align-items-center">
+            <button type="button" class="btn btn-link faq-icon" title="Check for Updates" aria-label="Check for Updates" data-check-updates>
+                <i class="fas fa-arrows-rotate"></i>
+            </button>
             <!-- FAQ Button -->
             <a href="about.html" class="btn btn-link faq-icon" title="About / FAQ" aria-label="About / FAQ">
                 <i class="fas fa-question-circle"></i>
@@ -468,6 +471,10 @@
     </div>
     <script type="module">
         import * as storageUtils from './storage-utils.js';
+        import { setupManualUpdateCheck, setupUpdateNotifications } from './update-utils.js';
+
+        setupManualUpdateCheck();
+        setupUpdateNotifications();
         // Get references to elements
         const notesContent = document.getElementById('notesContent');
         const notesTextarea = document.getElementById('notesTextarea');

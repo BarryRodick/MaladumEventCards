@@ -125,6 +125,8 @@ export function generateDeck() {
 
     document.getElementById('navigationButtons').style.display = 'block';
     document.getElementById('deckProgress').style.display = 'block';
+    const cardActionSection = document.getElementById('cardActionSection');
+    if (cardActionSection) cardActionSection.style.display = 'block';
 
     showCurrentCard();
     toggleDeckBuilderUI(true);

@@ -2,10 +2,11 @@
  * events.js - Handles all global event listeners
  */
 import { generateDeck, advanceToNextCard, showCurrentCard } from './deck-manager.js';
-import { triggerCardAction, markCardAsInPlay } from './card-actions.js';
+import { triggerCardAction, markCardAsInPlay, updateInPlayCardsDisplay } from './card-actions.js';
 import { state } from './state.js';
 import { trackEvent, debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
+import { setupManualUpdateCheck } from './update-utils.js';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
 
@@ -92,6 +93,26 @@ export function setupEventListeners() {
         });
     }
 
+    const clearActiveCardBtn = document.getElementById('clearActiveCard');
+    if (clearActiveCardBtn) {
+        clearActiveCardBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            state.currentIndex = -1;
+            showCurrentCard();
+            trackEvent('Navigation', 'Clear Active Card', null);
+        });
+    }
+
+    const clearInPlayBtn = document.getElementById('clearInPlayCards');
+    if (clearInPlayBtn) {
+        clearInPlayBtn.addEventListener('click', () => {
+            state.inPlayCards = [];
+            updateInPlayCardsDisplay();
+            debouncedSaveConfiguration();
+            trackEvent('Card Status', 'Clear In Play', null);
+        });
+    }
+
     // Insert Card Handlers
     const insertTypeSelect = document.getElementById('insertTypeSelect');
     if (insertTypeSelect) {
@@ -121,6 +142,8 @@ export function setupEventListeners() {
             document.getElementById('insertCardConfig').style.display = 'none';
         });
     }
+
+    setupManualUpdateCheck();
 }
 
 function populateInsertTypes() {

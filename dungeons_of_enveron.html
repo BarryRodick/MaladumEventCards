@@ -314,6 +314,9 @@
         </div>
 
         <div id="headerButtons" class="d-flex align-items-center">
+            <button type="button" class="btn btn-link faq-icon" title="Check for Updates" aria-label="Check for Updates" data-check-updates>
+                <i class="fas fa-arrows-rotate"></i>
+            </button>
             <a href="about.html" class="btn btn-link faq-icon" title="About / FAQ" aria-label="About / FAQ">
                 <i class="fas fa-question-circle"></i>
             </a>
@@ -540,6 +543,10 @@
     </div>
     <script type="module">
         import * as storageUtils from './storage-utils.js';
+        import { setupManualUpdateCheck, setupUpdateNotifications } from './update-utils.js';
+
+        setupManualUpdateCheck();
+        setupUpdateNotifications();
         document.querySelectorAll('.checkbox').forEach(checkbox => {
             checkbox.addEventListener('click', function () {
                 if (this.style.backgroundColor === 'black') {
