@@ -32,6 +32,25 @@ body.dark-mode::before {
     backdrop-filter: blur(18px) saturate(130%);
     -webkit-backdrop-filter: blur(18px) saturate(130%);
     padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.glass-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--glass-noise);
+    background-size: 140px 140px;
+    opacity: 0.08;
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+}
+
+.glass-panel > * {
+    position: relative;
+    z-index: 1;
 }
 
 /* Game Checkboxes Styling */
@@ -522,6 +541,7 @@ body.dark-mode .btn {
     --maladum-gold: #C5A572;
     --parchment: #F5E6D3;
     --border-ornate: #2a2a2a;
+    --glass-noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='0.35'/></svg>");
 }
 
 /* Enhanced Card Display */
@@ -1324,10 +1344,27 @@ body {
     cursor: pointer;
     backdrop-filter: blur(14px) saturate(120%);
     -webkit-backdrop-filter: blur(14px) saturate(120%);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.section-header .btn-link::before,
+.section-header button.btn-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--glass-noise);
+    background-size: 140px 140px;
+    opacity: 0.12;
+    mix-blend-mode: soft-light;
+    pointer-events: none;
 }
 
 .section-header .btn-link h3,
-.section-header button.btn-link h3 {
+.section-header button.btn-link h3,
+.section-header .btn-link h4,
+.section-header button.btn-link h4 {
     color: var(--maladum-gold);
     font-family: 'Cinzel', serif;
     text-transform: uppercase;
@@ -1338,6 +1375,8 @@ body {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    position: relative;
+    z-index: 1;
 }
 
 .section-header .btn-link h3 i,
