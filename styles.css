@@ -21,6 +21,19 @@ body.dark-mode::before {
     z-index: -1;
 }
 
+/* Glass panel for main content */
+.glass-panel {
+    background: linear-gradient(135deg, rgba(32, 32, 32, 0.6), rgba(12, 12, 12, 0.35));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px) saturate(130%);
+    -webkit-backdrop-filter: blur(18px) saturate(130%);
+    padding: 1.5rem;
+}
+
 /* Game Checkboxes Styling */
 #gameCheckboxes {
     display: grid;
@@ -1291,13 +1304,9 @@ body {
 /* Section Header Button - Stone Plate Style */
 .section-header .btn-link,
 .section-header button.btn-link {
-    background-image: url('logos/stone-header.png');
-    background-size: 100% 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #1a1a1a;
+    background: linear-gradient(135deg, rgba(40, 40, 40, 0.7), rgba(15, 15, 15, 0.45));
+    border: 1px solid rgba(255, 255, 255, 0.08);
 
-    border: none;
     border-radius: 4px;
 
     box-shadow:
@@ -1313,7 +1322,8 @@ body {
 
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     cursor: pointer;
-    filter: brightness(1.2);
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
 }
 
 .section-header .btn-link h3,
