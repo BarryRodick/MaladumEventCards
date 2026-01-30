@@ -7,8 +7,10 @@ import { state } from './state.js';
 import { trackEvent, debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
 import { setupManualUpdateCheck } from './update-utils.js';
+import { updateCardSearchResults } from './ui-manager.js';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
+const debouncedCardSearch = debounce((value) => updateCardSearchResults(value), 150);
 
 export function setupEventListeners() {
     // Generate Deck
@@ -110,6 +112,13 @@ export function setupEventListeners() {
             updateInPlayCardsDisplay();
             debouncedSaveConfiguration();
             trackEvent('Card Status', 'Clear In Play', null);
+        });
+    }
+
+    const cardSearchInput = document.getElementById('cardSearchInput');
+    if (cardSearchInput) {
+        cardSearchInput.addEventListener('input', (e) => {
+            debouncedCardSearch(e.target.value);
         });
     }
 

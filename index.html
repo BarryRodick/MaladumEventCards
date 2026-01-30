@@ -151,6 +151,20 @@
                     </div>
                 </section>
 
+                <!-- Card Search -->
+                <section id="cardSearchSection" class="mb-4">
+                    <div class="section-header">
+                        <h3 class="mb-0"><i class="fas fa-search mr-2 fs-5"></i> Search Cards</h3>
+                    </div>
+                    <div class="mt-3">
+                        <label for="cardSearchInput" class="brand-text text-gold mb-2">Search by card name</label>
+                        <input id="cardSearchInput" type="search" class="form-control form-control-lg bg-dark text-light border-secondary"
+                            placeholder="Start typing a card name..." autocomplete="off">
+                        <small id="cardSearchStatus" class="text-muted mt-2 d-block"></small>
+                        <div id="cardSearchResults" class="card-search-results mt-3" aria-live="polite"></div>
+                    </div>
+                </section>
+
                 <div class="text-center mt-4">
                     <button id="generateDeck" class="rune-btn primary" style="width: 100%; max-width: 300px;">
                         <i class="fas fa-dungeon me-2"></i> Generate Deck

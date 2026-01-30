@@ -75,6 +75,11 @@ export function loadCardTypes() {
 
     state.availableCards = [...allCards];
 
+    const searchInput = document.getElementById('cardSearchInput');
+    if (searchInput) {
+        updateCardSearchResults(searchInput.value);
+    }
+
     allCards.forEach(card => {
         const typeInfo = parseCardTypes(card.type);
         typeInfo.allTypes.forEach(type => {
@@ -204,6 +209,42 @@ export function updateDifficultyDetails() {
 
     if (noviceInput) noviceInput.value = selectedDifficulty.novice || 0;
     if (veteranInput) veteranInput.value = selectedDifficulty.veteran || 0;
+}
+
+export function updateCardSearchResults(rawQuery) {
+    const resultsContainer = document.getElementById('cardSearchResults');
+    const status = document.getElementById('cardSearchStatus');
+    if (!resultsContainer || !status) return;
+
+    const query = (rawQuery || '').trim().toLowerCase();
+    resultsContainer.innerHTML = '';
+
+    if (!query) {
+        status.textContent = 'Type to search across all available cards.';
+        return;
+    }
+
+    const matches = state.availableCards.filter(card => card.card.toLowerCase().includes(query));
+    const sortedMatches = matches.sort((a, b) => a.card.localeCompare(b.card));
+    const maxResults = 50;
+    const displayMatches = sortedMatches.slice(0, maxResults);
+
+    status.textContent = matches.length === 0
+        ? 'No matching cards found.'
+        : `Showing ${displayMatches.length} of ${matches.length} matching cards.`;
+
+    displayMatches.forEach(card => {
+        const item = document.createElement('div');
+        item.classList.add('card-search-item');
+        item.innerHTML = `
+            <img src="cardimages/${card.contents}" alt="${card.card}" class="card-search-thumb">
+            <div>
+                <div class="card-search-name">${card.card}</div>
+                <div class="card-search-type text-muted">${card.type}</div>
+            </div>
+        `;
+        resultsContainer.appendChild(item);
+    });
 }
 
 /**
