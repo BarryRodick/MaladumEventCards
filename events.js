@@ -7,8 +7,10 @@ import { state } from './state.js';
 import { trackEvent, debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
 import { setupManualUpdateCheck } from './update-utils.js';
+import { updateCardSearchResults } from './ui-manager.js';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
+const debouncedCardSearch = debounce((value) => updateCardSearchResults(value), 150);
 
 export function setupEventListeners() {
     // Generate Deck
@@ -113,6 +115,34 @@ export function setupEventListeners() {
         });
     }
 
+    const cardSearchInput = document.getElementById('cardSearchInput');
+    if (cardSearchInput) {
+        cardSearchInput.addEventListener('input', (e) => {
+            debouncedCardSearch(e.target.value);
+        });
+    }
+
+    const cardSearchResults = document.getElementById('cardSearchResults');
+    if (cardSearchResults) {
+        cardSearchResults.addEventListener('click', (e) => {
+            const item = e.target.closest('.card-search-item');
+            if (item) {
+                const cardId = item.dataset.cardId;
+                showCardPreview(cardId);
+            }
+        });
+
+        cardSearchResults.addEventListener('keydown', (e) => {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            const item = e.target.closest('.card-search-item');
+            if (item) {
+                e.preventDefault();
+                const cardId = item.dataset.cardId;
+                showCardPreview(cardId);
+            }
+        });
+    }
+
     // Insert Card Handlers
     const insertTypeSelect = document.getElementById('insertTypeSelect');
     if (insertTypeSelect) {
@@ -144,6 +174,23 @@ export function setupEventListeners() {
     }
 
     setupManualUpdateCheck();
+}
+
+function showCardPreview(cardId) {
+    const card = state.cardMap.get(Number(cardId));
+    if (!card) return;
+
+    const modalEl = document.getElementById('cardPreviewModal');
+    const titleEl = document.getElementById('cardPreviewTitle');
+    const imageEl = document.getElementById('cardPreviewImage');
+    if (!modalEl || !titleEl || !imageEl) return;
+
+    titleEl.textContent = card.card;
+    imageEl.src = `cardimages/${card.contents}`;
+    imageEl.alt = card.card;
+
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
 }
 
 function populateInsertTypes() {

@@ -1693,3 +1693,43 @@ body {
         font-size: 0.7rem;
     }
 }
+
+/* Card search */
+.card-search-results {
+    display: grid;
+    gap: 12px;
+}
+
+.card-search-item {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+}
+
+.card-search-item:focus-visible,
+.card-search-item:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
+}
+
+.card-search-thumb {
+    width: 60px;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+.card-search-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.card-search-type {
+    font-size: 0.85rem;
+}

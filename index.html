@@ -151,6 +151,23 @@
                     </div>
                 </section>
 
+                <!-- Card Search -->
+                <section id="cardSearchSection" class="mb-4">
+                    <div class="section-header">
+                        <button class="btn btn-link collapsed text-decoration-none" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#cardSearchContent" aria-expanded="false" aria-controls="cardSearchContent">
+                            <h3 class="mb-0"><i class="fas fa-search mr-2 fs-5"></i> Search Cards</h3>
+                        </button>
+                    </div>
+                    <div id="cardSearchContent" class="collapse mt-3">
+                        <label for="cardSearchInput" class="brand-text text-gold mb-2">Search by card name</label>
+                        <input id="cardSearchInput" type="search" class="form-control form-control-lg bg-dark text-light border-secondary"
+                            placeholder="Start typing a card name..." autocomplete="off">
+                        <small id="cardSearchStatus" class="text-muted mt-2 d-block"></small>
+                        <div id="cardSearchResults" class="card-search-results mt-3" aria-live="polite"></div>
+                    </div>
+                </section>
+
                 <div class="text-center mt-4">
                     <button id="generateDeck" class="rune-btn primary" style="width: 100%; max-width: 300px;">
                         <i class="fas fa-dungeon me-2"></i> Generate Deck
@@ -293,11 +310,21 @@
         </div>
     </main>
 
-    <!-- Include Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Include Deck Builder JS (Utilities are imported within) -->
-    <script type="module" src="deckbuilder.js"></script>
+    <!-- Card Preview Modal -->
+    <div class="modal fade" id="cardPreviewModal" tabindex="-1" aria-labelledby="cardPreviewTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-dark text-light border-secondary">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cardPreviewTitle">Card Preview</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="cardPreviewImage" src="" alt="" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Add Campaign Modal -->
     <div class="modal fade" id="campaignModal" tabindex="-1" role="dialog" aria-labelledby="campaignModalLabel"
@@ -324,6 +351,12 @@
             </div>
         </div>
     </div>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Include Deck Builder JS (Utilities are imported within) -->
+    <script type="module" src="deckbuilder.js"></script>
 
 </body>
 
