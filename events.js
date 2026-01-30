@@ -2,12 +2,17 @@
  * events.js - Handles all global event listeners
  */
 import { generateDeck, advanceToNextCard, showCurrentCard } from './deck-manager.js';
-import { triggerCardAction, markCardAsInPlay, updateInPlayCardsDisplay } from './card-actions.js';
+import {
+    triggerCardAction,
+    markCardAsInPlay,
+    updateInPlayCardsDisplay,
+    shuffleCardIntoTopN
+} from './card-actions.js';
 import { state } from './state.js';
 import { trackEvent, debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
 import { setupManualUpdateCheck } from './update-utils.js';
-import { updateCardSearchResults } from './ui-manager.js';
+import { updateCardSearchResults, showCardPreview } from './ui-manager.js';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
 const debouncedCardSearch = debounce((value) => updateCardSearchResults(value), 150);
@@ -122,6 +127,37 @@ export function setupEventListeners() {
         });
     }
 
+    const cardSearchResults = document.getElementById('cardSearchResults');
+    if (cardSearchResults) {
+        cardSearchResults.addEventListener('click', (e) => {
+            const target = e.target.closest('.card-search-item');
+            if (target) {
+                openCardPreviewFromResult(target);
+            }
+        });
+
+        cardSearchResults.addEventListener('keydown', (e) => {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            const target = e.target.closest('.card-search-item');
+            if (target) {
+                e.preventDefault();
+                openCardPreviewFromResult(target);
+            }
+        });
+    }
+
+    const cardPreviewShuffleButton = document.querySelector('[data-card-preview-shuffle]');
+    if (cardPreviewShuffleButton) {
+        cardPreviewShuffleButton.addEventListener('click', () => {
+            const modal = document.getElementById('cardPreviewModal');
+            if (!modal) return;
+            const countInput = document.getElementById('cardPreviewShuffleCount');
+            const countValue = countInput ? countInput.value : 1;
+            const cardId = modal.dataset.cardId;
+            shuffleCardIntoTopN(cardId, countValue);
+        });
+    }
+
     // Insert Card Handlers
     const insertTypeSelect = document.getElementById('insertTypeSelect');
     if (insertTypeSelect) {
@@ -153,6 +189,13 @@ export function setupEventListeners() {
     }
 
     setupManualUpdateCheck();
+}
+
+function openCardPreviewFromResult(resultItem) {
+    const { cardId, cardName, cardImage, cardType } = resultItem.dataset;
+    if (!cardImage) return;
+    showCardPreview({ id: cardId, name: cardName, image: cardImage, type: cardType });
+    trackEvent('Card Search', 'Preview Card', cardName || '');
 }
 
 function populateInsertTypes() {
