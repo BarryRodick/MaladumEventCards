@@ -1709,6 +1709,16 @@ body {
     background: rgba(0, 0, 0, 0.45);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card-search-item:hover,
+.card-search-item:focus-visible {
+    border-color: rgba(230, 200, 120, 0.6);
+    box-shadow: 0 0 0 2px rgba(230, 200, 120, 0.2), 0 8px 18px rgba(0, 0, 0, 0.4);
+    transform: translateY(-1px);
+    outline: none;
 }
 
 .card-search-thumb {
@@ -1725,4 +1735,17 @@ body {
 
 .card-search-type {
     font-size: 0.85rem;
+}
+
+.card-preview-image {
+    max-width: min(100%, 420px);
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.card-preview-actions .input-group {
+    max-width: 320px;
+    margin: 0 auto;
 }

@@ -154,9 +154,12 @@
                 <!-- Card Search -->
                 <section id="cardSearchSection" class="mb-4">
                     <div class="section-header">
-                        <h3 class="mb-0"><i class="fas fa-search mr-2 fs-5"></i> Search Cards</h3>
+                        <button class="btn btn-link collapsed text-decoration-none" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#cardSearchContent" aria-expanded="false" aria-controls="cardSearchContent">
+                            <h3 class="mb-0"><i class="fas fa-search mr-2 fs-5"></i> Search Cards</h3>
+                        </button>
                     </div>
-                    <div class="mt-3">
+                    <div id="cardSearchContent" class="collapse mt-3">
                         <label for="cardSearchInput" class="brand-text text-gold mb-2">Search by card name</label>
                         <input id="cardSearchInput" type="search" class="form-control form-control-lg bg-dark text-light border-secondary"
                             placeholder="Start typing a card name..." autocomplete="off">
@@ -333,6 +336,34 @@
                             <h4>The Forbidden Creed</h4>
                             <small class="text-muted">Follow the path of the forbidden ones</small>
                         </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cardPreviewModal" tabindex="-1" role="dialog" aria-labelledby="cardPreviewModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cardPreviewModalLabel" data-card-preview-title>Card Preview</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img class="card-preview-image" data-card-preview-image alt="">
+                    <p class="text-muted mt-3 mb-0" data-card-preview-type></p>
+                    <div class="card-preview-actions mt-4">
+                        <label class="form-label text-gold" for="cardPreviewShuffleCount">Shuffle into top X cards</label>
+                        <div class="input-group justify-content-center">
+                            <input id="cardPreviewShuffleCount" type="number" min="1" value="6"
+                                class="form-control bg-dark text-light border-secondary">
+                            <button class="btn btn-outline-warning" type="button" data-card-preview-shuffle>
+                                Shuffle
+                            </button>
+                        </div>
+                        <small class="text-muted d-block mt-2">Requires an active deck to be generated first.</small>
                     </div>
                 </div>
             </div>

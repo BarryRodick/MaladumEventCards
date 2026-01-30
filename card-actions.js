@@ -202,6 +202,67 @@ export const cardActions = {
     }
 };
 
+export function shuffleCardIntoTopN(cardId, n) {
+    if (!cardId) {
+        showToast('Select a card to shuffle into the deck.');
+        return;
+    }
+
+    if (!state.currentDeck || state.currentDeck.length === 0) {
+        showToast('No active deck available. Generate a deck first.');
+        return;
+    }
+
+    const targetCard = state.availableCards.find(card => String(card.id) === String(cardId));
+    if (!targetCard) {
+        showToast('Selected card could not be found.');
+        return;
+    }
+
+    if (state.currentIndex >= 0) {
+        const activeCard = state.currentDeck[state.currentIndex];
+        if (activeCard && String(activeCard.id) === String(targetCard.id)) {
+            showToast('Cannot shuffle the currently active card.');
+            return;
+        }
+    }
+
+    const requestedN = Math.max(1, parseInt(n, 10) || 1);
+
+    let existingIndex = state.currentDeck.findIndex(card => String(card.id) === String(targetCard.id));
+    let cardToInsert = targetCard;
+
+    if (existingIndex !== -1) {
+        const [existingCard] = state.currentDeck.splice(existingIndex, 1);
+        cardToInsert = existingCard || targetCard;
+        if (existingIndex <= state.currentIndex) {
+            state.currentIndex = Math.max(-1, state.currentIndex - 1);
+        }
+    } else {
+        cardToInsert = { ...targetCard };
+        state.cards.selected.set(cardToInsert.id, true);
+        updateProgressBar();
+    }
+
+    const insertStart = Math.max(0, state.currentIndex + 1);
+    const remaining = state.currentDeck.length - insertStart;
+
+    if (remaining <= 0) {
+        showToast('No remaining cards to shuffle into.');
+        return;
+    }
+
+    const actualN = Math.min(requestedN, remaining);
+    const insertIndex = insertStart + Math.floor(Math.random() * actualN);
+    state.currentDeck.splice(insertIndex, 0, cardToInsert);
+
+    updateProgressBar();
+    showToast(`Card "${cardToInsert.card}" shuffled into the next ${actualN} cards.`);
+    saveConfiguration();
+    trackEvent('Card Action', 'shuffleTopNCard', cardToInsert.card);
+    showCurrentCard();
+}
+
 /**
  * Trigger an action by name
  * @param {string} actionName 

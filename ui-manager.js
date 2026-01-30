@@ -236,6 +236,13 @@ export function updateCardSearchResults(rawQuery) {
     displayMatches.forEach(card => {
         const item = document.createElement('div');
         item.classList.add('card-search-item');
+        item.setAttribute('role', 'button');
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('aria-label', `Preview ${card.card}`);
+        item.dataset.cardName = card.card;
+        item.dataset.cardId = card.id;
+        item.dataset.cardImage = card.contents;
+        item.dataset.cardType = card.type;
         item.innerHTML = `
             <img src="cardimages/${card.contents}" alt="${card.card}" class="card-search-thumb">
             <div>
@@ -245,6 +252,55 @@ export function updateCardSearchResults(rawQuery) {
         `;
         resultsContainer.appendChild(item);
     });
+}
+
+export function showCardPreview({ id, name, image, type }) {
+    const modal = document.getElementById('cardPreviewModal');
+    if (!modal) return;
+
+    if (id !== undefined && id !== null) {
+        modal.dataset.cardId = id;
+    } else {
+        delete modal.dataset.cardId;
+    }
+    if (name) {
+        modal.dataset.cardName = name;
+    } else {
+        delete modal.dataset.cardName;
+    }
+    if (image) {
+        modal.dataset.cardImage = image;
+    } else {
+        delete modal.dataset.cardImage;
+    }
+    if (type) {
+        modal.dataset.cardType = type;
+    } else {
+        delete modal.dataset.cardType;
+    }
+
+    const title = modal.querySelector('[data-card-preview-title]');
+    const imageEl = modal.querySelector('[data-card-preview-image]');
+    const typeEl = modal.querySelector('[data-card-preview-type]');
+
+    if (title) {
+        title.textContent = name || 'Card Preview';
+    }
+    if (imageEl) {
+        imageEl.src = image ? `cardimages/${image}` : '';
+        imageEl.alt = name || 'Card preview';
+    }
+    if (typeEl) {
+        typeEl.textContent = type ? `Type: ${type}` : '';
+    }
+
+    if (window.bootstrap?.Modal) {
+        window.bootstrap.Modal.getOrCreateInstance(modal).show();
+    } else {
+        modal.classList.add('show');
+        modal.style.display = 'block';
+        modal.removeAttribute('aria-hidden');
+    }
 }
 
 /**
