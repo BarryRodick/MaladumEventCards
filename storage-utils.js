@@ -16,12 +16,18 @@ export function isStorageAvailable() {
 export function saveState(key, state) {
     if (!isStorageAvailable()) {
         console.warn('Local storage is not available');
-        return;
+        return false;
     }
     try {
         window.localStorage.setItem(key, JSON.stringify(state));
+        return true;
     } catch (e) {
+        if (e.name === 'QuotaExceededError' || e.code === 22) {
+            console.error('Storage quota exceeded:', e);
+            return false;
+        }
         console.warn('Error saving state:', e);
+        return false;
     }
 }
 

@@ -5,6 +5,7 @@
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#121212",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "./logos/gameicon.jpg",

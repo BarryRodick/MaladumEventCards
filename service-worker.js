@@ -1,7 +1,6 @@
 // Unified service worker combining caching and version logic
 const APP_VERSION = '2.15';
 const CACHE_NAME = 'maladum-event-cards-' + APP_VERSION;
-const GOOGLE_ANALYTICS_ID = 'G-ZMTSM9B7Q7';
 
 const urlsToCache = [
     './',
@@ -17,7 +16,6 @@ const urlsToCache = [
     './initialization.js',
     './events.js',
     './storage-utils.js',
-    './dom-utils.js',
     './update-utils.js',
     './card-utils.js',
     './dungeons_of_enveron.html',
@@ -30,7 +28,6 @@ const urlsToCache = [
     './difficulties.json',
     './version.json',
     './cardimages/back.jpg',
-    'https://www.googletagmanager.com/gtag/js?id=' + GOOGLE_ANALYTICS_ID,
 ];
 
 self.addEventListener('message', (event) => {

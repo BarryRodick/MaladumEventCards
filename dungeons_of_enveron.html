@@ -325,7 +325,7 @@
     </header>
 
     <div class="notes-section">
-        <div class="notes-header" onclick="toggleNotes()">
+        <div class="notes-header" data-toggle-notes>
             Campaign Notes <span class="collapse-icon">▼</span>
         </div>
         <div class="notes-content" id="notesContent">
@@ -622,6 +622,8 @@
             saveState();
         }
 
+        document.querySelector('[data-toggle-notes]').addEventListener('click', toggleNotes);
+
         document.querySelectorAll('.malagaunt-checkbox').forEach(checkbox => {
             checkbox.addEventListener('click', function () {
                 if (this.style.backgroundColor === 'black') {
@@ -760,11 +762,9 @@
         });
         document.body.appendChild(resetButton);
 
-        document.addEventListener('DOMContentLoaded', () => {
-            if (storageUtils.isStorageAvailable()) {
-                loadState();
-            }
-        });
+        if (storageUtils.isStorageAvailable()) {
+            loadState();
+        }
 
         notesTextarea.addEventListener('input', saveState);
     </script>

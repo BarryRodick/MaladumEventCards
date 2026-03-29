@@ -8,6 +8,7 @@ import { saveConfiguration } from './config-manager.js';
 import { toggleDeckBuilderUI } from './ui-manager.js';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
+const preloadCache = [];
 
 /**
  * Generates a new deck based on user configuration
@@ -123,7 +124,7 @@ export function generateDeck() {
     const activeDeckSection = document.getElementById('activeDeckSection');
     if (activeDeckSection) activeDeckSection.style.display = 'block';
 
-    document.getElementById('navigationButtons').style.display = 'block';
+    document.getElementById('navigationButtons').style.display = 'flex';
     document.getElementById('deckProgress').style.display = 'block';
     const cardActionSection = document.getElementById('cardActionSection');
     if (cardActionSection) cardActionSection.style.display = 'block';
@@ -260,6 +261,7 @@ export function advanceToNextCard() {
 }
 
 function preloadUpcomingCards(count = 2) {
+    preloadCache.length = 0;
     for (let i = 1; i <= count; i++) {
         const index = state.currentIndex + i;
         if (index >= 0 && index < state.currentDeck.length) {
@@ -267,6 +269,7 @@ function preloadUpcomingCards(count = 2) {
             if (card && card.contents) {
                 const img = new Image();
                 img.src = `cardimages/${card.contents}`;
+                preloadCache.push(img);
             }
         }
     }

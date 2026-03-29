@@ -8,10 +8,11 @@ https://barryrodick.github.io/MaladumEventCards/
 
 1. Open the GitHub Pages link.
 2. Select the games/expansions you want to include.
-3. Configure deck settings (difficulty, rules, and card counts).
-4. Generate the deck, then tap the card image to draw the next card.
-5. Use Prev/In Play to track active cards and open Card Actions to shuffle or replace cards.
-6. Open Campaign Manager to track your campaign progress.
+3. Configure deck settings (difficulty, Sentry/Corrupter rules, and card counts per type).
+4. Generate the deck, then tap the card image or press Next to draw.
+5. Use **Prev** to go back, **In Play** to mark a card with an ongoing effect, and **Card Actions** to shuffle, replace, or insert cards.
+6. Use **Search Cards** to find a specific card by name, preview it, and optionally shuffle it into the active deck.
+7. Open **Campaign Manager** (scroll icon in the header) to track progress through Dungeons of Enveron or The Forbidden Creed.
 
 - See [Card Actions Reference](cardActions.md) for details on manipulating the deck during play.
 

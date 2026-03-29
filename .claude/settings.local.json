@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(cmd.exe /c \"node tests/parseCardTypes.test.js && node tests/deckGeneration.test.js && node tests/cardActions.test.js && node tests/storageUtils.test.js\")",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\barry\\\\Projects\\\\maladumeventcards && node tests\\\\parseCardTypes.test.js\")",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\barry\\\\Projects\\\\maladumeventcards && node tests\\\\deckGeneration.test.js\")",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\barry\\\\Projects\\\\maladumeventcards && node tests\\\\cardActions.test.js\")",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\barry\\\\Projects\\\\maladumeventcards && node tests\\\\storageUtils.test.js\")",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\barry\\\\Projects\\\\maladumeventcards && node tests\\\\parseCardTypes.test.js && echo PASS\")",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\barry\\\\Projects\\\\maladumeventcards && node tests\\\\deckGeneration.test.js && echo PASS\")",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\barry\\\\Projects\\\\maladumeventcards && node tests\\\\cardActions.test.js && echo PASS\")",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\barry\\\\Projects\\\\maladumeventcards && node tests\\\\storageUtils.test.js && echo PASS\")",
+      "Bash(powershell.exe -Command \"cd ''C:\\\\Users\\\\barry\\\\Projects\\\\maladumeventcards''; node tests\\\\parseCardTypes.test.js; Write-Host ''EXIT:'' $LASTEXITCODE\")"
+    ]
+  }
+}

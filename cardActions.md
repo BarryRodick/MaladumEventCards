@@ -13,7 +13,7 @@ This action takes the current card and shuffles it randomly back into the remain
 **Behavior:**
 - The current card is removed from its position
 - The card is inserted at a random position among the remaining undrawn cards
-- The previous card in the sequence is then revealed
+- The previous card in the sequence is then revealed, or the card back is shown if there is no previous card
 
 **Example Use Case:**  
 When a threat appears that your party manages to drive away temporarily, but might return later in the expedition.
@@ -31,7 +31,7 @@ This action places the current card somewhere within the next N cards of the dec
 - The current card is removed from its position
 - The card is shuffled into the next N cards in the deck
 - If fewer than N cards remain, it shuffles into all remaining cards
-- The next card in the sequence is then revealed
+- The card that was next in the sequence slides into the current position and is revealed
 
 **Example Use Case:**  
 When an enemy retreats but is likely to return very soon, or when a beneficial effect is temporary and will fade shortly.
@@ -42,7 +42,7 @@ When an enemy retreats but is likely to return very soon, or when a beneficial e
 **Action Name:** `replaceSameType`
 
 **Description:**
-This action replaces the current card with another card of the same type from the available pool. This allows you to introduce variety while maintaining the same category of encounter. You can use it through the **Replace with same type** option in the deck builder.
+This action replaces the current card with another card of the same type from the available pool. This allows you to introduce variety while maintaining the same category of encounter. You can use it through the **Replace** button in the Card Actions grid.
 
 **Behavior:**
 - The current card is removed
@@ -52,15 +52,13 @@ This action replaces the current card with another card of the same type from th
 **Example Use Case:**  
 When you want to change the specific enemy or environment without changing the overall type of encounter.
 
-**Note:** This functionality is fully implemented and available in the current version of the deck builder.
-
 ---
 
 ### 4. Introduce Sentry Cards
 **Action Name:** `introduceSentry`
 
 **Description:**  
-This action introduces special "Sentry" cards (typically Revenants or Malagaunts) into the remaining deck. These represent elite enemies that arrive to challenge the party. This action is only available when Sentry Rules are enabled during deck creation.
+This action introduces special "Sentry" cards (typically Revenants, Malagaunts, or Cabal) into the remaining deck. These represent elite enemies that arrive to challenge the party. This action is only available when Sentry Rules are enabled during deck creation.
 
 **Behavior:**
 - Sentry cards (that were set aside during deck generation) are shuffled into the remaining undrawn cards
@@ -85,8 +83,38 @@ This action allows you to add a new card of a specific type into the deck at a p
 - You select where to insert it: next card, random position, or bottom of deck
 - The current card remains unchanged
 
-**Example Use Case:**  
+**Example Use Case:**
 When game mechanics require introducing a specific type of challenge, or when you want to ensure a certain type of encounter happens soon.
+
+---
+
+### 6. Shuffle Card from Search
+**Action Name:** `shuffleCardIntoTopN`
+
+**Description:**
+This action lets you shuffle any card from the available pool into the top N cards of the active deck. It is accessed through the Card Search panel: search for a card by name, click it to open the preview modal, then use the "Shuffle into top X cards" control.
+
+**Behavior:**
+- Search for a card by name in the "Search Cards" section
+- Click a result to open the card preview modal
+- Set the number of cards (X) and click "Shuffle"
+- If the card is already in the deck at another position, it is moved; otherwise it is added as a new card
+- If the card is the currently active card, the action is blocked
+- The card is inserted at a random position within the next X undrawn cards
+
+**Example Use Case:**
+When a game effect or scenario rule requires a specific card to be added to the deck mid-game.
+
+## Deck Mechanics
+
+### Discard Pile Reshuffle
+When all cards in the deck have been drawn, the discard pile is automatically reshuffled into a new deck and the card back is shown. Drawing continues from the reshuffled deck.
+
+### Held-Back Card Types
+Certain card types (Novice, Commander, Veteran, Mountain) are excluded from the main card pool during deck generation. They are only added based on the selected difficulty level, which determines how many Novice and Veteran cards to include.
+
+### Corrupter Replacement
+When Corrupter Rules are enabled and the main deck has at least 5 cards, 5 regular cards are removed and replaced with Corrupter-type cards. This simulates the corrupting influence on the dungeon.
 
 ## Working with In-Play Cards
 
@@ -102,7 +130,7 @@ This removes a card from the "In-Play Cards" section when its effects are no lon
 This removes all cards from the "In-Play Cards" section at once, which is useful when moving to a new area or scenario.
 
 ### Clear Active Card
-Use the "Clear" button on the active card to hide it and show the card back. This is helpful when you want to pause the game without revealing a card. Clicking the button resets the current card index and preserves the game state.
+Use the X button on the active card to reset the view to the card back. This sets the current position back to before the first draw, so the next draw will reveal the same card again (it is not discarded). This is helpful when you want to pause the game without advancing the deck.
 
 ## Tips for Using Card Actions
 

@@ -159,7 +159,3 @@ export function showUpdateNotification(newVersion) {
         }
     });
 }
-
-if (typeof window !== 'undefined') {
-    window.showUpdateNotification = showUpdateNotification;
-}

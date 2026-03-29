@@ -75,6 +75,16 @@ export async function initializeApp() {
             populateDifficultySelection();
             loadCardTypes();
 
+            // Sync checkboxes and difficulty selection to restored state
+            const sentryCheckbox = document.getElementById('enableSentryRules');
+            if (sentryCheckbox) sentryCheckbox.checked = state.enableSentryRules;
+
+            const corrupterCheckbox = document.getElementById('enableCorrupterRules');
+            if (corrupterCheckbox) corrupterCheckbox.checked = state.enableCorrupterRules;
+
+            const difficultySelect = document.getElementById('difficultyLevel');
+            if (difficultySelect) difficultySelect.selectedIndex = state.selectedDifficultyIndex;
+
             // Restore deck state if it exists
             if (savedConfig && savedConfig.deckState) {
                 restoreDeckState(savedConfig.deckState);
@@ -118,7 +128,7 @@ function restoreDeckState(deckState) {
         const activeDeckSection = document.getElementById('activeDeckSection');
         if (activeDeckSection) activeDeckSection.style.display = 'block';
 
-        document.getElementById('navigationButtons').style.display = 'block';
+        document.getElementById('navigationButtons').style.display = 'flex';
         document.getElementById('deckProgress').style.display = 'block';
         document.getElementById('cardActionSection').style.display = 'block';
 

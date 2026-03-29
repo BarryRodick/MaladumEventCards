@@ -25,9 +25,9 @@ This document provides step-by-step instructions to test each card action in the
 1. Generate a deck with at least 10 cards
 2. Draw several cards by clicking "NEXT" (at least 3)
 3. Note the current card's name and type
-4. Select "Shuffle into remaining deck" from the Card Action dropdown
-5. Click "APPLY ACTION"
-6. Verify that a success message appears
+4. In the Card Actions grid, click "Shuffle Back Into Deck"
+5. Verify that a success toast message appears
+6. Verify the previous card (or card back) is now shown
 7. Continue drawing cards by clicking "NEXT" several times
 8. Confirm the shuffled card reappears later in the deck
 9. Verify the deck progress bar updates correctly
@@ -37,10 +37,10 @@ This document provides step-by-step instructions to test each card action in the
 1. Generate a new deck with at least 10 cards
 2. Draw several cards by clicking "NEXT" (at least 3)
 3. Note the current card's name and type
-4. Select "Shuffle into next N cards" from the Card Action dropdown
-5. Set N to 3
-6. Click "APPLY ACTION"
-7. Verify that a success message appears
+4. In the Card Actions grid, click "Shuffle Top N"
+5. A configuration panel appears — set N to 3 using the +/- buttons or the input
+6. Click "Confirm"
+7. Verify that a success toast message appears
 8. Draw the next 3 cards by clicking "NEXT" 3 times
 9. Confirm the shuffled card reappears within those 3 cards
 10. Verify the deck progress bar updates correctly
@@ -50,50 +50,81 @@ This document provides step-by-step instructions to test each card action in the
 1. Generate a new deck with at least 5 cards of several different types
 2. Draw cards by clicking "NEXT" until you see a card of a type for which there are other cards available
 3. Note the current card's name and type
-4. Select "Replace with same type" from the Card Action dropdown
-5. Click "APPLY ACTION"
-6. Verify that a success message appears indicating replacement
-7. Confirm the new card has the same type as the original card
-8. Verify the deck progress bar doesn't change (card count should remain the same)
+4. In the Card Actions grid, click "Replace"
+5. Verify that a success toast message appears indicating replacement
+6. Confirm the new card has the same type as the original card
+7. Verify the deck progress bar doesn't change (card count should remain the same)
 
 ### Test 5: Introduce Sentry Cards
 
 1. Generate a new deck with Sentry Rules enabled
 2. Draw several cards by clicking "NEXT"
-3. Select "Introduce Sentry cards" from the Card Action dropdown
-4. Click "APPLY ACTION"
-5. Verify that a success message appears
-6. Continue drawing cards by clicking "NEXT"
-7. Confirm that Sentry cards (Revenants or Malagaunts) appear in the deck
-8. Try using "Introduce Sentry cards" again and verify it fails (as the cards have already been introduced)
+3. In the Card Actions grid, click "Sentry"
+4. Verify that a success toast message appears indicating how many Sentry cards were shuffled in
+5. Continue drawing cards by clicking "NEXT"
+6. Confirm that Sentry cards (Revenants, Malagaunts, or Cabal) appear in the deck
+7. Try clicking "Sentry" again and verify it reports no Sentry cards available (they have already been introduced)
 
 ### Test 6: Insert Card by Type
 
 1. Generate a new deck with various card types
 2. Draw several cards by clicking "NEXT"
-3. Select "Insert card by type" from the Card Action dropdown
-4. In the dropdown that appears, select a card type (e.g., "Environment")
-5. Optionally, select a specific card of that type
-6. Choose an insertion position (e.g., "Next Card")
-7. Click "APPLY ACTION"
-8. Verify that a success message appears
-9. If you chose "Next Card," click "NEXT" once and confirm the inserted card appears
-10. Verify the deck progress bar updates to show an additional card
+3. In the Card Actions grid, click "Insert Card"
+4. A configuration panel appears with Card Type, Specific Card, and Position controls
+5. Select a card type (e.g., "Environment")
+6. Optionally, select a specific card from the second dropdown (defaults to "Random")
+7. Choose an insertion position: Next, Random, or Bottom
+8. Click "Confirm"
+9. Verify that a success toast message appears
+10. If you chose "Next," click "NEXT" once and confirm the inserted card appears
+11. Verify the deck progress bar updates to show an additional card
+12. Test the "Cancel" button to verify the panel closes without inserting
 
 ### Test 7: In-Play Cards
 
 1. Generate a new deck
 2. Draw a card by clicking "NEXT"
-3. Click "MARK IN PLAY"
+3. Click "In Play"
 4. Verify the card appears in the "In Play Cards" section
 5. Draw another card and mark it in play as well
 6. Verify both cards are shown in the "In Play Cards" section
 7. Click the "Remove from Play" button on one of the in-play cards
 8. Verify that card is removed while the other remains
-9. Click "CLEAR IN-PLAY CARDS"
+9. Click "Clear All"
 10. Verify all in-play cards are removed
 
-### Test 8: Game State Persistence
+### Test 8: Card Search and Shuffle from Preview
+
+1. Generate a new deck with at least 10 cards
+2. Draw several cards by clicking "NEXT"
+3. Expand the "Search Cards" section
+4. Type a card name (or partial name) into the search input
+5. Verify matching cards appear in the results list
+6. Click a card result to open the card preview modal
+7. Verify the modal shows the card image, name, and type
+8. Set "Shuffle into top X cards" to a number (e.g., 6)
+9. Click "Shuffle"
+10. Verify a success toast message appears
+11. Draw the next several cards and confirm the shuffled card appears within the expected range
+12. Test shuffling a card that is already in the deck at another position — verify it is moved, not duplicated
+13. Test shuffling the currently active card — verify the action is blocked with a toast message
+
+### Test 9: Clear Active Card
+
+1. Generate a new deck and draw a card
+2. Click the X button on the active card
+3. Verify the card back is shown
+4. Click "NEXT" to draw — verify the same card is drawn again (it was not discarded)
+
+### Test 10: Discard Pile Reshuffle
+
+1. Generate a small deck (3-4 cards)
+2. Draw all cards by clicking "NEXT" through the entire deck
+3. When the last card is passed, verify a toast saying "Deck reshuffled from discard pile" appears
+4. Verify the card back is shown and the progress bar resets
+5. Continue drawing to confirm the reshuffled deck contains the previously drawn cards
+
+### Test 11: Game State Persistence
 
 1. Generate a new deck
 2. Draw several cards (at least 5)

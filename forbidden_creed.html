@@ -263,7 +263,7 @@
     </header>
 
     <div class="notes-section">
-        <div class="notes-header" onclick="toggleNotes()">
+        <div class="notes-header" data-toggle-notes>
             Campaign Notes <span class="collapse-icon">▼</span>
         </div>
         <div class="notes-content" id="notesContent">
@@ -496,10 +496,14 @@
             saveState();
         }
 
+        // Wire up the notes toggle
+        document.querySelector('[data-toggle-notes]').addEventListener('click', toggleNotes);
+
         // Add click handler to all checkboxes
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('click', function () {
-                this.style.backgroundColor = this.style.backgroundColor ? '' : '#333';
+                this.dataset.checked = this.dataset.checked === 'true' ? '' : 'true';
+                this.style.backgroundColor = this.dataset.checked === 'true' ? '#333' : '';
                 saveState();
             });
         });
@@ -546,7 +550,7 @@
         function saveState() {
             try {
                 const state = {
-                    checkboxes: Array.from(document.querySelectorAll('.checkbox')).map(cb => cb.style.backgroundColor === 'black'),
+                    checkboxes: Array.from(document.querySelectorAll('.checkbox')).map(cb => cb.dataset.checked === 'true'),
                     inputs: Array.from(document.querySelectorAll('.input-field')).map(input => input.value),
                     notes: notesTextarea.value,
                     notesVisible: notesContent.classList.contains('visible'),
@@ -577,6 +581,7 @@
                     // Restore checkboxes
                     state.checkboxes.forEach((isChecked, index) => {
                         if (isChecked && checkboxes[index]) {
+                            checkboxes[index].dataset.checked = 'true';
                             checkboxes[index].style.backgroundColor = '#333';
                         }
                     });
@@ -589,12 +594,10 @@
             }
         }
 
-        // Initialize when DOM is ready
-        document.addEventListener('DOMContentLoaded', () => {
-            if (storageUtils.isStorageAvailable()) {
-                loadState();
-            }
-        });
+        // Initialize at module evaluation time (module scripts run after DOM is parsed)
+        if (storageUtils.isStorageAvailable()) {
+            loadState();
+        }
 
         // Save notes as they're typed
         notesTextarea.addEventListener('input', saveState);

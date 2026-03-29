@@ -7,6 +7,12 @@ import { showToast, trackEvent } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
 import { showCurrentCard, updateProgressBar } from './deck-manager.js';
 
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
 /**
  * Marks a card as being in play
  */
@@ -14,11 +20,11 @@ export function markCardAsInPlay(card) {
     if (!state.inPlayCards.some(c => c.id === card.id)) {
         state.inPlayCards.push(card);
         updateInPlayCardsDisplay();
-        showToast(`Card "${card.card}" marked as in play.`);
+        showToast(`Card "${escapeHtml(card.card)}" marked as in play.`);
         saveConfiguration();
         trackEvent('Card Status', 'Mark In Play', card.card);
     } else {
-        showToast(`Card "${card.card}" is already in play.`);
+        showToast(`Card "${escapeHtml(card.card)}" is already in play.`);
     }
 }
 
@@ -46,8 +52,8 @@ export function updateInPlayCardsDisplay() {
         cardBody.classList.add('card-body');
 
         cardBody.innerHTML = `
-            <h5 class="card-title">${card.card}</h5>
-            <img src="cardimages/${card.contents.replace(/\.\w+$/, '.png')}" alt="${card.card}" class="card-img-top mb-2">
+            <h5 class="card-title">${escapeHtml(card.card)}</h5>
+            <img src="cardimages/${escapeHtml(card.contents.replace(/\.\w+$/, '.png'))}" alt="${escapeHtml(card.card)}" class="card-img-top mb-2">
             <button class="btn btn-danger btn-sm remove-from-play" data-id="${card.id}">Remove from Play</button>
         `;
 
@@ -70,9 +76,6 @@ function removeCardFromPlay(cardId) {
     saveConfiguration();
 }
 
-/**
- * Handles the application of selected card actions
- */
 /**
  * Handles the application of selected card actions
  */
@@ -113,6 +116,10 @@ export const cardActions = {
         const replacements = state.availableCards.filter(c => {
             if (c.id === card.id || state.cards.selected.has(c.id)) return false;
             const rTypeInfo = parseCardTypes(c.type);
+            // Exclude sentry and corrupter cards from replacements
+            const isSentry = rTypeInfo.allTypes.some(t => state.dataStore.sentryTypes.includes(t));
+            const isCorrupter = rTypeInfo.allTypes.some(t => state.dataStore.corrupterTypes.includes(t));
+            if ((isSentry && state.enableSentryRules) || (isCorrupter && state.enableCorrupterRules)) return false;
             return rTypeInfo.allTypes.some(t => typeInfo.allTypes.includes(t));
         });
 

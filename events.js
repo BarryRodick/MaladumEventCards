@@ -20,7 +20,12 @@ const debouncedCardSearch = debounce((value) => updateCardSearchResults(value), 
 export function setupEventListeners() {
     // Generate Deck
     const generateBtn = document.getElementById('generateDeck');
-    if (generateBtn) generateBtn.addEventListener('click', generateDeck);
+    if (generateBtn) generateBtn.addEventListener('click', () => {
+        if (state.currentDeck.length > 0 && state.currentIndex >= 0) {
+            if (!confirm('This will replace your current deck. Continue?')) return;
+        }
+        generateDeck();
+    });
 
     // Navigation
     const nextBtn = document.getElementById('nextCard');
@@ -33,7 +38,9 @@ export function setupEventListeners() {
                 if (state.currentIndex === 0) {
                     state.currentIndex = -1;
                 } else {
-                    state.discardPile.pop();
+                    if (state.discardPile.length > 0) {
+                        state.discardPile.pop();
+                    }
                     state.currentIndex--;
                 }
                 showCurrentCard('backward');
@@ -169,7 +176,8 @@ export function setupEventListeners() {
         confirmInsertCard.addEventListener('click', () => {
             const type = document.getElementById('insertTypeSelect').value;
             const specificId = document.getElementById('insertSpecificCardSelect').value;
-            const position = document.querySelector('input[name="insertPos"]:checked').value;
+            const posInput = document.querySelector('input[name="insertPos"]:checked');
+            const position = posInput ? posInput.value : 'random';
 
             triggerCardAction('insertCardType', {
                 cardType: type,
