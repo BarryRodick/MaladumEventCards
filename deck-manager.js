@@ -5,7 +5,7 @@ import { state, CONFIG, cardTypeId } from './state.js';
 import { shuffleDeck, parseCardTypes } from './card-utils.js';
 import { showToast, trackEvent, debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
-import { toggleDeckBuilderUI } from './ui-manager.js';
+import { renderDeckSummary, setDeckMode } from './ui-manager.js';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
 const preloadCache = [];
@@ -128,9 +128,18 @@ export function generateDeck() {
     document.getElementById('deckProgress').style.display = 'block';
     const cardActionSection = document.getElementById('cardActionSection');
     if (cardActionSection) cardActionSection.style.display = 'block';
+    const cardActionContent = document.getElementById('cardActionContent');
+    if (cardActionContent) {
+        cardActionContent.classList.remove('show');
+    }
+    const cardActionToggle = document.querySelector('[data-bs-target="#cardActionContent"]');
+    if (cardActionToggle) {
+        cardActionToggle.classList.add('collapsed');
+        cardActionToggle.setAttribute('aria-expanded', 'false');
+    }
 
+    setDeckMode('play', { openUtilities: false });
     showCurrentCard();
-    toggleDeckBuilderUI(true);
     saveConfiguration();
 
     trackEvent('Deck', 'Generate', `Games: ${state.selectedGames.join(', ')}`, state.currentDeck.length);
@@ -199,7 +208,12 @@ export function showCurrentCard(direction = null) {
     if (!output) return;
 
     if (state.currentIndex === -1) {
-        output.innerHTML = `<img src="cardimages/back.jpg" alt="Card Back" class="img-fluid">`;
+        output.innerHTML = `
+            <div class="deck-card-state">
+                <img src="cardimages/back.jpg" alt="Ready to draw" class="img-fluid">
+                <p class="deck-card-caption">Ready to draw</p>
+            </div>
+        `;
     } else {
         const currentCard = state.currentDeck[state.currentIndex];
         if (currentCard) {
@@ -224,7 +238,7 @@ export function updateProgressBar() {
     let percentage = 0;
 
     if (state.currentIndex === -1) {
-        progressText.textContent = `Card Back`;
+        progressText.textContent = 'Ready to draw';
         percentage = 0;
     } else {
         const currentCardNumber = state.currentIndex + 1;
@@ -234,6 +248,7 @@ export function updateProgressBar() {
 
     progressBar.style.width = `${percentage}%`;
     progressBar.setAttribute('aria-valuenow', percentage.toFixed(0));
+    renderDeckSummary();
 }
 
 export function advanceToNextCard() {

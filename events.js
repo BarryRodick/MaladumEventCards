@@ -6,18 +6,55 @@ import {
     triggerCardAction,
     markCardAsInPlay,
     updateInPlayCardsDisplay,
-    shuffleCardIntoTopN
+    shuffleCardIntoTopN,
+    insertSpecificCardById
 } from './card-actions.js';
 import { state } from './state.js';
 import { trackEvent, debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
 import { setupManualUpdateCheck } from './update-utils.js';
-import { updateCardSearchResults, showCardPreview } from './ui-manager.js';
+import { updateCardSearchResults, showCardPreview, setDeckMode, toggleUtilityDrawer } from './ui-manager.js';
+import { buildPreviewActionRequest } from './deck-flow-utils.js';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
 const debouncedCardSearch = debounce((value) => updateCardSearchResults(value), 150);
 
 export function setupEventListeners() {
+    const buildModeButton = document.getElementById('buildModeButton');
+    if (buildModeButton) {
+        buildModeButton.addEventListener('click', () => {
+            setDeckMode('build', { openUtilities: true });
+        });
+    }
+
+    const playModeButton = document.getElementById('playModeButton');
+    if (playModeButton) {
+        playModeButton.addEventListener('click', () => {
+            setDeckMode('play');
+        });
+    }
+
+    const toggleUtilityDrawerButton = document.getElementById('toggleUtilityDrawer');
+    if (toggleUtilityDrawerButton) {
+        toggleUtilityDrawerButton.addEventListener('click', () => {
+            toggleUtilityDrawer();
+        });
+    }
+
+    const summaryToggleUtilities = document.getElementById('summaryToggleUtilities');
+    if (summaryToggleUtilities) {
+        summaryToggleUtilities.addEventListener('click', () => {
+            toggleUtilityDrawer();
+        });
+    }
+
+    const summaryEditDeck = document.getElementById('summaryEditDeck');
+    if (summaryEditDeck) {
+        summaryEditDeck.addEventListener('click', () => {
+            setDeckMode('build', { openUtilities: true, focusUtilities: true });
+        });
+    }
+
     // Generate Deck
     const generateBtn = document.getElementById('generateDeck');
     if (generateBtn) generateBtn.addEventListener('click', () => {
@@ -156,12 +193,21 @@ export function setupEventListeners() {
     const cardPreviewShuffleButton = document.querySelector('[data-card-preview-shuffle]');
     if (cardPreviewShuffleButton) {
         cardPreviewShuffleButton.addEventListener('click', () => {
-            const modal = document.getElementById('cardPreviewModal');
-            if (!modal) return;
-            const countInput = document.getElementById('cardPreviewShuffleCount');
-            const countValue = countInput ? countInput.value : 1;
-            const cardId = modal.dataset.cardId;
-            shuffleCardIntoTopN(cardId, countValue);
+            runCardPreviewAction('shuffleTopN');
+        });
+    }
+
+    const cardPreviewInsertNextButton = document.querySelector('[data-card-preview-insert-next]');
+    if (cardPreviewInsertNextButton) {
+        cardPreviewInsertNextButton.addEventListener('click', () => {
+            runCardPreviewAction('insertNext');
+        });
+    }
+
+    const cardPreviewAddBottomButton = document.querySelector('[data-card-preview-add-bottom]');
+    if (cardPreviewAddBottomButton) {
+        cardPreviewAddBottomButton.addEventListener('click', () => {
+            runCardPreviewAction('addToBottom');
         });
     }
 
@@ -204,6 +250,26 @@ function openCardPreviewFromResult(resultItem) {
     if (!cardImage) return;
     showCardPreview({ id: cardId, name: cardName, image: cardImage, type: cardType });
     trackEvent('Card Search', 'Preview Card', cardName || '');
+}
+
+function runCardPreviewAction(actionName) {
+    const modal = document.getElementById('cardPreviewModal');
+    if (!modal) return;
+
+    const request = buildPreviewActionRequest(actionName, modal.dataset, {
+        count: document.getElementById('cardPreviewShuffleCount')?.value
+    });
+
+    if (!request) return;
+
+    if (request.kind === 'shuffleTopN') {
+        shuffleCardIntoTopN(request.cardId, request.count);
+        return;
+    }
+
+    if (request.kind === 'insertSpecificCard') {
+        insertSpecificCardById(request.cardId, request.position);
+    }
 }
 
 function populateInsertTypes() {

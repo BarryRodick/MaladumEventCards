@@ -16,15 +16,12 @@
     <title>About / FAQ - Event Cards</title>
     
     <!-- Include Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Include Font Awesome CSS for Icons with Correct SRI from cdnjs -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+      href="vendor/fontawesome/css/all.min.css"
     />
     
     <!-- Include custom styles -->
@@ -35,6 +32,7 @@
     
     <!-- Theme color for PWA -->
     <meta name="theme-color" content="#121212">
+    <link rel="icon" type="image/png" href="icons/icon-192x192.png">
 </head>
 
 <body class="dark-mode">
@@ -64,25 +62,32 @@
                 <p>This is a digital event deck manager for Maladum and its expansions. It helps you manage and manipulate the event deck during gameplay.</p>
 
                 <h4>How do I start?</h4>
-                <p>1. Select which game boxes/expansions you want to use<br>
-                2. Choose your card types and quantities<br>
-                3. Click "Generate Deck" to create your event deck</p>
+                <p>Start in <strong>Build mode</strong>. Select which game boxes you want to use, set your deck counts and rules, then click <strong>Generate Deck</strong>. The page then switches into <strong>Play mode</strong> while keeping setup and search available in the utility drawer.</p>
 
                 <h4>What do the different card types mean?</h4>
                 <p>Cards are categorized by their type (e.g., Denizen, Revenant, Veteran). Some cards can have multiple types, indicated by "+" (must be both) or "/" (can be either).</p>
 
                 <h2>Deck Management</h2>
 
+                <h4>What are Build and Play modes?</h4>
+                <p><strong>Build mode</strong> is where you choose games, set difficulty, and configure the event deck. <strong>Play mode</strong> keeps the current card and live deck controls front and center, with a sticky summary bar showing games, difficulty, rules, remaining cards, and discard count.</p>
+
+                <h4>Where did the setup controls go during play?</h4>
+                <p>They now live in the utility drawer. Use the <strong>Edit Deck</strong> or <strong>Utilities</strong> controls from the summary bar to reopen setup and search without leaving the main play view.</p>
+
                 <h4>How do I navigate through the deck?</h4>
-                <p>Use the "Previous" and "Next" buttons to move through the deck. The progress bar shows your current position.</p>
+                <p>Use <strong>Next</strong> as the main draw control. <strong>Prev</strong> lets you step back, and <strong>In Play</strong> marks the current card as active without removing it from the deck flow. The progress bar shows your current position, and the ready state now displays as <strong>Ready to draw</strong>.</p>
 
                 <h4>What are Card Actions?</h4>
-                <p>Card Actions allow you to manipulate the deck during gameplay:<br>
+                <p>Card Actions now live in a collapsible drawer under the main controls. They allow you to manipulate the deck during gameplay:<br>
                 - Shuffle into remaining deck: Places the current card randomly in the remaining cards<br>
                 - Shuffle into next N cards: Places the card within the next N cards<br>
                 - Replace with same type: Swaps the current card with another of the same type<br>
                 - Introduce Sentry cards: Adds Sentry cards into the remaining deck<br>
                 - Insert card by type: Adds a new card of a specific type to the deck</p>
+
+                <h4>Can I search while I am already playing?</h4>
+                <p>Yes. Search is now a persistent utility instead of a setup-only panel. You can open a card preview at any time, then shuffle that card near the top of the deck, insert it next, or add it to the bottom if you already have an active deck.</p>
 
                 <h4>How do Sentry cards work?</h4>
                 <p>Sentry cards (Revenants and Malagaunts) represent elite enemies that can be introduced during gameplay. When Sentry rules are enabled:<br>
@@ -126,7 +131,7 @@
     </div>
 
     <!-- Include Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Include Deck Builder JS (if any specific scripts needed for about.html) -->
     <!-- <script src="deckbuilder.js"></script> -->

@@ -1,6 +1,6 @@
 {
-  "name": "Deck Builder",
-  "short_name": "DeckBuilder",
+  "name": "Maladum Event Cards",
+  "short_name": "Event Cards",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#121212",
@@ -8,14 +8,14 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "./logos/gameicon.jpg",
+      "src": "./icons/icon-192x192.png",
       "sizes": "192x192",
-      "type": "image/jpg"
+      "type": "image/png"
     },
     {
-      "src": "./logos/gameicon.jpg",
+      "src": "./icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/jpg"
+      "type": "image/png"
     }
   ]
 }

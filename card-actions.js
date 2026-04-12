@@ -186,28 +186,36 @@ export const cardActions = {
             cardToInsert = availableCards[Math.floor(Math.random() * availableCards.length)];
         }
 
-        // Clone the card
         cardToInsert = { ...cardToInsert };
-
-        // Determine insertion index
-        let insertIndex;
-        if (position === 'next') {
-            insertIndex = state.currentIndex + 1;
-        } else if (position === 'bottom') {
-            insertIndex = state.currentDeck.length;
-        } else { // random
-            const remaining = state.currentDeck.length - (state.currentIndex + 1);
-            insertIndex = state.currentIndex + 1 + Math.floor(Math.random() * (remaining + 1));
-        }
-
-        // Insert
-        state.currentDeck.splice(insertIndex, 0, cardToInsert);
-        state.cards.selected.set(cardToInsert.id, true);
-
-        updateProgressBar();
+        insertCardIntoDeck(cardToInsert, position);
         return `Inserted "${cardToInsert.card}" (${cardType}) into the deck (${position}).`;
     }
 };
+
+function insertCardIntoDeck(cardToInsert, position = 'random') {
+    let insertIndex;
+
+    if (position === 'next') {
+        insertIndex = Math.max(0, state.currentIndex + 1);
+    } else if (position === 'bottom') {
+        insertIndex = state.currentDeck.length;
+    } else {
+        const remaining = state.currentDeck.length - (state.currentIndex + 1);
+        insertIndex = state.currentIndex + 1 + Math.floor(Math.random() * (remaining + 1));
+    }
+
+    state.currentDeck.splice(insertIndex, 0, cardToInsert);
+    state.cards.selected.set(cardToInsert.id, true);
+    updateProgressBar();
+}
+
+function findCardById(cardId) {
+    if (state.cardMap instanceof Map && state.cardMap.has(Number(cardId))) {
+        return state.cardMap.get(Number(cardId));
+    }
+
+    return state.availableCards.find(card => String(card.id) === String(cardId)) || null;
+}
 
 export function shuffleCardIntoTopN(cardId, n) {
     if (!cardId) {
@@ -235,22 +243,6 @@ export function shuffleCardIntoTopN(cardId, n) {
     }
 
     const requestedN = Math.max(1, parseInt(n, 10) || 1);
-
-    let existingIndex = state.currentDeck.findIndex(card => String(card.id) === String(targetCard.id));
-    let cardToInsert = targetCard;
-
-    if (existingIndex !== -1) {
-        const [existingCard] = state.currentDeck.splice(existingIndex, 1);
-        cardToInsert = existingCard || targetCard;
-        if (existingIndex <= state.currentIndex) {
-            state.currentIndex = Math.max(-1, state.currentIndex - 1);
-        }
-    } else {
-        cardToInsert = { ...targetCard };
-        state.cards.selected.set(cardToInsert.id, true);
-        updateProgressBar();
-    }
-
     const insertStart = Math.max(0, state.currentIndex + 1);
     const remaining = state.currentDeck.length - insertStart;
 
@@ -259,14 +251,62 @@ export function shuffleCardIntoTopN(cardId, n) {
         return;
     }
 
+    let existingIndex = state.currentDeck.findIndex(card => String(card.id) === String(targetCard.id));
+    let cardToInsert = targetCard;
+    let nextCurrentIndex = state.currentIndex;
+
+    if (existingIndex !== -1) {
+        const [existingCard] = state.currentDeck.splice(existingIndex, 1);
+        cardToInsert = existingCard || targetCard;
+        if (existingIndex <= state.currentIndex) {
+            nextCurrentIndex = Math.max(-1, state.currentIndex - 1);
+        }
+    } else {
+        cardToInsert = { ...targetCard };
+    }
+
     const actualN = Math.min(requestedN, remaining);
-    const insertIndex = insertStart + Math.floor(Math.random() * actualN);
+    const adjustedInsertStart = Math.max(0, nextCurrentIndex + 1);
+    const insertIndex = adjustedInsertStart + Math.floor(Math.random() * actualN);
+
+    state.currentIndex = nextCurrentIndex;
     state.currentDeck.splice(insertIndex, 0, cardToInsert);
+    state.cards.selected.set(cardToInsert.id, true);
 
     updateProgressBar();
     showToast(`Card "${cardToInsert.card}" shuffled into the next ${actualN} cards.`);
     saveConfiguration();
     trackEvent('Card Action', 'shuffleTopNCard', cardToInsert.card);
+    showCurrentCard();
+}
+
+export function insertSpecificCardById(cardId, position = 'next') {
+    if (!cardId) {
+        showToast('Select a card to insert.');
+        return;
+    }
+
+    if (!state.currentDeck || state.currentDeck.length === 0) {
+        showToast('No active deck available. Generate a deck first.');
+        return;
+    }
+
+    const targetCard = findCardById(cardId);
+    if (!targetCard) {
+        showToast('Selected card could not be found.');
+        return;
+    }
+
+    if (state.cards.selected.has(targetCard.id)) {
+        showToast(`Card "${targetCard.card}" is already in the deck.`);
+        return;
+    }
+
+    const cardToInsert = { ...targetCard };
+    insertCardIntoDeck(cardToInsert, position);
+    showToast(`Inserted "${cardToInsert.card}" into the deck (${position}).`);
+    saveConfiguration();
+    trackEvent('Card Action', `insertSpecificCard:${position}`, cardToInsert.card);
     showCurrentCard();
 }
 

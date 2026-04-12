@@ -68,6 +68,10 @@ export const state = {
     enableSentryRules: false,
     enableCorrupterRules: false,
 
+    // UI state
+    uiMode: 'build',
+    isUtilityDrawerOpen: true,
+
     // Helpers
     deferredDeckRestoration: null
 };

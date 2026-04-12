@@ -1,0 +1,797 @@
+{
+  "Renewed_Vigour.png": [
+    {
+      "header": "DISQUIET-DISTRESS",
+      "threshold": 1,
+      "text": "Your enemies are spurred on by unseen forces. All Adversaries in play immediately take one action following the normal rules."
+    },
+    {
+      "header": "DISMAY-DESPERATION",
+      "threshold": 2,
+      "text": "The three Adversaries closest to an Adventurer are Blessed. Then, all Adversaries in play immediately take one action following the normal rules."
+    },
+    {
+      "header": "DISASTER-DOOM",
+      "text": "Flip the Adversary board to the reverse side, if not already flipped. Then, all Adversaries in play immediately take one action following the normal rules."
+    }
+  ],
+  "Life_Drain.png": [
+    {
+      "header": "DISQUIET-DOOM",
+      "text": "The Adventurer with the most Health suffers 2 damage (up to a maximum of their remaining Health). They may spend Magic pegs to reduce this damage.\n\nIf the Malagaunt is in play, it restores Health equal to the damage inflicted (this may exceed its starting health).\n\nOtherwise, that many Lamentors arrive, if available, at the nearest empty Grave Points to the Adventurer."
+    }
+  ],
+  "Balefire.png": [
+    {
+      "header": "DISQUIET-DOOM",
+      "threshold": 2,
+      "text": "The Malagaunt channels its magic through one of its minions. The closest unengaged Adversary to an enemy targets that enemy with a two-dice ranged attack with [icon:fire].\n\nThen, all unengaged Adversaries make a Move action."
+    }
+  ],
+  "Respite.png": [
+    {
+      "header": "DISQUIET-DOOM",
+      "text": "There is an unexpected lull in the seemingly endless onslaught. Reduce Dread by 2. No Adversaries will arrive this round. Adventurers already in play will activate as normal."
+    }
+  ],
+  "Snap.png": [
+    {
+      "header": "DISQUIET-DOOM",
+      "text": "Select an Adventurer at random. A random item that they are carrying is broken. Turn the item face down in their inventory."
+    }
+  ],
+  "Malacytic_Fluctuations.png": [
+    {
+      "header": "DISQUIET",
+      "text": "Each Adventurer feels buoyed as natural energy flows through them. All characters gain a Magic peg \u00e2\u20ac\u201c this may exceed their starting value."
+    },
+    {
+      "header": "DISTRESS",
+      "text": "The Adventurers feel suddenly drained by an unnatural force. All characters discard a Magic peg. If they cannot they become Fatigued."
+    },
+    {
+      "header": "DISMAY-DESPERATION",
+      "text": "All characters gain two Magic pegs \u00e2\u20ac\u201c this may exceed their starting value."
+    },
+    {
+      "header": "DISASTER-DOOM",
+      "text": "All characters discard two Magic pegs. If they cannot they become Fatigued for each."
+    }
+  ],
+  "Trap_Arrow.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - image too small to read"
+    }
+  ],
+  "Fiery_Touch.png": [
+    {
+      "header": "DISQUIET-DOOM",
+      "threshold": 2,
+      "text": "The Malagaunt channels its magic through its minions. All engaged Adversaries make a two-dice melee attack with [icon:fire].\n\nThen, all unengaged Adversaries make a Move action."
+    }
+  ],
+  "Feeling_Lucky.png": [
+    {
+      "header": "DISQUIET-DOOM",
+      "text": "Reduce Dread by 1. All Adventurers in play become Blessed."
+    }
+  ],
+  "Alarm.png": [
+    {
+      "header": "DISQUIET",
+      "text": "Your presence has sounded an alarm. Increase the Dread by 1."
+    },
+    {
+      "header": "DISTRESS-DISMAY",
+      "text": "Place this card next to the Dread Tracker and place three black pegs on top of it. Add one of these pegs to the Tracker in each Assessment Phase. When all pegs have been used, discard this card."
+    },
+    {
+      "header": "DESPERATION-DOOM",
+      "text": "Increase the Dread by 1. Then roll the Magic Die for each Adventurer. On a 1, that Adventurer becomes Terrified.\n\nThen discard this card and draw another."
+    }
+  ],
+  "Chilling_Aura.png": [
+    {
+      "header": "DISQUIET-DISMAY",
+      "threshold": 1,
+      "text": "All non-Adversaries within short range of a Revenant become Terrified. They may spend a Magic peg to ignore this effect."
+    },
+    {
+      "header": "DESPERATION-DOOM",
+      "text": "All non-Adversaries within short range of a Revenant become Terrified and Fatigued. They may spend one Magic peg to ignore each effect."
+    }
+  ],
+  "Reanimation.png": [
+    {
+      "header": "DISQUIET-DISTRESS",
+      "text": "Place a Lamentor at the nearest empty Grave Point to an Adventurer. It activates immediately, and will activate again in the Adversary Phase."
+    },
+    {
+      "header": "DISMAY-DOOM",
+      "text": "Target a random defeated Adventurer, if any. The Adventurer Stands Up, and then takes 3 actions as if they were an Adversary. The defeated Adventurer may spend Magic pegs to reduce this number of actions.\n\nAfter any actions have been taken, the character is laid prone and marked as defeated again.\n\nIf there are no defeated Adventurers, place a Lamentor at the nearest empty Grave Point to an Adventurer and activate it."
+    }
+  ],
+  "Get_That_One.png": [
+    {
+      "header": "DISQUIET",
+      "threshold": 1,
+      "text": "Choose the Adventurer with the fewest Health pegs. All enemies within medium range and LoS not engaged with another Adventurer take one action with the chosen Adventurer as the target."
+    },
+    {
+      "header": "DISTRESS-DISMAY",
+      "threshold": 2,
+      "text": "Choose the Adventurer with the most Magic pegs. All enemies within medium range and LoS not engaged with another Adventurer take one action with the chosen Adventurer as the target."
+    },
+    {
+      "header": "DESPERATION-DOOM",
+      "threshold": 3,
+      "text": "Choose the Adventurer with the most Health pegs. All enemies within medium range and LoS not engaged with another Adventurer take one action with the chosen Adventurer as the target."
+    }
+  ],
+  "Deathly_Fusion.png": [
+    {
+      "header": "DISQUIET-DISTRESS",
+      "text": "Determine the Lamentor closest to a terrain piece with armour 1 (e.g. Barricade, Crate). Replace the Lamentor with a Myria and Bless it; then remove the terrain piece from play, breaking and scattering any items inside.\n\nIf no Lamentors are in play or no Myria are available, increase the Dread by 1 and shuffle this card back into the deck."
+    },
+    {
+      "header": "DISMAY-DOOM",
+      "text": "For each Hellfont not currently in play, determine the Lamentor closest to a Crucible of Resurrection. Replace the Lamentors with Hellfonts and Bless them.\n\nIf no Crucibles are in play or no Hellfonts are available, resolve as Disquiet-Distress."
+    }
+  ],
+  "Theyre_Below_Us.png": [
+    {
+      "header": "DISQUIET-DOOM",
+      "text": "All non-Commander Adversaries arriving this round arrive from Grave Points, not Entry Points. In addition, characters do not block Grave Points this round \u00e2\u20ac\u201c Adversaries that would arrive there are placed in contact with the character on top.\n\nIf a Rot Troll would arrive, place a Pit terrain piece on top of the selected Grave Point, and place the Rot Troll in contact with it, pushing other characters aside if necessary.\n\nAny character on the Pit falls in. Any non-Adversary character in contact with the Pit must spend a Skill peg (reaction) or fall in.\n\nThe Pit remains in play, following the normal rules."
+    }
+  ],
+  "Unnatural_Lifeforce.png": [
+    {
+      "header": "DISQUIET-DOOM",
+      "threshold": 1,
+      "text": "The Adversary (not including Commanders) furthest from an Adventurer is immediately defeated. Give the Malagaunt a number of Blessed counters equal to that Adversary's rank (even if the Malagaunt hasn't entered play yet)."
+    }
+  ],
+  "Death_Draws_In.png": [
+    {
+      "header": "DISQUIET-DISTRESS",
+      "text": "Increase the Dread by 2 and shuffle this card back into the deck."
+    },
+    {
+      "header": "DISMAY-DOOM",
+      "text": "If the Deathly Avatar is in play, replace it with the Malagaunt. Flip the character board and adjust its pegs to the starting statistics of the Malagaunt. Then Bless the Malagaunt.\n\nOtherwise, the Malagaunt is placed at a random Entry Point.\n\nIf the Malagaunt is already in play, it becomes Blessed."
+    }
+  ],
+  "Gleaming_Trinket.png": [
+    {
+      "header": "DISQUIET-DOOM",
+      "text": "An Adventurer spots something shining in the distance, but there's something blocking the view... Determine the square on the board furthest from any Adventurers that at least one Adventurer has LoS to. Place an unused Objective token (or Reminder counter if no Objectives are available) in that square.\n\nThen place the highest-ranking Adversary available in the current Dread band in a square adjacent to the token.\n\nSet this card aside as a reminder. If the Objective token is retrieved, roll the Magic Die and replace it with the following:\n1-2: A random item from the token pouch\n3-4: A random uncommon item\n5-6: A random rare item\nToken size does not matter. Then discard this card."
+    }
+  ],
+  "Tremors.png": [
+    {
+      "header": "DISQUIET-DISTRESS",
+      "text": "The ground shakes. Set this card aside. All attacks roll one fewer die until the end of the round, and all Move distances are decreased by 1 square. Discard this card at the end of the round."
+    },
+    {
+      "header": "DISMAY",
+      "text": "There is an unexpected seismic shift. All characters not in contact with a wall are knocked prone.\n\nThen, as Disquiet-Distress."
+    },
+    {
+      "header": "DESPERATION-DOOM",
+      "text": "A rotten floor gives way. The first player chooses a point on the board and scatters twice, ignoring terrain. Place a Pit terrain piece as close as possible to that location (avoiding terrain but ignoring characters).\n\nAny character on the Pit falls in. Any character adjacent to the Pit must spend a Skill peg (reaction) or fall in.\n\nThe Pit remains in play, following the normal rules.\n\nThen, as Disquiet-Distress."
+    }
+  ],
+  "Spooked.png": [
+    {
+      "header": "DISQUIET",
+      "text": "You are distracted by distant noises. Increase the Dread by 1 and shuffle this card back into the deck."
+    },
+    {
+      "header": "DISTRESS-DISMAY",
+      "text": "There are strange shapes lurking in the shadows. A random Adventurer becomes Terrified."
+    },
+    {
+      "header": "DESPERATION-DOOM",
+      "text": "Hysteria is spreading. A random Adventurer becomes Terrified and Fatigued, and all Adventurers within short range of the target become Terrified."
+    }
+  ],
+  "As_One_Door_Closes.png": [
+    {
+      "header": "DISQUIET-DISMAY",
+      "text": "What was once a safe staging point is no longer safe \u00e2\u20ac\u201c your escape route has been blocked! However, you've spotted an alternative way out, if you can get there.\n\nThe first player rolls the Magic Die and swaps their Staging Point with the matching Entry Point."
+    },
+    {
+      "header": "DESPERATION-DOOM",
+      "text": "Hordes of enemies appear at what you thought was a safe escape route. At this point you have no choice but to fight your way out.\n\nThe first player rolls the Magic Die twice, re-rolling duplicates. The Entry Points matching the numbers rolled are moved adjacent to the player's Staging Point."
+    }
+  ],
+  "Trap_Snare.png": [
+    {
+      "header": "DISQUIET-DOOM",
+      "text": "An Adventurer stumbles into a snare laid for a wild animal! A random Adventurer suffers an attack with three dice, Sharp [icon:sharp] and Entangling [icon:entangling]."
+    }
+  ],
+  "Theyre_Everywhere.png": [
+    {
+      "header": "DISQUIET-DOOM",
+      "text": "You've noticed them here and there; some kind of vermin clustered on columns and ceilings, probably attracted by the residual energy of your magic. They were no bother at first, but now they seem to consider you a threat and they attack!\n\nRoll a combat die for each non-Adversary character in play. On a [icon:paw] they become Poisoned. Otherwise, they suffer Fatigued counters equal to the number of hits rolled as they fight off the creatures. Stunned characters do not roll \u00e2\u20ac\u201c they are automatically Poisoned."
+    }
+  ],
+  "Lost_Traveller.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - image too small to read"
+    }
+  ],
+  "Opportunist.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - image too small to read"
+    }
+  ],
+  "On_The_Hunt.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - image too small to read"
+    }
+  ],
+  "Out_For_Blood.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - image too small to read"
+    }
+  ],
+  "Cankers.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - image too small to read"
+    }
+  ],
+  "Alary.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Ambush.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Blaze_of_Glory.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Bloodwyrm.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Bounty.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Cave_In.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Chill_Wind.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Collapse.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Corrupt_Talisman.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Corrupted_Warrior.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Crag_Troll.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Cursed_Chest.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Cursed_Portal.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Cursed_Vestiges.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Dangerous_Ground.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Dead_Ja_Vu.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Deathly_Avatar.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Deathly_Draught.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Debased_Acolyte.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Dont_Look_Up.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Dormant_Lifeforce.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Drakon.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Drip_Drip_Drip.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Dusk_To_Dawn.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Eldritch_Tentacle.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Escape_Route.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Ethereal_Power.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Excursionist.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Fading_Light.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Falling_Rocks.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Fortune_Favours_The_Grave.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Fresh_Graves.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "G-G-G-G-Ghosts.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Great_Bear.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Hall_of_Heroes.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Halls_Of_Veneration.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Heigh_Ho_Heigh_Ho.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "High_Alert.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Home_Invasion.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Howling_Gale.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Infiltration.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Its_A_Trap.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Its_Alive.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Its_Behind_You.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Lights_Out.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Lurching_Forth.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Malacytic_Exhaustion.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Malacytic_Scourge.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Malacytic_Surge.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Maladite_Golum.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Nectar_Of_The_Gods.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Nomadic_Trader.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "One_Thing_After_Another.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Outta_My_Way.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Panhandler.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Paradigm_Shift.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Premonition.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Purifying_Aether.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Questgiver.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Rotten_Floor.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Rumours.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Runaway_Train.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Seize_Them.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Shhhhh.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Skin_Shifter.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Spitting_Fire.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Split_Tail_Rats.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Spurred_On.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Stand_And_Deliver.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Stroke_Of_Fortune.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Summon_The_Master.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Teamwork.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "The_Cabal.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "The_Floodgates_Open.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "They_Are_Coming.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Theyre_In_The_Walls.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Thunderstorm.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Touched_By_Darkness.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Toxic_Waste.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Trap_Ancient_Wards.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Trap_Crushing_Ceiling.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Trap_Net.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Trap_Pit.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Trap_Swinging_Blade.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Treacherous_Terrain.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Troglodyte.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Tsewer_Nami.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Unexpected_Assault.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Unmasked.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Wanderer.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ],
+  "Watch_Your_Step.png": [
+    {
+      "header": "TODO",
+      "text": "TODO - requires manual entry"
+    }
+  ]
+}

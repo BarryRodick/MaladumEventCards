@@ -3,10 +3,24 @@
  */
 import { state, slugify, cardTypeId } from './state.js';
 import { parseCardTypes } from './card-utils.js';
-import { debounce, showToast } from './app-utils.js';
+import { debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
+import { deriveDeckMode, formatDeckSummary } from './deck-flow-utils.js';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
+
+const MODE_COPY = {
+    build: {
+        eyebrow: 'Build mode',
+        title: 'Assemble your event deck',
+        description: 'Choose games, configure counts, and keep search ready while you play.'
+    },
+    play: {
+        eyebrow: 'Play mode',
+        title: 'Run the deck from one screen',
+        description: 'The active card stays front and center while setup, search, and rebuild tools remain one click away.'
+    }
+};
 
 /**
  * Generates game selection checkboxes
@@ -37,10 +51,10 @@ export function generateGameSelection(games) {
         div.appendChild(label);
         gameCheckboxes.appendChild(div);
 
-        // Add event listener to each checkbox
         checkbox.addEventListener('change', () => {
             loadCardTypes();
             debouncedSaveConfiguration();
+            renderDeckSummary();
         });
     });
 
@@ -53,7 +67,6 @@ export function generateGameSelection(games) {
  * Loads and processes card types based on selected games
  */
 export function loadCardTypes() {
-    // Sync selected games from UI
     state.selectedGames = [];
     state.allGames.forEach(game => {
         const checkbox = document.getElementById(`game-${slugify(game)}`);
@@ -93,6 +106,7 @@ export function loadCardTypes() {
 
     state.allCardTypes = Array.from(uniqueTypes).sort();
     generateCardTypeInputs();
+    renderDeckSummary();
 }
 
 /**
@@ -136,9 +150,10 @@ function setupInputListeners() {
         btn.addEventListener('click', (e) => {
             const type = e.currentTarget.getAttribute('data-type');
             const input = document.getElementById(cardTypeId(type));
-            if (parseInt(input.value) < parseInt(input.max)) {
-                input.value = parseInt(input.value) + 1;
+            if (parseInt(input.value, 10) < parseInt(input.max, 10)) {
+                input.value = parseInt(input.value, 10) + 1;
                 debouncedSaveConfiguration();
+                renderDeckSummary();
             }
         });
     });
@@ -147,21 +162,23 @@ function setupInputListeners() {
         btn.addEventListener('click', (e) => {
             const type = e.currentTarget.getAttribute('data-type');
             const input = document.getElementById(cardTypeId(type));
-            if (parseInt(input.value) > 0) {
-                input.value = parseInt(input.value) - 1;
+            if (parseInt(input.value, 10) > 0) {
+                input.value = parseInt(input.value, 10) - 1;
                 debouncedSaveConfiguration();
+                renderDeckSummary();
             }
         });
     });
 
     document.querySelectorAll('.input-count').forEach(input => {
-        input.addEventListener('change', debouncedSaveConfiguration);
+        input.addEventListener('change', () => {
+            debouncedSaveConfiguration();
+            renderDeckSummary();
+        });
     });
 }
 
 function getSavedCardCount(type) {
-    // During initialization, we might not have the full config yet
-    // This is a simplified version that checks the state or storage
     if ((state.dataStore.sentryTypes.includes(type) && state.enableSentryRules) ||
         (state.dataStore.corrupterTypes.includes(type) && state.enableCorrupterRules)) {
         return state.specialCardCounts?.[type] || 0;
@@ -191,6 +208,7 @@ export function populateDifficultySelection() {
         state.selectedDifficultyIndex = e.target.selectedIndex;
         updateDifficultyDetails();
         debouncedSaveConfiguration();
+        renderDeckSummary();
     });
 }
 
@@ -254,6 +272,163 @@ export function updateCardSearchResults(rawQuery) {
     });
 }
 
+export function initializeDeckFlowUI({ hasSavedConfig = false, hasActiveDeck = false } = {}) {
+    const firstUse = !hasSavedConfig && !hasActiveDeck;
+
+    state.uiMode = hasActiveDeck ? 'play' : 'build';
+    state.isUtilityDrawerOpen = hasActiveDeck ? false : true;
+
+    if (firstUse) {
+        setCollapseState('gameCheckboxes', true);
+        setCollapseState('cardTypeContent', true);
+        setCollapseState('cardSearchContent', false);
+    }
+
+    setCollapseState('cardActionContent', false);
+    setDeckMode(state.uiMode, { openUtilities: state.isUtilityDrawerOpen });
+}
+
+export function setDeckMode(requestedMode, options = {}) {
+    const mode = deriveDeckMode({
+        currentDeckLength: state.currentDeck.length,
+        requestedMode
+    });
+
+    state.uiMode = mode;
+
+    if (typeof options.openUtilities === 'boolean') {
+        state.isUtilityDrawerOpen = options.openUtilities;
+    } else if (requestedMode === 'build') {
+        state.isUtilityDrawerOpen = true;
+    } else if (requestedMode === 'play') {
+        state.isUtilityDrawerOpen = false;
+    }
+
+    const experience = document.getElementById('deckExperience');
+    if (experience) {
+        experience.dataset.mode = mode;
+    }
+
+    const copy = MODE_COPY[mode];
+    const eyebrow = document.getElementById('deckModeEyebrow');
+    const title = document.getElementById('deckModeTitle');
+    const description = document.getElementById('deckModeDescription');
+
+    if (eyebrow) eyebrow.textContent = copy.eyebrow;
+    if (title) title.textContent = copy.title;
+    if (description) description.textContent = copy.description;
+
+    const buildButton = document.getElementById('buildModeButton');
+    const playButton = document.getElementById('playModeButton');
+    const hasActiveDeck = state.currentDeck.length > 0;
+
+    if (buildButton) {
+        buildButton.classList.toggle('is-active', mode === 'build');
+        buildButton.setAttribute('aria-pressed', String(mode === 'build'));
+    }
+
+    if (playButton) {
+        playButton.disabled = !hasActiveDeck;
+        playButton.classList.toggle('is-active', mode === 'play');
+        playButton.setAttribute('aria-pressed', String(mode === 'play'));
+    }
+
+    setUtilitiesDrawerOpen(state.isUtilityDrawerOpen);
+    renderDeckSummary();
+
+    if (mode === 'build' && options.focusUtilities) {
+        const utilityDrawer = document.getElementById('deckUtilityDrawer');
+        utilityDrawer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    return mode;
+}
+
+export function setUtilitiesDrawerOpen(isOpen) {
+    state.isUtilityDrawerOpen = !!isOpen;
+
+    const drawer = document.getElementById('deckUtilityDrawer');
+    const drawerBody = document.getElementById('deckUtilityDrawerBody');
+    const toggleButton = document.getElementById('toggleUtilityDrawer');
+    const summaryToggleButton = document.getElementById('summaryToggleUtilities');
+
+    if (drawer) {
+        drawer.dataset.drawerState = state.isUtilityDrawerOpen ? 'open' : 'closed';
+        drawer.classList.toggle('is-collapsed', !state.isUtilityDrawerOpen);
+    }
+
+    if (drawerBody) {
+        drawerBody.hidden = !state.isUtilityDrawerOpen;
+    }
+
+    if (toggleButton) {
+        toggleButton.innerHTML = state.isUtilityDrawerOpen
+            ? '<i class="fas fa-sliders me-2"></i> Collapse'
+            : '<i class="fas fa-sliders me-2"></i> Expand';
+        toggleButton.setAttribute('aria-expanded', String(state.isUtilityDrawerOpen));
+    }
+
+    if (summaryToggleButton) {
+        summaryToggleButton.innerHTML = state.isUtilityDrawerOpen
+            ? '<i class="fas fa-compass me-2"></i> Hide Utilities'
+            : '<i class="fas fa-compass me-2"></i> Utilities';
+        summaryToggleButton.setAttribute('aria-expanded', String(state.isUtilityDrawerOpen));
+    }
+}
+
+export function toggleUtilityDrawer() {
+    setUtilitiesDrawerOpen(!state.isUtilityDrawerOpen);
+}
+
+export function renderDeckSummary() {
+    const activeDeckSection = document.getElementById('activeDeckSection');
+    if (activeDeckSection) {
+        activeDeckSection.style.display = state.currentDeck.length > 0 ? 'block' : 'none';
+    }
+
+    const summaryBar = document.getElementById('deckSummaryBar');
+    if (summaryBar) {
+        summaryBar.style.display = state.currentDeck.length > 0 ? 'block' : 'none';
+    }
+
+    const currentCard = state.currentIndex >= 0 ? state.currentDeck[state.currentIndex] : null;
+    const difficultyName = state.difficultySettings[state.selectedDifficultyIndex]?.name || '';
+    const summary = formatDeckSummary({
+        selectedGames: state.selectedGames,
+        difficultyName,
+        enableSentryRules: state.enableSentryRules,
+        enableCorrupterRules: state.enableCorrupterRules,
+        currentDeckLength: state.currentDeck.length,
+        currentIndex: state.currentIndex,
+        discardPileLength: state.discardPile.length,
+        currentCardName: currentCard?.card || ''
+    });
+
+    const summaryModeLabel = document.getElementById('deckSummaryModeLabel');
+    const summaryTitle = document.getElementById('deckSummaryTitle');
+    const summaryGames = document.getElementById('deckSummaryGames');
+    const summaryDifficulty = document.getElementById('deckSummaryDifficulty');
+    const summaryRemaining = document.getElementById('deckSummaryRemaining');
+    const summaryDiscard = document.getElementById('deckSummaryDiscard');
+    const summarySentry = document.getElementById('deckSummarySentry');
+    const summaryCorrupter = document.getElementById('deckSummaryCorrupter');
+
+    if (summaryModeLabel) summaryModeLabel.textContent = state.uiMode === 'play' ? 'Play mode' : 'Build mode';
+    if (summaryTitle) summaryTitle.textContent = summary.statusText;
+    if (summaryGames) summaryGames.textContent = summary.gamesText;
+    if (summaryDifficulty) summaryDifficulty.textContent = `Difficulty: ${summary.difficultyText}`;
+    if (summaryRemaining) summaryRemaining.textContent = `Remaining: ${summary.remainingCount}`;
+    if (summaryDiscard) summaryDiscard.textContent = `Discard: ${summary.discardCount}`;
+
+    if (summarySentry) {
+        summarySentry.hidden = !summary.showSentryBadge;
+    }
+
+    if (summaryCorrupter) {
+        summaryCorrupter.hidden = !summary.showCorrupterBadge;
+    }
+}
+
 export function showCardPreview({ id, name, image, type }) {
     const modal = document.getElementById('cardPreviewModal');
     if (!modal) return;
@@ -263,16 +438,19 @@ export function showCardPreview({ id, name, image, type }) {
     } else {
         delete modal.dataset.cardId;
     }
+
     if (name) {
         modal.dataset.cardName = name;
     } else {
         delete modal.dataset.cardName;
     }
+
     if (image) {
         modal.dataset.cardImage = image;
     } else {
         delete modal.dataset.cardImage;
     }
+
     if (type) {
         modal.dataset.cardType = type;
     } else {
@@ -282,16 +460,36 @@ export function showCardPreview({ id, name, image, type }) {
     const title = modal.querySelector('[data-card-preview-title]');
     const imageEl = modal.querySelector('[data-card-preview-image]');
     const typeEl = modal.querySelector('[data-card-preview-type]');
+    const shuffleCountInput = document.getElementById('cardPreviewShuffleCount');
+    const deckActionHint = modal.querySelector('[data-card-preview-hint]');
+    const deckActionButtons = modal.querySelectorAll('[data-preview-deck-action]');
+    const hasActiveDeck = state.currentDeck.length > 0;
 
     if (title) {
         title.textContent = name || 'Card Preview';
     }
+
     if (imageEl) {
         imageEl.src = image ? `cardimages/${image}` : '';
         imageEl.alt = name || 'Card preview';
     }
+
     if (typeEl) {
         typeEl.textContent = type ? `Type: ${type}` : '';
+    }
+
+    if (shuffleCountInput) {
+        shuffleCountInput.disabled = !hasActiveDeck;
+    }
+
+    deckActionButtons.forEach(button => {
+        button.disabled = !hasActiveDeck;
+    });
+
+    if (deckActionHint) {
+        deckActionHint.textContent = hasActiveDeck
+            ? 'Place this card directly into the active deck from here.'
+            : 'Generate a deck to enable live deck actions.';
     }
 
     if (window.bootstrap?.Modal) {
@@ -304,11 +502,32 @@ export function showCardPreview({ id, name, image, type }) {
 }
 
 /**
- * Toggles the Deck Builder configuration UI
+ * Compatibility helper for older callers that toggled the full builder.
  */
 export function toggleDeckBuilderUI(hide) {
-    const controls = document.getElementById('deckBuilderControls');
-    if (controls) {
-        controls.style.display = hide ? 'none' : 'block';
+    setUtilitiesDrawerOpen(!hide);
+}
+
+function setCollapseState(contentId, expanded) {
+    const content = document.getElementById(contentId);
+    if (!content) return;
+
+    const trigger = document.querySelector(`[data-bs-target="#${contentId}"]`);
+
+    if (window.bootstrap?.Collapse) {
+        const collapse = window.bootstrap.Collapse.getOrCreateInstance(content, { toggle: false });
+        if (expanded) {
+            collapse.show();
+        } else {
+            collapse.hide();
+        }
+    } else {
+        content.classList.add('collapse');
+        content.classList.toggle('show', expanded);
+    }
+
+    if (trigger) {
+        trigger.classList.toggle('collapsed', !expanded);
+        trigger.setAttribute('aria-expanded', String(expanded));
     }
 }

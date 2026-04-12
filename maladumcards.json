@@ -1,783 +1,1637 @@
 {
-    "sentryTypes": ["Revenant", "Malagaunt", "Cabal"],
-    "corrupterTypes": ["Corrupter"],
-    "heldBackCardTypes": ["Novice", "Commander", "Veteran", "Mountain"],
-    "games": {
-        "Base Game": [
-            
-        {
-            "id": 1,
-            "card": "Renewed Vigour",
-            "type": "Environment",
-            "contents": "Renewed_Vigour.png"
-        },
-        {
-            "id": 2,
-            "card": "Life Drain",
-            "type": "Revenant",
-            "contents": "Life_Drain.png"
-        },
-        {
-            "id": 3,
-            "card": "Balefire",
-            "type": "Revenant",
-            "contents": "Balefire.png"
-        },
-        {
-            "id": 4,
-            "card": "Respite",
-            "type": "Novice",
-            "contents": "Respite.png"
-        },
-        {
-            "id": 5,
-            "card": "Snap",
-            "type": "Environment",
-            "contents": "Snap.png"
-        },
-        {
-            "id": 6,
-            "card": "Malacytic Fluctuations",
-            "type": "Environment",
-            "contents": "Malacytic_Fluctuations.png"
-        },
-        {
-            "id": 7,
-            "card": "Trap! Arrow",
-            "type": "Dungeon",
-            "contents": "Trap_Arrow.png"
-        },
-        {
-            "id": 8,
-            "card": "Fiery Touch",
-            "type": "Revenant",
-            "contents": "Fiery_Touch.png"
-        },
-        {
-            "id": 9,
-            "card": "Feeling Lucky",
-            "type": "Novice",
-            "contents": "Feeling_Lucky.png"
-        },
-        {
-            "id": 10,
-            "card": "Alarm!",
-            "type": "Environment",
-            "contents": "Alarm.png"
-        },
-        {
-            "id": 11,
-            "card": "Chilling Aura",
-            "type": "Revenant",
-            "contents": "Chilling_Aura.png"
-        },
-        {
-            "id": 12,
-            "card": "Reanimation",
-            "type": "Revenant",
-            "contents": "Reanimation.png"
-        },
-        {
-            "id": 13,
-            "card": "Get That One!",
-            "type": "Revenant",
-            "contents": "Get_That_One.png"
-        },
-        {
-            "id": 14,
-            "card": "Deathly Fusion",
-            "type": "Revenant",
-            "contents": "Deathly_Fusion.png"
-        },
-        {
-            "id": 15,
-            "card": "They're Below Us!",
-            "type": "Revenant",
-            "contents": "Theyre_Below_Us.png"
-        },
-        {
-            "id": 16,
-            "card": "Unnatural Lifeforce",
-            "type": "Malagaunt",
-            "contents": "Unnatural_Lifeforce.png"
-        },
-        {
-            "id": 17,
-            "card": "Death Draws In",
-            "type": "Malagaunt",
-            "contents": "Death_Draws_In.png"
-        },
-        {
-            "id": 18,
-            "card": "Gleaming Trinket",
-            "type": "Environment",
-            "contents": "Gleaming_Trinket.png"
-        },
-        {
-            "id": 19,
-            "card": "Tremors",
-            "type": "Environment",
-            "contents": "Tremors.png"
-        },
-        {
-            "id": 20,
-            "card": "Spooked",
-            "type": "Environment",
-            "contents": "Spooked.png"
-        },
-        {
-            "id": 21,
-            "card": "As One Door Closes...",
-            "type": "Environment",
-            "contents": "As_One_Door_Closes.png"
-        },
-        {
-            "id": 22,
-            "card": "Trap! Snare",
-            "type": "Environment",
-            "contents": "Trap_Snare.png"
-        },
-        {
-            "id": 23,
-            "card": "They're Everywhere",
-            "type": "Environment",
-            "contents": "Theyre_Everywhere.png"
-        },
-        {
-            "id": 24,
-            "card": "Lost Traveller",
-            "type": "Denizen",
-            "contents": "Lost_Traveller.png"
-        },
-        {
-            "id": 25,
-            "card": "Lost Traveller",
-            "type": "Denizen",
-            "contents": "Lost_Traveller.png"
-        },
-        {
-            "id": 26,
-            "card": "Opportunist",
-            "type": "Denizen",
-            "contents": "Opportunist.png"
-        },
-        {
-            "id": 27,
-            "card": "Opportunist",
-            "type": "Denizen",
-            "contents": "Opportunist.png"
-        },
-        {
-            "id": 28,
-            "card": "On The Hunt",
-            "type": "Denizen",
-            "contents": "On_The_Hunt.png"
-        },
-        {
-            "id": 29,
-            "card": "Out For Blood",
-            "type": "Denizen",
-            "contents": "Out_For_Blood.png"
-        },
-        {
-            "id": 30,
-            "card": "Cankers",
-            "type": "Wandering Beast",
-            "contents": "Cankers.png"
-        },
-        {
-            "id": 31,
-            "card": "Troglodyte",
-            "type": "Wandering Beast",
-            "contents": "Troglodyte.png"
-        },
-        {
-            "id": 32,
-            "card": "Drakon",
-            "type": "Wandering Beast",
-            "contents": "Drakon.png"
-        },
-        {
-            "id": 33,
-            "card": "Trap! Net",
-            "type": "Dungeon",
-            "contents": "Trap_Net.png"
-        },
-        {
-            "id": 34,
-            "card": "Trap! Pit",
-            "type": "Dungeon",
-            "contents": "Trap_Pit.png"
-        },
-        {
-            "id": 35,
-            "card": "Trap! Swinging Blade",
-            "type": "Dungeon",
-            "contents": "Trap_Swinging_Blade.png"
-        },
-        {
-            "id": 36,
-            "card": "Fading Light",
-            "type": "Dungeon",
-            "contents": "Fading_Light.png"
-        },
-        {
-            "id": 37,
-            "card": "Collapse!",
-            "type": "Dungeon",
-            "contents": "Collapse.png"
-        },
-        {
-            "id": 38,
-            "card": "Dormant Lifeforce",
-            "type": "Dungeon",
-            "contents": "Dormant_Lifeforce.png"
-        },
-        {
-            "id": 39,
-            "card": "Drip, Drip, Drip",
-            "type": "Dungeon",
-            "contents": "Drip_Drip_Drip.png"
-        },
-        {
-            "id": 40,
-            "card": "Premonition",
-            "type": "Novice",
-            "contents": "Premonition.png"
-        },
-        {
-            "id": 41,
-            "card": "Teamwork",
-            "type": "Novice",
-            "contents": "Teamwork.png"
-        },
-        {
-            "id": 42,
-            "card": "Respite",
-            "type": "Novice",
-            "contents": "Respite.png"
-        },
-        {
-            "id": 43,
-            "card": "Blaze of Glory",
-            "type": "Novice",
-            "contents": "Blaze_of_Glory.png"
-        },
-        {
-            "id": 44,
-            "card": "Spurred On",
-            "type": "Novice",
-            "contents": "Spurred_On.png"
-        },
-        {
-            "id": 45,
-            "card": "Malacytic Surge",
-            "type": "Novice",
-            "contents": "Malacytic_Surge.png"
-        },
-        {
-            "id": 46,
-            "card": "Dangerous Ground",
-            "type": "Veteran",
-            "contents": "Dangerous_Ground.png"
-        },
-        {
-            "id": 47,
-            "card": "Malacytic Exhaustion",
-            "type": "Veteran",
-            "contents": "Malacytic_Exhaustion.png"
-        },
-        {
-            "id": 48,
-            "card": "Unexpected Assault",
-            "type": "Veteran",
-            "contents": "Unexpected_Assault.png"
-        },
-        {
-            "id": 49,
-            "card": "One Thing After Another",
-            "type": "Veteran",
-            "contents": "One_Thing_After_Another.png"
-        },
-        {
-            "id": 50,
-            "card": "Fresh Graves",
-            "type": "Revenant + Veteran",
-            "contents": "Fresh_Graves.png"
-        }
+  "sentryTypes": [
+    "Revenant",
+    "Malagaunt",
+    "Cabal"
+  ],
+  "corrupterTypes": [
+    "Corrupter"
+  ],
+  "heldBackCardTypes": [
+    "Novice",
+    "Commander",
+    "Veteran",
+    "Mountain"
+  ],
+  "games": {
+    "Base Game": [
+      {
+        "id": 1,
+        "card": "Renewed Vigour",
+        "type": "Environment",
+        "contents": "Renewed_Vigour.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DISTRESS",
+            "threshold": 1,
+            "text": "Your enemies are spurred on by unseen forces. All Adversaries in play immediately take one action following the normal rules."
+          },
+          {
+            "header": "DISMAY-DESPERATION",
+            "threshold": 2,
+            "text": "The three Adversaries closest to an Adventurer are Blessed. Then, all Adversaries in play immediately take one action following the normal rules."
+          },
+          {
+            "header": "DISASTER-DOOM",
+            "text": "Flip the Adversary board to the reverse side, if not already flipped. Then, all Adversaries in play immediately take one action following the normal rules."
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "card": "Life Drain",
+        "type": "Revenant",
+        "contents": "Life_Drain.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "The Adventurer with the most Health suffers 2 damage (up to a maximum of their remaining Health). They may spend Magic pegs to reduce this damage.\n\nIf the Malagaunt is in play, it restores Health equal to the damage inflicted (this may exceed its starting health).\n\nOtherwise, that many Lamentors arrive, if available, at the nearest empty Grave Points to the Adventurer."
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "card": "Balefire",
+        "type": "Revenant",
+        "contents": "Balefire.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "threshold": 2,
+            "text": "The Malagaunt channels its magic through one of its minions. The closest unengaged Adversary to an enemy targets that enemy with a two-dice ranged attack with [icon:fire].\n\nThen, all unengaged Adversaries make a Move action."
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "card": "Respite",
+        "type": "Novice",
+        "contents": "Respite.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "There is an unexpected lull in the seemingly endless onslaught. Reduce Dread by 2. No Adversaries will arrive this round. Adventurers already in play will activate as normal."
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "card": "Snap",
+        "type": "Environment",
+        "contents": "Snap.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "Select an Adventurer at random. A random item that they are carrying is broken. Turn the item face down in their inventory."
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "card": "Malacytic Fluctuations",
+        "type": "Environment",
+        "contents": "Malacytic_Fluctuations.png",
+        "sections": [
+          {
+            "header": "DISQUIET",
+            "text": "Each Adventurer feels buoyed as natural energy flows through them. All characters gain a Magic peg \u00e2\u20ac\u201c this may exceed their starting value."
+          },
+          {
+            "header": "DISTRESS",
+            "text": "The Adventurers feel suddenly drained by an unnatural force. All characters discard a Magic peg. If they cannot they become Fatigued."
+          },
+          {
+            "header": "DISMAY-DESPERATION",
+            "text": "All characters gain two Magic pegs \u00e2\u20ac\u201c this may exceed their starting value."
+          },
+          {
+            "header": "DISASTER-DOOM",
+            "text": "All characters discard two Magic pegs. If they cannot they become Fatigued for each."
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "card": "Trap! Arrow",
+        "type": "Dungeon",
+        "contents": "Trap_Arrow.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - image too small to read"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "card": "Fiery Touch",
+        "type": "Revenant",
+        "contents": "Fiery_Touch.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "threshold": 2,
+            "text": "The Malagaunt channels its magic through its minions. All engaged Adversaries make a two-dice melee attack with [icon:fire].\n\nThen, all unengaged Adversaries make a Move action."
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "card": "Feeling Lucky",
+        "type": "Novice",
+        "contents": "Feeling_Lucky.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "Reduce Dread by 1. All Adventurers in play become Blessed."
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "card": "Alarm!",
+        "type": "Environment",
+        "contents": "Alarm.png",
+        "sections": [
+          {
+            "header": "DISQUIET",
+            "text": "Your presence has sounded an alarm. Increase the Dread by 1."
+          },
+          {
+            "header": "DISTRESS-DISMAY",
+            "text": "Place this card next to the Dread Tracker and place three black pegs on top of it. Add one of these pegs to the Tracker in each Assessment Phase. When all pegs have been used, discard this card."
+          },
+          {
+            "header": "DESPERATION-DOOM",
+            "text": "Increase the Dread by 1. Then roll the Magic Die for each Adventurer. On a 1, that Adventurer becomes Terrified.\n\nThen discard this card and draw another."
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "card": "Chilling Aura",
+        "type": "Revenant",
+        "contents": "Chilling_Aura.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DISMAY",
+            "threshold": 1,
+            "text": "All non-Adversaries within short range of a Revenant become Terrified. They may spend a Magic peg to ignore this effect."
+          },
+          {
+            "header": "DESPERATION-DOOM",
+            "text": "All non-Adversaries within short range of a Revenant become Terrified and Fatigued. They may spend one Magic peg to ignore each effect."
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "card": "Reanimation",
+        "type": "Revenant",
+        "contents": "Reanimation.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DISTRESS",
+            "text": "Place a Lamentor at the nearest empty Grave Point to an Adventurer. It activates immediately, and will activate again in the Adversary Phase."
+          },
+          {
+            "header": "DISMAY-DOOM",
+            "text": "Target a random defeated Adventurer, if any. The Adventurer Stands Up, and then takes 3 actions as if they were an Adversary. The defeated Adventurer may spend Magic pegs to reduce this number of actions.\n\nAfter any actions have been taken, the character is laid prone and marked as defeated again.\n\nIf there are no defeated Adventurers, place a Lamentor at the nearest empty Grave Point to an Adventurer and activate it."
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "card": "Get That One!",
+        "type": "Revenant",
+        "contents": "Get_That_One.png",
+        "sections": [
+          {
+            "header": "DISQUIET",
+            "threshold": 1,
+            "text": "Choose the Adventurer with the fewest Health pegs. All enemies within medium range and LoS not engaged with another Adventurer take one action with the chosen Adventurer as the target."
+          },
+          {
+            "header": "DISTRESS-DISMAY",
+            "threshold": 2,
+            "text": "Choose the Adventurer with the most Magic pegs. All enemies within medium range and LoS not engaged with another Adventurer take one action with the chosen Adventurer as the target."
+          },
+          {
+            "header": "DESPERATION-DOOM",
+            "threshold": 3,
+            "text": "Choose the Adventurer with the most Health pegs. All enemies within medium range and LoS not engaged with another Adventurer take one action with the chosen Adventurer as the target."
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "card": "Deathly Fusion",
+        "type": "Revenant",
+        "contents": "Deathly_Fusion.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DISTRESS",
+            "text": "Determine the Lamentor closest to a terrain piece with armour 1 (e.g. Barricade, Crate). Replace the Lamentor with a Myria and Bless it; then remove the terrain piece from play, breaking and scattering any items inside.\n\nIf no Lamentors are in play or no Myria are available, increase the Dread by 1 and shuffle this card back into the deck."
+          },
+          {
+            "header": "DISMAY-DOOM",
+            "text": "For each Hellfont not currently in play, determine the Lamentor closest to a Crucible of Resurrection. Replace the Lamentors with Hellfonts and Bless them.\n\nIf no Crucibles are in play or no Hellfonts are available, resolve as Disquiet-Distress."
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "card": "They're Below Us!",
+        "type": "Revenant",
+        "contents": "Theyre_Below_Us.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "All non-Commander Adversaries arriving this round arrive from Grave Points, not Entry Points. In addition, characters do not block Grave Points this round \u00e2\u20ac\u201c Adversaries that would arrive there are placed in contact with the character on top.\n\nIf a Rot Troll would arrive, place a Pit terrain piece on top of the selected Grave Point, and place the Rot Troll in contact with it, pushing other characters aside if necessary.\n\nAny character on the Pit falls in. Any non-Adversary character in contact with the Pit must spend a Skill peg (reaction) or fall in.\n\nThe Pit remains in play, following the normal rules."
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "card": "Unnatural Lifeforce",
+        "type": "Malagaunt",
+        "contents": "Unnatural_Lifeforce.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "threshold": 1,
+            "text": "The Adversary (not including Commanders) furthest from an Adventurer is immediately defeated. Give the Malagaunt a number of Blessed counters equal to that Adversary's rank (even if the Malagaunt hasn't entered play yet)."
+          }
+        ]
+      },
+      {
+        "id": 17,
+        "card": "Death Draws In",
+        "type": "Malagaunt",
+        "contents": "Death_Draws_In.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DISTRESS",
+            "text": "Increase the Dread by 2 and shuffle this card back into the deck."
+          },
+          {
+            "header": "DISMAY-DOOM",
+            "text": "If the Deathly Avatar is in play, replace it with the Malagaunt. Flip the character board and adjust its pegs to the starting statistics of the Malagaunt. Then Bless the Malagaunt.\n\nOtherwise, the Malagaunt is placed at a random Entry Point.\n\nIf the Malagaunt is already in play, it becomes Blessed."
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "card": "Gleaming Trinket",
+        "type": "Environment",
+        "contents": "Gleaming_Trinket.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "An Adventurer spots something shining in the distance, but there's something blocking the view... Determine the square on the board furthest from any Adventurers that at least one Adventurer has LoS to. Place an unused Objective token (or Reminder counter if no Objectives are available) in that square.\n\nThen place the highest-ranking Adversary available in the current Dread band in a square adjacent to the token.\n\nSet this card aside as a reminder. If the Objective token is retrieved, roll the Magic Die and replace it with the following:\n1-2: A random item from the token pouch\n3-4: A random uncommon item\n5-6: A random rare item\nToken size does not matter. Then discard this card."
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "card": "Tremors",
+        "type": "Environment",
+        "contents": "Tremors.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DISTRESS",
+            "text": "The ground shakes. Set this card aside. All attacks roll one fewer die until the end of the round, and all Move distances are decreased by 1 square. Discard this card at the end of the round."
+          },
+          {
+            "header": "DISMAY",
+            "text": "There is an unexpected seismic shift. All characters not in contact with a wall are knocked prone.\n\nThen, as Disquiet-Distress."
+          },
+          {
+            "header": "DESPERATION-DOOM",
+            "text": "A rotten floor gives way. The first player chooses a point on the board and scatters twice, ignoring terrain. Place a Pit terrain piece as close as possible to that location (avoiding terrain but ignoring characters).\n\nAny character on the Pit falls in. Any character adjacent to the Pit must spend a Skill peg (reaction) or fall in.\n\nThe Pit remains in play, following the normal rules.\n\nThen, as Disquiet-Distress."
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "card": "Spooked",
+        "type": "Environment",
+        "contents": "Spooked.png",
+        "sections": [
+          {
+            "header": "DISQUIET",
+            "text": "You are distracted by distant noises. Increase the Dread by 1 and shuffle this card back into the deck."
+          },
+          {
+            "header": "DISTRESS-DISMAY",
+            "text": "There are strange shapes lurking in the shadows. A random Adventurer becomes Terrified."
+          },
+          {
+            "header": "DESPERATION-DOOM",
+            "text": "Hysteria is spreading. A random Adventurer becomes Terrified and Fatigued, and all Adventurers within short range of the target become Terrified."
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "card": "As One Door Closes...",
+        "type": "Environment",
+        "contents": "As_One_Door_Closes.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DISMAY",
+            "text": "What was once a safe staging point is no longer safe \u00e2\u20ac\u201c your escape route has been blocked! However, you've spotted an alternative way out, if you can get there.\n\nThe first player rolls the Magic Die and swaps their Staging Point with the matching Entry Point."
+          },
+          {
+            "header": "DESPERATION-DOOM",
+            "text": "Hordes of enemies appear at what you thought was a safe escape route. At this point you have no choice but to fight your way out.\n\nThe first player rolls the Magic Die twice, re-rolling duplicates. The Entry Points matching the numbers rolled are moved adjacent to the player's Staging Point."
+          }
+        ]
+      },
+      {
+        "id": 22,
+        "card": "Trap! Snare",
+        "type": "Environment",
+        "contents": "Trap_Snare.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "An Adventurer stumbles into a snare laid for a wild animal! A random Adventurer suffers an attack with three dice, Sharp [icon:sharp] and Entangling [icon:entangling]."
+          }
+        ]
+      },
+      {
+        "id": 23,
+        "card": "They're Everywhere",
+        "type": "Environment",
+        "contents": "Theyre_Everywhere.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "You've noticed them here and there; some kind of vermin clustered on columns and ceilings, probably attracted by the residual energy of your magic. They were no bother at first, but now they seem to consider you a threat and they attack!\n\nRoll a combat die for each non-Adversary character in play. On a [icon:paw] they become Poisoned. Otherwise, they suffer Fatigued counters equal to the number of hits rolled as they fight off the creatures. Stunned characters do not roll \u00e2\u20ac\u201c they are automatically Poisoned."
+          }
+        ]
+      },
+      {
+        "id": 24,
+        "card": "Lost Traveller",
+        "type": "Denizen",
+        "contents": "Lost_Traveller.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - image too small to read"
+          }
+        ]
+      },
+      {
+        "id": 25,
+        "card": "Lost Traveller",
+        "type": "Denizen",
+        "contents": "Lost_Traveller.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - image too small to read"
+          }
+        ]
+      },
+      {
+        "id": 26,
+        "card": "Opportunist",
+        "type": "Denizen",
+        "contents": "Opportunist.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - image too small to read"
+          }
+        ]
+      },
+      {
+        "id": 27,
+        "card": "Opportunist",
+        "type": "Denizen",
+        "contents": "Opportunist.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - image too small to read"
+          }
+        ]
+      },
+      {
+        "id": 28,
+        "card": "On The Hunt",
+        "type": "Denizen",
+        "contents": "On_The_Hunt.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - image too small to read"
+          }
+        ]
+      },
+      {
+        "id": 29,
+        "card": "Out For Blood",
+        "type": "Denizen",
+        "contents": "Out_For_Blood.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - image too small to read"
+          }
+        ]
+      },
+      {
+        "id": 30,
+        "card": "Cankers",
+        "type": "Wandering Beast",
+        "contents": "Cankers.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - image too small to read"
+          }
+        ]
+      },
+      {
+        "id": 31,
+        "card": "Troglodyte",
+        "type": "Wandering Beast",
+        "contents": "Troglodyte.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 32,
+        "card": "Drakon",
+        "type": "Wandering Beast",
+        "contents": "Drakon.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 33,
+        "card": "Trap! Net",
+        "type": "Dungeon",
+        "contents": "Trap_Net.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 34,
+        "card": "Trap! Pit",
+        "type": "Dungeon",
+        "contents": "Trap_Pit.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 35,
+        "card": "Trap! Swinging Blade",
+        "type": "Dungeon",
+        "contents": "Trap_Swinging_Blade.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 36,
+        "card": "Fading Light",
+        "type": "Dungeon",
+        "contents": "Fading_Light.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 37,
+        "card": "Collapse!",
+        "type": "Dungeon",
+        "contents": "Collapse.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 38,
+        "card": "Dormant Lifeforce",
+        "type": "Dungeon",
+        "contents": "Dormant_Lifeforce.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 39,
+        "card": "Drip, Drip, Drip",
+        "type": "Dungeon",
+        "contents": "Drip_Drip_Drip.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 40,
+        "card": "Premonition",
+        "type": "Novice",
+        "contents": "Premonition.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 41,
+        "card": "Teamwork",
+        "type": "Novice",
+        "contents": "Teamwork.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 42,
+        "card": "Respite",
+        "type": "Novice",
+        "contents": "Respite.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "There is an unexpected lull in the seemingly endless onslaught. Reduce Dread by 2. No Adversaries will arrive this round. Adventurers already in play will activate as normal."
+          }
+        ]
+      },
+      {
+        "id": 43,
+        "card": "Blaze of Glory",
+        "type": "Novice",
+        "contents": "Blaze_of_Glory.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 44,
+        "card": "Spurred On",
+        "type": "Novice",
+        "contents": "Spurred_On.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 45,
+        "card": "Malacytic Surge",
+        "type": "Novice",
+        "contents": "Malacytic_Surge.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 46,
+        "card": "Dangerous Ground",
+        "type": "Veteran",
+        "contents": "Dangerous_Ground.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 47,
+        "card": "Malacytic Exhaustion",
+        "type": "Veteran",
+        "contents": "Malacytic_Exhaustion.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 48,
+        "card": "Unexpected Assault",
+        "type": "Veteran",
+        "contents": "Unexpected_Assault.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 49,
+        "card": "One Thing After Another",
+        "type": "Veteran",
+        "contents": "One_Thing_After_Another.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 50,
+        "card": "Fresh Graves",
+        "type": "Revenant + Veteran",
+        "contents": "Fresh_Graves.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      }
     ],
     "Of Ale And Adventure": [
-        {
-            "id": 51,
-            "card": "Questgiver",
-            "type": "Denizen",
-            "contents": "Questgiver.png"
-        },
-        {
-            "id": 52,
-            "card": "Questgiver",
-            "type": "Denizen",
-            "contents": "Questgiver.png"
-        },
-        {
-            "id": 53,
-            "card": "Stand And Deliver!",
-            "type": "Denizen",
-            "contents": "Stand_And_Deliver.png"
-        },
-        {
-            "id": 54,
-            "card": "Bounty!",
-            "type": "Denizen",
-            "contents": "Bounty.png"
-        },
-        {
-            "id": 55,
-            "card": "Nomadic Trader",
-            "type": "Denizen",
-            "contents": "Nomadic_Trader.png"
-        },
-        {
-            "id": 56,
-            "card": "Excursionist",
-            "type": "Denizen",
-            "contents": "Excursionist.png"
-        },
-        {
-            "id": 57,
-            "card": "Panhandler",
-            "type": "Denizen",
-            "contents": "Panhandler.png"
-        },
-        {
-            "id": 58,
-            "card": "Wanderer",
-            "type": "Denizen",
-            "contents": "Wanderer.png"
-        },
-        {
-            "id": 59,
-            "card": "Rumours",
-            "type": "Environment",
-            "contents": "Rumours.png"
-        },
-        {
-            "id": 60,
-            "card": "Escape Route",
-            "type": "Novice",
-            "contents": "Escape_Route.png"
-        },
-        {
-            "id": 61,
-            "card": "It's A Trap!",
-            "type": "Novice",
-            "contents": "Its_A_Trap.png"
-        },
-        {
-            "id": 62,
-            "card": "Outta My Way!",
-            "type": "Novice",
-            "contents": "Outta_My_Way.png"
-        },
-        {
-            "id": 63,
-            "card": "Stroke Of Fortune",
-            "type": "Novice",
-            "contents": "Stroke_Of_Fortune.png"
-        },
-        {
-            "id": 64,
-            "card": "Lights Out",
-            "type": "Veteran + Dungeon",
-            "contents": "Lights_Out.png"
-        },
-        {
-            "id": 65,
-            "card": "Paradigm Shift",
-            "type": "Veteran",
-            "contents": "Paradigm_Shift.png"
-        }
+      {
+        "id": 51,
+        "card": "Questgiver",
+        "type": "Denizen",
+        "contents": "Questgiver.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 52,
+        "card": "Questgiver",
+        "type": "Denizen",
+        "contents": "Questgiver.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 53,
+        "card": "Stand And Deliver!",
+        "type": "Denizen",
+        "contents": "Stand_And_Deliver.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 54,
+        "card": "Bounty!",
+        "type": "Denizen",
+        "contents": "Bounty.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 55,
+        "card": "Nomadic Trader",
+        "type": "Denizen",
+        "contents": "Nomadic_Trader.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 56,
+        "card": "Excursionist",
+        "type": "Denizen",
+        "contents": "Excursionist.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 57,
+        "card": "Panhandler",
+        "type": "Denizen",
+        "contents": "Panhandler.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 58,
+        "card": "Wanderer",
+        "type": "Denizen",
+        "contents": "Wanderer.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 59,
+        "card": "Rumours",
+        "type": "Environment",
+        "contents": "Rumours.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 60,
+        "card": "Escape Route",
+        "type": "Novice",
+        "contents": "Escape_Route.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 61,
+        "card": "It's A Trap!",
+        "type": "Novice",
+        "contents": "Its_A_Trap.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 62,
+        "card": "Outta My Way!",
+        "type": "Novice",
+        "contents": "Outta_My_Way.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 63,
+        "card": "Stroke Of Fortune",
+        "type": "Novice",
+        "contents": "Stroke_Of_Fortune.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 64,
+        "card": "Lights Out",
+        "type": "Veteran + Dungeon",
+        "contents": "Lights_Out.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 65,
+        "card": "Paradigm Shift",
+        "type": "Veteran",
+        "contents": "Paradigm_Shift.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      }
     ],
     "Beyond The Vaults": [
-        {
-            "id": 66,
-            "card": "Tsewer-Nami",
-            "type": "Environment",
-            "contents": "Tsewer_Nami.png"
-        },
-        {
-            "id": 67,
-            "card": "Toxic Waste",
-            "type": "Environment",
-            "contents": "Toxic_Waste.png"
-        },
-        {
-            "id": 68,
-            "card": "Spitting Fire",
-            "type": "Environment",
-            "contents": "Spitting_Fire.png"
-        },
-        {
-            "id": 69,
-            "card": "Cave-In!",
-            "type": "Dungeon",
-            "contents": "Cave_In.png"
-        },
-        {
-            "id": 70,
-            "card": "Heigh-Ho, Heigh-Ho!",
-            "type": "Dungeon + Denizen",
-            "contents": "Heigh_Ho_Heigh_Ho.png"
-        },
-        {
-            "id": 71,
-            "card": "Runaway Train",
-            "type": "Dungeon",
-            "contents": "Runaway_Train.png"
-        },
-        {
-            "id": 72,
-            "card": "G-G-G-G-Ghosts!",
-            "type": "Dungeon",
-            "contents": "G-G-G-G-Ghosts.png"
-        },
-        {
-            "id": 73,
-            "card": "Hall of Heroes",
-            "type": "Dungeon",
-            "contents": "Hall_of_Heroes.png"
-        },
-        {
-            "id": 74,
-            "card": "Nectar Of The Gods",
-            "type": "Environment",
-            "contents": "Nectar_Of_The_Gods.png"
-        },
-        {
-            "id": 75,
-            "card": "Infiltration",
-            "type": "Dungeon",
-            "contents": "Infiltration.png"
-        },
-        {
-            "id": 76,
-            "card": "Shhhhh......",
-            "type": "Dungeon",
-            "contents": "Shhhhh.png"
-        },
-        {
-            "id": 77,
-            "card": "Seize Them!",
-            "type": "Dungeon",
-            "contents": "Seize_Them.png"
-        },
-        {
-            "id": 78,
-            "card": "Watch Your Step!",
-            "type": "Environment",
-            "contents": "Watch_Your_Step.png"
-        },
-        {
-            "id": 79,
-            "card": "Corrupted Warrior",
-            "type": "Veteran",
-            "contents": "Corrupted_Warrior.png"
-        },
-        {
-            "id": 80,
-            "card": "Rotten Floor",
-            "type": "Veteran + Environment",
-            "contents": "Rotten_Floor.png"
-        },
-        {
-            "id": 81,
-            "card": "They're In The Walls!",
-            "type": "Veteran + Environment",
-            "contents": "Theyre_In_The_Walls.png"
-        },
-        {
-            "id": 82,
-            "card": "The Floodgates Open",
-            "type": "Veteran + Environment",
-            "contents": "The_Floodgates_Open.png"
-        },
-        {
-            "id": 83,
-            "card": "The Floodgates Open",
-            "type": "Veteran + Environment",
-            "contents": "The_Floodgates_Open.png"
-        }
+      {
+        "id": 66,
+        "card": "Tsewer-Nami",
+        "type": "Environment",
+        "contents": "Tsewer_Nami.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 67,
+        "card": "Toxic Waste",
+        "type": "Environment",
+        "contents": "Toxic_Waste.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 68,
+        "card": "Spitting Fire",
+        "type": "Environment",
+        "contents": "Spitting_Fire.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 69,
+        "card": "Cave-In!",
+        "type": "Dungeon",
+        "contents": "Cave_In.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 70,
+        "card": "Heigh-Ho, Heigh-Ho!",
+        "type": "Dungeon + Denizen",
+        "contents": "Heigh_Ho_Heigh_Ho.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 71,
+        "card": "Runaway Train",
+        "type": "Dungeon",
+        "contents": "Runaway_Train.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 72,
+        "card": "G-G-G-G-Ghosts!",
+        "type": "Dungeon",
+        "contents": "G-G-G-G-Ghosts.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 73,
+        "card": "Hall of Heroes",
+        "type": "Dungeon",
+        "contents": "Hall_of_Heroes.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 74,
+        "card": "Nectar Of The Gods",
+        "type": "Environment",
+        "contents": "Nectar_Of_The_Gods.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 75,
+        "card": "Infiltration",
+        "type": "Dungeon",
+        "contents": "Infiltration.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 76,
+        "card": "Shhhhh......",
+        "type": "Dungeon",
+        "contents": "Shhhhh.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 77,
+        "card": "Seize Them!",
+        "type": "Dungeon",
+        "contents": "Seize_Them.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 78,
+        "card": "Watch Your Step!",
+        "type": "Environment",
+        "contents": "Watch_Your_Step.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 79,
+        "card": "Corrupted Warrior",
+        "type": "Veteran",
+        "contents": "Corrupted_Warrior.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 80,
+        "card": "Rotten Floor",
+        "type": "Veteran + Environment",
+        "contents": "Rotten_Floor.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 81,
+        "card": "They're In The Walls!",
+        "type": "Veteran + Environment",
+        "contents": "Theyre_In_The_Walls.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 82,
+        "card": "The Floodgates Open",
+        "type": "Veteran + Environment",
+        "contents": "The_Floodgates_Open.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 83,
+        "card": "The Floodgates Open",
+        "type": "Veteran + Environment",
+        "contents": "The_Floodgates_Open.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      }
     ],
     "Revenant Retribution": [
-        {
-            "id": 84,
-            "card": "High Alert",
-            "type": "Revenant + Veteran",
-            "contents": "High_Alert.png"
-        },
-        {
-            "id": 85,
-            "card": "Fortune Favours The Grave",
-            "type": "Revenant + Veteran",
-            "contents": "Fortune_Favours_The_Grave.png"
-        },
-        {
-            "id": 86,
-            "card": "Lurching Forth",
-            "type": "Revenant + Veteran",
-            "contents": "Lurching_Forth.png"
-        },
-        {
-            "id": 87,
-            "card": "Dead-Jà Vu",
-            "type": "Revenant + Veteran",
-            "contents": "Dead_Ja_Vu.png"
-        },
-        {
-            "id": 88,
-            "card": "Deathly Avatar",
-            "type": "Revenant + Veteran",
-            "contents": "Deathly_Avatar.png"
-        }
+      {
+        "id": 84,
+        "card": "High Alert",
+        "type": "Revenant + Veteran",
+        "contents": "High_Alert.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 85,
+        "card": "Fortune Favours The Grave",
+        "type": "Revenant + Veteran",
+        "contents": "Fortune_Favours_The_Grave.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 86,
+        "card": "Lurching Forth",
+        "type": "Revenant + Veteran",
+        "contents": "Lurching_Forth.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 87,
+        "card": "Dead-J\u00c3\u00a0 Vu",
+        "type": "Revenant + Veteran",
+        "contents": "Dead_Ja_Vu.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 88,
+        "card": "Deathly Avatar",
+        "type": "Revenant + Veteran",
+        "contents": "Deathly_Avatar.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      }
     ],
     "Beasts Of Environ": [
-        {
-            "id": 89,
-            "card": "Split-Tail Rats",
-            "type": "Wandering Beast",
-            "contents": "Split_Tail_Rats.png"
-        },
-        {
-            "id": 90,
-            "card": "Alary",
-            "type": "Wandering Beast",
-            "contents": "Alary.png"
-        },
-        {
-            "id": 91,
-            "card": "Great Bear",
-            "type": "Wandering Beast",
-            "contents": "Great_Bear.png"
-        },
-        {
-            "id": 92,
-            "card": "Bloodwyrm",
-            "type": "Wandering Beast",
-            "contents": "Bloodwyrm.png"
-        },
-        {
-            "id": 93,
-            "card": "Skin Shifter",
-            "type": "Wandering Beast",
-            "contents": "Skin_Shifter.png"
-        },
-        {
-            "id": 94,
-            "card": "Crag Troll",
-            "type": "Wandering Beast",
-            "contents": "Crag_Troll.png"
-        },
-        {
-            "id": 95,
-            "card": "It's Alive",
-            "type": "Environment",
-            "contents": "Its_Alive.png"
-        },
-        {
-            "id": 96,
-            "card": "Home Invasion",
-            "type": "Environment",
-            "contents": "Home_Invasion.png"
-        },
-        {
-            "id": 97,
-            "card": "Unmasked!",
-            "type": "Denizen",
-            "contents": "Unmasked.png"
-        }
+      {
+        "id": 89,
+        "card": "Split-Tail Rats",
+        "type": "Wandering Beast",
+        "contents": "Split_Tail_Rats.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 90,
+        "card": "Alary",
+        "type": "Wandering Beast",
+        "contents": "Alary.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 91,
+        "card": "Great Bear",
+        "type": "Wandering Beast",
+        "contents": "Great_Bear.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 92,
+        "card": "Bloodwyrm",
+        "type": "Wandering Beast",
+        "contents": "Bloodwyrm.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 93,
+        "card": "Skin Shifter",
+        "type": "Wandering Beast",
+        "contents": "Skin_Shifter.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 94,
+        "card": "Crag Troll",
+        "type": "Wandering Beast",
+        "contents": "Crag_Troll.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 95,
+        "card": "It's Alive",
+        "type": "Environment",
+        "contents": "Its_Alive.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 96,
+        "card": "Home Invasion",
+        "type": "Environment",
+        "contents": "Home_Invasion.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 97,
+        "card": "Unmasked!",
+        "type": "Denizen",
+        "contents": "Unmasked.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      }
     ],
     "Oblivion's Maw": [
-        {
-            "id": 98,
-            "card": "Eldritch Tentacle",
-            "type": "Corrupter / Wandering Beast",
-            "contents": "Eldritch_Tentacle.png"
-        },
-        {
-            "id": 99,
-            "card": "Eldritch Tentacle",
-            "type": "Corrupter / Wandering Beast",
-            "contents": "Eldritch_Tentacle.png"
-        },
-        {
-            "id": 100,
-            "card": "Eldritch Tentacle",
-            "type": "Corrupter / Wandering Beast",
-            "contents": "Eldritch_Tentacle.png"
-        },
-        {
-            "id": 101,
-            "card": "It's Behind You!",
-            "type": "Corrupter",
-            "contents": "Its_Behind_You.png"
-        },
-        {
-            "id": 102,
-            "card": "Corrupt Talisman",
-            "type": "Corrupter",
-            "contents": "Corrupt_Talisman.png"
-        },
-        {
-            "id": 103,
-            "card": "Ethereal Power",
-            "type": "Environment",
-            "contents": "Ethereal_Power.png"
-        },
-        {
-            "id": 104,
-            "card": "Deathly Draught",
-            "type": "Environment",
-            "contents": "Deathly_Draught.png"
-        },
-        {
-            "id": 105,
-            "card": "Don't Look Up",
-            "type": "Dungeon",
-            "contents": "Dont_Look_Up.png"
-        },
-        {
-            "id": 106,
-            "card": "Halls Of Veneration",
-            "type": "Dungeon",
-            "contents": "Halls_Of_Veneration.png"
-        },
-        {
-            "id": 107,
-            "card": "Cursed Chest",
-            "type": "Wandering Beast",
-            "contents": "Cursed_Chest.png"
-        },
-        {
-            "id": 108,
-            "card": "Cursed Portal",
-            "type": "Wandering Beast",
-            "contents": "Cursed_Portal.png"
-        },
-        {
-            "id": 109,
-            "card": "Cursed Vestiges",
-            "type": "Wandering Beast",
-            "contents": "Cursed_Vestiges.png"
-        },
-        {
-            "id": 110,
-            "card": "Trap! Ancient Wards",
-            "type": "Veteran + Dungeon",
-            "contents": "Trap_Ancient_Wards.png"
-        },
-        {
-            "id": 111,
-            "card": "Trap! Crushing Ceiling",
-            "type": "Veteran + Dungeon",
-            "contents": "Trap_Crushing_Ceiling.png"
-        },
-        {
-            "id": 112,
-            "card": "Summon The Master...",
-            "type": "Veteran",
-            "contents": "Summon_The_Master.png"
-        }
+      {
+        "id": 98,
+        "card": "Eldritch Tentacle",
+        "type": "Corrupter / Wandering Beast",
+        "contents": "Eldritch_Tentacle.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 99,
+        "card": "Eldritch Tentacle",
+        "type": "Corrupter / Wandering Beast",
+        "contents": "Eldritch_Tentacle.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 100,
+        "card": "Eldritch Tentacle",
+        "type": "Corrupter / Wandering Beast",
+        "contents": "Eldritch_Tentacle.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 101,
+        "card": "It's Behind You!",
+        "type": "Corrupter",
+        "contents": "Its_Behind_You.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 102,
+        "card": "Corrupt Talisman",
+        "type": "Corrupter",
+        "contents": "Corrupt_Talisman.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 103,
+        "card": "Ethereal Power",
+        "type": "Environment",
+        "contents": "Ethereal_Power.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 104,
+        "card": "Deathly Draught",
+        "type": "Environment",
+        "contents": "Deathly_Draught.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 105,
+        "card": "Don't Look Up",
+        "type": "Dungeon",
+        "contents": "Dont_Look_Up.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 106,
+        "card": "Halls Of Veneration",
+        "type": "Dungeon",
+        "contents": "Halls_Of_Veneration.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 107,
+        "card": "Cursed Chest",
+        "type": "Wandering Beast",
+        "contents": "Cursed_Chest.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 108,
+        "card": "Cursed Portal",
+        "type": "Wandering Beast",
+        "contents": "Cursed_Portal.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 109,
+        "card": "Cursed Vestiges",
+        "type": "Wandering Beast",
+        "contents": "Cursed_Vestiges.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 110,
+        "card": "Trap! Ancient Wards",
+        "type": "Veteran + Dungeon",
+        "contents": "Trap_Ancient_Wards.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 111,
+        "card": "Trap! Crushing Ceiling",
+        "type": "Veteran + Dungeon",
+        "contents": "Trap_Crushing_Ceiling.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 112,
+        "card": "Summon The Master...",
+        "type": "Veteran",
+        "contents": "Summon_The_Master.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      }
     ],
     "Forbidden Creed": [
-        {
-            "id": 113,
-            "card": "Maladite Golum",
-            "type": "Wandering Beast",
-            "contents": "Maladite_Golum.png"
-        },
-        {
-            "id": 114,
-            "card": "The Cabal",
-            "type": "Cabal",
-            "contents": "The_Cabal.png"
-        },
-        {
-            "id": 115,
-            "card": "Debased Acolyte",
-            "type": "Cabal",
-            "contents": "Debased_Acolyte.png"
-        },
-        {
-            "id": 116,
-            "card": "Treacherous Terrain",
-            "type": "Mountain",
-            "contents": "Treacherous_Terrain.png"
-        },
-        {
-            "id": 117,
-            "card": "Treacherous Terrain",
-            "type": "Mountain",
-            "contents": "Treacherous_Terrain.png"
-        },
-        {
-            "id": 118,
-            "card": "Thunderstorm",
-            "type": "Mountain",
-            "contents": "Thunderstorm.png"
-        },
-        {
-            "id": 119,
-            "card": "Ambush!",
-            "type": "Mountain",
-            "contents": "Ambush.png"
-        },
-        {
-            "id": 120,
-            "card": "Chill Wind",
-            "type": "Mountain",
-            "contents": "Chill_Wind.png"
-        },
-        {
-            "id": 121,
-            "card": "Dusk To Dawn",
-            "type": "Mountain",
-            "contents": "Dusk_To_Dawn.png"
-        },
-        {
-            "id": 122,
-            "card": "Falling Rocks",
-            "type": "Mountain",
-            "contents": "Falling_Rocks.png"
-        },
-        {
-            "id": 123,
-            "card": "Howling Gale",
-            "type": "Mountain",
-            "contents": "Howling_Gale.png"
-        },
-        {
-            "id": 124,
-            "card": "Malacytic Scourge",
-            "type": "Environment",
-            "contents": "Malacytic_Scourge.png"
-        },
-        {
-            "id": 125,
-            "card": "Purifying Aether",
-            "type": "Novice",
-            "contents": "Purifying_Aether.png"
-        },
-        {
-            "id": 126,
-            "card": "Touched By Darkness",
-            "type": "Veteran",
-            "contents": "Touched_By_Darkness.png"
-        },
-        {
-            "id": 127,
-            "card": "They Are Coming",
-            "type": "Veteran",
-            "contents": "They_Are_Coming.png"
-        }
+      {
+        "id": 113,
+        "card": "Maladite Golum",
+        "type": "Wandering Beast",
+        "contents": "Maladite_Golum.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 114,
+        "card": "The Cabal",
+        "type": "Cabal",
+        "contents": "The_Cabal.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 115,
+        "card": "Debased Acolyte",
+        "type": "Cabal",
+        "contents": "Debased_Acolyte.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 116,
+        "card": "Treacherous Terrain",
+        "type": "Mountain",
+        "contents": "Treacherous_Terrain.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 117,
+        "card": "Treacherous Terrain",
+        "type": "Mountain",
+        "contents": "Treacherous_Terrain.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 118,
+        "card": "Thunderstorm",
+        "type": "Mountain",
+        "contents": "Thunderstorm.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 119,
+        "card": "Ambush!",
+        "type": "Mountain",
+        "contents": "Ambush.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 120,
+        "card": "Chill Wind",
+        "type": "Mountain",
+        "contents": "Chill_Wind.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 121,
+        "card": "Dusk To Dawn",
+        "type": "Mountain",
+        "contents": "Dusk_To_Dawn.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 122,
+        "card": "Falling Rocks",
+        "type": "Mountain",
+        "contents": "Falling_Rocks.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 123,
+        "card": "Howling Gale",
+        "type": "Mountain",
+        "contents": "Howling_Gale.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 124,
+        "card": "Malacytic Scourge",
+        "type": "Environment",
+        "contents": "Malacytic_Scourge.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 125,
+        "card": "Purifying Aether",
+        "type": "Novice",
+        "contents": "Purifying_Aether.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 126,
+        "card": "Touched By Darkness",
+        "type": "Veteran",
+        "contents": "Touched_By_Darkness.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      },
+      {
+        "id": 127,
+        "card": "They Are Coming",
+        "type": "Veteran",
+        "contents": "They_Are_Coming.png",
+        "sections": [
+          {
+            "header": "TODO",
+            "text": "TODO - requires manual entry"
+          }
+        ]
+      }
     ]
-}}
+  }
+}

@@ -4,6 +4,53 @@ const UPDATE_CHECK_SELECTOR = '[data-check-updates]';
 const VERSION_CHECK_TIMEOUT_MS = 2000;
 let updateListenerAttached = false;
 let serviceWorkerRegistering = false;
+const observedRegistrations = new WeakSet();
+
+export function compareVersions(leftVersion, rightVersion) {
+    const leftParts = String(leftVersion || '').split('.').map(part => parseInt(part, 10));
+    const rightParts = String(rightVersion || '').split('.').map(part => parseInt(part, 10));
+    const maxLength = Math.max(leftParts.length, rightParts.length);
+
+    for (let index = 0; index < maxLength; index++) {
+        const left = Number.isFinite(leftParts[index]) ? leftParts[index] : 0;
+        const right = Number.isFinite(rightParts[index]) ? rightParts[index] : 0;
+        if (left !== right) {
+            return left - right;
+        }
+    }
+
+    return 0;
+}
+
+export function getUpdateNotificationMessage(newVersion) {
+    return newVersion
+        ? `A new version (${newVersion}) of the app is available.`
+        : 'A new version of the app is available.';
+}
+
+export function buildUpdateModalMarkup(newVersion) {
+    const versionMessage = getUpdateNotificationMessage(newVersion);
+    return `
+        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content bg-dark text-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateModalLabel">New Version Available</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>${versionMessage}</p>
+                        <p>Update now to get the latest features and improvements.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Later</button>
+                        <button type="button" class="btn btn-primary" id="updateNowButton">Update Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
 
 function notifyUser(message) {
     const toastContainer = document.getElementById('toastContainer');
@@ -19,14 +66,50 @@ async function ensureServiceWorkerRegistration() {
     serviceWorkerRegistering = true;
     try {
         const existing = await navigator.serviceWorker.getRegistration();
-        if (existing) return existing;
-        return await navigator.serviceWorker.register('./service-worker.js');
+        if (existing) return observeRegistration(existing);
+        const registration = await navigator.serviceWorker.register('./service-worker.js');
+        return observeRegistration(registration);
     } catch (error) {
         console.warn('Service worker registration failed:', error);
         return null;
     } finally {
         serviceWorkerRegistering = false;
     }
+}
+
+function observeRegistration(registration) {
+    if (!registration || observedRegistrations.has(registration)) {
+        return registration;
+    }
+
+    observedRegistrations.add(registration);
+    registration.addEventListener('updatefound', () => {
+        const installingWorker = registration.installing;
+        if (!installingWorker) return;
+
+        installingWorker.addEventListener('statechange', async () => {
+            if (installingWorker.state !== 'installed' || !navigator.serviceWorker.controller) {
+                return;
+            }
+
+            let installedVersion = null;
+            let latestVersion = null;
+            try {
+                [installedVersion, latestVersion] = await Promise.all([
+                    getInstalledVersion(),
+                    fetchLatestVersion()
+                ]);
+            } catch (error) {
+                console.warn('Unable to fetch latest version for update notice:', error);
+            }
+
+            if (latestVersion && (!installedVersion || compareVersions(latestVersion, installedVersion) > 0)) {
+                showUpdateNotification(latestVersion);
+            }
+        });
+    });
+
+    return registration;
 }
 
 async function getInstalledVersion() {
@@ -71,7 +154,7 @@ export async function checkForUpdates() {
             return;
         }
 
-        if (installedVersion && latestVersion !== installedVersion) {
+        if (installedVersion && compareVersions(latestVersion, installedVersion) > 0) {
             showUpdateNotification(latestVersion);
             return;
         }
@@ -104,9 +187,13 @@ export function setupUpdateNotifications() {
         window.addEventListener('load', register, { once: true });
     }
 
-    navigator.serviceWorker.addEventListener('message', (event) => {
+    navigator.serviceWorker.addEventListener('message', async (event) => {
         if (event.data.type === 'NEW_VERSION') {
-            showUpdateNotification(event.data.version);
+            const installedVersion = await getInstalledVersion();
+            const latestVersion = event.data.version;
+            if (latestVersion && (!installedVersion || compareVersions(latestVersion, installedVersion) > 0)) {
+                showUpdateNotification(latestVersion);
+            }
         }
     });
 
@@ -114,33 +201,12 @@ export function setupUpdateNotifications() {
 }
 
 export function showUpdateNotification(newVersion) {
-    const updateModal = `
-        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content bg-dark text-white">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="updateModalLabel">New Version Available</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>A new version (${newVersion}) of the app is available.</p>
-                        <p>Update now to get the latest features and improvements.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Later</button>
-                        <button type="button" class="btn btn-primary" id="updateNowButton">Update Now</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-
     const existingModal = document.getElementById('updateModal');
     if (existingModal) {
         existingModal.remove();
     }
 
-    document.body.insertAdjacentHTML('beforeend', updateModal);
+    document.body.insertAdjacentHTML('beforeend', buildUpdateModalMarkup(newVersion));
     const modalEl = document.getElementById('updateModal');
     const modal = new bootstrap.Modal(modalEl);
     modal.show();

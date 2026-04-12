@@ -1,3 +1,19 @@
+@font-face {
+    font-family: 'Cinzel';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('./vendor/fonts/cinzel-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Cinzel';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('./vendor/fonts/cinzel-latin-700-normal.woff2') format('woff2');
+}
+
 body.dark-mode {
     background-color: var(--dark-bg);
     background-image: url('logos/background.png');
@@ -1806,5 +1822,311 @@ body {
         min-height: 44px;
         min-width: 44px;
         padding: 8px 16px;
+    }
+}
+
+/* =========================================
+   Deck Flow Sprint: Build / Play separation
+   ========================================= */
+
+input:focus,
+select:focus,
+button:focus,
+.btn:focus,
+.form-control:focus {
+    outline: none;
+    border-color: rgba(197, 165, 114, 0.75) !important;
+    box-shadow: 0 0 0 3px rgba(79, 122, 58, 0.28) !important;
+}
+
+.deck-experience {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.deck-mode-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem;
+    border: 1px solid rgba(197, 165, 114, 0.18);
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(18, 18, 18, 0.78), rgba(9, 9, 9, 0.56));
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.34);
+}
+
+.deck-mode-copy {
+    max-width: 720px;
+}
+
+.deck-mode-eyebrow,
+.deck-summary-mode,
+.deck-utility-kicker {
+    margin: 0 0 0.4rem;
+    color: rgba(197, 165, 114, 0.9);
+    text-transform: uppercase;
+    letter-spacing: 0.24rem;
+    font-size: 0.8rem;
+}
+
+.deck-mode-title,
+.deck-utility-title,
+.deck-summary-title {
+    margin: 0;
+    color: var(--text-primary);
+    font-family: 'Cinzel', serif;
+}
+
+.deck-mode-description,
+.deck-utility-description,
+.deck-summary-games {
+    margin: 0.55rem 0 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.deck-mode-tabs {
+    display: inline-flex;
+    gap: 0.5rem;
+    padding: 0.35rem;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mode-tab {
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 0.75rem 1rem;
+    min-width: 96px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.mode-tab:hover:not(:disabled) {
+    transform: translateY(-1px);
+    color: var(--text-primary);
+}
+
+.mode-tab.is-active {
+    color: var(--maladum-gold);
+    background: rgba(92, 22, 22, 0.45);
+    border-color: rgba(197, 165, 114, 0.26);
+}
+
+.mode-tab:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.deck-utility-drawer {
+    padding: 1.25rem;
+    border-radius: 18px;
+    background: rgba(8, 8, 8, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.deck-utility-drawer.is-collapsed {
+    background: rgba(8, 8, 8, 0.28);
+    border-color: rgba(197, 165, 114, 0.12);
+}
+
+.deck-utility-header,
+.deck-summary-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.deck-utility-title {
+    font-size: 1.15rem;
+}
+
+.deck-utility-drawer #deckBuilderControls {
+    margin-top: 1.25rem;
+}
+
+.deck-utility-drawer .section-header .btn-link,
+.deck-utility-drawer .section-header button.btn-link {
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.72), rgba(14, 14, 14, 0.62));
+    border: 1px solid rgba(197, 165, 114, 0.14);
+}
+
+#scenarioConfig,
+#gameCheckboxes,
+.card-type-input,
+.card-search-item {
+    background: rgba(11, 11, 11, 0.54);
+}
+
+#deckExperience[data-mode="build"] #activeDeckSection {
+    opacity: 0.86;
+}
+
+#deckExperience[data-mode="build"] #deckSummaryBar {
+    top: 0.5rem;
+}
+
+#deckSummaryBar {
+    position: sticky;
+    top: 1rem;
+    z-index: 4;
+    margin-bottom: 1rem;
+    padding: 1.1rem 1.25rem;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(19, 19, 19, 0.92), rgba(28, 12, 12, 0.78));
+    border: 1px solid rgba(197, 165, 114, 0.18);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.34);
+}
+
+.deck-summary-copy {
+    min-width: 0;
+}
+
+.deck-summary-title {
+    font-size: 1.5rem;
+}
+
+.deck-summary-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1rem;
+}
+
+.summary-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.4rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    font-size: 0.92rem;
+}
+
+.summary-chip--rule {
+    background: rgba(92, 22, 22, 0.42);
+    border-color: rgba(197, 165, 114, 0.2);
+    color: var(--maladum-gold);
+}
+
+.deck-card-state {
+    display: grid;
+    justify-items: center;
+    gap: 0.85rem;
+}
+
+.deck-card-caption {
+    margin: 0;
+    color: var(--maladum-gold);
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+}
+
+#navigationButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr minmax(220px, 1.35fr);
+    gap: 0.9rem;
+    align-items: stretch;
+}
+
+#navigationButtons .rune-btn {
+    width: 100%;
+}
+
+.rune-btn.small {
+    min-height: 48px;
+    padding: 0.85rem 1.15rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.12rem;
+}
+
+.rune-btn.secondary,
+.rune-btn.tertiary {
+    filter: saturate(0.72) brightness(0.94);
+}
+
+.rune-btn.tertiary {
+    opacity: 0.86;
+}
+
+.rune-btn.next-draw {
+    min-height: 72px;
+    font-size: 1.05rem;
+}
+
+#cardActionSection {
+    background: linear-gradient(180deg, rgba(19, 19, 19, 0.88), rgba(10, 10, 10, 0.75)) !important;
+    border: 1px solid rgba(197, 165, 114, 0.14);
+    box-shadow:
+        0 16px 32px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+#cardActionSection::before {
+    background: radial-gradient(ellipse at 30% 20%, rgba(197, 165, 114, 0.08) 0%, transparent 52%);
+}
+
+.card-preview-direct-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.card-preview-direct-actions .btn {
+    min-width: 140px;
+}
+
+#inPlaySection {
+    background: rgba(14, 14, 14, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 992px) {
+    .deck-mode-header,
+    .deck-utility-header,
+    .deck-summary-main {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .deck-mode-tabs {
+        width: 100%;
+    }
+
+    .mode-tab {
+        flex: 1 1 0;
+    }
+
+    .deck-summary-actions {
+        width: 100%;
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    #navigationButtons {
+        grid-template-columns: 1fr;
+    }
+
+    .rune-btn.next-draw {
+        order: -1;
+    }
+
+    .deck-summary-title {
+        font-size: 1.25rem;
     }
 }
