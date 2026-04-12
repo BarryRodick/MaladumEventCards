@@ -1,5 +1,5 @@
 // Unified service worker combining caching and version logic
-const APP_VERSION = '2.15.0';
+const APP_VERSION = '2.15.1';
 const CACHE_NAME = 'maladum-event-cards-' + APP_VERSION;
 
 const urlsToCache = [
