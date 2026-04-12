@@ -95,10 +95,10 @@
             <div id="deckExperience" class="deck-experience" data-mode="build">
                 <section id="deckModeHeader" class="deck-mode-header">
                     <div class="deck-mode-copy">
-                        <p id="deckModeEyebrow" class="deck-mode-eyebrow">Build mode</p>
-                        <h2 id="deckModeTitle" class="deck-mode-title">Assemble your event deck</h2>
+                        <p id="deckModeEyebrow" class="deck-mode-eyebrow">Step 1 of 2</p>
+                        <h2 id="deckModeTitle" class="deck-mode-title">Build your deck</h2>
                         <p id="deckModeDescription" class="deck-mode-description">
-                            Choose games, configure counts, and keep search ready while you play.
+                            Choose games, set card counts, and generate the live deck when the setup is ready.
                         </p>
                     </div>
                     <div class="deck-mode-tabs" role="tablist" aria-label="Deck builder modes">
@@ -115,14 +115,14 @@
                     <div class="deck-utility-header">
                         <div>
                             <p class="deck-utility-kicker">Setup + Search</p>
-                            <h3 id="deckUtilityTitle" class="deck-utility-title">Deck utilities</h3>
+                            <h3 id="deckUtilityTitle" class="deck-utility-title">Build tools and search</h3>
                         </div>
                         <button id="toggleUtilityDrawer" class="rune-btn small secondary" type="button" aria-expanded="true">
-                            <i class="fas fa-sliders me-2"></i> Collapse
+                            <i class="fas fa-screwdriver-wrench me-2"></i> Hide Build Tools
                         </button>
                     </div>
                     <p class="deck-utility-description">
-                        Keep build tools and card search on the same screen. In Play mode this drawer collapses down to a compact utility shelf.
+                        Build mode keeps setup front and center. During play, these tools collapse into a support rail so the live deck stays primary.
                     </p>
 
                     <div id="deckUtilityDrawerBody">
@@ -212,16 +212,16 @@
                 <section id="deckSummaryBar" class="deck-summary-bar">
                     <div class="deck-summary-main">
                         <div class="deck-summary-copy">
-                            <p id="deckSummaryModeLabel" class="deck-summary-mode">Play mode</p>
+                            <p id="deckSummaryModeLabel" class="deck-summary-mode">You are in Play</p>
                             <h3 id="deckSummaryTitle" class="deck-summary-title">Ready to draw</h3>
                             <p id="deckSummaryGames" class="deck-summary-games">Choose a deck to begin.</p>
                         </div>
                         <div class="deck-summary-actions">
                             <button id="summaryEditDeck" class="rune-btn small secondary" type="button">
-                                <i class="fas fa-compass me-2"></i> Edit Deck
+                                <i class="fas fa-compass me-2"></i> Edit Build
                             </button>
-                            <button id="summaryToggleUtilities" class="rune-btn small" type="button" aria-expanded="false">
-                                <i class="fas fa-sliders me-2"></i> Utilities
+                            <button id="summaryOpenSearch" class="rune-btn small" type="button">
+                                <i class="fas fa-search me-2"></i> Search Cards
                             </button>
                         </div>
                     </div>

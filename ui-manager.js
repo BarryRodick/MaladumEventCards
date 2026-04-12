@@ -11,14 +11,14 @@ const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
 
 const MODE_COPY = {
     build: {
-        eyebrow: 'Build mode',
-        title: 'Assemble your event deck',
-        description: 'Choose games, configure counts, and keep search ready while you play.'
+        eyebrow: 'Step 1 of 2',
+        title: 'Build your deck',
+        description: 'Choose games, set card counts, and generate the live deck when the setup is ready.'
     },
     play: {
-        eyebrow: 'Play mode',
-        title: 'Run the deck from one screen',
-        description: 'The active card stays front and center while setup, search, and rebuild tools remain one click away.'
+        eyebrow: 'Step 2 of 2',
+        title: 'Play the live deck',
+        description: 'Draw from the live deck here. Use Edit Build to change setup or Search Cards to inject specific cards during play.'
     }
 };
 
@@ -333,12 +333,17 @@ export function setDeckMode(requestedMode, options = {}) {
         playButton.setAttribute('aria-pressed', String(mode === 'play'));
     }
 
+    updateGenerateButtonLabel();
     setUtilitiesDrawerOpen(state.isUtilityDrawerOpen);
     renderDeckSummary();
 
     if (mode === 'build' && options.focusUtilities) {
         const utilityDrawer = document.getElementById('deckUtilityDrawer');
         utilityDrawer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    if (mode === 'play' && options.scrollToPlay) {
+        scrollPlaySurfaceIntoView();
     }
 
     return mode;
@@ -350,7 +355,6 @@ export function setUtilitiesDrawerOpen(isOpen) {
     const drawer = document.getElementById('deckUtilityDrawer');
     const drawerBody = document.getElementById('deckUtilityDrawerBody');
     const toggleButton = document.getElementById('toggleUtilityDrawer');
-    const summaryToggleButton = document.getElementById('summaryToggleUtilities');
 
     if (drawer) {
         drawer.dataset.drawerState = state.isUtilityDrawerOpen ? 'open' : 'closed';
@@ -363,21 +367,34 @@ export function setUtilitiesDrawerOpen(isOpen) {
 
     if (toggleButton) {
         toggleButton.innerHTML = state.isUtilityDrawerOpen
-            ? '<i class="fas fa-sliders me-2"></i> Collapse'
-            : '<i class="fas fa-sliders me-2"></i> Expand';
+            ? '<i class="fas fa-screwdriver-wrench me-2"></i> Hide Build Tools'
+            : '<i class="fas fa-screwdriver-wrench me-2"></i> Open Build Tools';
         toggleButton.setAttribute('aria-expanded', String(state.isUtilityDrawerOpen));
-    }
-
-    if (summaryToggleButton) {
-        summaryToggleButton.innerHTML = state.isUtilityDrawerOpen
-            ? '<i class="fas fa-compass me-2"></i> Hide Utilities'
-            : '<i class="fas fa-compass me-2"></i> Utilities';
-        summaryToggleButton.setAttribute('aria-expanded', String(state.isUtilityDrawerOpen));
     }
 }
 
 export function toggleUtilityDrawer() {
     setUtilitiesDrawerOpen(!state.isUtilityDrawerOpen);
+}
+
+export function openBuildTools() {
+    setCollapseState('gameCheckboxes', true);
+    setCollapseState('cardTypeContent', true);
+    setCollapseState('cardSearchContent', false);
+    setDeckMode('build', { openUtilities: true, focusUtilities: true });
+}
+
+export function openSearchTools() {
+    setUtilitiesDrawerOpen(true);
+    setCollapseState('gameCheckboxes', false);
+    setCollapseState('cardTypeContent', false);
+    setCollapseState('cardSearchContent', true);
+
+    const utilityDrawer = document.getElementById('deckUtilityDrawer');
+    utilityDrawer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    const searchInput = document.getElementById('cardSearchInput');
+    searchInput?.focus();
 }
 
 export function renderDeckSummary() {
@@ -413,7 +430,7 @@ export function renderDeckSummary() {
     const summarySentry = document.getElementById('deckSummarySentry');
     const summaryCorrupter = document.getElementById('deckSummaryCorrupter');
 
-    if (summaryModeLabel) summaryModeLabel.textContent = state.uiMode === 'play' ? 'Play mode' : 'Build mode';
+    if (summaryModeLabel) summaryModeLabel.textContent = state.uiMode === 'play' ? 'You are in Play' : 'Build preview';
     if (summaryTitle) summaryTitle.textContent = summary.statusText;
     if (summaryGames) summaryGames.textContent = summary.gamesText;
     if (summaryDifficulty) summaryDifficulty.textContent = `Difficulty: ${summary.difficultyText}`;
@@ -506,6 +523,27 @@ export function showCardPreview({ id, name, image, type }) {
  */
 export function toggleDeckBuilderUI(hide) {
     setUtilitiesDrawerOpen(!hide);
+}
+
+function updateGenerateButtonLabel() {
+    const generateButton = document.getElementById('generateDeck');
+    if (!generateButton) return;
+
+    if (state.currentDeck.length > 0) {
+        generateButton.innerHTML = '<i class="fas fa-rotate me-2"></i> Rebuild Deck';
+        return;
+    }
+
+    generateButton.innerHTML = '<i class="fas fa-dungeon me-2"></i> Generate Deck';
+}
+
+function scrollPlaySurfaceIntoView() {
+    const summaryBar = document.getElementById('deckSummaryBar');
+    if (!summaryBar) return;
+
+    requestAnimationFrame(() => {
+        summaryBar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
 }
 
 function setCollapseState(contentId, expanded) {

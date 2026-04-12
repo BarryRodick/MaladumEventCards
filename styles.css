@@ -1844,6 +1844,22 @@ button:focus,
     gap: 1.5rem;
 }
 
+.deck-experience > * {
+    min-width: 0;
+}
+
+#deckModeHeader {
+    order: 1;
+}
+
+#deckUtilityDrawer {
+    order: 2;
+}
+
+#activeDeckSection {
+    order: 3;
+}
+
 .deck-mode-header {
     display: flex;
     align-items: flex-start;
@@ -1884,6 +1900,10 @@ button:focus,
     margin: 0.55rem 0 0;
     color: var(--text-secondary);
     line-height: 1.6;
+}
+
+#deckExperience[data-mode="play"] .deck-mode-header {
+    padding: 0.9rem 1.1rem;
 }
 
 .deck-mode-tabs {
@@ -1937,6 +1957,10 @@ button:focus,
     border-color: rgba(197, 165, 114, 0.12);
 }
 
+#deckUtilityDrawerBody[hidden] {
+    display: none !important;
+}
+
 .deck-utility-header,
 .deck-summary-main {
     display: flex;
@@ -1951,6 +1975,27 @@ button:focus,
 
 .deck-utility-drawer #deckBuilderControls {
     margin-top: 1.25rem;
+}
+
+#deckExperience[data-mode="play"] #activeDeckSection {
+    order: 2;
+}
+
+#deckExperience[data-mode="play"] #deckUtilityDrawer {
+    order: 3;
+}
+
+#deckExperience[data-mode="play"] #deckUtilityDrawer.is-collapsed {
+    padding: 0.9rem 1.1rem;
+    background: rgba(7, 7, 7, 0.22);
+}
+
+#deckExperience[data-mode="play"] #deckUtilityDrawer.is-collapsed .deck-utility-description {
+    display: none;
+}
+
+#deckExperience[data-mode="play"] #deckUtilityDrawer.is-collapsed .deck-utility-title {
+    font-size: 1rem;
 }
 
 .deck-utility-drawer .section-header .btn-link,
@@ -1977,6 +2022,7 @@ button:focus,
 #deckSummaryBar {
     position: sticky;
     top: 1rem;
+    scroll-margin-top: 6rem;
     z-index: 4;
     margin-bottom: 1rem;
     padding: 1.1rem 1.25rem;
@@ -1988,6 +2034,12 @@ button:focus,
 
 .deck-summary-copy {
     min-width: 0;
+}
+
+.deck-summary-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
 }
 
 .deck-summary-title {
@@ -2023,6 +2075,10 @@ button:focus,
     display: grid;
     justify-items: center;
     gap: 0.85rem;
+}
+
+#deckExperience[data-mode="play"] #deckOutput {
+    min-height: 32rem;
 }
 
 .deck-card-caption {

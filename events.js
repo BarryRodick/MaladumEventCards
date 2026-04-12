@@ -13,7 +13,7 @@ import { state } from './state.js';
 import { trackEvent, debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
 import { setupManualUpdateCheck } from './update-utils.js';
-import { updateCardSearchResults, showCardPreview, setDeckMode, toggleUtilityDrawer } from './ui-manager.js';
+import { updateCardSearchResults, showCardPreview, setDeckMode, toggleUtilityDrawer, openBuildTools, openSearchTools } from './ui-manager.js';
 import { buildPreviewActionRequest } from './deck-flow-utils.js';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
@@ -30,7 +30,7 @@ export function setupEventListeners() {
     const playModeButton = document.getElementById('playModeButton');
     if (playModeButton) {
         playModeButton.addEventListener('click', () => {
-            setDeckMode('play');
+            setDeckMode('play', { scrollToPlay: true });
         });
     }
 
@@ -51,11 +51,17 @@ export function setupEventListeners() {
     const summaryEditDeck = document.getElementById('summaryEditDeck');
     if (summaryEditDeck) {
         summaryEditDeck.addEventListener('click', () => {
-            setDeckMode('build', { openUtilities: true, focusUtilities: true });
+            openBuildTools();
         });
     }
 
-    // Generate Deck
+    const summaryOpenSearch = document.getElementById('summaryOpenSearch');
+    if (summaryOpenSearch) {
+        summaryOpenSearch.addEventListener('click', () => {
+            openSearchTools();
+        });
+    }
+
     const generateBtn = document.getElementById('generateDeck');
     if (generateBtn) generateBtn.addEventListener('click', () => {
         if (state.currentDeck.length > 0 && state.currentIndex >= 0) {

@@ -138,7 +138,7 @@ export function generateDeck() {
         cardActionToggle.setAttribute('aria-expanded', 'false');
     }
 
-    setDeckMode('play', { openUtilities: false });
+    setDeckMode('play', { openUtilities: false, scrollToPlay: true });
     showCurrentCard();
     saveConfiguration();
 
