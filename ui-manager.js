@@ -5,22 +5,42 @@ import { state, slugify, cardTypeId } from './state.js';
 import { parseCardTypes } from './card-utils.js';
 import { debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
-import { deriveDeckMode, formatDeckSummary } from './deck-flow-utils.js';
+import { deriveDeckMode, formatDeckSummary, getGenerateDeckState } from './deck-flow-utils.js';
+import { searchCards } from './card-data.mjs';
+import { renderCardNode, renderCompactCardNode } from './card-renderer.mjs';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
 
 const MODE_COPY = {
     build: {
-        eyebrow: 'Step 1 of 2',
-        title: 'Build your deck',
-        description: 'Choose games, set card counts, and generate the live deck when the setup is ready.'
+        title: 'Build your deck'
     },
     play: {
-        eyebrow: 'Step 2 of 2',
-        title: 'Play the live deck',
-        description: 'Draw from the live deck here. Use Edit Build to change setup or Search Cards to inject specific cards during play.'
+        title: 'Play the live deck'
     }
 };
+
+function clearElement(element) {
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
+}
+
+function getRenderOptions(extraOptions = {}) {
+    return {
+        document,
+        iconRegistry: state.iconRegistry || {},
+        ...extraOptions
+    };
+}
+
+function getConfiguredCardCounts() {
+    return state.allCardTypes.reduce((counts, type) => {
+        const input = document.getElementById(cardTypeId(type));
+        counts[type] = Math.max(0, parseInt(input?.value, 10) || 0);
+        return counts;
+    }, {});
+}
 
 /**
  * Generates game selection checkboxes
@@ -130,12 +150,16 @@ export function generateCardTypeInputs() {
         const savedCount = getSavedCardCount(type);
 
         div.innerHTML = `
-            <div class="d-flex align-items-center">
-                <img src="logos/${imageName}.jpg" alt="${type}" class="mr-2" style="width: 30px; height: 30px;">
-                <span class="card-title mr-auto">${type} Cards</span>
-                <button class="btn btn-sm btn-outline-secondary decrease-btn" data-type="${type}" style="margin-right: 5px;">-</button>
-                <input type="number" id="${cardTypeId(type)}" min="0" max="${maxCount}" value="${savedCount}" class="form-control form-control-sm input-count" style="width: 60px;">
-                <button class="btn btn-sm btn-outline-secondary increase-btn" data-type="${type}" style="margin-left: 5px;">+</button>
+            <div class="card-type-input__row">
+                <div class="card-type-input__label-group">
+                    <img src="logos/${imageName}.jpg" alt="${type}" class="card-type-input__icon">
+                    <span class="card-title">${type} Cards</span>
+                </div>
+                <div class="card-type-input__controls">
+                    <button class="btn btn-sm btn-outline-secondary decrease-btn" data-type="${type}" aria-label="Decrease ${type} cards">-</button>
+                    <input type="number" id="${cardTypeId(type)}" min="0" max="${maxCount}" value="${savedCount}" class="form-control form-control-sm input-count" aria-label="${type} card count">
+                    <button class="btn btn-sm btn-outline-secondary increase-btn" data-type="${type}" aria-label="Increase ${type} cards">+</button>
+                </div>
             </div>
         `;
         fragment.appendChild(div);
@@ -235,21 +259,20 @@ export function updateCardSearchResults(rawQuery) {
     if (!resultsContainer || !status) return;
 
     const query = (rawQuery || '').trim().toLowerCase();
-    resultsContainer.innerHTML = '';
+    clearElement(resultsContainer);
 
     if (!query) {
-        status.textContent = 'Type to search across all available cards.';
+        status.textContent = '';
         return;
     }
 
-    const matches = state.availableCards.filter(card => card.card.toLowerCase().includes(query));
-    const sortedMatches = matches.sort((a, b) => a.card.localeCompare(b.card));
+    const sortedMatches = searchCards(state.availableCards, query);
     const maxResults = 50;
     const displayMatches = sortedMatches.slice(0, maxResults);
 
-    status.textContent = matches.length === 0
+    status.textContent = sortedMatches.length === 0
         ? 'No matching cards found.'
-        : `Showing ${displayMatches.length} of ${matches.length} matching cards.`;
+        : `Showing ${displayMatches.length} of ${sortedMatches.length} matching cards.`;
 
     displayMatches.forEach(card => {
         const item = document.createElement('div');
@@ -257,17 +280,26 @@ export function updateCardSearchResults(rawQuery) {
         item.setAttribute('role', 'button');
         item.setAttribute('tabindex', '0');
         item.setAttribute('aria-label', `Preview ${card.card}`);
-        item.dataset.cardName = card.card;
-        item.dataset.cardId = card.id;
-        item.dataset.cardImage = card.contents;
-        item.dataset.cardType = card.type;
-        item.innerHTML = `
-            <img src="cardimages/${card.contents}" alt="${card.card}" class="card-search-thumb">
-            <div>
-                <div class="card-search-name">${card.card}</div>
-                <div class="card-search-type text-muted">${card.type}</div>
-            </div>
-        `;
+        item.dataset.cardId = String(card.id);
+
+        const preview = document.createElement('div');
+        preview.className = 'card-search-thumb';
+        preview.appendChild(renderCompactCardNode(card, getRenderOptions({ maxSections: 1 })));
+
+        const meta = document.createElement('div');
+
+        const name = document.createElement('div');
+        name.className = 'card-search-name';
+        name.textContent = card.card;
+        meta.appendChild(name);
+
+        const type = document.createElement('div');
+        type.className = 'card-search-type text-muted';
+        type.textContent = `${card.type} • ${card.game}`;
+        meta.appendChild(type);
+
+        item.appendChild(preview);
+        item.appendChild(meta);
         resultsContainer.appendChild(item);
     });
 }
@@ -310,13 +342,9 @@ export function setDeckMode(requestedMode, options = {}) {
     }
 
     const copy = MODE_COPY[mode];
-    const eyebrow = document.getElementById('deckModeEyebrow');
     const title = document.getElementById('deckModeTitle');
-    const description = document.getElementById('deckModeDescription');
 
-    if (eyebrow) eyebrow.textContent = copy.eyebrow;
     if (title) title.textContent = copy.title;
-    if (description) description.textContent = copy.description;
 
     const buildButton = document.getElementById('buildModeButton');
     const playButton = document.getElementById('playModeButton');
@@ -333,7 +361,6 @@ export function setDeckMode(requestedMode, options = {}) {
         playButton.setAttribute('aria-pressed', String(mode === 'play'));
     }
 
-    updateGenerateButtonLabel();
     setUtilitiesDrawerOpen(state.isUtilityDrawerOpen);
     renderDeckSummary();
 
@@ -367,8 +394,8 @@ export function setUtilitiesDrawerOpen(isOpen) {
 
     if (toggleButton) {
         toggleButton.innerHTML = state.isUtilityDrawerOpen
-            ? '<i class="fas fa-screwdriver-wrench me-2"></i> Hide Build Tools'
-            : '<i class="fas fa-screwdriver-wrench me-2"></i> Open Build Tools';
+            ? '<i class="fas fa-screwdriver-wrench me-2"></i> Hide Tools'
+            : '<i class="fas fa-screwdriver-wrench me-2"></i> Show Tools';
         toggleButton.setAttribute('aria-expanded', String(state.isUtilityDrawerOpen));
     }
 }
@@ -398,6 +425,8 @@ export function openSearchTools() {
 }
 
 export function renderDeckSummary() {
+    updateGenerateButtonState();
+
     const activeDeckSection = document.getElementById('activeDeckSection');
     if (activeDeckSection) {
         activeDeckSection.style.display = state.currentDeck.length > 0 ? 'block' : 'none';
@@ -421,7 +450,6 @@ export function renderDeckSummary() {
         currentCardName: currentCard?.card || ''
     });
 
-    const summaryModeLabel = document.getElementById('deckSummaryModeLabel');
     const summaryTitle = document.getElementById('deckSummaryTitle');
     const summaryGames = document.getElementById('deckSummaryGames');
     const summaryDifficulty = document.getElementById('deckSummaryDifficulty');
@@ -430,7 +458,6 @@ export function renderDeckSummary() {
     const summarySentry = document.getElementById('deckSummarySentry');
     const summaryCorrupter = document.getElementById('deckSummaryCorrupter');
 
-    if (summaryModeLabel) summaryModeLabel.textContent = state.uiMode === 'play' ? 'You are in Play' : 'Build preview';
     if (summaryTitle) summaryTitle.textContent = summary.statusText;
     if (summaryGames) summaryGames.textContent = summary.gamesText;
     if (summaryDifficulty) summaryDifficulty.textContent = `Difficulty: ${summary.difficultyText}`;
@@ -446,53 +473,46 @@ export function renderDeckSummary() {
     }
 }
 
-export function showCardPreview({ id, name, image, type }) {
+export function showCardPreview({ id, card: providedCard } = {}) {
     const modal = document.getElementById('cardPreviewModal');
     if (!modal) return;
 
-    if (id !== undefined && id !== null) {
-        modal.dataset.cardId = id;
-    } else {
+    const card = providedCard || state.cardMap.get(Number(id));
+    if (!card) return;
+
+    modal.dataset.cardId = String(card.id);
+    if (card.card) {
+        modal.dataset.cardName = card.card;
+    }
+    if (card.type) {
+        modal.dataset.cardType = card.type;
+    }
+    if (card.game) {
+        modal.dataset.cardGame = card.game;
+    }
+
+    if (!card.id && card.id !== 0) {
         delete modal.dataset.cardId;
     }
 
-    if (name) {
-        modal.dataset.cardName = name;
-    } else {
-        delete modal.dataset.cardName;
-    }
-
-    if (image) {
-        modal.dataset.cardImage = image;
-    } else {
-        delete modal.dataset.cardImage;
-    }
-
-    if (type) {
-        modal.dataset.cardType = type;
-    } else {
-        delete modal.dataset.cardType;
-    }
-
     const title = modal.querySelector('[data-card-preview-title]');
-    const imageEl = modal.querySelector('[data-card-preview-image]');
+    const surface = modal.querySelector('[data-card-preview-surface]');
     const typeEl = modal.querySelector('[data-card-preview-type]');
     const shuffleCountInput = document.getElementById('cardPreviewShuffleCount');
-    const deckActionHint = modal.querySelector('[data-card-preview-hint]');
     const deckActionButtons = modal.querySelectorAll('[data-preview-deck-action]');
     const hasActiveDeck = state.currentDeck.length > 0;
 
     if (title) {
-        title.textContent = name || 'Card Preview';
+        title.textContent = card.card || 'Card Preview';
     }
 
-    if (imageEl) {
-        imageEl.src = image ? `cardimages/${image}` : '';
-        imageEl.alt = name || 'Card preview';
+    if (surface) {
+        clearElement(surface);
+        surface.appendChild(renderCardNode(card, getRenderOptions()));
     }
 
     if (typeEl) {
-        typeEl.textContent = type ? `Type: ${type}` : '';
+        typeEl.textContent = `${card.type} • ${card.game}`;
     }
 
     if (shuffleCountInput) {
@@ -502,12 +522,6 @@ export function showCardPreview({ id, name, image, type }) {
     deckActionButtons.forEach(button => {
         button.disabled = !hasActiveDeck;
     });
-
-    if (deckActionHint) {
-        deckActionHint.textContent = hasActiveDeck
-            ? 'Place this card directly into the active deck from here.'
-            : 'Generate a deck to enable live deck actions.';
-    }
 
     if (window.bootstrap?.Modal) {
         window.bootstrap.Modal.getOrCreateInstance(modal).show();
@@ -525,16 +539,28 @@ export function toggleDeckBuilderUI(hide) {
     setUtilitiesDrawerOpen(!hide);
 }
 
-function updateGenerateButtonLabel() {
+function updateGenerateButtonState() {
     const generateButton = document.getElementById('generateDeck');
     if (!generateButton) return;
 
-    if (state.currentDeck.length > 0) {
-        generateButton.innerHTML = '<i class="fas fa-rotate me-2"></i> Rebuild Deck';
-        return;
-    }
+    const generateState = getGenerateDeckState({
+        selectedGames: state.selectedGames,
+        cardCounts: getConfiguredCardCounts(),
+        sentryTypes: state.dataStore.sentryTypes,
+        corrupterTypes: state.dataStore.corrupterTypes,
+        enableSentryRules: state.enableSentryRules,
+        enableCorrupterRules: state.enableCorrupterRules,
+        hasActiveDeck: state.currentDeck.length > 0
+    });
+    const iconClass = generateState.label === 'Rebuild Deck'
+        ? 'fas fa-rotate'
+        : generateState.label === 'Generate Deck'
+            ? 'fas fa-dungeon'
+            : 'fas fa-sliders';
 
-    generateButton.innerHTML = '<i class="fas fa-dungeon me-2"></i> Generate Deck';
+    generateButton.disabled = !generateState.canGenerate;
+    generateButton.setAttribute('aria-disabled', String(!generateState.canGenerate));
+    generateButton.innerHTML = `<i class="${iconClass} me-2"></i> ${generateState.label}`;
 }
 
 function scrollPlaySurfaceIntoView() {

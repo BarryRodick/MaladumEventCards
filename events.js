@@ -13,11 +13,19 @@ import { state } from './state.js';
 import { trackEvent, debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
 import { setupManualUpdateCheck } from './update-utils.js';
-import { updateCardSearchResults, showCardPreview, setDeckMode, toggleUtilityDrawer, openBuildTools, openSearchTools } from './ui-manager.js';
+import { updateCardSearchResults, showCardPreview, setDeckMode, toggleUtilityDrawer, openBuildTools, openSearchTools, renderDeckSummary } from './ui-manager.js';
 import { buildPreviewActionRequest } from './deck-flow-utils.js';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
 const debouncedCardSearch = debounce((value) => updateCardSearchResults(value), 150);
+
+function shouldAdvanceDeckFromClick(target) {
+    if (!target || typeof target.closest !== 'function') {
+        return false;
+    }
+
+    return Boolean(target.closest('[data-deck-surface="true"]')) && !target.closest('#clearActiveCard');
+}
 
 export function setupEventListeners() {
     const buildModeButton = document.getElementById('buildModeButton');
@@ -70,6 +78,24 @@ export function setupEventListeners() {
         generateDeck();
     });
 
+    const sentryRulesToggle = document.getElementById('enableSentryRules');
+    if (sentryRulesToggle) {
+        sentryRulesToggle.addEventListener('change', (e) => {
+            state.enableSentryRules = e.target.checked;
+            debouncedSaveConfiguration();
+            renderDeckSummary();
+        });
+    }
+
+    const corrupterRulesToggle = document.getElementById('enableCorrupterRules');
+    if (corrupterRulesToggle) {
+        corrupterRulesToggle.addEventListener('change', (e) => {
+            state.enableCorrupterRules = e.target.checked;
+            debouncedSaveConfiguration();
+            renderDeckSummary();
+        });
+    }
+
     // Navigation
     const nextBtn = document.getElementById('nextCard');
     if (nextBtn) nextBtn.addEventListener('click', advanceToNextCard);
@@ -93,11 +119,11 @@ export function setupEventListeners() {
         });
     }
 
-    // Interactions with the card image itself
+    // Interactions with the active deck surface
     const deckOutput = document.getElementById('deckOutput');
     if (deckOutput) {
         deckOutput.addEventListener('click', (e) => {
-            if (e.target.tagName === 'IMG' && !e.target.closest('#clearActiveCard')) {
+            if (shouldAdvanceDeckFromClick(e.target)) {
                 advanceToNextCard();
             }
         });
@@ -252,10 +278,12 @@ export function setupEventListeners() {
 }
 
 function openCardPreviewFromResult(resultItem) {
-    const { cardId, cardName, cardImage, cardType } = resultItem.dataset;
-    if (!cardImage) return;
-    showCardPreview({ id: cardId, name: cardName, image: cardImage, type: cardType });
-    trackEvent('Card Search', 'Preview Card', cardName || '');
+    const { cardId } = resultItem.dataset;
+    if (!cardId) return;
+    const card = state.cardMap.get(Number(cardId));
+    if (!card) return;
+    showCardPreview({ id: cardId, card });
+    trackEvent('Card Search', 'Preview Card', card.card || '');
 }
 
 function runCardPreviewAction(actionName) {

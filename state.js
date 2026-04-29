@@ -30,12 +30,16 @@ export const state = {
         games: {},
         sentryTypes: [],
         corrupterTypes: [],
-        heldBackCardTypes: []
+        heldBackCardTypes: [],
+        icons: {},
+        cardManifest: null
     },
     difficultySettings: [],
     cardMap: new Map(),
     deckDataByType: {},
     availableCards: [],
+    iconRegistry: {},
+    cardManifest: null,
 
     // Selection state
     allGames: [],

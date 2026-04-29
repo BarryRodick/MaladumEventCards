@@ -14,6 +14,22 @@ export function deriveDeckMode({ currentDeckLength = 0, requestedMode = null } =
     return currentDeckLength > 0 ? 'play' : 'build';
 }
 
+function formatSelectedGames(selectedGames = []) {
+    if (selectedGames.length === 0) {
+        return 'No games selected';
+    }
+
+    if (selectedGames.length === 1) {
+        return selectedGames[0];
+    }
+
+    if (selectedGames.length === 2) {
+        return `${selectedGames[0]} + ${selectedGames[1]}`;
+    }
+
+    return `${selectedGames[0]} + ${selectedGames.length - 1} more`;
+}
+
 export function formatDeckSummary({
     selectedGames = [],
     difficultyName = '',
@@ -25,7 +41,7 @@ export function formatDeckSummary({
     currentCardName = ''
 } = {}) {
     const remainingCount = Math.max(0, currentDeckLength - Math.max(0, currentIndex + 1));
-    const gamesText = selectedGames.length > 0 ? selectedGames.join(' + ') : 'No games selected';
+    const gamesText = formatSelectedGames(selectedGames);
     const difficultyText = difficultyName || 'Custom difficulty';
     const statusText = currentIndex === -1
         ? 'Ready to draw'
@@ -39,6 +55,44 @@ export function formatDeckSummary({
         statusText,
         showSentryBadge: !!enableSentryRules,
         showCorrupterBadge: !!enableCorrupterRules
+    };
+}
+
+export function getGenerateDeckState({
+    selectedGames = [],
+    cardCounts = {},
+    sentryTypes = [],
+    corrupterTypes = [],
+    enableSentryRules = false,
+    enableCorrupterRules = false,
+    hasActiveDeck = false
+} = {}) {
+    const hasSelectedGames = selectedGames.length > 0;
+    const hasConfiguredCards = Object.entries(cardCounts).some(([type, rawCount]) => {
+        const count = Math.max(0, parseInt(rawCount, 10) || 0);
+        if (count <= 0) {
+            return false;
+        }
+
+        if (sentryTypes.includes(type)) {
+            return !!enableSentryRules;
+        }
+
+        if (corrupterTypes.includes(type)) {
+            return !!enableCorrupterRules;
+        }
+
+        return true;
+    });
+    const canGenerate = hasSelectedGames && hasConfiguredCards;
+
+    return {
+        canGenerate,
+        hasSelectedGames,
+        hasConfiguredCards,
+        label: canGenerate
+            ? (hasActiveDeck ? 'Rebuild Deck' : 'Generate Deck')
+            : 'Choose Card Counts'
     };
 }
 

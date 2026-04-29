@@ -6,9 +6,69 @@ import { shuffleDeck, parseCardTypes } from './card-utils.js';
 import { showToast, trackEvent, debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
 import { renderDeckSummary, setDeckMode } from './ui-manager.js';
+import { renderCardNode } from './card-renderer.mjs';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
 const preloadCache = [];
+
+function getRenderOptions() {
+    return {
+        document,
+        iconRegistry: state.iconRegistry || {}
+    };
+}
+
+function createReadyToDrawState() {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'deck-card-state';
+
+    const image = document.createElement('img');
+    image.src = 'cardimages/back.jpg';
+    image.alt = 'Ready to draw';
+    image.className = 'img-fluid card-image-fallback';
+    wrapper.appendChild(image);
+
+    const caption = document.createElement('p');
+    caption.className = 'deck-card-caption';
+    caption.textContent = 'Ready to draw';
+    wrapper.appendChild(caption);
+
+    return wrapper;
+}
+
+function createDeckDisplayRoot(surface, { deckState, renderMode, cardId } = {}) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'deck-display-root';
+    wrapper.dataset.deckSurface = 'true';
+    wrapper.dataset.deckState = deckState || 'ready';
+    wrapper.dataset.renderMode = renderMode || 'image';
+
+    if (cardId !== undefined && cardId !== null) {
+        wrapper.dataset.cardId = String(cardId);
+    }
+
+    wrapper.appendChild(surface);
+    return wrapper;
+}
+
+function renderDeckDisplayRoot() {
+    const currentCard = state.currentIndex >= 0
+        ? state.currentDeck[state.currentIndex]
+        : null;
+
+    if (!currentCard) {
+        return createDeckDisplayRoot(createReadyToDrawState(), {
+            deckState: 'ready',
+            renderMode: 'image'
+        });
+    }
+
+    return createDeckDisplayRoot(renderCardNode(currentCard, getRenderOptions()), {
+        deckState: 'active',
+        renderMode: currentCard.renderMode || 'image',
+        cardId: currentCard.id
+    });
+}
 
 /**
  * Generates a new deck based on user configuration
@@ -206,22 +266,16 @@ function getSpecialCards(count, specialTypes) {
 export function showCurrentCard(direction = null) {
     const output = document.getElementById('deckOutput');
     if (!output) return;
-
-    if (state.currentIndex === -1) {
-        output.innerHTML = `
-            <div class="deck-card-state">
-                <img src="cardimages/back.jpg" alt="Ready to draw" class="img-fluid">
-                <p class="deck-card-caption">Ready to draw</p>
-            </div>
-        `;
-    } else {
-        const currentCard = state.currentDeck[state.currentIndex];
-        if (currentCard) {
-            output.innerHTML = `<img src="cardimages/${currentCard.contents}" alt="${currentCard.card}" class="img-fluid">`;
-        }
-    }
-
     const clearBtn = document.getElementById('clearActiveCard');
+
+    const renderedCard = renderDeckDisplayRoot();
+
+    const nextChildren = [renderedCard];
+    if (clearBtn) {
+        nextChildren.push(clearBtn);
+    }
+    output.replaceChildren(...nextChildren);
+
     if (clearBtn) clearBtn.style.display = state.currentIndex >= 0 ? 'block' : 'none';
 
     updateProgressBar();
@@ -281,9 +335,9 @@ function preloadUpcomingCards(count = 2) {
         const index = state.currentIndex + i;
         if (index >= 0 && index < state.currentDeck.length) {
             const card = state.currentDeck[index];
-            if (card && card.contents) {
+            if (card && card.renderMode === 'image' && card.sourceImage) {
                 const img = new Image();
-                img.src = `cardimages/${card.contents}`;
+                img.src = `cardimages/${card.sourceImage}`;
                 preloadCache.push(img);
             }
         }

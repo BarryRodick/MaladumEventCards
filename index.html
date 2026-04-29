@@ -95,11 +95,7 @@
             <div id="deckExperience" class="deck-experience" data-mode="build">
                 <section id="deckModeHeader" class="deck-mode-header">
                     <div class="deck-mode-copy">
-                        <p id="deckModeEyebrow" class="deck-mode-eyebrow">Step 1 of 2</p>
                         <h2 id="deckModeTitle" class="deck-mode-title">Build your deck</h2>
-                        <p id="deckModeDescription" class="deck-mode-description">
-                            Choose games, set card counts, and generate the live deck when the setup is ready.
-                        </p>
                     </div>
                     <div class="deck-mode-tabs" role="tablist" aria-label="Deck builder modes">
                         <button id="buildModeButton" class="mode-tab is-active" type="button" aria-pressed="true">
@@ -113,17 +109,11 @@
 
                 <section id="deckUtilityDrawer" class="deck-utility-drawer" data-drawer-state="open" aria-labelledby="deckUtilityTitle">
                     <div class="deck-utility-header">
-                        <div>
-                            <p class="deck-utility-kicker">Setup + Search</p>
-                            <h3 id="deckUtilityTitle" class="deck-utility-title">Build tools and search</h3>
-                        </div>
+                        <h3 id="deckUtilityTitle" class="deck-utility-title">Build and Search</h3>
                         <button id="toggleUtilityDrawer" class="rune-btn small secondary" type="button" aria-expanded="true">
-                            <i class="fas fa-screwdriver-wrench me-2"></i> Hide Build Tools
+                            <i class="fas fa-screwdriver-wrench me-2"></i> Hide Tools
                         </button>
                     </div>
-                    <p class="deck-utility-description">
-                        Build mode keeps setup front and center. During play, these tools collapse into a support rail so the live deck stays primary.
-                    </p>
 
                     <div id="deckUtilityDrawerBody">
                         <!-- Deck Builder Controls -->
@@ -189,9 +179,9 @@
                         </button>
                     </div>
                     <div id="cardSearchContent" class="collapse mt-3">
-                        <label for="cardSearchInput" class="brand-text text-gold mb-2">Search by card name</label>
+                        <label for="cardSearchInput" class="brand-text text-gold mb-2">Search cards</label>
                         <input id="cardSearchInput" type="search" class="form-control form-control-lg bg-dark text-light border-secondary"
-                            placeholder="Start typing a card name..." autocomplete="off">
+                            placeholder="Search title, type, game, or rules text..." autocomplete="off">
                         <small id="cardSearchStatus" class="text-muted mt-2 d-block"></small>
                         <div id="cardSearchResults" class="card-search-results mt-3" aria-live="polite"></div>
                     </div>
@@ -208,14 +198,13 @@
                 </section>
 
             <!-- Active Deck Section -->
-            <div id="activeDeckSection" style="display: none;" class="mt-4">
-                <section id="deckSummaryBar" class="deck-summary-bar">
-                    <div class="deck-summary-main">
-                        <div class="deck-summary-copy">
-                            <p id="deckSummaryModeLabel" class="deck-summary-mode">You are in Play</p>
-                            <h3 id="deckSummaryTitle" class="deck-summary-title">Ready to draw</h3>
-                            <p id="deckSummaryGames" class="deck-summary-games">Choose a deck to begin.</p>
-                        </div>
+                <div id="activeDeckSection" style="display: none;" class="mt-4">
+                    <section id="deckSummaryBar" class="deck-summary-bar">
+                        <div class="deck-summary-main">
+                            <div class="deck-summary-copy">
+                                <h3 id="deckSummaryTitle" class="deck-summary-title">Ready to draw</h3>
+                                <p id="deckSummaryGames" class="deck-summary-games">Choose a deck to begin.</p>
+                            </div>
                         <div class="deck-summary-actions">
                             <button id="summaryEditDeck" class="rune-btn small secondary" type="button">
                                 <i class="fas fa-compass me-2"></i> Edit Build
@@ -243,8 +232,8 @@
                 </div>
 
                 <!-- Deck Output -->
-                <section id="deckOutput" class="text-center">
-                    <!-- Current Card Image will be inserted here -->
+                <section id="deckOutput" class="text-center" aria-live="polite" aria-label="Active deck display">
+                    <!-- Active deck surface will be inserted here -->
                      <button id="clearActiveCard" class="btn btn-danger btn-sm position-absolute"
                         style="top: 10px; right: 10px; display: none; z-index: 10;">
                         <i class="fas fa-times"></i>
@@ -453,7 +442,7 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img class="card-preview-image" data-card-preview-image alt="">
+                    <div class="card-preview-surface" data-card-preview-surface></div>
                     <p class="text-muted mt-3 mb-0" data-card-preview-type></p>
                     <div class="card-preview-actions mt-4">
                         <label class="form-label text-gold" for="cardPreviewShuffleCount">Shuffle into top X cards</label>
@@ -472,7 +461,6 @@
                                 Add to Bottom
                             </button>
                         </div>
-                        <small class="text-muted d-block mt-2" data-card-preview-hint>Generate a deck to enable live deck actions.</small>
                     </div>
                 </div>
             </div>

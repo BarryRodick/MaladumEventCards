@@ -9,6 +9,7 @@ import { showCurrentCard, updateProgressBar } from './deck-manager.js';
 import { updateInPlayCardsDisplay } from './card-actions.js';
 import { setupUpdateNotifications } from './update-utils.js';
 import { saveState, loadState } from './storage-utils.js';
+import { mergeCardCatalogs } from './card-data.mjs';
 
 const CACHE_KEYS = {
     cards: 'cachedCardsData',
@@ -24,8 +25,12 @@ export async function initializeApp() {
         games: {},
         sentryTypes: [],
         corrupterTypes: [],
-        heldBackCardTypes: []
+        heldBackCardTypes: [],
+        icons: {},
+        cardManifest: null
     };
+    state.iconRegistry = {};
+    state.cardManifest = null;
 
     // 2. Load Saved Config
     const savedConfig = loadSavedConfig();
@@ -82,12 +87,20 @@ export async function initializeApp() {
 
 async function loadGameData() {
     try {
-        const [cardsData, difficultiesData] = await Promise.all([
-            fetch('maladumcards.json').then(r => r.json()),
-            fetch('difficulties.json').then(r => r.json())
+        const [legacyCardsData, difficultiesData, richCardsData] = await Promise.all([
+            fetchJson('maladumcards.json'),
+            fetchJson('difficulties.json'),
+            loadRichCardsData().catch(error => {
+                console.warn('Structured card catalog unavailable, continuing with legacy image cards:', error);
+                return null;
+            })
         ]);
 
+        const cardsData = mergeCardCatalogs(legacyCardsData, richCardsData);
+
         state.dataStore = cardsData;
+        state.iconRegistry = cardsData.icons || {};
+        state.cardManifest = cardsData.cardManifest || null;
         state.difficultySettings = difficultiesData.difficulties || [];
         cacheFetchedData(cardsData, difficultiesData);
     } catch (error) {
@@ -120,20 +133,74 @@ function loadCachedData() {
     }
 
     state.dataStore = cachedCards;
+    state.iconRegistry = cachedCards.icons || {};
+    state.cardManifest = cachedCards.cardManifest || null;
     state.difficultySettings = cachedDiffs.difficulties || [];
     return true;
 }
 
+async function fetchJson(path) {
+    const response = await fetch(path);
+    if (!response.ok) {
+        throw new Error(`Failed to load ${path}: ${response.status}`);
+    }
+    return response.json();
+}
+
+async function loadRichCardsData() {
+    const manifest = await fetchJson('data/cards/manifest.json');
+    const [icons, richGameEntries] = await Promise.all([
+        fetchJson('data/cards/icons.json'),
+        Promise.all(
+            Object.entries(manifest.games || {}).map(async ([gameName, path]) => {
+                const payload = await fetchJson(path);
+                return [gameName, payload];
+            })
+        )
+    ]);
+
+    return {
+        manifest,
+        icons,
+        games: Object.fromEntries(richGameEntries)
+    };
+}
+
 function restoreDeckState(deckState) {
-    state.currentDeck = deckState.currentDeck || [];
+    function resolveSavedCard(savedCard, collectionName) {
+        if (!savedCard || savedCard.id === undefined || !(state.cardMap instanceof Map)) {
+            return savedCard;
+        }
+
+        const numericId = Number(savedCard.id);
+        if (Number.isFinite(numericId) && state.cardMap.has(numericId)) {
+            return state.cardMap.get(numericId);
+        }
+
+        if (state.cardMap.has(savedCard.id)) {
+            return state.cardMap.get(savedCard.id);
+        }
+
+        console.warn(`Saved ${collectionName} card ${savedCard.id} is missing from the current catalog; using saved fallback.`);
+        return savedCard;
+    }
+
+    function resolveSavedCards(cards, collectionName) {
+        return (cards || []).map(card => resolveSavedCard(card, collectionName));
+    }
+
+    state.currentDeck = resolveSavedCards(deckState.currentDeck, 'currentDeck');
     state.currentIndex = deckState.currentIndex ?? -1;
-    state.discardPile = deckState.discardPile || [];
-    state.sentryDeck = deckState.sentryDeck || [];
+    state.discardPile = resolveSavedCards(deckState.discardPile, 'discardPile');
+    state.sentryDeck = resolveSavedCards(deckState.sentryDeck, 'sentryDeck');
     state.initialDeckSize = deckState.initialDeckSize || 0;
-    state.inPlayCards = deckState.inPlayCards || [];
-    state.deck.main = deckState.mainDeck || [];
-    state.deck.special = deckState.specialDeck || [];
-    state.deck.combined = deckState.combinedDeck || state.currentDeck;
+    state.inPlayCards = resolveSavedCards(deckState.inPlayCards, 'inPlayCards');
+    state.deck.main = resolveSavedCards(deckState.mainDeck, 'mainDeck');
+    state.deck.special = resolveSavedCards(deckState.specialDeck, 'specialDeck');
+    state.deck.combined = resolveSavedCards(deckState.combinedDeck, 'combinedDeck');
+    if (state.deck.combined.length === 0) {
+        state.deck.combined = state.currentDeck;
+    }
     if (!state.cards || !state.cards.selected) {
         state.cards = { selected: new Map() };
     } else {

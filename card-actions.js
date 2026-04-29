@@ -6,11 +6,18 @@ import { parseCardTypes, shuffleDeck } from './card-utils.js';
 import { showToast, trackEvent } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
 import { showCurrentCard, updateProgressBar } from './deck-manager.js';
+import { renderCompactCardNode } from './card-renderer.mjs';
 
 function escapeHtml(str) {
     const div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
+}
+
+function clearElement(element) {
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
 }
 
 /**
@@ -36,9 +43,11 @@ export function updateInPlayCardsDisplay() {
     const inPlaySection = document.getElementById('inPlaySection');
     if (!inPlayContainer || !inPlaySection) return;
 
-    inPlayContainer.innerHTML = '';
+    clearElement(inPlayContainer);
     if (state.inPlayCards.length === 0) {
-        inPlayContainer.innerHTML = '<p>No cards in play.</p>';
+        const emptyState = document.createElement('p');
+        emptyState.textContent = 'No cards in play.';
+        inPlayContainer.appendChild(emptyState);
         inPlaySection.style.display = 'none';
         return;
     }
@@ -46,16 +55,30 @@ export function updateInPlayCardsDisplay() {
     inPlaySection.style.display = 'block';
     state.inPlayCards.forEach(card => {
         const cardDiv = document.createElement('div');
-        cardDiv.classList.add('card', 'mb-2');
+        cardDiv.classList.add('card', 'mb-2', 'in-play-card');
 
         const cardBody = document.createElement('div');
         cardBody.classList.add('card-body');
 
-        cardBody.innerHTML = `
-            <h5 class="card-title">${escapeHtml(card.card)}</h5>
-            <img src="cardimages/${escapeHtml(card.contents.replace(/\.\w+$/, '.png'))}" alt="${escapeHtml(card.card)}" class="card-img-top mb-2">
-            <button class="btn btn-danger btn-sm remove-from-play" data-id="${card.id}">Remove from Play</button>
-        `;
+        const title = document.createElement('h5');
+        title.className = 'card-title';
+        title.textContent = card.card;
+        cardBody.appendChild(title);
+
+        const preview = document.createElement('div');
+        preview.className = 'in-play-card__preview';
+        preview.appendChild(renderCompactCardNode(card, {
+            document,
+            iconRegistry: state.iconRegistry || {},
+            maxSections: 1
+        }));
+        cardBody.appendChild(preview);
+
+        const removeButton = document.createElement('button');
+        removeButton.className = 'btn btn-danger btn-sm remove-from-play';
+        removeButton.dataset.id = String(card.id);
+        removeButton.textContent = 'Remove from Play';
+        cardBody.appendChild(removeButton);
 
         cardDiv.appendChild(cardBody);
         inPlayContainer.appendChild(cardDiv);
