@@ -1,0 +1,9 @@
+node_modules/
+output/
+reports/
+test-results/
+playwright-report/
+.playwright-cli/
+.playwright-mcp/
+*.log
+*.tsbuildinfo
