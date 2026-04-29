@@ -1,12 +1,20 @@
 {
   "name": "maladum-event-cards",
-  "version": "2.15.1",
+  "version": "2.15.2",
   "scripts": {
-    "test": "node tests/parseCardTypes.test.js && node tests/deckGeneration.test.js && node tests/cardActions.test.js && node tests/storageUtils.test.js && node tests/initialization.test.js && node tests/deckFlowUtils.test.js && node tests/versionSync.test.js && node tests/appShellAssets.test.js && node tests/updateUtils.test.js",
+    "test": "node tests/parseCardTypes.test.js && node tests/deckGeneration.test.js && node tests/cardActions.test.js && node tests/storageUtils.test.js && node tests/initialization.test.js && node tests/deckDisplay.test.js && node tests/deckClickGuard.test.js && node tests/deckFlowUtils.test.js && node tests/uiManager.test.js && node tests/versionSync.test.js && node tests/appShellAssets.test.js && node tests/updateUtils.test.js && node tests/cardSchema.test.js && node tests/cardNormalization.test.js && node tests/cardTokenizer.test.js && node tests/cardRenderer.test.js && node tests/cardCatalogCoverage.test.js && node tests/cardSearch.test.js && node tests/cardExtraction.test.js",
     "test:cards": "node tests/parseCardTypes.test.js",
     "test:deck": "node tests/deckGeneration.test.js",
     "test:actions": "node tests/cardActions.test.js",
     "test:storage": "node tests/storageUtils.test.js",
+    "validate:cards": "node scripts/validate-card-data.mjs",
+    "extract:cards": "node scripts/extract-cards.mjs --ocr",
+    "extract:cards:openrouter": "node scripts/enrich-cards-openrouter.mjs",
+    "review:cards": "node scripts/build-card-review.mjs",
     "build": "node scripts/update-version.js"
+  },
+  "dependencies": {
+    "sharp": "^0.34.4",
+    "tesseract.js": "^6.0.1"
   }
 }

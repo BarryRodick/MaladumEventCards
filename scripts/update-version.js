@@ -6,6 +6,9 @@ const TOP_LEVEL_RUNTIME_FILES = [
   './about.html',
   './app-utils.js',
   './card-actions.js',
+  './card-data.mjs',
+  './card-renderer.mjs',
+  './card-tokenizer.mjs',
   './card-utils.js',
   './config-manager.js',
   './deck-manager.js',
@@ -27,7 +30,9 @@ const TOP_LEVEL_RUNTIME_FILES = [
 ];
 
 const ASSET_DIRECTORIES = [
+  'assets',
   'cardimages',
+  'data',
   'icons',
   'logos',
   'vendor'
