@@ -695,6 +695,222 @@
             "text": "TODO - requires manual entry"
           }
         ]
+      },
+      {
+        "id": 128,
+        "card": "Careless Swing",
+        "type": "Veteran",
+        "contents": "Careless_Swing.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "Your Adventurers are becoming overconfident and are not paying their full attention to the ongoing fighting.\n\nAdd a purple peg to the Dread tracker 5 spaces ahead of the current Dread.\n\nUntil that peg is replaced, each time an Adventurer makes an attack, if they roll two Blunders [skull] their weapon breaks. Unarmed attackers become Fatigued. (This effect applies to all attacks not just Forceful hits)."
+          }
+        ]
+      },
+      {
+        "id": 129,
+        "card": "Deadly Accuracy",
+        "type": "Veteran",
+        "contents": "Deadly_Accuracy.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "Whether by sheer luck or unnatural guidance your adversaries strike with unnerving accuracy.\n\nThis round, all Adversaries gain Piercing [piercing].\n\nShuffle this card back into the deck instead of discarding."
+          }
+        ]
+      },
+      {
+        "id": 130,
+        "card": "Trap! Fireball",
+        "type": "Veteran + Dungeon",
+        "contents": "Trap_Fireball.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DISMAY",
+            "text": "With a soft \"click\", an Adventurer steps on a loose stone that sinks into the floor.\n\nA random Adventurer suffers a ranged attack with two dice and Burning [fire]."
+          },
+          {
+            "header": "DESPERATION-DOOM",
+            "text": "As Disquiet-Dismay but the Adventurer suffers a three dice attack with Blast and Burning [fire]."
+          }
+        ]
+      },
+      {
+        "id": 131,
+        "card": "Wave of Exhaustion",
+        "type": "Veteran",
+        "contents": "Wave_of_Exhaustion.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DISTRESS",
+            "text": "Your Adventurers are beset by an unshakable tiredness.\n\nEach Adventurer must spend a Skill peg or become Fatigued."
+          },
+          {
+            "header": "DISMAY-DOOM",
+            "text": "As Disquiet-Distress but Adventurers must spend two Skill pegs, gaining one Fatigue for each peg not spent."
+          }
+        ]
+      },
+      {
+        "id": 132,
+        "card": "Trap! Poison Gas",
+        "type": "Veteran + Dungeon",
+        "contents": "Trap_Poison_Gas.png",
+        "sections": [
+          {
+            "header": "DISQUIET",
+            "text": "A faint hissing sound fills the air. Too late you realise a noxious gas is pouring into the room.\n\nRoll the Magic die. Mark the Grave Point closest to the Entry Point that matches the roll with a Poison Counter.\n\nFor the rest of the game, any time an Adventurer ends their turn within short range of this Grave Point must spend a Skill peg or become Poisoned [poison].\n\nThe gas can be stopped by covering the Grave Point with a Crate, Chest, or similar item. (Do not remove the Poison counter. If the Grave Point is unblocked, the gas will start again)."
+          },
+          {
+            "header": "DISTRESS-DISMAY",
+            "text": "As Disquiet, but mark two Grave Points. If a duplicate Grave Point is chosen, mark the next nearest."
+          },
+          {
+            "header": "DESPERATION-DOOM",
+            "text": "As Disquiet but mark four Grave Points. If a duplicate Grave Point is chosen, mark the next nearest."
+          }
+        ]
+      },
+      {
+        "id": 133,
+        "card": "Sudden Rot",
+        "type": "Veteran",
+        "contents": "Sudden_Rot.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "The air around you smells rotten and is thick with the odour of decaying food.\n\nRoll one die for each food item carried by each Adventurer. On a Blunder [skull] discard that item.\n\nThese items are considered food: see card art."
+          }
+        ]
+      },
+      {
+        "id": 134,
+        "card": "Malacytic Vigour",
+        "type": "Veteran",
+        "contents": "Malacytic_Vigour.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DISTRESS",
+            "text": "Your adversaries attack with increased strength and fervour.\n\nAdd a purple peg to the Dread tracker 5 spaces ahead of the current Dread.\n\nUntil that peg is replaced, all Adversary attacks have Sundering.\n\nAfter the peg is replaced, discard this card."
+          },
+          {
+            "header": "DISMAY-DOOM",
+            "text": "As Disquiet-Distress but place the purple peg 10 spaces ahead of the current Dread."
+          }
+        ]
+      },
+      {
+        "id": 135,
+        "card": "Trap! Deadfall",
+        "type": "Veteran + Dungeon",
+        "contents": "Trap_Deadfall.png",
+        "sections": [
+          {
+            "header": "DISQUIET",
+            "text": "You hear a harsh grinding from behind a wall. Suddenly a large section tips forward almost flattening an Adventurer.\n\nThe Adventurer closest to a wall suffers a three dice attack with Bludgeoning [bludgeoning] and Sundering."
+          },
+          {
+            "header": "DISTRESS-DOOM",
+            "text": "As Disquiet-Dismay but choose the two Adventurers closest to a wall. (This does not have to be the same wall)"
+          }
+        ]
+      },
+      {
+        "id": 136,
+        "card": "Crack!",
+        "type": "Veteran",
+        "contents": "Crack.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "Select an Adventurer at random. A random item that they are carrying is broken (including those in an Armour slot). Turn the item face down."
+          }
+        ]
+      },
+      {
+        "id": 137,
+        "card": "Get Them Off Me!",
+        "type": "Veteran",
+        "contents": "Get_Them_Off_Me.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DISMAY",
+            "text": "A swarm of tiny insects pours out of the wall. They are in your hair, under your armour, in your shoes... everywhere!\n\nSelect a random Adventurer. Scatter all items in that Adventurer's Armour slot. That Adventurer becomes Fatigued.\n\nIf no Adventurers are wearing items, increase Dread by 1 and shuffle this card back into the deck."
+          },
+          {
+            "header": "DESPERATION-DOOM",
+            "text": "As Disquiet-Dismay but all Adventurers must resolve the effect."
+          }
+        ]
+      },
+      {
+        "id": 138,
+        "card": "Where Did I Put That?",
+        "type": "Veteran",
+        "contents": "Where_Did_I_Put_That.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "You are sure you had it on you, you are 100% certain that it was in your pack, but it is nowhere to be found.\n\nSelect an Adventurer at random. They discard their smallest item (including those in an Armour slot)."
+          }
+        ]
+      },
+      {
+        "id": 139,
+        "card": "Not Again?",
+        "type": "Veteran",
+        "contents": "Not_Again.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "You are overcome with an uneasy feeling of Deja vu and impending doom.\n\nResolve the top Veteran [arrow-up] card of the Event Discard pile. If there isn't one, increase the Dread by 2 and shuffle this card back into the deck."
+          }
+        ]
+      },
+      {
+        "id": 140,
+        "card": "Trap! Acid Mist",
+        "type": "Veteran",
+        "contents": "Trap_Acid_Mist.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DISMAY",
+            "text": "A fine mist seeps out of the ground around you. As it settles on your equipment it begins to hiss.\n\nEach Adventurer suffers a two dice ranged attack with Piercing [piercing].\n\nIf any of these attacks roll a critical hit, a random item held by the target (including items in the Armour slot) is broken."
+          },
+          {
+            "header": "DESPERATION-DOOM",
+            "text": "As Disquiet-Dismay, but the effect applies if any hits are scored, not just on a critical hit."
+          }
+        ]
+      },
+      {
+        "id": 141,
+        "card": "Trap! Wall of Fire",
+        "type": "Veteran + Dungeon",
+        "contents": "Trap_Wall_of_Fire.png",
+        "sections": [
+          {
+            "header": "DISQUIET",
+            "text": "A sheet of flame erupts from hidden spouts around a nearby entrance.\n\nMark the Entrance nearest to a random Adventurer with a Reminder Counter and add a purple peg to the Dread tracker at the end of Distress.\n\nUntil that peg is replaced, any Adventurer that passes through the Entrance suffer a one die attack with Piercing [piercing] and is Burning [fire].\n\nAfter the peg is replaced, discard this card."
+          },
+          {
+            "header": "DISTRESS-DOOM",
+            "text": "As Disquiet but add a purple peg to the Dread tracker at the end of the section two higher than the current Dread."
+          }
+        ]
+      },
+      {
+        "id": 142,
+        "card": "Trap! Caltrops",
+        "type": "Veteran + Dungeon",
+        "contents": "Trap_Caltrops.png",
+        "sections": [
+          {
+            "header": "DISQUIET-DOOM",
+            "text": "Hundreds of tiny, spiked metal balls fall from the ceiling.\n\nSelect a random Adventurer. Each Adventurer in the same room must spend a Skill peg or become Wounded.\n\nMark the room with a Reminder token.\n\nUntil the end of the game, any Adventurer that moves in that room must roll a die. On a Blunder [skull] they must spend a Skill peg or become Wounded."
+          }
+        ]
       }
     ],
     "Of Ale And Adventure": [

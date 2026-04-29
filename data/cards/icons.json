@@ -1,0 +1,224 @@
+{
+  "fire": {
+    "aliases": ["flame", "burn"],
+    "kind": "inline",
+    "asset": "assets/icons/fire.svg",
+    "notes": "Inline fire or burning damage icon."
+  },
+  "move": {
+    "aliases": ["movement"],
+    "kind": "inline",
+    "asset": "assets/icons/move.svg",
+    "notes": "Movement or move action icon."
+  },
+  "enemy": {
+    "aliases": ["adversary", "monster"],
+    "kind": "inline",
+    "asset": "assets/icons/enemy.svg",
+    "notes": "Enemy or adversary reference icon."
+  },
+  "armour": {
+    "aliases": ["shield", "defense", "physical-armour"],
+    "kind": "inline",
+    "asset": "assets/icons/armour.png",
+    "notes": "Official Battle Systems armour icon from the Maladum item database."
+  },
+  "bludgeoning": {
+    "aliases": ["mace", "hammer", "impact"],
+    "kind": "inline",
+    "asset": "assets/icons/bludgeoning.png",
+    "notes": "Official Battle Systems bludgeoning icon."
+  },
+  "camouflage": {
+    "aliases": ["stealth", "hidden"],
+    "kind": "inline",
+    "asset": "assets/icons/camouflage.png",
+    "notes": "Official Battle Systems camouflage icon."
+  },
+  "creature": {
+    "aliases": ["beast", "monster-head"],
+    "kind": "inline",
+    "asset": "assets/icons/creature.png",
+    "notes": "Official Battle Systems creature icon."
+  },
+  "denizen": {
+    "aliases": ["silhouette", "npc", "villager"],
+    "kind": "inline",
+    "asset": "assets/icons/denizen.png",
+    "notes": "Local crop of the circular denizen/silhouette icon from Unmasked!."
+  },
+  "entangling": {
+    "aliases": ["snare", "net"],
+    "kind": "inline",
+    "asset": "assets/icons/entangling.png",
+    "notes": "Official Battle Systems entangling icon."
+  },
+  "skull": {
+    "aliases": ["death"],
+    "kind": "inline",
+    "asset": "assets/icons/skull.svg",
+    "notes": "Death or skull symbol."
+  },
+  "hawkeye": {
+    "aliases": ["eagle-eye", "ignore-cover"],
+    "kind": "inline",
+    "asset": "assets/icons/hawkeye.png",
+    "notes": "Official Battle Systems hawkeye icon."
+  },
+  "health": {
+    "aliases": ["restore-health", "heart"],
+    "kind": "inline",
+    "asset": "assets/icons/health.png",
+    "notes": "Health icon derived from the official Battle Systems restore health icon."
+  },
+  "malacytic-conduit": {
+    "aliases": ["corrupter", "malacytic_conduit"],
+    "kind": "inline",
+    "asset": "assets/icons/malacytic-conduit.png",
+    "notes": "Official Battle Systems Malacytic Conduit icon."
+  },
+  "melee": {
+    "aliases": ["attack", "combat", "unarmed-combat"],
+    "kind": "inline",
+    "asset": "assets/icons/melee.png",
+    "notes": "Official Battle Systems melee icon."
+  },
+  "night-sight": {
+    "aliases": ["night_sight", "darkvision"],
+    "kind": "inline",
+    "asset": "assets/icons/night-sight.png",
+    "notes": "Official Battle Systems Night Sight icon."
+  },
+  "no-defence": {
+    "aliases": ["no-defense", "ignore-armour", "ignore-armor"],
+    "kind": "inline",
+    "asset": "assets/icons/no-defence.png",
+    "notes": "Local crop of the shield-with-slash icon from Tsewer-Nami."
+  },
+  "otherworldly": {
+    "aliases": ["eldritch", "voidborn"],
+    "kind": "inline",
+    "asset": "assets/icons/otherworldly.png",
+    "notes": "Official Battle Systems Otherworldly icon."
+  },
+  "piercing": {
+    "aliases": ["pierce", "armour-break"],
+    "kind": "inline",
+    "asset": "assets/icons/piercing.png",
+    "notes": "Official Battle Systems piercing icon."
+  },
+  "plunderer": {
+    "aliases": ["loot", "loot-bag", "thief"],
+    "kind": "inline",
+    "asset": "assets/icons/plunderer.png",
+    "notes": "Official Battle Systems plunderer icon."
+  },
+  "poison": {
+    "aliases": ["poisonous", "venom"],
+    "kind": "inline",
+    "asset": "assets/icons/poison.png",
+    "notes": "Official Battle Systems poison icon."
+  },
+  "sharp": {
+    "aliases": ["blade", "wounding"],
+    "kind": "inline",
+    "asset": "assets/icons/sharp.png",
+    "notes": "Official Battle Systems sharp icon."
+  },
+  "size": {
+    "aliases": ["large", "small", "scale"],
+    "kind": "inline",
+    "asset": "assets/icons/size.png",
+    "notes": "Official Battle Systems size icon."
+  },
+  "grave": {
+    "aliases": ["grave-point"],
+    "kind": "footer",
+    "asset": "assets/icons/grave.png",
+    "notes": "Generated footer grave/skull icon derived from the approved sprite sheet."
+  },
+  "search": {
+    "aliases": ["inspect", "investigate"],
+    "kind": "footer",
+    "asset": "assets/icons/search.svg",
+    "notes": "Search or inspect footer icon."
+  },
+  "arrow-up": {
+    "aliases": ["increase", "raise"],
+    "kind": "footer",
+    "asset": "assets/icons/arrow-up.png",
+    "notes": "Generated footer increase icon derived from the approved sprite sheet."
+  },
+  "entry-point": {
+    "aliases": ["entry", "spawn-point"],
+    "kind": "footer",
+    "asset": "assets/icons/entry-point.png",
+    "notes": "Footer entry icon cropped from the original Trap! Net card art."
+  },
+  "map": {
+    "aliases": ["objective-map", "map-marker"],
+    "kind": "footer",
+    "asset": "assets/icons/map.png",
+    "notes": "Generated footer map icon derived from the approved sprite sheet."
+  },
+  "wall": {
+    "aliases": ["brick-wall", "wall-terrain"],
+    "kind": "footer",
+    "asset": "assets/icons/wall.png",
+    "notes": "Generated footer wall icon derived from the approved sprite sheet."
+  },
+  "mountain": {
+    "aliases": ["peak", "mountain-area", "terrain-mountain"],
+    "kind": "footer",
+    "asset": "assets/icons/mountain.png",
+    "notes": "Local crop of the mountain footer icon from Treacherous Terrain."
+  },
+  "larger-area": {
+    "aliases": ["multi-level", "large-area"],
+    "kind": "footer",
+    "asset": "assets/icons/larger-area.png",
+    "notes": "Generated footer mines/area icon derived from the approved sprite sheet."
+  },
+  "worthy-opponent": {
+    "aliases": ["worthy_opponent", "renown-target"],
+    "kind": "inline",
+    "asset": "assets/icons/worthy-opponent.png",
+    "notes": "Official Battle Systems Worthy Opponent icon."
+  },
+  "revenant": {
+    "aliases": ["revenants", "revenant-card"],
+    "kind": "inline",
+    "asset": "assets/icons/revenant.svg",
+    "notes": "Inline Revenant badge derived from the existing Revenant type art."
+  },
+  "blue-reminder": {
+    "aliases": ["blue reminder", "blue_reminder", "reminder-blue"],
+    "kind": "inline",
+    "asset": "assets/icons/blue-reminder.svg",
+    "notes": "High-contrast blue reminder counter icon."
+  },
+  "red-reminder": {
+    "aliases": ["red reminder", "red_reminder", "reminder-red"],
+    "kind": "inline",
+    "asset": "assets/icons/red-reminder.svg",
+    "notes": "High-contrast red reminder counter icon."
+  },
+  "yellow-reminder": {
+    "aliases": ["yellow reminder", "yellow_reminder", "reminder-yellow"],
+    "kind": "inline",
+    "asset": "assets/icons/yellow-reminder.svg",
+    "notes": "High-contrast yellow reminder counter icon."
+  },
+  "actions": {
+    "aliases": ["action", "action-points", "turns"],
+    "kind": "inline",
+    "asset": "assets/icons/actions.svg",
+    "notes": "Dedicated action badge for stat lines and effect summaries."
+  },
+  "unknown-icon": {
+    "aliases": ["unknown"],
+    "kind": "inline",
+    "asset": "assets/icons/unknown-icon.svg",
+    "notes": "Fallback placeholder for unresolved icon extraction."
+  }
+}

@@ -1,0 +1,256 @@
+{
+  "game": "Revenant Retribution",
+  "cards": [
+    {
+      "id": 84,
+      "card": "High Alert",
+      "slug": "high-alert",
+      "type": "Revenant + Veteran",
+      "game": "Revenant Retribution",
+      "sourceImage": "High_Alert.png",
+      "contents": "High_Alert.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DESPERATION",
+          "text": "Take the Revenant Reinforcements from the box and add them to the supply. They will be available for use for the rest of the game.\n\nThen, draw another Event card, resolving it as if the Dread were one band higher than it is."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "In addition, when determining which Adversaries will arrive this round, consider the Dread to be one band higher than it is. Discard this card after resolving Adversary arrival."
+        },
+        {
+          "kind": "mode",
+          "label": "DISASTER-DOOM",
+          "text": "Take the Revenant Reinforcements from the box and add them to the supply. They will be available for use for the rest of the game.\n\nThen, flip the Adversary board to the reverse side, if not already flipped. All Adversaries in play immediately take one action following the normal rules."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Revenant",
+        "Veteran"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "high alert revenant + veteran revenant retribution todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 85,
+      "card": "Fortune Favours The Grave",
+      "slug": "fortune-favours-the-grave",
+      "type": "Revenant + Veteran",
+      "game": "Revenant Retribution",
+      "sourceImage": "Fortune_Favours_The_Grave.png",
+      "contents": "Fortune_Favours_The_Grave.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Increase Dread by 1.\n\nTake the Revenant Reinforcements from the box and add them to the supply. They will be available for use for the rest of the game.\n\nThen, a Blessed Lamentor is place on every Grave Point within short range of an Adventurer."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "fortune favours the grave revenant + veteran revenant retribution todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 86,
+      "card": "Lurching Forth",
+      "slug": "lurching-forth",
+      "type": "Revenant + Veteran",
+      "game": "Revenant Retribution",
+      "sourceImage": "Lurching_Forth.png",
+      "contents": "Lurching_Forth.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Increase Dread by 1.\n\nTake the Revenant Reinforcements from the box and add them to the supply. They will be available for use for the rest of the game.\n\nResolve Adversary arrival for the round. You will resolve Adversary arrival again in the Adversary Phase as normal."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "lurching forth revenant + veteran revenant retribution todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 87,
+      "card": "Dead-JÃ  Vu",
+      "slug": "dead-j-vu",
+      "type": "Revenant + Veteran",
+      "game": "Revenant Retribution",
+      "sourceImage": "Dead_Ja_Vu.png",
+      "contents": "Dead_Ja_Vu.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "Increase Dread by 1.\n\nTake the topmost card from the discard pile (ignoring [arrow-up] cards) and resolve it again, if possible. Then shuffle this card back into the deck."
+        },
+        {
+          "kind": "mode",
+          "label": "DISMAY-DOOM",
+          "text": "Increase Dread by 1.\n\nTake the Revenant Reinforcements from the box and add them to the supply. They will be available for use for the rest of the game.\n\nThen take all [grave] cards from the discard pile. Select one at random and resolve it. Shuffle the others back into the deck."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Revenant",
+        "Veteran"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "dead-jã vu revenant + veteran revenant retribution todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 88,
+      "card": "Deathly Avatar",
+      "slug": "deathly-avatar",
+      "type": "Revenant + Veteran",
+      "game": "Revenant Retribution",
+      "sourceImage": "Deathly_Avatar.png",
+      "contents": "Deathly_Avatar.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "Increase Dread by 1 and shuffle this card back into the deck. Then, draw and resolve another Event Card."
+        },
+        {
+          "kind": "body",
+          "label": "DISMAY-DOOM",
+          "text": "Take the Revenant Reinforcements from the box and add them to the supply. They will be available for use for the rest of the game.\n\nThen, if the Malagaunt or Deathly Avatar is in play, Bless it and raise Dread by 2.\n\nOtherwise, place a Myria at a random Entry Point and mark it with a Reminder counter. If all Myria are in play, mark the one furthest from any enemies with a Reminder counter.\n\nThe marked Myria will use the Deathly Avatar character board and dashboard."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "deathly avatar revenant + veteran revenant retribution todo todo - requires manual entry unknown-icon unknown-icon"
+    }
+  ]
+}

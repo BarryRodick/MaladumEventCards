@@ -1,0 +1,925 @@
+{
+  "game": "Beyond The Vaults",
+  "cards": [
+    {
+      "id": 66,
+      "card": "Tsewer-Nami",
+      "slug": "tsewer-nami",
+      "type": "Environment",
+      "game": "Beyond The Vaults",
+      "sourceImage": "Tsewer_Nami.png",
+      "contents": "Tsewer_Nami.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "The waters start to rise. Any character standing in or adjacent to water is knocked prone. Then place a purple peg into the first space in the Dread band above the current one."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "All squares in a room containing a sewer channel are [move:1] and a source of water until the purple peg is replaced. Then shuffle this card back into the deck."
+        },
+        {
+          "kind": "mode",
+          "label": "DISMAY-DOOM",
+          "text": "A surge of water bursts forth, affecting all rooms containing a sewer channel.\n\n• Characters are knocked prone and suffer an attack with one die. Each hit Fatigues the character instead of causing damage. If a character is/becomes Stunned, remaining hits are treated as an attack with [no-defence].\n• Sources of fire are removed/extinguished, and Burning counters removed."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          },
+          {
+            "type": "label",
+            "text": "SEWERS/RIVERS"
+          }
+        ]
+      },
+      "tags": [
+        "sewers",
+        "rivers"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "tsewer-nami environment beyond the vaults sewers rivers disquiet-distress the waters start to rise. any character standing in or adjacent to water is knocked prone. then place a purple peg into the first space in the dread band above the current one. all squares in a room containing a sewer channel are move 1 and a source of water until the purple peg is replaced. then shuffle this card back into the deck. dismay-doom a surge of water bursts forth, affecting all rooms containing a sewer channel. • characters are knocked prone and suffer an attack with one die. each hit fatigues the character instead of causing damage. if a character is/becomes stunned, remaining hits are treated as an attack with no-defence . • sources of fire are removed/extinguished, and burning counters removed. map entry-point sewers/rivers"
+    },
+    {
+      "id": 67,
+      "card": "Toxic Waste",
+      "slug": "toxic-waste",
+      "type": "Environment",
+      "game": "Beyond The Vaults",
+      "sourceImage": "Toxic_Waste.png",
+      "contents": "Toxic_Waste.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Place a Poisoned counter on the sewer channel closest to the edge of the gaming area.\n\nIn each Assessment Phase, it spreads – place a Poisoned counter on the nearest connected sewer channel to the board edge that doesn’t have one. Then, all characters in short range of any channel with a Poisoned counter must roll for the effects as if were Poisoned themselves (a 6 will not remove the counter as it is not on the character).\n\nAdventurers may Interact with a Poisoned sewer channel and either spend two Magic pegs or discard a Blessed Water token to remove Poisoned counters from it and all adjoining channels.\n\nIf all Poisoned counters are removed, discard this card."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          },
+          {
+            "type": "label",
+            "text": "SEWERS"
+          }
+        ]
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "toxic waste environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 68,
+      "card": "Spitting Fire",
+      "slug": "spitting-fire",
+      "type": "Environment",
+      "game": "Beyond The Vaults",
+      "sourceImage": "Spitting_Fire.png",
+      "contents": "Spitting_Fire.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Dismay",
+          "text": "Determine the square of a lava flow closest to an Adventurer. Scatter two burning counters from that position (placing counters adjacent to the flow if they would land on it). Then, for each party taking part, repeat this process for the next closest lava flow (e.g. a total of twice for a single party, three times for two parties, etc)\n\nIf a counter hits a character or terrain piece, they are Burning. Otherwise, place it on the floor. Squares with a burning counter are treated as lava flows."
+        },
+        {
+          "kind": "mode",
+          "label": "Desperation-Doom",
+          "text": "As Disquiet-Dismay, but scatter three burning counters per lava flow."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          },
+          {
+            "type": "label",
+            "text": "MINES"
+          }
+        ]
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "spitting fire environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 69,
+      "card": "Cave-In!",
+      "slug": "cave-in",
+      "type": "Dungeon",
+      "game": "Beyond The Vaults",
+      "sourceImage": "Cave_In.png",
+      "contents": "Cave_In.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "Choose a random rockface wall and mark it as destroyed – it no longer produces ore. All characters within short range of the rockface side suffer a two-dice attack with Bludgeoning [bludgeoning]."
+        },
+        {
+          "kind": "mode",
+          "label": "DISMAY-DOOM",
+          "text": "As Disquiet-Distress, but there is a risk of a chain reaction!\nMark all tunnel entrance walls and rockface walls with Reminder counters. After a cart or character passes through a tunnel/character interacts with a rockface, roll the blue die (before completing any movement). On a blunder [skull] the tunnel/rockface collapses. Place a barricade on each side of a tunnel/the rockface side of a wall, pushing characters aside. Derail the cart if applicable. Any character pushed aside suffers a two-dice attack with Bludgeoning [bludgeoning]. Mark collapsed rockface walls as destroyed."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "map"
+          },
+          {
+            "type": "label",
+            "text": "MINES"
+          }
+        ]
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "cave-in! dungeon beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 70,
+      "card": "Heigh-Ho, Heigh-Ho!",
+      "slug": "heigh-ho-heigh-ho",
+      "type": "Dungeon + Denizen",
+      "game": "Beyond The Vaults",
+      "sourceImage": "Heigh_Ho_Heigh_Ho.png",
+      "contents": "Heigh_Ho_Heigh_Ho.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Dismay",
+          "text": "Select a random Denizen. It gains two Health, a Pick/Hammer or similar and Explosives. Place it at a random Entry Point. When activated, it Moves to the nearest Rockface and Interacts to drop ore. When Dread reaches Desperation, it takes the ore to the nearest cart and drives off the gaming area. It will not engage. If engaged, it makes a Melee Attack. If still engaged it Moves away, or Attacks again if it cannot. It then resumes normal rules. If ore is Interacted with within short range it is hostile to that party and follows the AI chart while enemies are visible. If its equipment is taken, it is hostile to all and leaves play if no enemies are visible."
+        },
+        {
+          "kind": "mode",
+          "label": "Desperation-Doom",
+          "text": "Select a Denizen as above. See above for character interactions. Otherwise, when activated, it Moves to the Mine Entrance and discards Explosives to drop 3 Reminder counters. It then leaves the gaming area. Remove one Reminder in Assessment Phase. When the last is removed, remove any Track passing through the Entrance and place two Barricades blocking it."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "map"
+          },
+          {
+            "type": "label",
+            "text": "MINES"
+          }
+        ]
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "heigh-ho, heigh-ho! dungeon + denizen beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 71,
+      "card": "Runaway Train",
+      "slug": "runaway-train",
+      "type": "Dungeon",
+      "game": "Beyond The Vaults",
+      "sourceImage": "Runaway_Train.png",
+      "contents": "Runaway_Train.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Choose a random mine cart and add a Reminder counter to it.\n\nIt can no longer be driven and Adventurers cannot get in. Adventurers already on board may get out, but if they do so they suffer a two dice attack with Bludgeoning [bludgeoning] and are knocked prone.\n\nIn each Assessment Phase it moves once along the track in whichever direction it can move furthest from its starting point, if possible. Its first move is 4 squares and subsequent moves are 7 squares.\n\nAfter it turns a corner or hits a track end, roll the blue die. On a blunder [skull] it de-rails.\n\nIf the cart leaves the gaming area, Adventurers on board are Left for Dead and anything else inside is lost.\n\nDiscard this card and the Reminder counter if the cart de-rails or leaves play."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "map"
+          },
+          {
+            "type": "label",
+            "text": "MINES"
+          }
+        ]
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "runaway train dungeon beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 72,
+      "card": "G-G-G-G-Ghosts!",
+      "slug": "g-g-g-g-ghosts",
+      "type": "Dungeon",
+      "game": "Beyond The Vaults",
+      "sourceImage": "G-G-G-G-Ghosts.png",
+      "contents": "G-G-G-G-Ghosts.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "A surge of malaclytes awakens ancient spectres. Any Illusions in play are removed and cannot be created while this card is in play. Scatter all five Illusions from the banquet table or other suitable centrepiece. These are ghosts and will activate in the NPC Phase."
+        },
+        {
+          "kind": "body",
+          "label": "",
+          "text": "Ghosts block LoS. Characters can Move through them but not stop on them. Ghosts have one action (two actions if the topmost peg in the Dread Tracker is blue). They Move towards the nearest character (ignoring characters with [camouflage], Moving through walls and terrain but not stopping on them) and Haunt. When they Haunt, roll the blue die. One or more hits will Fatigue the target; a critical will also Terrify them. An Adventurer who is Haunted but not Terrified may spend a Skill peg (reaction) to remove the ghost and gain 1XP.\n\nAdventurers may Interact with ghosts and spend a Magic peg to remove them.\n\nDiscard this card when all ghosts are removed."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "map"
+          },
+          {
+            "type": "label",
+            "text": "GREAT HALL"
+          }
+        ]
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "g-g-g-g-ghosts! dungeon beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 73,
+      "card": "Hall of Heroes",
+      "slug": "hall-of-heroes",
+      "type": "Dungeon",
+      "game": "Beyond The Vaults",
+      "sourceImage": "Hall_of_Heroes.png",
+      "contents": "Hall_of_Heroes.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "You have come across your Adversaries’ great meeting hall and they will defend it! Count ten empty spaces up the Dread Tracker (or as high as you can) and add a purple peg.\n\nWhile this card is in play, Adversaries that do not have LoS to an enemy Move towards the great hall and will wait in the centre of the room.\n\nAny Adversary that enters the hall becomes Blessed.\n\nIn each Assessment Phase, if there are more Adversaries than Adventurers in the hall, increase the Dread by 1.\n\nDiscard this card when the purple peg is replaced."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "map"
+          },
+          {
+            "type": "label",
+            "text": "GREAT HALL"
+          }
+        ]
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "hall of heroes dungeon beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 74,
+      "card": "Nectar Of The Gods",
+      "slug": "nectar-of-the-gods",
+      "type": "Environment",
+      "game": "Beyond The Vaults",
+      "sourceImage": "Nectar_Of_The_Gods.png",
+      "contents": "Nectar_Of_The_Gods.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Desperation",
+          "text": "Refill all empty fonts. Add a Blessed counter to all wells, drains and other freestanding sources of water, and to the X closest sewer channels (or similar) to the edge of the board, where X is the number of parties in the game.\n\nAdventurers may interact with any object with a Blessed counter to discard the counter, restore one Health, and take a Blessed Water token."
+        },
+        {
+          "kind": "mode",
+          "label": "Disaster-Doom",
+          "text": "As above. However, the Adversaries may have contaminated the water, giving it the Hazardous: Poisonous [poison] rule: When a counter is discarded/ Font interacted with, roll the blue die. If a hit is scored, the normal effects are applied. On a blunder [skull], the user is Poisoned instead. On a blank, nothing happens."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          },
+          {
+            "type": "label",
+            "text": "SOURCES OF WATER"
+          }
+        ]
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "nectar of the gods environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 75,
+      "card": "Infiltration",
+      "slug": "infiltration",
+      "type": "Dungeon",
+      "game": "Beyond The Vaults",
+      "sourceImage": "Infiltration.png",
+      "contents": "Infiltration.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Dismay",
+          "text": "You’ve made it deep into your Adversaries’ camp and you’ve caught them by surprise. All Adversaries in play are Fatigued, and no more Adversaries will arrive this round. Replace the bottom peg in the tracker with a purple one and shuffle this card back into the deck."
+        },
+        {
+          "kind": "mode",
+          "label": "Desperation-Doom",
+          "text": "Your Adversaries will defend their garrison fiercely and they have summoned reinforcements. All Adversaries in play are Blessed. Increase the Dread by 1, plus 2 more for each purple peg at the bottom of the Dread tracker (if any)."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          },
+          {
+            "type": "label",
+            "text": "GARRISON"
+          }
+        ]
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "infiltration dungeon beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 76,
+      "card": "Shhhhh......",
+      "slug": "shhhhh",
+      "type": "Dungeon",
+      "game": "Beyond The Vaults",
+      "sourceImage": "Shhhhh.png",
+      "contents": "Shhhhh.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "Your Adversaries are not expecting a full-on assault in a place like a library, and you can take advantage of that! Count four empty spaces up the Dread tracker and add a purple peg.\n\nIf at the moment the purple peg is replaced no Adversaries have LoS to an enemy, you may reduce the Dread by 2 and put the Sentries rules into place, adding Patrol Points to the gaming area following the normal rules if necessary."
+        },
+        {
+          "kind": "mode",
+          "label": "DISMAY-DOOM",
+          "text": "As characters fight their way through the library, malacytes leach from the ancient books.\n\nAny character that spends Magic pegs within short range of a bookcase, book pile or similar may add a blue peg to the tracker (in addition to the normal one, if applicable) to restore up to two additional Magic pegs after resolving the spell or ability."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "map"
+          },
+          {
+            "type": "label",
+            "text": "ARCHIVES"
+          }
+        ]
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "shhhhh...... dungeon beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 77,
+      "card": "Seize Them!",
+      "slug": "seize-them",
+      "type": "Dungeon",
+      "game": "Beyond The Vaults",
+      "sourceImage": "Seize_Them.png",
+      "contents": "Seize_Them.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "These prison cells are still in use! Place a spare Denizen prone in any cell not yet opened. They do not need a card or board as they will not activate.\n\nThese Denizens will be targeted by enemies as normal, and if they suffer any damage they are defeated. Each may be dragged off the gaming area via a Staging Point to gain 1 Renown, and they will count as having joined your party for the purposes of hiring.\n\nFor the rest of the quest, Adversaries without LoS to an enemy will target defeated Adventurers if possible, Moving towards them and dragging them to the nearest cell/cage following the normal rules. Once a defeated Adventurer is in a cell, the Adversary will revert to its normal rules, locking the cell door as it leaves. Defeated Adventurers still in a cell at the end of the game (including any subsequent rescue mission) reduce their Left for Dead roll by 3."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "map"
+          },
+          {
+            "type": "label",
+            "text": "BASTILLE"
+          }
+        ]
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "seize them! dungeon beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 78,
+      "card": "Watch Your Step!",
+      "slug": "watch-your-step",
+      "type": "Environment",
+      "game": "Beyond The Vaults",
+      "sourceImage": "Watch_Your_Step.png",
+      "contents": "Watch_Your_Step.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Falling rubble or boggy terrain makes certain areas treacherous. Mark a random room with a red Reminder counter and mark up to two random adjoining rooms with blue Reminder counters.\n\nMarked rooms are as follows:\n\n[blue-reminder] : Rough Ground 1 [move:1]\n[red-reminder] : Rough Ground 2 [move:2]\n[yellow-reminder] : Rough Ground 3 [move:3] (see below)"
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "As Disquiet Dismay, but mark the first room with a yellow Reminder and the two adjoining rooms with red Reminders."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "watch your step! environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 79,
+      "card": "Corrupted Warrior",
+      "slug": "corrupted-warrior",
+      "type": "Veteran",
+      "game": "Beyond The Vaults",
+      "sourceImage": "Corrupted_Warrior.png",
+      "contents": "Corrupted_Warrior.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "The Warrior still slumbers... Increase Dread by 1 and shuffle this card back into the deck. Then, draw and resolve another Event Card."
+        },
+        {
+          "kind": "mode",
+          "label": "DISMAY-DOOM",
+          "text": "Select a random Denizen. It gains two additional Health pegs, two additional Magic pegs, one random uncommon weapon and one random item from the token pouch. Add a Mini-Boss Insert to its board. Place the miniature at a random Entry Point.\n\nThis Denizen is considered to be an Adversary for all purposes."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.98,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "corrupted warrior veteran beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 80,
+      "card": "Rotten Floor",
+      "slug": "rotten-floor",
+      "type": "Veteran + Environment",
+      "game": "Beyond The Vaults",
+      "sourceImage": "Rotten_Floor.png",
+      "contents": "Rotten_Floor.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Distress",
+          "text": "Increase Dread by 1. Select a random character on an upper level. If there are none, shuffle this card back into the deck and draw another.\n\nOtherwise, place a Pit in the closest possible position to that character not in contact with an Entry Point (it can be placed under other characters). The Pit is a hole to the level below. This causes noise for the purposes of Sentries.\n\nAny character on the Pit falls through, following the normal falling rules. Any character in contact with the Pit must spend a Skill peg (reaction) or fall through.\n\nPlace two Barricades under the Pit. Characters in or adjacent to those squares are pushed directly away and laid prone, and suffer an attack with 3 dice and Bludgeoning. They may spend a Skill peg (reaction) to avoid the attack."
+        },
+        {
+          "kind": "mode",
+          "label": "Dismay-Doom",
+          "text": "As Disquiet-Distress, but resolved twice if possible."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "label",
+            "text": "+1"
+          },
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          },
+          {
+            "type": "label",
+            "text": "MULTI-LEVEL GAMING AREAS"
+          }
+        ]
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "rotten floor veteran + environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 81,
+      "card": "They're In The Walls!",
+      "slug": "they-re-in-the-walls",
+      "type": "Veteran + Environment",
+      "game": "Beyond The Vaults",
+      "sourceImage": "Theyre_In_The_Walls.png",
+      "contents": "Theyre_In_The_Walls.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "If the quest objectives directly involve Entry Points, increase Dread by 2, discard this card, and draw another.\n\nIf secondary Entry Points are already in play, increase Dread by 1 and resolve Adversary arrival. You will resolve it again in the Adversary Phase as normal. Then discard this card.\n\nOtherwise, determine the furthest Adventurer from its Staging Point. Roll the Magic Die to determine a direction and then place secondary Entry Points 1 and 4 short range away in that direction (or as close as possible), on a different level if possible. Then, starting at this position, roll for direction again and place points 2 and 5 medium range away, again changing level if possible. Repeat from this position to place points 3 and 6.\n\nFor the rest of the game, roll for Adversary arrival twice each round, once for each set of Entry Points."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          },
+          {
+            "type": "label",
+            "text": "LARGER AND/OR MULTI-LEVEL GAMING AREAS"
+          }
+        ]
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "they're in the walls! veteran + environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 82,
+      "card": "The Floodgates Open",
+      "slug": "the-floodgates-open",
+      "type": "Veteran + Environment",
+      "game": "Beyond The Vaults",
+      "sourceImage": "The_Floodgates_Open.png",
+      "contents": "The_Floodgates_Open.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "If the quest objectives directly involve Entry Points, increase Dread by 2, discard this card, and draw another.\n\nIf secondary Entry Points are already in play, increase Dread by 1 and resolve Adversary arrival. You will resolve it again in the Adversary Phase as normal. Then discard this card.\n\nOtherwise, roll the Magic Die for each existing Entry Point and place the matching secondary Entry Point that many spaces to its right (or as close as possible to that position). If that area has multiple levels, place the secondary Entry Point on a different level. For Entry Points on the gaming area, do not roll – place the secondary Entry Point in the nearest similar position available (well, staircase, or other suitable arrival position), or the same position if there are none.\n\nFor the rest of the game, roll for Adversary arrival twice each round, once for each set of Entry Points."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          },
+          {
+            "type": "label",
+            "text": "LARGER AND/OR MULTI-LEVEL GAMING AREAS"
+          }
+        ]
+      },
+      "tags": [
+        "Veteran",
+        "Environment"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.98,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "the floodgates open veteran + environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 83,
+      "card": "The Floodgates Open",
+      "slug": "the-floodgates-open",
+      "type": "Veteran + Environment",
+      "game": "Beyond The Vaults",
+      "sourceImage": "The_Floodgates_Open.png",
+      "contents": "The_Floodgates_Open.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "If the quest objectives directly involve Entry Points, increase Dread by 2, discard this card, and draw another.\n\nIf secondary Entry Points are already in play, increase Dread by 1 and resolve Adversary arrival. You will resolve it again in the Adversary Phase as normal. Then discard this card.\n\nOtherwise, roll the Magic Die for each existing Entry Point and place the matching secondary Entry Point that many spaces to its right (or as close as possible to that position). If that area has multiple levels, place the secondary Entry Point on a different level. For Entry Points on the gaming area, do not roll - place the secondary Entry Point in the nearest similar position available (well, staircase, or other suitable arrival position), or the same position if there are none."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "For the rest of the game, roll for Adversary arrival twice each round, once for each set of Entry Points."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          },
+          {
+            "type": "label",
+            "text": "LARGER AND/OR MULTI-LEVEL GAMING AREAS"
+          }
+        ]
+      },
+      "tags": [
+        "Veteran",
+        "Environment"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "the floodgates open veteran + environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+    }
+  ]
+}

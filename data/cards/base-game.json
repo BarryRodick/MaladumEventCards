@@ -1,0 +1,2773 @@
+{
+  "game": "Base Game",
+  "cards": [
+    {
+      "id": 1,
+      "card": "Renewed Vigour",
+      "slug": "renewed-vigour",
+      "type": "Environment",
+      "game": "Base Game",
+      "sourceImage": "Renewed_Vigour.png",
+      "contents": "Renewed_Vigour.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "Your enemies are spurred on by unseen forces. All Adversaries in play immediately take one action following the normal rules.",
+          "threshold": 1
+        },
+        {
+          "kind": "mode",
+          "label": "DISMAY-DESPERATION",
+          "text": "The three Adversaries closest to an Adventurer are Blessed. Then, all Adversaries in play immediately take one action following the normal rules.",
+          "threshold": 2
+        },
+        {
+          "kind": "mode",
+          "label": "DISASTER-DOOM",
+          "text": "Flip the Adversary board to the reverse side, if not already flipped. Then, all Adversaries in play immediately take one action following the normal rules."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "renewed vigour environment base game disquiet-distress your enemies are spurred on by unseen forces. all adversaries in play immediately take one action following the normal rules. dismay-desperation the three adversaries closest to an adventurer are blessed. then, all adversaries in play immediately take one action following the normal rules. disaster-doom flip the adversary board to the reverse side, if not already flipped. then, all adversaries in play immediately take one action following the normal rules. unknown-icon unknown-icon"
+    },
+    {
+      "id": 2,
+      "card": "Life Drain",
+      "slug": "life-drain",
+      "type": "Revenant",
+      "game": "Base Game",
+      "sourceImage": "Life_Drain.png",
+      "contents": "Life_Drain.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "The Adventurer with the most Health suffers 2 damage (up to a maximum of their remaining Health). They may spend Magic pegs to reduce this damage.\n\nIf the Malagaunt is in play, it restores Health equal to the damage inflicted (this may exceed its starting health).\n\nOtherwise, that many Lamentors arrive, if available, at the nearest empty Grave Points to the Adventurer."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Revenant"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "life drain revenant base game disquiet-doom the adventurer with the most health suffers 2 damage (up to a maximum of their remaining health). they may spend magic pegs to reduce this damage. if the malagaunt is in play, it restores health equal to the damage inflicted (this may exceed its starting health). otherwise, that many lamentors arrive, if available, at the nearest empty grave points to the adventurer. unknown-icon unknown-icon"
+    },
+    {
+      "id": 3,
+      "card": "Balefire",
+      "slug": "balefire",
+      "type": "Revenant",
+      "game": "Base Game",
+      "sourceImage": "Balefire.png",
+      "contents": "Balefire.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "The Malagaunt channels its magic through one of its minions. The closest unengaged Adversary to an enemy targets that enemy with a two-dice ranged attack with [fire].\n\nThen, all unengaged Adversaries make a Move action.",
+          "threshold": 2
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Revenant"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "balefire revenant base game disquiet-doom the malagaunt channels its magic through one of its minions. the closest unengaged adversary to an enemy targets that enemy with a two-dice ranged attack with fire . then, all unengaged adversaries make a move action. unknown-icon unknown-icon"
+    },
+    {
+      "id": 4,
+      "card": "Respite",
+      "slug": "respite",
+      "type": "Novice",
+      "game": "Base Game",
+      "sourceImage": "Respite.png",
+      "contents": "Respite.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "There is an unexpected lull in the seemingly endless onslaught. Reduce Dread by 2. No Adversaries will arrive this round. Adversaries already in play will activate as normal."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "respite novice base game disquiet-doom there is an unexpected lull in the seemingly endless onslaught. reduce dread by 2. no adversaries will arrive this round. adventurers already in play will activate as normal. unknown-icon unknown-icon"
+    },
+    {
+      "id": 5,
+      "card": "Snap",
+      "slug": "snap",
+      "type": "Environment",
+      "game": "Base Game",
+      "sourceImage": "Snap.png",
+      "contents": "Snap.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Select an Adventurer at random. A random item that they are carrying is broken. Turn the item face down in their inventory."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "snap environment base game disquiet-doom select an adventurer at random. a random item that they are carrying is broken. turn the item face down in their inventory. unknown-icon unknown-icon"
+    },
+    {
+      "id": 6,
+      "card": "Malacytic Fluctuations",
+      "slug": "malacytic-fluctuations",
+      "type": "Environment",
+      "game": "Base Game",
+      "sourceImage": "Malacytic_Fluctuations.png",
+      "contents": "Malacytic_Fluctuations.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET",
+          "text": "Each Adventurer feels buoyed as natural energy flows through them. All characters gain a Magic peg – this may exceed their starting value."
+        },
+        {
+          "kind": "mode",
+          "label": "DISTRESS",
+          "text": "The Adventurers feel suddenly drained by an unnatural force. All characters discard a Magic peg. If they cannot they become Fatigued."
+        },
+        {
+          "kind": "mode",
+          "label": "DISMAY-DESPERATION",
+          "text": "All characters gain two Magic pegs – this may exceed their starting value."
+        },
+        {
+          "kind": "mode",
+          "label": "DISASTER-DOOM",
+          "text": "All characters discard two Magic pegs. If they cannot they become Fatigued for each."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "malacytic fluctuations environment base game disquiet each adventurer feels buoyed as natural energy flows through them. all characters gain a magic peg â€“ this may exceed their starting value. distress the adventurers feel suddenly drained by an unnatural force. all characters discard a magic peg. if they cannot they become fatigued. dismay-desperation all characters gain two magic pegs â€“ this may exceed their starting value. disaster-doom all characters discard two magic pegs. if they cannot they become fatigued for each. unknown-icon unknown-icon"
+    },
+    {
+      "id": 7,
+      "card": "Trap! Arrow",
+      "slug": "trap-arrow",
+      "type": "Dungeon",
+      "game": "Base Game",
+      "sourceImage": "Trap_Arrow.png",
+      "contents": "Trap_Arrow.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "An Adventurer trips a wire and an arrow shoots from the wall! A random Adventurer suffers a ranged attack with one die and Sharp [sharp]. Shuffle this card back into the deck."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "An Adventurer trips a wire and a hail of arrows fills the room! Select a random Adventurer. That character and all other characters in the same room suffer a ranged attack with one die and Sharp [sharp] (roll separately for each)."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "trap! arrow dungeon base game todo todo - image too small to read unknown-icon unknown-icon"
+    },
+    {
+      "id": 8,
+      "card": "Fiery Touch",
+      "slug": "fiery-touch",
+      "type": "Revenant",
+      "game": "Base Game",
+      "sourceImage": "Fiery_Touch.png",
+      "contents": "Fiery_Touch.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "The Malagaunt channels its magic through its minions. All engaged Adversaries make a two-dice melee attack with [fire].\n\nThen, all unengaged Adversaries make a Move action.",
+          "threshold": 2
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "fiery touch revenant base game disquiet-doom the malagaunt channels its magic through its minions. all engaged adversaries make a two-dice melee attack with fire . then, all unengaged adversaries make a move action. unknown-icon unknown-icon"
+    },
+    {
+      "id": 9,
+      "card": "Feeling Lucky",
+      "slug": "feeling-lucky",
+      "type": "Novice",
+      "game": "Base Game",
+      "sourceImage": "Feeling_Lucky.png",
+      "contents": "Feeling_Lucky.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Reduce Dread by 1. All Adventurers in play become Blessed."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "feeling lucky novice base game disquiet-doom reduce dread by 1. all adventurers in play become blessed. unknown-icon unknown-icon"
+    },
+    {
+      "id": 10,
+      "card": "Alarm!",
+      "slug": "alarm",
+      "type": "Environment",
+      "game": "Base Game",
+      "sourceImage": "Alarm.png",
+      "contents": "Alarm.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET",
+          "text": "Your presence has sounded an alarm. Increase the Dread by 1."
+        },
+        {
+          "kind": "mode",
+          "label": "DISTRESS-DISMAY",
+          "text": "Place this card next to the Dread Tracker and place three black pegs on top of it. Add one of these pegs to the Tracker in each Assessment Phase. When all pegs have been used, discard this card."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "Increase the Dread by 1. Then roll the Magic Die for each Adventurer. On a 1, that Adventurer becomes Terrified.\n\nThen discard this card and draw another."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "alarm! environment base game disquiet your presence has sounded an alarm. increase the dread by 1. distress-dismay place this card next to the dread tracker and place three black pegs on top of it. add one of these pegs to the tracker in each assessment phase. when all pegs have been used, discard this card. desperation-doom increase the dread by 1. then roll the magic die for each adventurer. on a 1, that adventurer becomes terrified. then discard this card and draw another. unknown-icon unknown-icon"
+    },
+    {
+      "id": 11,
+      "card": "Chilling Aura",
+      "slug": "chilling-aura",
+      "type": "Revenant",
+      "game": "Base Game",
+      "sourceImage": "Chilling_Aura.png",
+      "contents": "Chilling_Aura.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "All non-Adversaries within short range of a Revenant become Terrified. They may spend a Magic peg to ignore this effect.",
+          "threshold": 1
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "All non-Adversaries within short range of a Revenant become Terrified and Fatigued. They may spend one Magic peg to ignore each effect."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Revenant"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "chilling aura revenant base game disquiet-dismay all non-adversaries within short range of a revenant become terrified. they may spend a magic peg to ignore this effect. desperation-doom all non-adversaries within short range of a revenant become terrified and fatigued. they may spend one magic peg to ignore each effect. unknown-icon unknown-icon"
+    },
+    {
+      "id": 12,
+      "card": "Reanimation",
+      "slug": "reanimation",
+      "type": "Revenant",
+      "game": "Base Game",
+      "sourceImage": "Reanimation.png",
+      "contents": "Reanimation.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "Place a Lamentor at the nearest empty Grave Point to an Adventurer. It activates immediately, and will activate again in the Adversary Phase."
+        },
+        {
+          "kind": "mode",
+          "label": "DISMAY-DOOM",
+          "text": "Target a random defeated Adventurer, if any. The Adventurer Stands Up, and then takes 3 actions as if they were an Adversary. The defeated Adventurer may spend Magic pegs to reduce this number of actions.\n\nAfter any actions have been taken, the character is laid prone and marked as defeated again.\n\nIf there are no defeated Adventurers, place a Lamentor at the nearest empty Grave Point to an Adventurer and activate it."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Revenant"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "reanimation revenant base game disquiet-distress place a lamentor at the nearest empty grave point to an adventurer. it activates immediately, and will activate again in the adversary phase. dismay-doom target a random defeated adventurer, if any. the adventurer stands up, and then takes 3 actions as if they were an adversary. the defeated adventurer may spend magic pegs to reduce this number of actions. after any actions have been taken, the character is laid prone and marked as defeated again. if there are no defeated adventurers, place a lamentor at the nearest empty grave point to an adventurer and activate it. unknown-icon unknown-icon"
+    },
+    {
+      "id": 13,
+      "card": "Get That One!",
+      "slug": "get-that-one",
+      "type": "Revenant",
+      "game": "Base Game",
+      "sourceImage": "Get_That_One.png",
+      "contents": "Get_That_One.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET",
+          "text": "Choose the Adventurer with the fewest Health pegs. All enemies within medium range and LoS not engaged with another Adventurer take one action with the chosen Adventurer as the target.",
+          "threshold": 1
+        },
+        {
+          "kind": "mode",
+          "label": "DISTRESS-DISMAY",
+          "text": "Choose the Adventurer with the most Magic pegs. All enemies within medium range and LoS not engaged with another Adventurer take one action with the chosen Adventurer as the target.",
+          "threshold": 2
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "Choose the Adventurer with the most Health pegs. All enemies within medium range and LoS not engaged with another Adventurer take one action with the chosen Adventurer as the target.",
+          "threshold": 3
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "get that one! revenant base game disquiet choose the adventurer with the fewest health pegs. all enemies within medium range and los not engaged with another adventurer take one action with the chosen adventurer as the target. distress-dismay choose the adventurer with the most magic pegs. all enemies within medium range and los not engaged with another adventurer take one action with the chosen adventurer as the target. desperation-doom choose the adventurer with the most health pegs. all enemies within medium range and los not engaged with another adventurer take one action with the chosen adventurer as the target. unknown-icon unknown-icon"
+    },
+    {
+      "id": 14,
+      "card": "Deathly Fusion",
+      "slug": "deathly-fusion",
+      "type": "Revenant",
+      "game": "Base Game",
+      "sourceImage": "Deathly_Fusion.png",
+      "contents": "Deathly_Fusion.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "Determine the Lamentor closest to a terrain piece with armour 1 (e.g. Barricade, Crate). Replace the Lamentor with a Myria and Bless it; then remove the terrain piece from play, breaking and scattering any items inside.\n\nIf no Lamentors are in play or no Myria are available, increase the Dread by 1 and shuffle this card back into the deck."
+        },
+        {
+          "kind": "mode",
+          "label": "DISMAY-DOOM",
+          "text": "For each Hellfont not currently in play, determine the Lamentor closest to a Crucible of Resurrection. Replace the Lamentors with Hellfonts and Bless them.\n\nIf no Crucibles are in play or no Hellfonts are available, resolve as Disquiet-Distress."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Revenant"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "deathly fusion revenant base game disquiet-distress determine the lamentor closest to a terrain piece with armour 1 (e.g. barricade, crate). replace the lamentor with a myria and bless it; then remove the terrain piece from play, breaking and scattering any items inside. if no lamentors are in play or no myria are available, increase the dread by 1 and shuffle this card back into the deck. dismay-doom for each hellfont not currently in play, determine the lamentor closest to a crucible of resurrection. replace the lamentors with hellfonts and bless them. if no crucibles are in play or no hellfonts are available, resolve as disquiet-distress. unknown-icon unknown-icon"
+    },
+    {
+      "id": 15,
+      "card": "They're Below Us!",
+      "slug": "they-re-below-us",
+      "type": "Revenant",
+      "game": "Base Game",
+      "sourceImage": "Theyre_Below_Us.png",
+      "contents": "Theyre_Below_Us.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "All non-Commander Adversaries arriving this round arrive from Grave Points, not Entry Points. In addition, characters do not block Grave Points this round – Adversaries that would arrive there are placed in contact with the character on top.\n\nIf a Rot Troll would arrive, place a Pit terrain piece on top of the selected Grave Point, and place the Rot Troll in contact with it, pushing other characters aside if necessary.\n\nAny character on the Pit falls in. Any non-Adversary character in contact with the Pit must spend a Skill peg (reaction) or fall in.\n\nThe Pit remains in play, following the normal rules."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Revenant"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "they're below us! revenant base game disquiet-doom all non-commander adversaries arriving this round arrive from grave points, not entry points. in addition, characters do not block grave points this round â€“ adversaries that would arrive there are placed in contact with the character on top. if a rot troll would arrive, place a pit terrain piece on top of the selected grave point, and place the rot troll in contact with it, pushing other characters aside if necessary. any character on the pit falls in. any non-adversary character in contact with the pit must spend a skill peg (reaction) or fall in. the pit remains in play, following the normal rules. unknown-icon unknown-icon"
+    },
+    {
+      "id": 16,
+      "card": "Unnatural Lifeforce",
+      "slug": "unnatural-lifeforce",
+      "type": "Malagaunt",
+      "game": "Base Game",
+      "sourceImage": "Unnatural_Lifeforce.png",
+      "contents": "Unnatural_Lifeforce.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "The Adversary (not including Commanders) furthest from an Adventurer is immediately defeated. Give the Malagaunt a number of Blessed counters equal to that Adversary's rank (even if the Malagaunt hasn't entered play yet).",
+          "threshold": 1
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "unnatural lifeforce malagaunt base game disquiet-doom the adversary (not including commanders) furthest from an adventurer is immediately defeated. give the malagaunt a number of blessed counters equal to that adversary's rank (even if the malagaunt hasn't entered play yet). unknown-icon unknown-icon"
+    },
+    {
+      "id": 17,
+      "card": "Death Draws In",
+      "slug": "death-draws-in",
+      "type": "Malagaunt",
+      "game": "Base Game",
+      "sourceImage": "Death_Draws_In.png",
+      "contents": "Death_Draws_In.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "Increase the Dread by 2 and shuffle this card back into the deck."
+        },
+        {
+          "kind": "mode",
+          "label": "DISMAY-DOOM",
+          "text": "If the Deathly Avatar is in play, replace it with the Malagaunt. Flip the character board and adjust its pegs to the starting statistics of the Malagaunt. Then Bless the Malagaunt.\n\nOtherwise, the Malagaunt is placed at a random Entry Point.\n\nIf the Malagaunt is already in play, it becomes Blessed."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Malagaunt"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "death draws in malagaunt base game disquiet-distress increase the dread by 2 and shuffle this card back into the deck. dismay-doom if the deathly avatar is in play, replace it with the malagaunt. flip the character board and adjust its pegs to the starting statistics of the malagaunt. then bless the malagaunt. otherwise, the malagaunt is placed at a random entry point. if the malagaunt is already in play, it becomes blessed. unknown-icon unknown-icon"
+    },
+    {
+      "id": 18,
+      "card": "Gleaming Trinket",
+      "slug": "gleaming-trinket",
+      "type": "Environment",
+      "game": "Base Game",
+      "sourceImage": "Gleaming_Trinket.png",
+      "contents": "Gleaming_Trinket.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "An Adventurer spots something shining in the distance, but there's something blocking the view... Determine the square on the board furthest from any Adventurers that at least one Adventurer has LoS to. Place an unused Objective token (or Reminder counter if no Objectives are available) in that square.\n\nThen place the highest-ranking Adversary available in the current Dread band in a square adjacent to the token."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "Set this card aside as a reminder. If the Objective token is retrieved, roll the Magic Die and replace it with the following:\n1-2: A random item from the token pouch\n3-4: A random uncommon item\n5-6: A random rare item\nToken size does not matter. Then discard this card."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "gleaming trinket environment base game disquiet-doom an adventurer spots something shining in the distance, but there's something blocking the view... determine the square on the board furthest from any adventurers that at least one adventurer has los to. place an unused objective token (or reminder counter if no objectives are available) in that square. then place the highest-ranking adversary available in the current dread band in a square adjacent to the token. set this card aside as a reminder. if the objective token is retrieved, roll the magic die and replace it with the following: 1-2: a random item from the token pouch 3-4: a random uncommon item 5-6: a random rare item token size does not matter. then discard this card. unknown-icon unknown-icon"
+    },
+    {
+      "id": 19,
+      "card": "Tremors",
+      "slug": "tremors",
+      "type": "Environment",
+      "game": "Base Game",
+      "sourceImage": "Tremors.png",
+      "contents": "Tremors.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "The ground shakes. Set this card aside. All attacks roll one fewer die until the end of the round, and all Move distances are decreased by 1 square. Discard this card at the end of the round."
+        },
+        {
+          "kind": "mode",
+          "label": "DISMAY",
+          "text": "There is an unexpected seismic shift. All characters not in contact with a wall are knocked prone.\n\nThen, as Disquiet-Distress."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "A rotten floor gives way. The first player chooses a point on the board and scatters twice, ignoring terrain. Place a Pit terrain piece as close as possible to that location (avoiding terrain but ignoring characters).\n\nAny character on the Pit falls in. Any character adjacent to the Pit must spend a Skill peg (reaction) or fall in.\n\nThe Pit remains in play, following the normal rules.\n\nThen, as Disquiet-Distress."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "tremors environment base game disquiet-distress the ground shakes. set this card aside. all attacks roll one fewer die until the end of the round, and all move distances are decreased by 1 square. discard this card at the end of the round. dismay there is an unexpected seismic shift. all characters not in contact with a wall are knocked prone. then, as disquiet-distress. desperation-doom a rotten floor gives way. the first player chooses a point on the board and scatters twice, ignoring terrain. place a pit terrain piece as close as possible to that location (avoiding terrain but ignoring characters). any character on the pit falls in. any character adjacent to the pit must spend a skill peg (reaction) or fall in. the pit remains in play, following the normal rules. then, as disquiet-distress. unknown-icon unknown-icon"
+    },
+    {
+      "id": 20,
+      "card": "Spooked",
+      "slug": "spooked",
+      "type": "Environment",
+      "game": "Base Game",
+      "sourceImage": "Spooked.png",
+      "contents": "Spooked.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET",
+          "text": "You are distracted by distant noises. Increase the Dread by 1 and shuffle this card back into the deck."
+        },
+        {
+          "kind": "mode",
+          "label": "DISTRESS-DISMAY",
+          "text": "There are strange shapes lurking in the shadows. A random Adventurer becomes Terrified."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "Hysteria is spreading. A random Adventurer becomes Terrified and Fatigued, and all Adventurers within short range of the target become Terrified."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "spooked environment base game disquiet you are distracted by distant noises. increase the dread by 1 and shuffle this card back into the deck. distress-dismay there are strange shapes lurking in the shadows. a random adventurer becomes terrified. desperation-doom hysteria is spreading. a random adventurer becomes terrified and fatigued, and all adventurers within short range of the target become terrified. unknown-icon unknown-icon"
+    },
+    {
+      "id": 21,
+      "card": "As One Door Closes...",
+      "slug": "as-one-door-closes",
+      "type": "Environment",
+      "game": "Base Game",
+      "sourceImage": "As_One_Door_Closes.png",
+      "contents": "As_One_Door_Closes.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "What was once a safe staging point is no longer safe – your escape route has been blocked! However, you've spotted an alternative way out, if you can get there.\n\nThe first player rolls the Magic Die and swaps their Staging Point with the matching Entry Point."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "Hordes of enemies appear at what you thought was a safe escape route. At this point you have no choice but to fight your way out.\n\nThe first player rolls the Magic Die twice, re-rolling duplicates. The Entry Points matching the numbers rolled are moved adjacent to the player's Staging Point."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "as one door closes... environment base game disquiet-dismay what was once a safe staging point is no longer safe â€“ your escape route has been blocked! however, you've spotted an alternative way out, if you can get there. the first player rolls the magic die and swaps their staging point with the matching entry point. desperation-doom hordes of enemies appear at what you thought was a safe escape route. at this point you have no choice but to fight your way out. the first player rolls the magic die twice, re-rolling duplicates. the entry points matching the numbers rolled are moved adjacent to the player's staging point. unknown-icon unknown-icon"
+    },
+    {
+      "id": 22,
+      "card": "Trap! Snare",
+      "slug": "trap-snare",
+      "type": "Environment",
+      "game": "Base Game",
+      "sourceImage": "Trap_Snare.png",
+      "contents": "Trap_Snare.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "An Adventurer stumbles into a snare laid for a wild animal! A random Adventurer suffers an attack with three dice, Sharp [sharp] and Entangling [entangling]."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "trap! snare environment base game disquiet-doom an adventurer stumbles into a snare laid for a wild animal! a random adventurer suffers an attack with three dice, sharp sharp and entangling entangling . unknown-icon unknown-icon"
+    },
+    {
+      "id": 23,
+      "card": "They're Everywhere",
+      "slug": "they-re-everywhere",
+      "type": "Environment",
+      "game": "Base Game",
+      "sourceImage": "Theyre_Everywhere.png",
+      "contents": "Theyre_Everywhere.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "You've noticed them here and there; some kind of vermin clustered on columns and ceilings, probably attracted by the residual energy of your magic. They were no bother at first, but now they seem to consider you a threat and they attack!\n\nRoll a combat die for each non-Adversary character in play. On a [skull] they become Poisoned. Otherwise, they suffer Fatigued counters equal to the number of hits rolled as they fight off the creatures. Stunned characters do not roll – they are automatically Poisoned."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "they're everywhere environment base game disquiet-doom you've noticed them here and there; some kind of vermin clustered on columns and ceilings, probably attracted by the residual energy of your magic. they were no bother at first, but now they seem to consider you a threat and they attack! roll a combat die for each non-adversary character in play. on a paw they become poisoned. otherwise, they suffer fatigued counters equal to the number of hits rolled as they fight off the creatures. stunned characters do not roll â€“ they are automatically poisoned. unknown-icon unknown-icon"
+    },
+    {
+      "id": 24,
+      "card": "Lost Traveller",
+      "slug": "lost-traveller",
+      "type": "Denizen",
+      "game": "Base Game",
+      "sourceImage": "Lost_Traveller.png",
+      "contents": "Lost_Traveller.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Select a random Denizen. It gains one random item from the token pouch.\nPlace the miniature at a random Entry Point.\n\nThe character scatters once per action.\n\nIt will not engage enemies - it will stop one square away if there is no route around. If it starts its turn engaged, it will make a Melee Attack if possible, or a Knock Back if not. If still engaged it will Move directly away if possible, or Attack/Knock Back again if not. It resumes its normal rules for any remaining actions.\n\nIf this character is Persuaded to leave play via a Staging Point, the rescuing player gains one Renown."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "lost traveller denizen base game todo todo - image too small to read unknown-icon unknown-icon"
+    },
+    {
+      "id": 25,
+      "card": "Lost Traveller",
+      "slug": "lost-traveller",
+      "type": "Denizen",
+      "game": "Base Game",
+      "sourceImage": "Lost_Traveller.png",
+      "contents": "Lost_Traveller.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Select a random Denizen. It gains one random item from the token pouch.\n\nPlace the miniature at a random Entry Point."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "The character scatters once per action.\n\nIt will not engage enemies - it will stop one square away if there is no route around. If it starts its turn engaged, it will make a Melee Attack if possible, or a Knock Back if not. If still engaged it will Move directly away if possible, or Attack/Knock Back again if not. It resumes its normal rules for any remaining actions.\n\nIf this character is Persuaded to leave play via a Staging Point, the rescuing player gains one Renown."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Denizen"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "lost traveller denizen base game todo todo - image too small to read unknown-icon unknown-icon"
+    },
+    {
+      "id": 26,
+      "card": "Opportunist",
+      "slug": "opportunist",
+      "type": "Denizen",
+      "game": "Base Game",
+      "sourceImage": "Opportunist.png",
+      "contents": "Opportunist.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Select a random Denizen.\nPlace the miniature at a random Entry Point.\n\nIf the character’s inventory has space, it will Move towards the nearest, least threatened Searchable terrain piece, loose item or defeated Adventurer and Search, taking random items until its inventory is full.\n\nWhen its inventory is full, it will Move towards the nearest Entry Point and then Interact to discard the items into its hidden cache.\n\nIt will not engage enemies - it will stop one square away if there is no route around. If it starts its turn engaged, it will make a Melee Attack with the Plunderer [plunderer] rule if possible, or a Knock Back if not. If still engaged it will Move directly away if possible, or Attack/Knock Back again if not. It resumes its normal rules for any remaining actions."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Denizen"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "opportunist denizen base game denizen disquiet-doom select a random denizen. place the miniature at a random entry point. if the character’s inventory has space, it will move towards the nearest, least threatened searchable terrain piece, loose item or defeated adventurer and search, taking random items until its inventory is full. when its inventory is full, it will move towards the nearest entry point and then interact to discard the items into its hidden cache. it will not engage enemies - it will stop one square away if there is no route around. if it starts its turn engaged, it will make a melee attack with the plunderer plunderer rule if possible, or a knock back if not. if still engaged it will move directly away if possible, or attack/knock back again if not. it resumes its normal rules for any remaining actions. denizen"
+    },
+    {
+      "id": 27,
+      "card": "Opportunist",
+      "slug": "opportunist",
+      "type": "Denizen",
+      "game": "Base Game",
+      "sourceImage": "Opportunist.png",
+      "contents": "Opportunist.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Select a random Denizen.\nPlace the miniature at a random Entry Point.\n\nIf the character’s inventory has space, it will Move towards the nearest, least threatened Searchable terrain piece, loose item or defeated Adventurer and Search, taking random items until its inventory is full.\n\nWhen its inventory is full, it will Move towards the nearest Entry Point and then Interact to discard the items into its hidden cache.\n\nIt will not engage enemies - it will stop one square away if there is no route around. If it starts its turn engaged, it will make a Melee Attack with the Plunderer [plunderer] rule if possible, or a Knock Back if not. If still engaged it will Move directly away if possible, or Attack/Knock Back again if not. It resumes its normal rules for any remaining actions."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Denizen"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "opportunist denizen base game todo todo - image too small to read unknown-icon unknown-icon"
+    },
+    {
+      "id": 28,
+      "card": "On The Hunt",
+      "slug": "on-the-hunt",
+      "type": "Denizen",
+      "game": "Base Game",
+      "sourceImage": "On_The_Hunt.png",
+      "contents": "On_The_Hunt.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Select a random Denizen. It gains one additional Health peg, one random uncommon ranged weapon, one random uncommon melee weapon and one random item from the token pouch.\n\nPlace the miniature at a random Entry Point."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "This character follows normal NPC activation rules.\nHowever, if unengaged it will target the largest, highest-ranking enemy in play. It will also consider any character larger than itself and/or with the Worthy Opponent [worthy-opponent] rule to be an enemy, regardless of character type."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Denizen"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "on the hunt denizen base game todo todo - image too small to read unknown-icon unknown-icon"
+    },
+    {
+      "id": 29,
+      "card": "Out For Blood",
+      "slug": "out-for-blood",
+      "type": "Denizen",
+      "game": "Base Game",
+      "sourceImage": "Out_For_Blood.png",
+      "contents": "Out_For_Blood.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Select a random Denizen. It gains two additional Health pegs, one additional Magic peg, one random uncommon weapon and one random item from the token pouch.\nPlace the miniature at a random Entry Point."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "This character follows normal NPC activation rules, considering all other characters to be enemies."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "out for blood denizen base game todo todo - image too small to read unknown-icon unknown-icon"
+    },
+    {
+      "id": 30,
+      "card": "Cankers",
+      "slug": "cankers",
+      "type": "Wandering Beast",
+      "game": "Base Game",
+      "sourceImage": "Cankers.png",
+      "contents": "Cankers.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Place a pack of Cankers at a random Entry Point and activate them immediately."
+        },
+        {
+          "kind": "box",
+          "label": "NPC Activation Rules",
+          "text": "These characters follow normal NPC activation rules considering all other characters to be enemies.\n\nHowever, if unengaged they will target the closest enemy with Magic pegs, if possible."
+        },
+        {
+          "kind": "body",
+          "label": "DESPERATION-DOOM",
+          "text": "As above, but flip the Cankers’ character board to the Elite side."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          }
+        ]
+      },
+      "tags": [
+        "Wandering Beast"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "cankers wandering beast base game todo todo - image too small to read unknown-icon unknown-icon"
+    },
+    {
+      "id": 31,
+      "card": "Troglodyte",
+      "slug": "troglodyte",
+      "type": "Wandering Beast",
+      "game": "Base Game",
+      "sourceImage": "Troglodyte.png",
+      "contents": "Troglodyte.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Place a Troglodyte at a random Entry Point and activate it immediately.",
+          "threshold": 1
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "This character follows normal NPC activation rules, considering all other characters to be enemies, with the following exceptions:\n\nIf the Troglodyte is unengaged in an unsearched empty room, it will Search the room. If the Troglodyte is unengaged within short range and LoS of a loose item, it will Move towards the item and spend an action to pick it up.\n\nPlace items found on this card (no limit). They are dropped if the Troglodyte is defeated."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "As above, but flip the Troglodyte’s character board to the Elite side.",
+          "threshold": 7
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Wandering Beast"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "troglodyte wandering beast base game wandering beast disquiet-dismay place a troglodyte at a random entry point and activate it immediately. this character follows normal npc activation rules, considering all other characters to be enemies, with the following exceptions: if the troglodyte is unengaged in an unsearched empty room, it will search the room. if the troglodyte is unengaged within short range and los of a loose item, it will move towards the item and spend an action to pick it up. place items found on this card (no limit). they are dropped if the troglodyte is defeated. desperation-doom as above, but flip the troglodyte’s character board to the elite side. creature"
+    },
+    {
+      "id": 32,
+      "card": "Drakon",
+      "slug": "drakon",
+      "type": "Wandering Beast",
+      "game": "Base Game",
+      "sourceImage": "Drakon.png",
+      "contents": "Drakon.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Place a Drakon at a random Entry Point and activate it immediately."
+        },
+        {
+          "kind": "box",
+          "label": "Note",
+          "text": "This character follows normal NPC activation rules considering all other characters to be enemies."
+        },
+        {
+          "kind": "mode",
+          "label": "DISASTER-DOOM",
+          "text": "As above, but flip the Drakon’s character board to the Elite side."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Wandering Beast"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "drakon wandering beast base game todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 33,
+      "card": "Trap! Net",
+      "slug": "trap-net",
+      "type": "Dungeon",
+      "game": "Base Game",
+      "sourceImage": "Trap_Net.png",
+      "contents": "Trap_Net.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "With a twang followed by the sound of ropes clattering through pulleys, an Adventurer finds themselves suspended from the ceiling in a net. Choose a random Adventurer. They may spend a Skill peg (reaction) to dodge the net. If they do not, place a Net marker on the Adventurer and they become Fatigued.\n\nThe Net remains in play, following the normal rules."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "trap! net dungeon base game disquiet-doom with a twang followed by the sound of ropes clattering through pulleys, an adventurer finds themselves suspended from the ceiling in a net. choose a random adventurer. they may spend a skill peg (reaction) to dodge the net. if they do not, place a net marker on the adventurer and they become fatigued. the net remains in play, following the normal rules. entry-point"
+    },
+    {
+      "id": 34,
+      "card": "Trap! Pit",
+      "slug": "trap-pit",
+      "type": "Dungeon",
+      "game": "Base Game",
+      "sourceImage": "Trap_Pit.png",
+      "contents": "Trap_Pit.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "An Adventurer steps on a suspicious flagstone and it falls through! Select a random Adventurer and place a Pit terrain piece in contact with them, or in the closest possible position not in contact with an Entry Point (it can be placed under other characters).\n\nAny character on the Pit falls in. Any character in contact with the Pit must spend a Skill peg (reaction) or fall in.\n\nThe Pit remains in play, following the normal rules."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "trap! pit dungeon base game todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 35,
+      "card": "Trap! Swinging Blade",
+      "slug": "trap-swinging-blade",
+      "type": "Dungeon",
+      "game": "Base Game",
+      "sourceImage": "Trap_Swinging_Blade.png",
+      "contents": "Trap_Swinging_Blade.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "An Adventurer knocks a loose brick and sets off a swinging blade. A random Adventurer must spend a Skill peg (reaction) or suffer a three-dice attack with Sharp [sharp]. Add the Swinging Blade terrain piece to the nearest available position on a wall and place 5 Reminder counters on top.\n\nThe Blade remains in play, following the normal rules."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "wall"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "trap! swinging blade dungeon base game disquiet-doom an adventurer knocks a loose brick and sets off a swinging blade. a random adventurer must spend a skill peg (reaction) or suffer a three-dice attack with sharp sharp . add the swinging blade terrain piece to the nearest available position on a wall and place 5 reminder counters on top. the blade remains in play, following the normal rules. wall"
+    },
+    {
+      "id": 36,
+      "card": "Fading Light",
+      "slug": "fading-light",
+      "type": "Dungeon",
+      "game": "Base Game",
+      "sourceImage": "Fading_Light.png",
+      "contents": "Fading_Light.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet",
+          "text": "Select a random Adventurer. Place a Darkness counter in the closest room to them without one.\n\nIf Darkness rules are in effect, instead remove the closest Light counter or sconce.",
+          "threshold": 1
+        },
+        {
+          "kind": "body",
+          "label": "Distress-Dismay",
+          "text": "Select a random Adventurer. Place Darkness counters in the two closest rooms without any.\n\nIf Darkness rules are in effect, instead remove the two closest Light counters or sconces.",
+          "threshold": 7
+        },
+        {
+          "kind": "body",
+          "label": "Desperation-Doom",
+          "text": "Select a random Adventurer. Place Darkness counters in the three closest rooms without any.\n\nIf Darkness rules are in effect, instead remove the three closest Light counters or sconces.",
+          "threshold": 13
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "fading light dungeon base game todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 37,
+      "card": "Collapse!",
+      "slug": "collapse",
+      "type": "Dungeon",
+      "game": "Base Game",
+      "sourceImage": "Collapse.png",
+      "contents": "Collapse.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Dismay",
+          "text": "Your movement has caused the ancient walls and ceilings to crumble. Increase the Dread by 1.\n\nDetermine the Adventurer furthest from their Staging Point. Scatter from their position, ignoring terrain, and place two Barricades – one high and one low – in the closest possible position to that point (they can be placed under characters). Any characters in those squares must spend a Skill peg (reaction) or suffer a three dice attack with Bludgeoning [bludgeoning]. The characters are then moved to the nearest empty square."
+        },
+        {
+          "kind": "mode",
+          "label": "Desperation-Doom",
+          "text": "As above, but determine the Adventurer closest to their Staging Point."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "collapse! dungeon base game todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 38,
+      "card": "Dormant Lifeforce",
+      "slug": "dormant-lifeforce",
+      "type": "Dungeon",
+      "game": "Base Game",
+      "sourceImage": "Dormant_Lifeforce.png",
+      "contents": "Dormant_Lifeforce.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Dismay",
+          "text": "Latent Maladum energy awakens the remnants of a long-dead warrior. The tomb closest to an Adventurer is opened (if not already) and a Myria is placed in contact with it (even if Revenant Adversaries are not being used). A random item inside the tomb is fused with the creature's body – place it on the Myria's base. It will be dropped when the creature is defeated.\n\nIf no Myria can be placed, raise the Dread by 1."
+        },
+        {
+          "kind": "mode",
+          "label": "Desperation-Doom",
+          "text": "As above, but the effect applies to all Tombs in play. Raise the Dread by 1 for each Myria that cannot be placed."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "dormant lifeforce dungeon base game disquiet-dismay latent maladum energy awakens the remnants of a long-dead warrior. the tomb closest to an adventurer is opened (if not already) and a myria is placed in contact with it (even if revenant adversaries are not being used). a random item inside the tomb is fused with the creature's body – place it on the myria's base. it will be dropped when the creature is defeated. if no myria can be placed, raise the dread by 1. desperation-doom as above, but the effect applies to all tombs in play. raise the dread by 1 for each myria that cannot be placed. grave"
+    },
+    {
+      "id": 39,
+      "card": "Drip, Drip, Drip",
+      "slug": "drip-drip-drip",
+      "type": "Dungeon",
+      "game": "Base Game",
+      "sourceImage": "Drip_Drip_Drip.png",
+      "contents": "Drip_Drip_Drip.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Dungeons are damp and often become waterlogged after rain due to poor construction. Choose a random Adventurer – the room they are in, and two random connected rooms, become wet and slippery. Mark the rooms with a Reminder counter.\n\nAdd a purple peg to the Dread Tracker in the last space of the band beyond the current one."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "All Move actions that end within one of these rooms risk falling. Roll a die; on a [skull] lay the character prone.\n\nEvery square in the room is a source of water.\n\nIn each Assessment Phase, roll a die for each sconce and torch in this area. On a [skull], remove it.\n\nWhen the purple peg is replaced, discard this card and the associated Reminder counters."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "As above, but do not add a purple peg – the effects last until the end of the game."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "drip, drip, drip dungeon base game todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 40,
+      "card": "Premonition",
+      "slug": "premonition",
+      "type": "Novice",
+      "game": "Base Game",
+      "sourceImage": "Premonition.png",
+      "contents": "Premonition.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "The first player selects one of their Adventurers at random. They become Fatigued as magical energy washes over them and they are bombarded by visions."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "The first player keeps this card.\n\nDiscard it during any future Dread Phase after an Event card is drawn to place the Event card back onto the deck without resolving it."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "premonition novice base game todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 41,
+      "card": "Teamwork",
+      "slug": "teamwork",
+      "type": "Novice",
+      "game": "Base Game",
+      "sourceImage": "Teamwork.png",
+      "contents": "Teamwork.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "The first player keeps this card, without showing the other players.\n\nYour party have spent their downtime training hard, learning each other’s strengths and covering each other’s weaknesses. It’s time for that training to pay off!\n\nDiscard this card during any of your turns to choose one of your Adventurers. That Adventurer and all others from your party within short range and/or LoS may take one action, in any order. Skills may be used as if it was their turn. This action does not impact their activation this round, and Stunned and Terrified characters cannot act."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "teamwork novice base game todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 42,
+      "card": "Respite",
+      "slug": "respite",
+      "type": "Novice",
+      "game": "Base Game",
+      "sourceImage": "Respite.png",
+      "contents": "Respite.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "There is an unexpected lull in the seemingly endless onslaught. Reduce Dread by 2. No Adversaries will arrive this round. Adversaries already in play will activate as normal."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "respite novice base game disquiet-doom there is an unexpected lull in the seemingly endless onslaught. reduce dread by 2. no adversaries will arrive this round. adventurers already in play will activate as normal. unknown-icon unknown-icon"
+    },
+    {
+      "id": 43,
+      "card": "Blaze of Glory",
+      "slug": "blaze-of-glory",
+      "type": "Novice",
+      "game": "Base Game",
+      "sourceImage": "Blaze_of_Glory.png",
+      "contents": "Blaze_of_Glory.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "The first player keeps this card, without showing the other players.\n\nYou may discard this card at the start of one of your Adventurer’s turns if they have at least three enemies in short range.\n\nAll of that Adventurer’s attacks this turn roll one additional die and gain Vicious [sharp], Quickstrike [move], and Cleave [melee] in addition to their normal effects."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "blaze of glory novice base game todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 44,
+      "card": "Spurred On",
+      "slug": "spurred-on",
+      "type": "Novice",
+      "game": "Base Game",
+      "sourceImage": "Spurred_On.png",
+      "contents": "Spurred_On.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Reduce Dread by 1. The Adventurers are galvanised by a sudden spurt of energy. Starting with the first player, all Adventurers in play may either remove a status counter of their choice or take one action."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Novice"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "spurred on novice base game todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 45,
+      "card": "Malacytic Surge",
+      "slug": "malacytic-surge",
+      "type": "Novice",
+      "game": "Base Game",
+      "sourceImage": "Malacytic_Surge.png",
+      "contents": "Malacytic_Surge.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Reduce Dread by 1. A surge of power awakens the malacytes in the Adventurers. All Adventurers in play restore two Magic pegs. If they are already at their maximum they become Blessed for each peg they didn’t restore."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "malacytic surge novice base game todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 46,
+      "card": "Dangerous Ground",
+      "slug": "dangerous-ground",
+      "type": "Veteran",
+      "game": "Base Game",
+      "sourceImage": "Dangerous_Ground.png",
+      "contents": "Dangerous_Ground.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Increase Dread by 1.\n\nA chasm opens up beneath the Adventurers’ feet! Select a random Adventurer and place a Pit terrain piece in the closest possible position to them, under them if possible, that is not in contact with an Entry Point.\n\nAny character on the Pit falls in. Any character in contact with the Pit must spend a Skill peg (reaction) or fall in.\n\nThe Pit remains in play, following the normal rules."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Veteran"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "dangerous ground veteran base game todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 47,
+      "card": "Malacytic Exhaustion",
+      "slug": "malacytic-exhaustion",
+      "type": "Veteran",
+      "game": "Base Game",
+      "sourceImage": "Malacytic_Exhaustion.png",
+      "contents": "Malacytic_Exhaustion.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Increase Dread by 1.\n\nAn almost tangible wave of energy passes through the area, draining the Adventurers’ power. All Adventurers in play discard two Magic pegs. If they reach zero they become Fatigued for each peg they were unable to discard."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Veteran"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "malacytic exhaustion veteran base game todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 48,
+      "card": "Unexpected Assault",
+      "slug": "unexpected-assault",
+      "type": "Veteran",
+      "game": "Base Game",
+      "sourceImage": "Unexpected_Assault.png",
+      "contents": "Unexpected_Assault.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Increase Dread by 1.\nAll Adversaries in play immediately activate following the normal rules. They will activate again in the Adversary Phase.",
+          "threshold": 2
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Veteran"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "unexpected assault veteran base game todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 49,
+      "card": "One Thing After Another",
+      "slug": "one-thing-after-another",
+      "type": "Veteran",
+      "game": "Base Game",
+      "sourceImage": "One_Thing_After_Another.png",
+      "contents": "One_Thing_After_Another.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Increase Dread by 2. Then, draw and resolve another Event Card. If the newly drawn card is a [arrow-up] card, discard it with no effect instead of resolving it."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Veteran"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "one thing after another veteran base game todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 50,
+      "card": "Fresh Graves",
+      "slug": "fresh-graves",
+      "type": "Revenant + Veteran",
+      "game": "Base Game",
+      "sourceImage": "Fresh_Graves.png",
+      "contents": "Fresh_Graves.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET",
+          "text": "Increase Dread by 1 and shuffle this card back into the deck."
+        },
+        {
+          "kind": "body",
+          "label": "DISTRESS-DOOM",
+          "text": "Increase Dread by 1.\n\nYour Adventurers have disturbed some fresh graves and awoken their inhabitants from their slumber.\n\nPlace four Grave Point markers as close as possible to the last place Searched (the Search Counter in the case of a general Search). If no Searches have been made this game, place the Grave Point markers as close as possible to the Adventurer furthest from their Staging Point."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "fresh graves revenant + veteran base game todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 128,
+      "card": "Careless Swing",
+      "slug": "careless-swing",
+      "type": "Veteran",
+      "game": "Base Game",
+      "sourceImage": "Careless_Swing.png",
+      "contents": "Careless_Swing.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Your Adventurers are becoming overconfident and are not paying their full attention to the ongoing fighting.\n\nAdd a purple peg to the Dread tracker 5 spaces ahead of the current Dread.\n\nUntil that peg is replaced, each time an Adventurer makes an attack, if they roll two Blunders [skull] their weapon breaks. Unarmed attackers become Fatigued. (This effect applies to all attacks not just Forceful hits)."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "verified",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "human"
+      },
+      "searchText": "careless swing veteran base game disquiet-doom your adventurers are becoming overconfident and are not paying their full attention to the ongoing fighting. add a purple peg to the dread tracker 5 spaces ahead of the current dread. until that peg is replaced, each time an adventurer makes an attack, if they roll two blunders skull their weapon breaks. unarmed attackers become fatigued. (this effect applies to all attacks not just forceful hits). arrow-up"
+    },
+    {
+      "id": 129,
+      "card": "Deadly Accuracy",
+      "slug": "deadly-accuracy",
+      "type": "Veteran",
+      "game": "Base Game",
+      "sourceImage": "Deadly_Accuracy.png",
+      "contents": "Deadly_Accuracy.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Whether by sheer luck or unnatural guidance your adversaries strike with unnerving accuracy.\n\nThis round, all Adversaries gain Piercing [piercing].\n\nShuffle this card back into the deck instead of discarding."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "verified",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "human"
+      },
+      "searchText": "deadly accuracy veteran base game disquiet-doom whether by sheer luck or unnatural guidance your adversaries strike with unnerving accuracy. this round, all adversaries gain piercing piercing . shuffle this card back into the deck instead of discarding. arrow-up"
+    },
+    {
+      "id": 130,
+      "card": "Trap! Fireball",
+      "slug": "trap-fireball",
+      "type": "Veteran + Dungeon",
+      "game": "Base Game",
+      "sourceImage": "Trap_Fireball.png",
+      "contents": "Trap_Fireball.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "With a soft \"click\", an Adventurer steps on a loose stone that sinks into the floor.\n\nA random Adventurer suffers a ranged attack with two dice and Burning [fire]."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "As Disquiet-Dismay but the Adventurer suffers a three dice attack with Blast and Burning [fire]."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "wall"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "verified",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "human"
+      },
+      "searchText": "trap! fireball veteran + dungeon base game disquiet-dismay with a soft \"click\", an adventurer steps on a loose stone that sinks into the floor. a random adventurer suffers a ranged attack with two dice and burning fire . desperation-doom as disquiet-dismay but the adventurer suffers a three dice attack with blast and burning fire . arrow-up + wall"
+    },
+    {
+      "id": 131,
+      "card": "Wave of Exhaustion",
+      "slug": "wave-of-exhaustion",
+      "type": "Veteran",
+      "game": "Base Game",
+      "sourceImage": "Wave_of_Exhaustion.png",
+      "contents": "Wave_of_Exhaustion.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "Your Adventurers are beset by an unshakable tiredness.\n\nEach Adventurer must spend a Skill peg or become Fatigued."
+        },
+        {
+          "kind": "mode",
+          "label": "DISMAY-DOOM",
+          "text": "As Disquiet-Distress but Adventurers must spend two Skill pegs, gaining one Fatigue for each peg not spent."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "verified",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "human"
+      },
+      "searchText": "wave of exhaustion veteran base game disquiet-distress your adventurers are beset by an unshakable tiredness. each adventurer must spend a skill peg or become fatigued. dismay-doom as disquiet-distress but adventurers must spend two skill pegs, gaining one fatigue for each peg not spent. arrow-up"
+    },
+    {
+      "id": 132,
+      "card": "Trap! Poison Gas",
+      "slug": "trap-poison-gas",
+      "type": "Veteran + Dungeon",
+      "game": "Base Game",
+      "sourceImage": "Trap_Poison_Gas.png",
+      "contents": "Trap_Poison_Gas.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET",
+          "text": "A faint hissing sound fills the air. Too late you realise a noxious gas is pouring into the room.\n\nRoll the Magic die. Mark the Grave Point closest to the Entry Point that matches the roll with a Poison Counter.\n\nFor the rest of the game, any time an Adventurer ends their turn within short range of this Grave Point must spend a Skill peg or become Poisoned [poison].\n\nThe gas can be stopped by covering the Grave Point with a Crate, Chest, or similar item. (Do not remove the Poison counter. If the Grave Point is unblocked, the gas will start again)."
+        },
+        {
+          "kind": "mode",
+          "label": "DISTRESS-DISMAY",
+          "text": "As Disquiet, but mark two Grave Points. If a duplicate Grave Point is chosen, mark the next nearest."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "As Disquiet but mark four Grave Points. If a duplicate Grave Point is chosen, mark the next nearest."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "wall"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "verified",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "human"
+      },
+      "searchText": "trap! poison gas veteran + dungeon base game disquiet a faint hissing sound fills the air. too late you realise a noxious gas is pouring into the room. roll the magic die. mark the grave point closest to the entry point that matches the roll with a poison counter. for the rest of the game, any time an adventurer ends their turn within short range of this grave point must spend a skill peg or become poisoned poison . the gas can be stopped by covering the grave point with a crate, chest, or similar item. (do not remove the poison counter. if the grave point is unblocked, the gas will start again). distress-dismay as disquiet, but mark two grave points. if a duplicate grave point is chosen, mark the next nearest. desperation-doom as disquiet but mark four grave points. if a duplicate grave point is chosen, mark the next nearest. arrow-up + wall"
+    },
+    {
+      "id": 133,
+      "card": "Sudden Rot",
+      "slug": "sudden-rot",
+      "type": "Veteran",
+      "game": "Base Game",
+      "sourceImage": "Sudden_Rot.png",
+      "contents": "Sudden_Rot.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "The air around you smells rotten and is thick with the odour of decaying food.\n\nRoll one die for each food item carried by each Adventurer. On a Blunder [skull] discard that item.\n\nThese items are considered food:"
+        },
+        {
+          "kind": "note",
+          "label": "Note",
+          "text": "The printed card defines the affected food items with item art. Refer to the source image for the exact list."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "needs-review",
+        "confidence": 0.8,
+        "issues": [
+          "Food item list is still represented by item art in the source image."
+        ],
+        "managedBy": "human"
+      },
+      "searchText": "sudden rot veteran base game disquiet-doom the air around you smells rotten and is thick with the odour of decaying food. roll one die for each food item carried by each adventurer. on a blunder skull discard that item. these items are considered food: note the printed card defines the affected food items with item art. refer to the source image for the exact list. arrow-up"
+    },
+    {
+      "id": 134,
+      "card": "Malacytic Vigour",
+      "slug": "malacytic-vigour",
+      "type": "Veteran",
+      "game": "Base Game",
+      "sourceImage": "Malacytic_Vigour.png",
+      "contents": "Malacytic_Vigour.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "Your adversaries attack with increased strength and fervour.\n\nAdd a purple peg to the Dread tracker 5 spaces ahead of the current Dread.\n\nUntil that peg is replaced, all Adversary attacks have Sundering.\n\nAfter the peg is replaced, discard this card."
+        },
+        {
+          "kind": "mode",
+          "label": "DISMAY-DOOM",
+          "text": "As Disquiet-Distress but place the purple peg 10 spaces ahead of the current Dread."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "verified",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "human"
+      },
+      "searchText": "malacytic vigour veteran base game disquiet-distress your adversaries attack with increased strength and fervour. add a purple peg to the dread tracker 5 spaces ahead of the current dread. until that peg is replaced, all adversary attacks have sundering. after the peg is replaced, discard this card. dismay-doom as disquiet-distress but place the purple peg 10 spaces ahead of the current dread. arrow-up"
+    },
+    {
+      "id": 135,
+      "card": "Trap! Deadfall",
+      "slug": "trap-deadfall",
+      "type": "Veteran + Dungeon",
+      "game": "Base Game",
+      "sourceImage": "Trap_Deadfall.png",
+      "contents": "Trap_Deadfall.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET",
+          "text": "You hear a harsh grinding from behind a wall. Suddenly a large section tips forward almost flattening an Adventurer.\n\nThe Adventurer closest to a wall suffers a three dice attack with Bludgeoning [bludgeoning] and Sundering."
+        },
+        {
+          "kind": "mode",
+          "label": "DISTRESS-DOOM",
+          "text": "As Disquiet but choose the two Adventurers closest to a wall. (This does not have to be the same wall)"
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "wall"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "verified",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "human"
+      },
+      "searchText": "trap! deadfall veteran + dungeon base game disquiet you hear a harsh grinding from behind a wall. suddenly a large section tips forward almost flattening an adventurer. the adventurer closest to a wall suffers a three dice attack with bludgeoning bludgeoning and sundering. distress-doom as disquiet but choose the two adventurers closest to a wall. (this does not have to be the same wall) arrow-up + wall"
+    },
+    {
+      "id": 136,
+      "card": "Crack!",
+      "slug": "crack",
+      "type": "Veteran",
+      "game": "Base Game",
+      "sourceImage": "Crack.png",
+      "contents": "Crack.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Select an Adventurer at random. A random item that they are carrying is broken (including those in an Armour slot). Turn the item face down."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "verified",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "human"
+      },
+      "searchText": "crack! veteran base game disquiet-doom select an adventurer at random. a random item that they are carrying is broken (including those in an armour slot). turn the item face down. arrow-up"
+    },
+    {
+      "id": 137,
+      "card": "Get Them Off Me!",
+      "slug": "get-them-off-me",
+      "type": "Veteran",
+      "game": "Base Game",
+      "sourceImage": "Get_Them_Off_Me.png",
+      "contents": "Get_Them_Off_Me.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "A swarm of tiny insects pours out of the wall. They are in your hair, under your armour, in your shoes... everywhere!\n\nSelect a random Adventurer. Scatter all items in that Adventurer's Armour slot. That Adventurer becomes Fatigued.\n\nIf no Adventurers are wearing items, increase Dread by 1 and shuffle this card back into the deck."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "As Disquiet-Dismay but all Adventurers must resolve the effect."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "verified",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "human"
+      },
+      "searchText": "get them off me! veteran base game disquiet-dismay a swarm of tiny insects pours out of the wall. they are in your hair, under your armour, in your shoes... everywhere! select a random adventurer. scatter all items in that adventurer's armour slot. that adventurer becomes fatigued. if no adventurers are wearing items, increase dread by 1 and shuffle this card back into the deck. desperation-doom as disquiet-dismay but all adventurers must resolve the effect. arrow-up"
+    },
+    {
+      "id": 138,
+      "card": "Where Did I Put That?",
+      "slug": "where-did-i-put-that",
+      "type": "Veteran",
+      "game": "Base Game",
+      "sourceImage": "Where_Did_I_Put_That.png",
+      "contents": "Where_Did_I_Put_That.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "You are sure you had it on you, you are 100% certain that it was in your pack, but it is nowhere to be found.\n\nSelect an Adventurer at random. They discard their smallest item (including those in an Armour slot)."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "verified",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "human"
+      },
+      "searchText": "where did i put that? veteran base game disquiet-doom you are sure you had it on you, you are 100% certain that it was in your pack, but it is nowhere to be found. select an adventurer at random. they discard their smallest item (including those in an armour slot). arrow-up"
+    },
+    {
+      "id": 139,
+      "card": "Not Again?",
+      "slug": "not-again",
+      "type": "Veteran",
+      "game": "Base Game",
+      "sourceImage": "Not_Again.png",
+      "contents": "Not_Again.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "You are overcome with an uneasy feeling of Deja vu and impending doom.\n\nResolve the top Veteran [arrow-up] card of the Event Discard pile. If there isn't one, increase the Dread by 2 and shuffle this card back into the deck."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "verified",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "human"
+      },
+      "searchText": "not again? veteran base game disquiet-doom you are overcome with an uneasy feeling of deja vu and impending doom. resolve the top veteran arrow-up card of the event discard pile. if there isn't one, increase the dread by 2 and shuffle this card back into the deck. arrow-up"
+    },
+    {
+      "id": 140,
+      "card": "Trap! Acid Mist",
+      "slug": "trap-acid-mist",
+      "type": "Veteran",
+      "game": "Base Game",
+      "sourceImage": "Trap_Acid_Mist.png",
+      "contents": "Trap_Acid_Mist.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "A fine mist seeps out of the ground around you. As it settles on your equipment it begins to hiss.\n\nEach Adventurer suffers a two dice ranged attack with Piercing [piercing].\n\nIf any of these attacks roll a critical hit, a random item held by the target (including items in the Armour slot) is broken."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "As Disquiet-Dismay, but the effect applies if any hits are scored, not just on a critical hit."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "verified",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "human"
+      },
+      "searchText": "trap! acid mist veteran base game disquiet-dismay a fine mist seeps out of the ground around you. as it settles on your equipment it begins to hiss. each adventurer suffers a two dice ranged attack with piercing piercing . if any of these attacks roll a critical hit, a random item held by the target (including items in the armour slot) is broken. desperation-doom as disquiet-dismay, but the effect applies if any hits are scored, not just on a critical hit. arrow-up"
+    },
+    {
+      "id": 141,
+      "card": "Trap! Wall of Fire",
+      "slug": "trap-wall-of-fire",
+      "type": "Veteran + Dungeon",
+      "game": "Base Game",
+      "sourceImage": "Trap_Wall_of_Fire.png",
+      "contents": "Trap_Wall_of_Fire.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET",
+          "text": "A sheet of flame erupts from hidden spouts around a nearby entrance.\n\nMark the Entrance nearest to a random Adventurer with a Reminder Counter and add a purple peg to the Dread tracker at the end of Distress.\n\nUntil that peg is replaced, any Adventurer that passes through the Entrance suffer a one die attack with Piercing [piercing] and is Burning [fire].\n\nAfter the peg is replaced, discard this card."
+        },
+        {
+          "kind": "mode",
+          "label": "DISTRESS-DOOM",
+          "text": "As Disquiet but add a purple peg to the Dread tracker at the end of the section two higher than the current Dread."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "wall"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "verified",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "human"
+      },
+      "searchText": "trap! wall of fire veteran + dungeon base game disquiet a sheet of flame erupts from hidden spouts around a nearby entrance. mark the entrance nearest to a random adventurer with a reminder counter and add a purple peg to the dread tracker at the end of distress. until that peg is replaced, any adventurer that passes through the entrance suffer a one die attack with piercing piercing and is burning fire . after the peg is replaced, discard this card. distress-doom as disquiet but add a purple peg to the dread tracker at the end of the section two higher than the current dread. arrow-up + wall"
+    },
+    {
+      "id": 142,
+      "card": "Trap! Caltrops",
+      "slug": "trap-caltrops",
+      "type": "Veteran + Dungeon",
+      "game": "Base Game",
+      "sourceImage": "Trap_Caltrops.png",
+      "contents": "Trap_Caltrops.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Hundreds of tiny, spiked metal balls fall from the ceiling.\n\nSelect a random Adventurer. Each Adventurer in the same room must spend a Skill peg or become Wounded.\n\nMark the room with a Reminder token.\n\nUntil the end of the game, any Adventurer that moves in that room must roll a die. On a Blunder [skull] they must spend a Skill peg or become Wounded."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "wall"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "verified",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "human"
+      },
+      "searchText": "trap! caltrops veteran + dungeon base game disquiet-doom hundreds of tiny, spiked metal balls fall from the ceiling. select a random adventurer. each adventurer in the same room must spend a skill peg or become wounded. mark the room with a reminder token. until the end of the game, any adventurer that moves in that room must roll a die. on a blunder skull they must spend a skill peg or become wounded. arrow-up + wall"
+    }
+  ]
+}

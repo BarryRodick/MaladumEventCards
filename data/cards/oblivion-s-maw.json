@@ -1,0 +1,694 @@
+{
+  "game": "Oblivion's Maw",
+  "cards": [
+    {
+      "id": 98,
+      "card": "Eldritch Tentacle",
+      "slug": "eldritch-tentacle",
+      "type": "Corrupter / Wandering Beast",
+      "game": "Oblivion's Maw",
+      "sourceImage": "Eldritch_Tentacle.png",
+      "contents": "Eldritch_Tentacle.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Increase Dread by 1. If the Corrupter is in play, add a tentacle to its body if possible, or Bless it if not, and discard this card. If the Corrupter has been defeated, discard this card.\n\nOtherwise, choose a random Adventurer and scatter twice from their position, ignoring terrain. Place a Tentacle in the closest empty square to the target point. If an Eldritch Tentacle card is already in play, this Tentacle will follow those rules and this card should be shuffled back into the deck."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "When activated, it will target any character in range of its attacks, other than the Corrupter or another Tentacle. If no characters are in range, it takes no actions. Instead, draw and resolve an Event card.\nWhen the Tentacle is defeated it drops a Severed Tentacle, if available. Mark the track on the Corrupter Campaign Log, if applicable. Leave this card in play."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "As above, but resolve all applicable effects twice."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          },
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ]
+      },
+      "tags": [
+        "Corrupter",
+        "Wandering Beast"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "eldritch tentacle corrupter / wandering beast oblivion's maw todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 99,
+      "card": "Eldritch Tentacle",
+      "slug": "eldritch-tentacle",
+      "type": "Corrupter / Wandering Beast",
+      "game": "Oblivion's Maw",
+      "sourceImage": "Eldritch_Tentacle.png",
+      "contents": "Eldritch_Tentacle.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Dismay",
+          "text": "Increase Dread by 1. If the Corrupter is in play, add a tentacle to its body if possible, or Bless it if not, and discard this card. If the Corrupter has been defeated, discard this card.\n\nOtherwise, choose a random Adventurer and scatter twice from their position, ignoring terrain. Place a Tentacle in the closest empty square to the target point. If an Eldritch Tentacle card is already in play, this Tentacle will follow those rules and this card should be shuffled back into the deck.\n\nWhen activated, it will target any character in range of its attacks, other than the Corrupter or another Tentacle. If no characters are in range, it takes no actions. Instead, draw and resolve an Event card.\n\nWhen the Tentacle is defeated it drops a Severed Tentacle, if available. Mark the track on the Corrupter Campaign Log, if applicable. Leave this card in play."
+        },
+        {
+          "kind": "mode",
+          "label": "Desperation-Doom",
+          "text": "As above, but resolve all applicable effects twice."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          },
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          }
+        ]
+      },
+      "tags": [
+        "Corrupter",
+        "Wandering Beast"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "eldritch tentacle corrupter / wandering beast oblivion's maw todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 100,
+      "card": "Eldritch Tentacle",
+      "slug": "eldritch-tentacle",
+      "type": "Corrupter / Wandering Beast",
+      "game": "Oblivion's Maw",
+      "sourceImage": "Eldritch_Tentacle.png",
+      "contents": "Eldritch_Tentacle.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Increase Dread by 1. If the Corrupter is in play, add a tentacle to its body if possible, or Bless it if not, and discard this card. If the Corrupter has been defeated, discard this card.\n\nOtherwise, choose a random Adventurer and scatter twice from their position, ignoring terrain. Place a Tentacle in the closest empty square to the target point. If an Eldritch Tentacle card is already in play, this Tentacle will follow those rules and this card should be shuffled back into the deck."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "When activated, it will target any character in range of its attacks, other than the Corrupter or another Tentacle. If no characters are in range, it takes no actions. Instead, draw and resolve an Event card.\nWhen the Tentacle is defeated it drops a Severed Tentacle, if available. Mark the track on the Corrupter Campaign Log, if applicable. Leave this card in play."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "As above, but resolve all applicable effects twice."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          },
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          }
+        ]
+      },
+      "tags": [
+        "Corrupter",
+        "Wandering Beast"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "eldritch tentacle corrupter / wandering beast oblivion's maw todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 101,
+      "card": "It's Behind You!",
+      "slug": "it-s-behind-you",
+      "type": "Corrupter",
+      "game": "Oblivion's Maw",
+      "sourceImage": "Its_Behind_You.png",
+      "contents": "Its_Behind_You.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "If the Corrupter is in play, remove it. Place it back onto the gaming area in any position where it can reach the largest number of enemies with its attacks. Any characters already in these squares are moved aside to make space. Then shuffle this card back into the deck.\n\nIf the Corrupter has been defeated, increase Dread by 1 and discard this card.\n\nOtherwise, if any Tentacles are in play, remove the one furthest from any Adventurers. Choose a random Adventurer and scatter from their position, ignoring terrain. Replace the Tentacle in the closest empty square to the target point. It activates immediately. Then shuffle this card back into the deck.\n\nIf no Tentacles are in play, shuffle this card back into the deck and draw another."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Corrupter"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "it's behind you! corrupter oblivion's maw todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 102,
+      "card": "Corrupt Talisman",
+      "slug": "corrupt-talisman",
+      "type": "Corrupter",
+      "game": "Oblivion's Maw",
+      "sourceImage": "Corrupt_Talisman.png",
+      "contents": "Corrupt_Talisman.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "If you are playing the Oblivion’s Maw Campaign, increase Dread by 1, and then draw cards from the deck until you draw a [malacytic-conduit] or [enemy] card. Resolve that card, and then discard this card and any non-[malacytic-conduit] or [enemy] cards drawn.\n\nOtherwise, a Talisman has been discovered! Take a random Talisman from the supply, if possible, and add it to the Searchable terrain piece furthest from any Entry Points, even if already Searched. Mark one space on the Manifestation Track.\n\nThen, draw cards from the deck until you draw a [malacytic-conduit] or [enemy] card. Resolve that card, and then discard this card and any non-[malacytic-conduit] or [enemy] cards drawn."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Corrupter"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "corrupt talisman corrupter oblivion's maw todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 103,
+      "card": "Ethereal Power",
+      "slug": "ethereal-power",
+      "type": "Environment",
+      "game": "Oblivion's Maw",
+      "sourceImage": "Ethereal_Power.png",
+      "contents": "Ethereal_Power.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Dismay",
+          "text": "Energy leaches through dimensional boundaries. All Otherworldly [otherworldly] characters in play are Blessed. If no eligible characters are in play, increase Dread by 1 and shuffle this card back into the deck."
+        },
+        {
+          "kind": "mode",
+          "label": "Desperation-Doom",
+          "text": "Energy surges through dimensional boundaries. All Otherworldly [otherworldly] characters in play activate immediately. They will activate again in the appropriate phase. If no eligible characters are in play, shuffle together all [enemy] cards not being used for this game that have the Otherworldly [otherworldly] icon and draw one at random. Resolve it immediately."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "ethereal power environment oblivion's maw todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 104,
+      "card": "Deathly Draught",
+      "slug": "deathly-draught",
+      "type": "Environment",
+      "game": "Oblivion's Maw",
+      "sourceImage": "Deathly_Draught.png",
+      "contents": "Deathly_Draught.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Distress",
+          "text": "An icy wind blasts through the halls. Determine a random Entry Point. All torches, sconces and Burning counters within medium range and with an open route to it are removed from play. All characters within medium range and with an open route to the Entry Point are Fatigued."
+        },
+        {
+          "kind": "mode",
+          "label": "Dismay-Doom",
+          "text": "As above, but resolve for two different Entry Points."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "deathly draught environment oblivion's maw todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 105,
+      "card": "Don't Look Up",
+      "slug": "don-t-look-up",
+      "type": "Dungeon",
+      "game": "Oblivion's Maw",
+      "sourceImage": "Dont_Look_Up.png",
+      "contents": "Dont_Look_Up.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Dismay",
+          "text": "You realise that certain parts of the tunnels open into gaping caverns or tall vertical shafts, with nothing but darkness where the ceiling should be – yet another place that enemies could be lurking...\n\nDetermine a random Adventurer and scatter from their position. Remove a random Entry Point and place it as close as possible to this location."
+        },
+        {
+          "kind": "mode",
+          "label": "Desperation-Doom",
+          "text": "As above, but move two Entry Points, rolling separately for each."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "don't look up dungeon oblivion's maw todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 106,
+      "card": "Halls Of Veneration",
+      "slug": "halls-of-veneration",
+      "type": "Dungeon",
+      "game": "Oblivion's Maw",
+      "sourceImage": "Halls_Of_Veneration.png",
+      "contents": "Halls_Of_Veneration.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Doom",
+          "text": "This is a particularly ancient part of the tunnel network, and old magics run through the very walls.\n\nAny unengaged Adventurers may spend a Magic peg to draw on these energies. They gain all the benefits of a Rest action as well as 1XP. However, your enemies feel this surge of power – for each Adventurer that spends a Magic peg, increase Dread by 2."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "halls of veneration dungeon oblivion's maw todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 107,
+      "card": "Cursed Chest",
+      "slug": "cursed-chest",
+      "type": "Wandering Beast",
+      "game": "Oblivion's Maw",
+      "sourceImage": "Cursed_Chest.png",
+      "contents": "Cursed_Chest.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DESPERATION",
+          "text": "Determine the closest Searchable terrain piece to an Adventurer and replace it with a Cursed Chest. Items inside the terrain piece are destroyed. Activate the Cursed Chest immediately."
+        },
+        {
+          "kind": "box",
+          "label": "Character Rules",
+          "text": "This character follows normal NPC activation rules considering all other characters to be enemies. Items taken with this character’s Plunderer [plunderer] rule are destroyed. When this character is defeated, it drops a random item from the token pouch."
+        },
+        {
+          "kind": "mode",
+          "label": "DISASTER-DOOM",
+          "text": "As above, but flip the Cursed Chest’s character board to the Elite side."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          }
+        ]
+      },
+      "tags": [
+        "Wandering Beast"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "cursed chest wandering beast oblivion's maw todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 108,
+      "card": "Cursed Portal",
+      "slug": "cursed-portal",
+      "type": "Wandering Beast",
+      "game": "Oblivion's Maw",
+      "sourceImage": "Cursed_Portal.png",
+      "contents": "Cursed_Portal.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Desperation",
+          "text": "Determine the closest door to an Adventurer. Close it and place a Cursed Portal on the side closest to the Adventurer, moving other characters aside if necessary. Activate the Cursed Portal immediately.\n\nThis character follows normal NPC activation rules considering all other characters to be enemies. If no characters are in range, it takes no actions. Instead, draw and resolve an Event card.\n\nAnyone defeated or Stunned by the Cursed Portal while in contact with it is removed from play and Left for Dead.\n\nThe door cannot be used. The other side of the door is treated as a portal (a dimensional portal if you have the Forbidden Creed expansion). When defeated, mark the door as destroyed."
+        },
+        {
+          "kind": "mode",
+          "label": "Disaster-Doom",
+          "text": "As above, but flip the Cursed Portal’s character board to the Elite side."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          }
+        ]
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "cursed portal wandering beast oblivion's maw todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 109,
+      "card": "Cursed Vestiges",
+      "slug": "cursed-vestiges",
+      "type": "Wandering Beast",
+      "game": "Oblivion's Maw",
+      "sourceImage": "Cursed_Vestiges.png",
+      "contents": "Cursed_Vestiges.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Desperation",
+          "text": "Place a pack of Cursed Vestiges at a random Entry Point and add a purple peg to the Dread tracker at the start of the band two higher than the current one, if possible. Activate the Cursed Vestiges immediately."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "These characters follow normal NPC activation rules considering all other characters to be enemies.\nUntil the purple peg is replaced, or until the end of the game if there is no peg, when a Cursed Vestige is defeated it is replaced at a random Entry Point."
+        },
+        {
+          "kind": "mode",
+          "label": "Disaster-Doom",
+          "text": "As above, but flip the Cursed Vestiges’ character board to the Elite side."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          }
+        ]
+      },
+      "tags": [
+        "Wandering Beast"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "cursed vestiges wandering beast oblivion's maw todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 110,
+      "card": "Trap! Ancient Wards",
+      "slug": "trap-ancient-wards",
+      "type": "Veteran + Dungeon",
+      "game": "Oblivion's Maw",
+      "sourceImage": "Trap_Ancient_Wards.png",
+      "contents": "Trap_Ancient_Wards.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Doom",
+          "text": "Increase Dread by 2.\n\nProtective wards placed on this area in ages past suddenly activate, holding back anyone unworthy of entering a place of such power.\n\nEach Adventurer and Denizen in play rolls combat dice equal to the number of empty peg spaces in their dashboard. For each blunder [skull] rolled they suffer one Fatigue. Magic pegs may be spent to reduce the Fatigue suffered."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "trap! ancient wards veteran + dungeon oblivion's maw todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 111,
+      "card": "Trap! Crushing Ceiling",
+      "slug": "trap-crushing-ceiling",
+      "type": "Veteran + Dungeon",
+      "game": "Oblivion's Maw",
+      "sourceImage": "Trap_Crushing_Ceiling.png",
+      "contents": "Trap_Crushing_Ceiling.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Doors slam shut all around and you hear a sound of grinding stone as the ceiling bears down on you!\n\nChoose a random Adventurer. All doors in their room are closed and locked. All other openings are also marked as locked. Add a purple peg to the Dread Tracker 5 spaces ahead of the current Dread.\n\nPlace this card next to the Dread Tracker. Adversaries outside the room will not target the characters inside or enter the room while this is in play. Blockages in openings must be destroyed as if they were locked doors. Unengaged characters in the room may spend an action to attempt to prop the ceiling up – move the purple peg in the tracker one space up. When the purple peg is replaced, all characters in the room are defeated, the doors/openings will unlock/unblock, and the ceiling will return to normal – discard this card."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "trap! crushing ceiling veteran + dungeon oblivion's maw todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 112,
+      "card": "Summon The Master...",
+      "slug": "summon-the-master",
+      "type": "Veteran",
+      "game": "Oblivion's Maw",
+      "sourceImage": "Summon_The_Master.png",
+      "contents": "Summon_The_Master.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Increase Dread by 2.\n\nThen, if the Adversary Commander cards (e.g. [enemy] unless using other Adversaries) are not used in the current quest, take them from the supply and shuffle them into the deck.\n\nIf they are already being used for this quest, draw and resolve another Event Card."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Veteran"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "summon the master... veteran oblivion's maw todo todo - requires manual entry unknown-icon unknown-icon"
+    }
+  ]
+}

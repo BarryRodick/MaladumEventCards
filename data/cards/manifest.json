@@ -1,0 +1,25 @@
+{
+  "sentryTypes": [
+    "Revenant",
+    "Malagaunt",
+    "Cabal"
+  ],
+  "corrupterTypes": [
+    "Corrupter"
+  ],
+  "heldBackCardTypes": [
+    "Novice",
+    "Commander",
+    "Veteran",
+    "Mountain"
+  ],
+  "games": {
+    "Base Game": "data/cards/base-game.json",
+    "Of Ale And Adventure": "data/cards/of-ale-and-adventure.json",
+    "Beyond The Vaults": "data/cards/beyond-the-vaults.json",
+    "Revenant Retribution": "data/cards/revenant-retribution.json",
+    "Beasts Of Environ": "data/cards/beasts-of-environ.json",
+    "Oblivion's Maw": "data/cards/oblivion-s-maw.json",
+    "Forbidden Creed": "data/cards/forbidden-creed.json"
+  }
+}

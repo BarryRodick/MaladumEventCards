@@ -1,0 +1,8973 @@
+{
+  "generatedAt": "2026-04-12T17:07:14.527Z",
+  "processedCards": 127,
+  "usedOcr": false,
+  "cards": [
+    {
+      "id": 1,
+      "game": "Base Game",
+      "card": "Renewed Vigour",
+      "sourceImage": "Renewed_Vigour.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 248,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 236,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 242,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 248,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 236,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 277,
+          "width": 242,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 106,
+          "top": 355,
+          "width": 165,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 2,
+      "game": "Base Game",
+      "card": "Life Drain",
+      "sourceImage": "Life_Drain.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 254,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 242,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 248,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 254,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 242,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 248,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 354,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 3,
+      "game": "Base Game",
+      "card": "Balefire",
+      "sourceImage": "Balefire.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 244,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 250,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 244,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 357,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 353,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 4,
+      "game": "Base Game",
+      "card": "Respite",
+      "sourceImage": "Respite.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 244,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 250,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 244,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 354,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 5,
+      "game": "Base Game",
+      "card": "Snap",
+      "sourceImage": "Snap.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 246,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 252,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 277,
+          "width": 246,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 355,
+          "width": 168,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 6,
+      "game": "Base Game",
+      "card": "Malacytic Fluctuations",
+      "sourceImage": "Malacytic_Fluctuations.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 249,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 237,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 243,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 249,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 237,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 243,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 354,
+          "width": 166,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 7,
+      "game": "Base Game",
+      "card": "Trap! Arrow",
+      "sourceImage": "Trap_Arrow.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 248,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 236,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 242,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 248,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 236,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 274,
+          "width": 242,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 355,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 106,
+          "top": 351,
+          "width": 165,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 8,
+      "game": "Base Game",
+      "card": "Fiery Touch",
+      "sourceImage": "Fiery_Touch.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 257,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 31,
+          "top": 73,
+          "width": 245,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 28,
+          "top": 99,
+          "width": 251,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 257,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 31,
+          "top": 251,
+          "width": 245,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 28,
+          "top": 276,
+          "width": 251,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 80,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 110,
+          "top": 354,
+          "width": 171,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 9,
+      "game": "Base Game",
+      "card": "Feeling Lucky",
+      "sourceImage": "Feeling_Lucky.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 23,
+          "top": 13,
+          "width": 244,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 29,
+          "top": 74,
+          "width": 233,
+          "height": 31
+        },
+        "primaryBody": {
+          "left": 26,
+          "top": 100,
+          "width": 239,
+          "height": 105
+        },
+        "midBox": {
+          "left": 23,
+          "top": 201,
+          "width": 244,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 29,
+          "top": 253,
+          "width": 233,
+          "height": 31
+        },
+        "secondaryBody": {
+          "left": 26,
+          "top": 279,
+          "width": 239,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 20,
+          "top": 362,
+          "width": 76,
+          "height": 57
+        },
+        "footerRight": {
+          "left": 105,
+          "top": 358,
+          "width": 163,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 10,
+      "game": "Base Game",
+      "card": "Alarm!",
+      "sourceImage": "Alarm.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 253,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 241,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 247,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 200,
+          "width": 253,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 252,
+          "width": 241,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 278,
+          "width": 247,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 360,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 356,
+          "width": 169,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 11,
+      "game": "Base Game",
+      "card": "Chilling Aura",
+      "sourceImage": "Chilling_Aura.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 255,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 242,
+          "height": 31
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 101,
+          "width": 248,
+          "height": 105
+        },
+        "midBox": {
+          "left": 24,
+          "top": 201,
+          "width": 255,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 253,
+          "width": 242,
+          "height": 31
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 280,
+          "width": 248,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 363,
+          "width": 79,
+          "height": 57
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 358,
+          "width": 170,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 12,
+      "game": "Base Game",
+      "card": "Reanimation",
+      "sourceImage": "Reanimation.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 248,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 236,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 242,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 248,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 250,
+          "width": 236,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 242,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 358,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 106,
+          "top": 353,
+          "width": 165,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 13,
+      "game": "Base Game",
+      "card": "Get That One!",
+      "sourceImage": "Get_That_One.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 254,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 242,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 248,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 254,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 242,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 248,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 354,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 14,
+      "game": "Base Game",
+      "card": "Deathly Fusion",
+      "sourceImage": "Deathly_Fusion.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 246,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 252,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 277,
+          "width": 246,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 355,
+          "width": 168,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 15,
+      "game": "Base Game",
+      "card": "They're Below Us!",
+      "sourceImage": "Theyre_Below_Us.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 25,
+          "top": 13,
+          "width": 259,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 31,
+          "top": 73,
+          "width": 246,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 28,
+          "top": 99,
+          "width": 253,
+          "height": 103
+        },
+        "midBox": {
+          "left": 25,
+          "top": 198,
+          "width": 259,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 31,
+          "top": 249,
+          "width": 246,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 28,
+          "top": 275,
+          "width": 253,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 22,
+          "top": 357,
+          "width": 80,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 111,
+          "top": 353,
+          "width": 172,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 16,
+      "game": "Base Game",
+      "card": "Unnatural Lifeforce",
+      "sourceImage": "Unnatural_Lifeforce.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 246,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 252,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 277,
+          "width": 246,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 355,
+          "width": 168,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 17,
+      "game": "Base Game",
+      "card": "Death Draws In",
+      "sourceImage": "Death_Draws_In.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 244,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 200,
+          "width": 250,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 252,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 278,
+          "width": 244,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 360,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 356,
+          "width": 167,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 18,
+      "game": "Base Game",
+      "card": "Gleaming Trinket",
+      "sourceImage": "Gleaming_Trinket.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 253,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 241,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 247,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 253,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 241,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 277,
+          "width": 247,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 355,
+          "width": 169,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 19,
+      "game": "Base Game",
+      "card": "Tremors",
+      "sourceImage": "Tremors.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 249,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 244,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 249,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 244,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 354,
+          "width": 166,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 20,
+      "game": "Base Game",
+      "card": "Spooked",
+      "sourceImage": "Spooked.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 245,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 251,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 250,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 245,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 358,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 353,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 21,
+      "game": "Base Game",
+      "card": "As One Door Closes...",
+      "sourceImage": "As_One_Door_Closes.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 23,
+          "top": 13,
+          "width": 246,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 29,
+          "top": 73,
+          "width": 234,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 26,
+          "top": 99,
+          "width": 240,
+          "height": 103
+        },
+        "midBox": {
+          "left": 23,
+          "top": 198,
+          "width": 246,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 29,
+          "top": 250,
+          "width": 234,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 26,
+          "top": 276,
+          "width": 240,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 358,
+          "width": 76,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 105,
+          "top": 353,
+          "width": 164,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 22,
+      "game": "Base Game",
+      "card": "Trap! Snare",
+      "sourceImage": "Trap_Snare.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 249,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 237,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 243,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 249,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 237,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 277,
+          "width": 243,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 355,
+          "width": 166,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 23,
+      "game": "Base Game",
+      "card": "They're Everywhere",
+      "sourceImage": "Theyre_Everywhere.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 246,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 252,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 277,
+          "width": 246,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 355,
+          "width": 168,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 24,
+      "game": "Base Game",
+      "card": "Lost Traveller",
+      "sourceImage": "Lost_Traveller.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 253,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 241,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 247,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 253,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 241,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 247,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 357,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 353,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 25,
+      "game": "Base Game",
+      "card": "Lost Traveller",
+      "sourceImage": "Lost_Traveller.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 253,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 241,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 247,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 253,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 241,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 247,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 357,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 353,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 26,
+      "game": "Base Game",
+      "card": "Opportunist",
+      "sourceImage": "Opportunist.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 246,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 252,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 246,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 354,
+          "width": 168,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 27,
+      "game": "Base Game",
+      "card": "Opportunist",
+      "sourceImage": "Opportunist.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 246,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 252,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 246,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 354,
+          "width": 168,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 28,
+      "game": "Base Game",
+      "card": "On The Hunt",
+      "sourceImage": "On_The_Hunt.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 253,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 241,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 247,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 200,
+          "width": 253,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 252,
+          "width": 241,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 278,
+          "width": 247,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 361,
+          "width": 78,
+          "height": 57
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 357,
+          "width": 169,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 29,
+      "game": "Base Game",
+      "card": "Out For Blood",
+      "sourceImage": "Out_For_Blood.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 249,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 244,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 249,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 277,
+          "width": 244,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 355,
+          "width": 166,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 30,
+      "game": "Base Game",
+      "card": "Cankers",
+      "sourceImage": "Cankers.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 249,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 244,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 249,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 244,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 356,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 352,
+          "width": 166,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 31,
+      "game": "Base Game",
+      "card": "Troglodyte",
+      "sourceImage": "Troglodyte.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 249,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 237,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 243,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 249,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 237,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 274,
+          "width": 243,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 355,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 351,
+          "width": 166,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 32,
+      "game": "Base Game",
+      "card": "Drakon",
+      "sourceImage": "Drakon.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 245,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 251,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 250,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 245,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 358,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 353,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 33,
+      "game": "Base Game",
+      "card": "Trap! Net",
+      "sourceImage": "Trap_Net.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 249,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 237,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 243,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 249,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 237,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 243,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 357,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 353,
+          "width": 166,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 34,
+      "game": "Base Game",
+      "card": "Trap! Pit",
+      "sourceImage": "Trap_Pit.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 244,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 250,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 244,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 354,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 35,
+      "game": "Base Game",
+      "card": "Trap! Swinging Blade",
+      "sourceImage": "Trap_Swinging_Blade.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "wall"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 245,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 200,
+          "width": 251,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 252,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 278,
+          "width": 245,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 361,
+          "width": 78,
+          "height": 57
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 357,
+          "width": 167,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 36,
+      "game": "Base Game",
+      "card": "Fading Light",
+      "sourceImage": "Fading_Light.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 254,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 242,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 248,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 254,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 242,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 248,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 356,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 352,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 37,
+      "game": "Base Game",
+      "card": "Collapse!",
+      "sourceImage": "Collapse.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 244,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 250,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 274,
+          "width": 244,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 355,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 351,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 38,
+      "game": "Base Game",
+      "card": "Dormant Lifeforce",
+      "sourceImage": "Dormant_Lifeforce.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 248,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 236,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 242,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 248,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 236,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 242,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 106,
+          "top": 354,
+          "width": 165,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 39,
+      "game": "Base Game",
+      "card": "Drip, Drip, Drip",
+      "sourceImage": "Drip_Drip_Drip.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 244,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 250,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 250,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 244,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 358,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 353,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 40,
+      "game": "Base Game",
+      "card": "Premonition",
+      "sourceImage": "Premonition.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 244,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 200,
+          "width": 250,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 252,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 278,
+          "width": 244,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 360,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 356,
+          "width": 167,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 41,
+      "game": "Base Game",
+      "card": "Teamwork",
+      "sourceImage": "Teamwork.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 244,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 250,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 244,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 354,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 42,
+      "game": "Base Game",
+      "card": "Respite",
+      "sourceImage": "Respite.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 244,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 250,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 244,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 354,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 43,
+      "game": "Base Game",
+      "card": "Blaze of Glory",
+      "sourceImage": "Blaze_of_Glory.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 244,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 250,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 244,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 357,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 353,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 44,
+      "game": "Base Game",
+      "card": "Spurred On",
+      "sourceImage": "Spurred_On.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 255,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 243,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 249,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 255,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 243,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 249,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 356,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 352,
+          "width": 170,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 45,
+      "game": "Base Game",
+      "card": "Malacytic Surge",
+      "sourceImage": "Malacytic_Surge.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 253,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 72,
+          "width": 241,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 247,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 253,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 247,
+          "width": 241,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 273,
+          "width": 247,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 78,
+          "height": 55
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 349,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 46,
+      "game": "Base Game",
+      "card": "Dangerous Ground",
+      "sourceImage": "Dangerous_Ground.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 23,
+          "top": 13,
+          "width": 243,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 29,
+          "top": 72,
+          "width": 231,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 26,
+          "top": 98,
+          "width": 237,
+          "height": 102
+        },
+        "midBox": {
+          "left": 23,
+          "top": 195,
+          "width": 243,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 29,
+          "top": 246,
+          "width": 231,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 26,
+          "top": 271,
+          "width": 237,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 20,
+          "top": 352,
+          "width": 75,
+          "height": 55
+        },
+        "footerRight": {
+          "left": 104,
+          "top": 348,
+          "width": 162,
+          "height": 59
+        }
+      }
+    },
+    {
+      "id": 47,
+      "game": "Base Game",
+      "card": "Malacytic Exhaustion",
+      "sourceImage": "Malacytic_Exhaustion.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 249,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 244,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 249,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 273,
+          "width": 244,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 350,
+          "width": 166,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 48,
+      "game": "Base Game",
+      "card": "Unexpected Assault",
+      "sourceImage": "Unexpected_Assault.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 246,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 200,
+          "width": 252,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 252,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 278,
+          "width": 246,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 361,
+          "width": 78,
+          "height": 57
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 357,
+          "width": 168,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 49,
+      "game": "Base Game",
+      "card": "One Thing After Another",
+      "sourceImage": "One_Thing_After_Another.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 246,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 252,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 273,
+          "width": 246,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 350,
+          "width": 168,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 50,
+      "game": "Base Game",
+      "card": "Fresh Graves",
+      "sourceImage": "Fresh_Graves.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 247,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 29,
+          "top": 72,
+          "width": 235,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 26,
+          "top": 98,
+          "width": 241,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 195,
+          "width": 247,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 29,
+          "top": 246,
+          "width": 235,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 26,
+          "top": 271,
+          "width": 241,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 352,
+          "width": 76,
+          "height": 55
+        },
+        "footerRight": {
+          "left": 106,
+          "top": 348,
+          "width": 165,
+          "height": 59
+        }
+      }
+    },
+    {
+      "id": 51,
+      "game": "Of Ale And Adventure",
+      "card": "Questgiver",
+      "sourceImage": "Questgiver.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 244,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 250,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 274,
+          "width": 244,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 355,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 351,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 52,
+      "game": "Of Ale And Adventure",
+      "card": "Questgiver",
+      "sourceImage": "Questgiver.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 244,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 250,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 274,
+          "width": 244,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 355,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 351,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 53,
+      "game": "Of Ale And Adventure",
+      "card": "Stand And Deliver!",
+      "sourceImage": "Stand_And_Deliver.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 254,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 242,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 248,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 200,
+          "width": 254,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 252,
+          "width": 242,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 278,
+          "width": 248,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 360,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 356,
+          "width": 169,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 54,
+      "game": "Of Ale And Adventure",
+      "card": "Bounty!",
+      "sourceImage": "Bounty.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 255,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 243,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 249,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 255,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 243,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 249,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 356,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 352,
+          "width": 170,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 55,
+      "game": "Of Ale And Adventure",
+      "card": "Nomadic Trader",
+      "sourceImage": "Nomadic_Trader.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 246,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 252,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 246,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 354,
+          "width": 168,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 56,
+      "game": "Of Ale And Adventure",
+      "card": "Excursionist",
+      "sourceImage": "Excursionist.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 256,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 31,
+          "top": 74,
+          "width": 244,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 250,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 256,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 31,
+          "top": 251,
+          "width": 244,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 277,
+          "width": 250,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 110,
+          "top": 355,
+          "width": 171,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 57,
+      "game": "Of Ale And Adventure",
+      "card": "Panhandler",
+      "sourceImage": "Panhandler.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 255,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 242,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 248,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 255,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 242,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 273,
+          "width": 248,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 350,
+          "width": 170,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 58,
+      "game": "Of Ale And Adventure",
+      "card": "Wanderer",
+      "sourceImage": "Wanderer.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 246,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 252,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 246,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 357,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 353,
+          "width": 168,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 59,
+      "game": "Of Ale And Adventure",
+      "card": "Rumours",
+      "sourceImage": "Rumours.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 244,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 200,
+          "width": 250,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 252,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 278,
+          "width": 244,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 360,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 356,
+          "width": 167,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 60,
+      "game": "Of Ale And Adventure",
+      "card": "Escape Route",
+      "sourceImage": "Escape_Route.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 255,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 242,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 248,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 200,
+          "width": 255,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 252,
+          "width": 242,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 278,
+          "width": 248,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 360,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 356,
+          "width": 170,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 61,
+      "game": "Of Ale And Adventure",
+      "card": "It's A Trap!",
+      "sourceImage": "Its_A_Trap.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 245,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 251,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 245,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 354,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 62,
+      "game": "Of Ale And Adventure",
+      "card": "Outta My Way!",
+      "sourceImage": "Outta_My_Way.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 253,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 241,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 247,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 200,
+          "width": 253,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 252,
+          "width": 241,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 278,
+          "width": 247,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 361,
+          "width": 78,
+          "height": 57
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 357,
+          "width": 169,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 63,
+      "game": "Of Ale And Adventure",
+      "card": "Stroke Of Fortune",
+      "sourceImage": "Stroke_Of_Fortune.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 254,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 242,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 248,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 254,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 242,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 248,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 357,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 353,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 64,
+      "game": "Of Ale And Adventure",
+      "card": "Lights Out",
+      "sourceImage": "Lights_Out.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 35,
+          "top": 20,
+          "width": 371,
+          "height": 72
+        },
+        "primaryHeader": {
+          "left": 44,
+          "top": 111,
+          "width": 354,
+          "height": 46
+        },
+        "primaryBody": {
+          "left": 40,
+          "top": 150,
+          "width": 362,
+          "height": 156
+        },
+        "midBox": {
+          "left": 35,
+          "top": 299,
+          "width": 371,
+          "height": 78
+        },
+        "secondaryHeader": {
+          "left": 44,
+          "top": 378,
+          "width": 354,
+          "height": 46
+        },
+        "secondaryBody": {
+          "left": 40,
+          "top": 417,
+          "width": 362,
+          "height": 130
+        },
+        "footerLeft": {
+          "left": 31,
+          "top": 540,
+          "width": 115,
+          "height": 85
+        },
+        "footerRight": {
+          "left": 159,
+          "top": 534,
+          "width": 248,
+          "height": 91
+        }
+      }
+    },
+    {
+      "id": 65,
+      "game": "Of Ale And Adventure",
+      "card": "Paradigm Shift",
+      "sourceImage": "Paradigm_Shift.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 247,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 29,
+          "top": 73,
+          "width": 235,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 26,
+          "top": 99,
+          "width": 241,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 247,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 29,
+          "top": 249,
+          "width": 235,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 26,
+          "top": 275,
+          "width": 241,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 357,
+          "width": 76,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 106,
+          "top": 353,
+          "width": 165,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 66,
+      "game": "Beyond The Vaults",
+      "card": "Tsewer-Nami",
+      "sourceImage": "Tsewer_Nami.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          },
+          {
+            "type": "label",
+            "text": "SEWERS/RIVERS"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 249,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 237,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 243,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 249,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 237,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 243,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 354,
+          "width": 166,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 67,
+      "game": "Beyond The Vaults",
+      "card": "Toxic Waste",
+      "sourceImage": "Toxic_Waste.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          },
+          {
+            "type": "label",
+            "text": "SEWERS"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 253,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 72,
+          "width": 241,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 247,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 253,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 247,
+          "width": 241,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 273,
+          "width": 247,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 78,
+          "height": 55
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 349,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 68,
+      "game": "Beyond The Vaults",
+      "card": "Spitting Fire",
+      "sourceImage": "Spitting_Fire.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          },
+          {
+            "type": "label",
+            "text": "MINES"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 249,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 237,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 243,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 249,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 237,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 274,
+          "width": 243,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 355,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 351,
+          "width": 166,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 69,
+      "game": "Beyond The Vaults",
+      "card": "Cave-In!",
+      "sourceImage": "Cave_In.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "map"
+          },
+          {
+            "type": "label",
+            "text": "MINES"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 248,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 236,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 242,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 248,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 236,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 242,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 357,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 106,
+          "top": 353,
+          "width": 165,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 70,
+      "game": "Beyond The Vaults",
+      "card": "Heigh-Ho, Heigh-Ho!",
+      "sourceImage": "Heigh_Ho_Heigh_Ho.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "map"
+          },
+          {
+            "type": "label",
+            "text": "MINES"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 255,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 242,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 248,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 255,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 242,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 248,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 357,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 353,
+          "width": 170,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 71,
+      "game": "Beyond The Vaults",
+      "card": "Runaway Train",
+      "sourceImage": "Runaway_Train.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "map"
+          },
+          {
+            "type": "label",
+            "text": "MINES"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 249,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 237,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 243,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 249,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 237,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 243,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 356,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 352,
+          "width": 166,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 72,
+      "game": "Beyond The Vaults",
+      "card": "G-G-G-G-Ghosts!",
+      "sourceImage": "G-G-G-G-Ghosts.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "map"
+          },
+          {
+            "type": "label",
+            "text": "GREAT HALL"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 23,
+          "top": 13,
+          "width": 240,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 29,
+          "top": 73,
+          "width": 229,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 26,
+          "top": 98,
+          "width": 235,
+          "height": 102
+        },
+        "midBox": {
+          "left": 23,
+          "top": 196,
+          "width": 240,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 29,
+          "top": 248,
+          "width": 229,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 26,
+          "top": 273,
+          "width": 235,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 20,
+          "top": 354,
+          "width": 74,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 103,
+          "top": 350,
+          "width": 160,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 73,
+      "game": "Beyond The Vaults",
+      "card": "Hall of Heroes",
+      "sourceImage": "Hall_of_Heroes.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "map"
+          },
+          {
+            "type": "label",
+            "text": "GREAT HALL"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 245,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 251,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 277,
+          "width": 245,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 355,
+          "width": 167,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 74,
+      "game": "Beyond The Vaults",
+      "card": "Nectar Of The Gods",
+      "sourceImage": "Nectar_Of_The_Gods.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          },
+          {
+            "type": "label",
+            "text": "SOURCES OF WATER"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 23,
+          "top": 13,
+          "width": 246,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 29,
+          "top": 72,
+          "width": 234,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 26,
+          "top": 98,
+          "width": 240,
+          "height": 102
+        },
+        "midBox": {
+          "left": 23,
+          "top": 196,
+          "width": 246,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 29,
+          "top": 247,
+          "width": 234,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 26,
+          "top": 273,
+          "width": 240,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 76,
+          "height": 55
+        },
+        "footerRight": {
+          "left": 105,
+          "top": 349,
+          "width": 164,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 75,
+      "game": "Beyond The Vaults",
+      "card": "Infiltration",
+      "sourceImage": "Infiltration.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          },
+          {
+            "type": "label",
+            "text": "GARRISON"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 23,
+          "top": 13,
+          "width": 244,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 29,
+          "top": 73,
+          "width": 233,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 26,
+          "top": 99,
+          "width": 239,
+          "height": 103
+        },
+        "midBox": {
+          "left": 23,
+          "top": 198,
+          "width": 244,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 29,
+          "top": 250,
+          "width": 233,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 26,
+          "top": 276,
+          "width": 239,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 20,
+          "top": 358,
+          "width": 76,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 105,
+          "top": 353,
+          "width": 163,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 76,
+      "game": "Beyond The Vaults",
+      "card": "Shhhhh......",
+      "sourceImage": "Shhhhh.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "map"
+          },
+          {
+            "type": "label",
+            "text": "ARCHIVES"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 255,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 243,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 249,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 255,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 243,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 249,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 357,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 353,
+          "width": 170,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 77,
+      "game": "Beyond The Vaults",
+      "card": "Seize Them!",
+      "sourceImage": "Seize_Them.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "map"
+          },
+          {
+            "type": "label",
+            "text": "BASTILLE"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 23,
+          "top": 13,
+          "width": 245,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 29,
+          "top": 74,
+          "width": 234,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 26,
+          "top": 100,
+          "width": 239,
+          "height": 104
+        },
+        "midBox": {
+          "left": 23,
+          "top": 199,
+          "width": 245,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 29,
+          "top": 251,
+          "width": 234,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 26,
+          "top": 277,
+          "width": 239,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 20,
+          "top": 359,
+          "width": 76,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 105,
+          "top": 355,
+          "width": 164,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 78,
+      "game": "Beyond The Vaults",
+      "card": "Watch Your Step!",
+      "sourceImage": "Watch_Your_Step.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 248,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 72,
+          "width": 236,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 242,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 248,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 246,
+          "width": 236,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 272,
+          "width": 242,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 353,
+          "width": 77,
+          "height": 55
+        },
+        "footerRight": {
+          "left": 106,
+          "top": 349,
+          "width": 165,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 79,
+      "game": "Beyond The Vaults",
+      "card": "Corrupted Warrior",
+      "sourceImage": "Corrupted_Warrior.png",
+      "status": "auto",
+      "confidence": 0.98,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 23,
+          "top": 13,
+          "width": 245,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 29,
+          "top": 73,
+          "width": 234,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 26,
+          "top": 98,
+          "width": 239,
+          "height": 102
+        },
+        "midBox": {
+          "left": 23,
+          "top": 196,
+          "width": 245,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 29,
+          "top": 248,
+          "width": 234,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 26,
+          "top": 273,
+          "width": 239,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 20,
+          "top": 354,
+          "width": 76,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 105,
+          "top": 350,
+          "width": 164,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 80,
+      "game": "Beyond The Vaults",
+      "card": "Rotten Floor",
+      "sourceImage": "Rotten_Floor.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "label",
+            "text": "+1"
+          },
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          },
+          {
+            "type": "label",
+            "text": "MULTI-LEVEL GAMING AREAS"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 247,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 29,
+          "top": 73,
+          "width": 235,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 26,
+          "top": 99,
+          "width": 241,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 247,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 29,
+          "top": 250,
+          "width": 235,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 26,
+          "top": 276,
+          "width": 241,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 358,
+          "width": 76,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 106,
+          "top": 353,
+          "width": 165,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 81,
+      "game": "Beyond The Vaults",
+      "card": "They're In The Walls!",
+      "sourceImage": "Theyre_In_The_Walls.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          },
+          {
+            "type": "label",
+            "text": "LARGER AND/OR MULTI-LEVEL GAMING AREAS"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 245,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 251,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 245,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 357,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 353,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 82,
+      "game": "Beyond The Vaults",
+      "card": "The Floodgates Open",
+      "sourceImage": "The_Floodgates_Open.png",
+      "status": "auto",
+      "confidence": 0.98,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          },
+          {
+            "type": "label",
+            "text": "LARGER AND/OR MULTI-LEVEL GAMING AREAS"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 72,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 245,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 251,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 247,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 273,
+          "width": 245,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 78,
+          "height": 55
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 349,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 83,
+      "game": "Beyond The Vaults",
+      "card": "The Floodgates Open",
+      "sourceImage": "The_Floodgates_Open.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          },
+          {
+            "type": "label",
+            "text": "LARGER AND/OR MULTI-LEVEL GAMING AREAS"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 72,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 245,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 251,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 247,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 273,
+          "width": 245,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 78,
+          "height": 55
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 349,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 84,
+      "game": "Revenant Retribution",
+      "card": "High Alert",
+      "sourceImage": "High_Alert.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 254,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 242,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 248,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 200,
+          "width": 254,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 252,
+          "width": 242,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 278,
+          "width": 248,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 361,
+          "width": 79,
+          "height": 57
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 357,
+          "width": 169,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 85,
+      "game": "Revenant Retribution",
+      "card": "Fortune Favours The Grave",
+      "sourceImage": "Fortune_Favours_The_Grave.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 246,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 252,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 277,
+          "width": 246,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 355,
+          "width": 168,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 86,
+      "game": "Revenant Retribution",
+      "card": "Lurching Forth",
+      "sourceImage": "Lurching_Forth.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 253,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 241,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 247,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 253,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 241,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 273,
+          "width": 247,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 350,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 87,
+      "game": "Revenant Retribution",
+      "card": "Dead-JÃ  Vu",
+      "sourceImage": "Dead_Ja_Vu.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "grave"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 246,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 252,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 246,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 356,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 352,
+          "width": 168,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 88,
+      "game": "Revenant Retribution",
+      "card": "Deathly Avatar",
+      "sourceImage": "Deathly_Avatar.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 246,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 252,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 277,
+          "width": 246,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 355,
+          "width": 168,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 89,
+      "game": "Beasts Of Environ",
+      "card": "Split-Tail Rats",
+      "sourceImage": "Split_Tail_Rats.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 253,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 241,
+          "height": 31
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 247,
+          "height": 105
+        },
+        "midBox": {
+          "left": 24,
+          "top": 201,
+          "width": 253,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 253,
+          "width": 241,
+          "height": 31
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 279,
+          "width": 247,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 362,
+          "width": 78,
+          "height": 57
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 358,
+          "width": 169,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 90,
+      "game": "Beasts Of Environ",
+      "card": "Alary",
+      "sourceImage": "Alary.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 247,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 29,
+          "top": 73,
+          "width": 235,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 26,
+          "top": 99,
+          "width": 241,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 247,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 29,
+          "top": 249,
+          "width": 235,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 26,
+          "top": 275,
+          "width": 241,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 356,
+          "width": 76,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 106,
+          "top": 352,
+          "width": 165,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 91,
+      "game": "Beasts Of Environ",
+      "card": "Great Bear",
+      "sourceImage": "Great_Bear.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 244,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 250,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 273,
+          "width": 244,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 350,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 92,
+      "game": "Beasts Of Environ",
+      "card": "Bloodwyrm",
+      "sourceImage": "Bloodwyrm.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 248,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 236,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 242,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 200,
+          "width": 248,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 252,
+          "width": 236,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 278,
+          "width": 242,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 360,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 106,
+          "top": 356,
+          "width": 165,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 93,
+      "game": "Beasts Of Environ",
+      "card": "Skin Shifter",
+      "sourceImage": "Skin_Shifter.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 245,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 251,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 245,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 354,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 94,
+      "game": "Beasts Of Environ",
+      "card": "Crag Troll",
+      "sourceImage": "Crag_Troll.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 257,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 31,
+          "top": 73,
+          "width": 245,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 28,
+          "top": 99,
+          "width": 251,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 257,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 31,
+          "top": 249,
+          "width": 245,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 28,
+          "top": 275,
+          "width": 251,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 356,
+          "width": 80,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 110,
+          "top": 352,
+          "width": 171,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 95,
+      "game": "Beasts Of Environ",
+      "card": "It's Alive",
+      "sourceImage": "Its_Alive.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 246,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 252,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 246,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 356,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 352,
+          "width": 168,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 96,
+      "game": "Beasts Of Environ",
+      "card": "Home Invasion",
+      "sourceImage": "Home_Invasion.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 249,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 237,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 243,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 249,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 237,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 277,
+          "width": 243,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 355,
+          "width": 166,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 97,
+      "game": "Beasts Of Environ",
+      "card": "Unmasked!",
+      "sourceImage": "Unmasked.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 253,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 241,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 247,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 253,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 241,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 273,
+          "width": 247,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 350,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 98,
+      "game": "Oblivion's Maw",
+      "card": "Eldritch Tentacle",
+      "sourceImage": "Eldritch_Tentacle.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          },
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 245,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 251,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 274,
+          "width": 245,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 355,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 351,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 99,
+      "game": "Oblivion's Maw",
+      "card": "Eldritch Tentacle",
+      "sourceImage": "Eldritch_Tentacle.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          },
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 245,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 251,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 274,
+          "width": 245,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 355,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 351,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 100,
+      "game": "Oblivion's Maw",
+      "card": "Eldritch Tentacle",
+      "sourceImage": "Eldritch_Tentacle.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          },
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 245,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 251,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 274,
+          "width": 245,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 355,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 351,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 101,
+      "game": "Oblivion's Maw",
+      "card": "It's Behind You!",
+      "sourceImage": "Its_Behind_You.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 256,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 31,
+          "top": 74,
+          "width": 244,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 250,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 256,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 31,
+          "top": 251,
+          "width": 244,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 277,
+          "width": 250,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 110,
+          "top": 355,
+          "width": 171,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 102,
+      "game": "Oblivion's Maw",
+      "card": "Corrupt Talisman",
+      "sourceImage": "Corrupt_Talisman.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 254,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 242,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 248,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 254,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 242,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 248,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 354,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 103,
+      "game": "Oblivion's Maw",
+      "card": "Ethereal Power",
+      "sourceImage": "Ethereal_Power.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 254,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 242,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 248,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 254,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 250,
+          "width": 242,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 248,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 358,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 353,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 104,
+      "game": "Oblivion's Maw",
+      "card": "Deathly Draught",
+      "sourceImage": "Deathly_Draught.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 253,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 241,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 247,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 253,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 241,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 277,
+          "width": 247,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 355,
+          "width": 169,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 105,
+      "game": "Oblivion's Maw",
+      "card": "Don't Look Up",
+      "sourceImage": "Dont_Look_Up.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 246,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 252,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 246,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 356,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 352,
+          "width": 168,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 106,
+      "game": "Oblivion's Maw",
+      "card": "Halls Of Veneration",
+      "sourceImage": "Halls_Of_Veneration.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 256,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 31,
+          "top": 73,
+          "width": 244,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 250,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 256,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 31,
+          "top": 251,
+          "width": 244,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 250,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 110,
+          "top": 354,
+          "width": 171,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 107,
+      "game": "Oblivion's Maw",
+      "card": "Cursed Chest",
+      "sourceImage": "Cursed_Chest.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 253,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 241,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 247,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 253,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 241,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 247,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 357,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 353,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 108,
+      "game": "Oblivion's Maw",
+      "card": "Cursed Portal",
+      "sourceImage": "Cursed_Portal.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 252,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 240,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 246,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 252,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 240,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 246,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 354,
+          "width": 168,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 109,
+      "game": "Oblivion's Maw",
+      "card": "Cursed Vestiges",
+      "sourceImage": "Cursed_Vestiges.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "otherworldly"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 244,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 250,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 244,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 356,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 352,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 110,
+      "game": "Oblivion's Maw",
+      "card": "Trap! Ancient Wards",
+      "sourceImage": "Trap_Ancient_Wards.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 254,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 242,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 248,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 254,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 242,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 274,
+          "width": 248,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 355,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 351,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 111,
+      "game": "Oblivion's Maw",
+      "card": "Trap! Crushing Ceiling",
+      "sourceImage": "Trap_Crushing_Ceiling.png",
+      "status": "auto",
+      "confidence": 0.95,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "larger-area"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 25,
+          "top": 13,
+          "width": 258,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 31,
+          "top": 74,
+          "width": 246,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 28,
+          "top": 100,
+          "width": 252,
+          "height": 104
+        },
+        "midBox": {
+          "left": 25,
+          "top": 200,
+          "width": 258,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 31,
+          "top": 252,
+          "width": 246,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 28,
+          "top": 278,
+          "width": 252,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 360,
+          "width": 80,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 111,
+          "top": 356,
+          "width": 172,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 112,
+      "game": "Oblivion's Maw",
+      "card": "Summon The Master...",
+      "sourceImage": "Summon_The_Master.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 244,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 199,
+          "width": 250,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 251,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 244,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 359,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 354,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 113,
+      "game": "Forbidden Creed",
+      "card": "Maladite Golum",
+      "sourceImage": "Maladite_Golum.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          }
+        ]
+      },
+      "regions": {
+        "title": {
+          "left": 23,
+          "top": 13,
+          "width": 240,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 29,
+          "top": 73,
+          "width": 229,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 26,
+          "top": 98,
+          "width": 235,
+          "height": 103
+        },
+        "midBox": {
+          "left": 23,
+          "top": 197,
+          "width": 240,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 29,
+          "top": 248,
+          "width": 229,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 26,
+          "top": 274,
+          "width": 235,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 20,
+          "top": 355,
+          "width": 74,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 103,
+          "top": 351,
+          "width": 160,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 114,
+      "game": "Forbidden Creed",
+      "card": "The Cabal",
+      "sourceImage": "The_Cabal.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 245,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 251,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 250,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 245,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 358,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 353,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 115,
+      "game": "Forbidden Creed",
+      "card": "Debased Acolyte",
+      "sourceImage": "Debased_Acolyte.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 23,
+          "top": 13,
+          "width": 245,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 29,
+          "top": 72,
+          "width": 234,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 26,
+          "top": 98,
+          "width": 239,
+          "height": 102
+        },
+        "midBox": {
+          "left": 23,
+          "top": 195,
+          "width": 245,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 29,
+          "top": 246,
+          "width": 234,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 26,
+          "top": 271,
+          "width": 239,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 20,
+          "top": 352,
+          "width": 76,
+          "height": 55
+        },
+        "footerRight": {
+          "left": 105,
+          "top": 348,
+          "width": 164,
+          "height": 59
+        }
+      }
+    },
+    {
+      "id": 116,
+      "game": "Forbidden Creed",
+      "card": "Treacherous Terrain",
+      "sourceImage": "Treacherous_Terrain.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 245,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 251,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 273,
+          "width": 245,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 350,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 117,
+      "game": "Forbidden Creed",
+      "card": "Treacherous Terrain",
+      "sourceImage": "Treacherous_Terrain.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 245,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 251,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 273,
+          "width": 245,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 350,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 118,
+      "game": "Forbidden Creed",
+      "card": "Thunderstorm",
+      "sourceImage": "Thunderstorm.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 257,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 31,
+          "top": 73,
+          "width": 245,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 28,
+          "top": 98,
+          "width": 251,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 257,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 31,
+          "top": 248,
+          "width": 245,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 28,
+          "top": 273,
+          "width": 251,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 80,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 110,
+          "top": 350,
+          "width": 171,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 119,
+      "game": "Forbidden Creed",
+      "card": "Ambush!",
+      "sourceImage": "Ambush.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 253,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 241,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 247,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 253,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 241,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 273,
+          "width": 247,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 350,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 120,
+      "game": "Forbidden Creed",
+      "card": "Chill Wind",
+      "sourceImage": "Chill_Wind.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 254,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 242,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 248,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 254,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 250,
+          "width": 242,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 248,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 358,
+          "width": 79,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 109,
+          "top": 353,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 121,
+      "game": "Forbidden Creed",
+      "card": "Dusk To Dawn",
+      "sourceImage": "Dusk_To_Dawn.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 251,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 239,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 245,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 251,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 239,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 245,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 356,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 352,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 122,
+      "game": "Forbidden Creed",
+      "card": "Falling Rocks",
+      "sourceImage": "Falling_Rocks.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 72,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 244,
+          "height": 102
+        },
+        "midBox": {
+          "left": 24,
+          "top": 196,
+          "width": 250,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 247,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 273,
+          "width": 244,
+          "height": 85
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 354,
+          "width": 77,
+          "height": 55
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 349,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 123,
+      "game": "Forbidden Creed",
+      "card": "Howling Gale",
+      "sourceImage": "Howling_Gale.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 250,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 238,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 244,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 250,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 250,
+          "width": 238,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 276,
+          "width": 244,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 358,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 353,
+          "width": 167,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 124,
+      "game": "Forbidden Creed",
+      "card": "Malacytic Scourge",
+      "sourceImage": "Malacytic_Scourge.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 249,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 237,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 243,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 249,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 237,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 243,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 357,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 353,
+          "width": 166,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 125,
+      "game": "Forbidden Creed",
+      "card": "Purifying Aether",
+      "sourceImage": "Purifying_Aether.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 249,
+          "height": 48
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 74,
+          "width": 237,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 100,
+          "width": 243,
+          "height": 104
+        },
+        "midBox": {
+          "left": 24,
+          "top": 200,
+          "width": 249,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 252,
+          "width": 237,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 278,
+          "width": 243,
+          "height": 87
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 361,
+          "width": 77,
+          "height": 57
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 357,
+          "width": 166,
+          "height": 61
+        }
+      }
+    },
+    {
+      "id": 126,
+      "game": "Forbidden Creed",
+      "card": "Touched By Darkness",
+      "sourceImage": "Touched_By_Darkness.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 253,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 241,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 99,
+          "width": 247,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 198,
+          "width": 253,
+          "height": 52
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 249,
+          "width": 241,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 275,
+          "width": 247,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 357,
+          "width": 78,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 108,
+          "top": 353,
+          "width": 169,
+          "height": 60
+        }
+      }
+    },
+    {
+      "id": 127,
+      "game": "Forbidden Creed",
+      "card": "They Are Coming",
+      "sourceImage": "They_Are_Coming.png",
+      "status": "auto",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "regions": {
+        "title": {
+          "left": 24,
+          "top": 13,
+          "width": 249,
+          "height": 47
+        },
+        "primaryHeader": {
+          "left": 30,
+          "top": 73,
+          "width": 237,
+          "height": 30
+        },
+        "primaryBody": {
+          "left": 27,
+          "top": 98,
+          "width": 243,
+          "height": 103
+        },
+        "midBox": {
+          "left": 24,
+          "top": 197,
+          "width": 249,
+          "height": 51
+        },
+        "secondaryHeader": {
+          "left": 30,
+          "top": 248,
+          "width": 237,
+          "height": 30
+        },
+        "secondaryBody": {
+          "left": 27,
+          "top": 274,
+          "width": 243,
+          "height": 86
+        },
+        "footerLeft": {
+          "left": 21,
+          "top": 355,
+          "width": 77,
+          "height": 56
+        },
+        "footerRight": {
+          "left": 107,
+          "top": 351,
+          "width": 166,
+          "height": 60
+        }
+      }
+    }
+  ]
+}
