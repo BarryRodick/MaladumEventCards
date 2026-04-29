@@ -11,12 +11,13 @@ function loadDeckFlowUtils() {
     let code = fs.readFileSync(file, 'utf8');
     code = code.replace(/export function /g, 'function ');
 
-    return new Function(`${code}; return { deriveDeckMode, formatDeckSummary, buildPreviewActionRequest };`)();
+    return new Function(`${code}; return { deriveDeckMode, formatDeckSummary, getGenerateDeckState, buildPreviewActionRequest };`)();
 }
 
 const {
     deriveDeckMode,
     formatDeckSummary,
+    getGenerateDeckState,
     buildPreviewActionRequest
 } = loadDeckFlowUtils();
 
@@ -59,8 +60,65 @@ console.log('Testing deck flow helpers...');
         currentCardName: 'The Long Hall'
     });
 
+    assert.strictEqual(activeSummary.gamesText, 'Maladum');
     assert.strictEqual(activeSummary.remainingCount, 7);
     assert.strictEqual(activeSummary.statusText, 'The Long Hall');
+}
+
+{
+    const crowdedSummary = formatDeckSummary({
+        selectedGames: ['Base Game', 'Of Ale And Adventure', 'Beyond The Vaults', 'Forbidden Creed']
+    });
+
+    assert.strictEqual(crowdedSummary.gamesText, 'Base Game + 3 more');
+}
+
+{
+    const emptySummary = formatDeckSummary();
+    assert.strictEqual(emptySummary.gamesText, 'No games selected');
+}
+
+{
+    const invalidSetup = getGenerateDeckState({
+        selectedGames: ['Base Game'],
+        cardCounts: {
+            Dungeon: 0,
+            Sentry: 2
+        },
+        sentryTypes: ['Sentry'],
+        hasActiveDeck: false
+    });
+
+    assert.strictEqual(invalidSetup.canGenerate, false);
+    assert.strictEqual(invalidSetup.label, 'Choose Card Counts');
+}
+
+{
+    const validSetup = getGenerateDeckState({
+        selectedGames: ['Base Game'],
+        cardCounts: {
+            Dungeon: 3
+        },
+        hasActiveDeck: false
+    });
+
+    assert.strictEqual(validSetup.canGenerate, true);
+    assert.strictEqual(validSetup.label, 'Generate Deck');
+}
+
+{
+    const rebuildSetup = getGenerateDeckState({
+        selectedGames: ['Base Game'],
+        cardCounts: {
+            Corrupter: 2
+        },
+        corrupterTypes: ['Corrupter'],
+        enableCorrupterRules: true,
+        hasActiveDeck: true
+    });
+
+    assert.strictEqual(rebuildSetup.canGenerate, true);
+    assert.strictEqual(rebuildSetup.label, 'Rebuild Deck');
 }
 
 {
