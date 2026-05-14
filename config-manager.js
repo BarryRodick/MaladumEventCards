@@ -29,6 +29,7 @@ export function saveConfiguration() {
                 sentryDeck: state.sentryDeck,
                 initialDeckSize: state.initialDeckSize,
                 inPlayCards: state.inPlayCards,
+                isActiveCardCleared: state.isActiveCardCleared,
                 mainDeck: state.deck.main,
                 specialDeck: state.deck.special,
                 combinedDeck: state.deck.combined

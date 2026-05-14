@@ -683,7 +683,7 @@
                     checkboxGroups: Array.from(document.querySelectorAll('.checkbox-group')).map(group =>
                         Array.from(group.querySelectorAll('.checkbox')).map(cb => cb.style.backgroundColor === 'black')
                     ),
-                    checkboxes: Array.from(document.querySelectorAll('.reward-item:not(:has(.checkbox-group)) .checkbox')).map(cb => cb.style.backgroundColor === 'black'),
+                    checkboxes: Array.from(document.querySelectorAll('.checkbox')).map(cb => cb.style.backgroundColor === 'black'),
                     delayTrack: Array.from(document.querySelectorAll('.delay-checkbox')).map(cb => cb.style.backgroundColor === 'black'),
                     malagauntTrack: Array.from(document.querySelectorAll('.malagaunt-checkbox')).map(cb => cb.style.backgroundColor === 'black'),
                     numberedCircles: Array.from(document.querySelectorAll('.numbered-circle')).map(circle => circle.style.backgroundColor === 'black'),
@@ -710,10 +710,21 @@
                         });
                     });
 
-                    // Load single checkboxes
-                    document.querySelectorAll('.reward-item:not(:has(.checkbox-group)) .checkbox').forEach((cb, i) => {
-                        cb.style.backgroundColor = state.checkboxes[i] ? 'black' : '';
-                    });
+                    // Load all campaign checkboxes. Older saves only covered rewards, so only
+                    // apply the flat list when it matches the current page shape.
+                    if (state.checkboxes?.length === document.querySelectorAll('.checkbox').length) {
+                        document.querySelectorAll('.checkbox').forEach((cb, i) => {
+                            cb.style.backgroundColor = state.checkboxes[i] ? 'black' : '';
+                        });
+                    } else {
+                        const legacyRewardCheckboxes = Array.from(document.querySelectorAll('.reward-item'))
+                            .filter(item => !item.querySelector('.checkbox-group'))
+                            .map(item => item.querySelector('.checkbox'))
+                            .filter(Boolean);
+                        legacyRewardCheckboxes.forEach((cb, i) => {
+                            cb.style.backgroundColor = state.checkboxes?.[i] ? 'black' : '';
+                        });
+                    }
 
                     document.querySelectorAll('.delay-checkbox').forEach((cb, i) => {
                         cb.style.backgroundColor = state.delayTrack[i] ? 'black' : '';

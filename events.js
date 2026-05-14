@@ -1,7 +1,7 @@
 /**
  * events.js - Handles all global event listeners
  */
-import { generateDeck, advanceToNextCard, showCurrentCard } from './deck-manager.js';
+import { generateDeck, advanceToNextCard, showCurrentCard, clearActiveCardView } from './deck-manager.js';
 import {
     triggerCardAction,
     markCardAsInPlay,
@@ -13,7 +13,7 @@ import { state } from './state.js';
 import { trackEvent, debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
 import { setupManualUpdateCheck } from './update-utils.js';
-import { updateCardSearchResults, showCardPreview, setDeckMode, toggleUtilityDrawer, openBuildTools, openSearchTools } from './ui-manager.js';
+import { updateCardSearchResults, showCardPreview, setDeckMode, toggleUtilityDrawer, openBuildTools, openSearchTools, toggleActionPanel } from './ui-manager.js';
 import { buildPreviewActionRequest } from './deck-flow-utils.js';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
@@ -62,6 +62,15 @@ export function setupEventListeners() {
         });
     }
 
+    const cardActionToggle = document.querySelector('[data-bs-target="#cardActionContent"]');
+    if (cardActionToggle) {
+        cardActionToggle.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            toggleActionPanel();
+        });
+    }
+
     const generateBtn = document.getElementById('generateDeck');
     if (generateBtn) generateBtn.addEventListener('click', () => {
         if (state.currentDeck.length > 0 && state.currentIndex >= 0) {
@@ -78,6 +87,7 @@ export function setupEventListeners() {
     if (prevBtn) {
         prevBtn.addEventListener('click', () => {
             if (state.currentIndex > -1) {
+                state.isActiveCardCleared = false;
                 if (state.currentIndex === 0) {
                     state.currentIndex = -1;
                 } else {
@@ -154,8 +164,7 @@ export function setupEventListeners() {
     if (clearActiveCardBtn) {
         clearActiveCardBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            state.currentIndex = -1;
-            showCurrentCard();
+            clearActiveCardView();
             trackEvent('Navigation', 'Clear Active Card', null);
         });
     }

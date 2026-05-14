@@ -9,6 +9,7 @@ const TOP_LEVEL_RUNTIME_FILES = [
   './card-utils.js',
   './config-manager.js',
   './deck-manager.js',
+  './deck-flow-utils.js',
   './deckbuilder.js',
   './difficulties.json',
   './dungeons_of_enveron.html',

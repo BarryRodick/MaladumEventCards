@@ -261,6 +261,14 @@ export function shuffleCardIntoTopN(cardId, n) {
         if (existingIndex <= state.currentIndex) {
             nextCurrentIndex = Math.max(-1, state.currentIndex - 1);
         }
+    } else if (Array.isArray(state.discardPile)) {
+        const discardedIndex = state.discardPile.findIndex(card => String(card.id) === String(targetCard.id));
+        if (discardedIndex !== -1) {
+            const [discardedCard] = state.discardPile.splice(discardedIndex, 1);
+            cardToInsert = discardedCard || targetCard;
+        } else {
+            cardToInsert = { ...targetCard };
+        }
     } else {
         cardToInsert = { ...targetCard };
     }

@@ -71,6 +71,7 @@ export const state = {
     // UI state
     uiMode: 'build',
     isUtilityDrawerOpen: true,
+    isActiveCardCleared: false,
 
     // Helpers
     deferredDeckRestoration: null

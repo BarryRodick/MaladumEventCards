@@ -58,9 +58,11 @@ manifest.icons.forEach(icon => {
 });
 
 const serviceWorker = fs.readFileSync(path.join(repoRoot, 'service-worker.js'), 'utf8');
+const updateVersionScript = fs.readFileSync(path.join(repoRoot, 'scripts', 'update-version.js'), 'utf8');
 [
     './vendor/bootstrap/css/bootstrap.min.css',
     './vendor/bootstrap/js/bootstrap.bundle.min.js',
+    './deck-flow-utils.js',
     './vendor/fontawesome/css/all.min.css',
     './vendor/fonts/cinzel-latin-400-normal.woff2',
     './icons/icon-192x192.png',
@@ -68,5 +70,8 @@ const serviceWorker = fs.readFileSync(path.join(repoRoot, 'service-worker.js'), 
 ].forEach(asset => {
     assert(serviceWorker.includes(`'${asset}'`), `Service worker asset manifest should include ${asset}`);
 });
+
+assert(updateVersionScript.includes("'./deck-flow-utils.js'"),
+    'Build asset manifest should include deck-flow-utils.js for future service-worker syncs');
 
 console.log('All app shell asset checks passed!');

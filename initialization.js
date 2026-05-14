@@ -131,6 +131,7 @@ function restoreDeckState(deckState) {
     state.sentryDeck = deckState.sentryDeck || [];
     state.initialDeckSize = deckState.initialDeckSize || 0;
     state.inPlayCards = deckState.inPlayCards || [];
+    state.isActiveCardCleared = deckState.isActiveCardCleared || false;
     state.deck.main = deckState.mainDeck || [];
     state.deck.special = deckState.specialDeck || [];
     state.deck.combined = deckState.combinedDeck || state.currentDeck;

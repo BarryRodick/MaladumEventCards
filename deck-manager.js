@@ -5,7 +5,7 @@ import { state, CONFIG, cardTypeId } from './state.js';
 import { shuffleDeck, parseCardTypes } from './card-utils.js';
 import { showToast, trackEvent, debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
-import { renderDeckSummary, setDeckMode } from './ui-manager.js';
+import { renderDeckSummary, setActionPanelOpen, setDeckMode } from './ui-manager.js';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
 const preloadCache = [];
@@ -20,6 +20,7 @@ export function generateDeck() {
     }
 
     state.currentIndex = -1;
+    state.isActiveCardCleared = false;
     state.deck.main = [];
     state.deck.special = [];
     state.sentryDeck = [];
@@ -45,11 +46,10 @@ export function generateDeck() {
     });
 
     // 1. Set Aside Cards Based on heldBackCardTypes
+    const allAvailableCards = [...state.availableCards];
     state.setAsideCards = [];
-    state.availableCards = state.availableCards.filter(card => {
-        const typeInfo = parseCardTypes(card.type);
-        const isHeldBack = typeInfo.allTypes.some(t => state.dataStore.heldBackCardTypes.includes(t));
-        if (isHeldBack) {
+    const regularCardPool = allAvailableCards.filter(card => {
+        if (isHeldBackCard(card)) {
             state.setAsideCards.push(card);
             return false;
         }
@@ -65,7 +65,8 @@ export function generateDeck() {
         const count = cardCounts[type];
         if (count > 0) {
             hasRegularCardSelection = true;
-            const selected = selectCardsByType(type, count, state.cards.selected, cardCounts);
+            const cardPool = isHeldBackType(type) ? state.setAsideCards : regularCardPool;
+            const selected = selectCardsByType(type, count, state.cards.selected, cardCounts, cardPool);
             state.deck.main = state.deck.main.concat(selected);
         }
     });
@@ -78,7 +79,7 @@ export function generateDeck() {
                 const count = specialCardCounts[type];
                 if (count > 0) {
                     hasSpecialCardSelection = true;
-                    const selected = selectCardsByType(type, count, state.cards.selected, specialCardCounts);
+                    const selected = selectCardsByType(type, count, state.cards.selected, specialCardCounts, allAvailableCards);
                     state.deck.special = state.deck.special.concat(selected);
                 }
             }
@@ -91,7 +92,7 @@ export function generateDeck() {
             if (state.dataStore.sentryTypes.includes(type)) {
                 const count = sentryCardCounts[type];
                 if (count > 0) {
-                    const selected = selectCardsByType(type, count, state.cards.selected, sentryCardCounts);
+                    const selected = selectCardsByType(type, count, state.cards.selected, sentryCardCounts, allAvailableCards);
                     state.sentryDeck = state.sentryDeck.concat(selected);
                 }
             }
@@ -104,14 +105,21 @@ export function generateDeck() {
     }
 
     // Apply Corrupter replacement Rules
-    if (state.enableCorrupterRules && state.deck.main.length >= 5) {
-        // Since we shuffle at the end, we can validly just remove the first 5 cards
-        // instead of splicing from random indices 5 times.
-        state.deck.main.splice(0, 5);
+    if (state.enableCorrupterRules && state.deck.main.length >= CONFIG.deck.corrupter.defaultCount) {
+        const replacementCount = CONFIG.deck.corrupter.defaultCount;
+        const replacementPool = state.deck.special.length > 0
+            ? state.deck.special
+            : getSpecialCards(replacementCount, state.dataStore.corrupterTypes);
+        const corrupterCards = shuffleDeck([...replacementPool]).slice(0, replacementCount);
 
-        // Replace with 5 special
-        const corrupterCards = getSpecialCards(5, state.dataStore.corrupterTypes);
-        state.deck.main = state.deck.main.concat(corrupterCards);
+        if (corrupterCards.length > 0) {
+            // Since we shuffle at the end, we can validly just remove from the front
+            // instead of splicing from random indices repeatedly.
+            state.deck.main.splice(0, corrupterCards.length);
+            state.deck.main = state.deck.main.concat(corrupterCards);
+        }
+
+        state.deck.special = [];
     }
 
     // Final shuffle and combine
@@ -119,6 +127,7 @@ export function generateDeck() {
     state.currentDeck = state.deck.main.concat(state.deck.special);
     state.deck.combined = state.currentDeck;
     state.initialDeckSize = state.currentDeck.length;
+    rebuildSelectedCardsMap();
 
     // UI Updates
     const activeDeckSection = document.getElementById('activeDeckSection');
@@ -128,15 +137,7 @@ export function generateDeck() {
     document.getElementById('deckProgress').style.display = 'block';
     const cardActionSection = document.getElementById('cardActionSection');
     if (cardActionSection) cardActionSection.style.display = 'block';
-    const cardActionContent = document.getElementById('cardActionContent');
-    if (cardActionContent) {
-        cardActionContent.classList.remove('show');
-    }
-    const cardActionToggle = document.querySelector('[data-bs-target="#cardActionContent"]');
-    if (cardActionToggle) {
-        cardActionToggle.classList.add('collapsed');
-        cardActionToggle.setAttribute('aria-expanded', 'false');
-    }
+    setActionPanelOpen(false);
 
     setDeckMode('play', { openUtilities: false, scrollToPlay: true });
     showCurrentCard();
@@ -148,9 +149,30 @@ export function generateDeck() {
 /**
  * Core selection logic
  */
-function selectCardsByType(cardType, count, selectedCardsMap, cardCounts) {
+function isHeldBackType(type) {
+    return state.dataStore.heldBackCardTypes.includes(type);
+}
+
+function isHeldBackCard(card) {
+    const typeInfo = parseCardTypes(card.type);
+    return typeInfo.allTypes.some(type => isHeldBackType(type));
+}
+
+function rebuildSelectedCardsMap() {
+    state.cards.selected.clear();
+    [
+        ...state.currentDeck,
+        ...state.sentryDeck
+    ].forEach(card => {
+        if (card && card.id !== undefined) {
+            state.cards.selected.set(card.id, true);
+        }
+    });
+}
+
+function selectCardsByType(cardType, count, selectedCardsMap, cardCounts, cardPool = state.availableCards) {
     let selectedCards = [];
-    let cardsOfType = state.availableCards.filter(card => {
+    let cardsOfType = cardPool.filter(card => {
         const typeInfo = parseCardTypes(card.type);
         return typeInfo.allTypes.includes(cardType);
     });
@@ -206,9 +228,11 @@ function getSpecialCards(count, specialTypes) {
 export function showCurrentCard(direction = null) {
     const output = document.getElementById('deckOutput');
     if (!output) return;
+    const cardDisplay = getDeckCardDisplay(output);
+    const showCardBack = state.currentIndex === -1 || state.isActiveCardCleared;
 
-    if (state.currentIndex === -1) {
-        output.innerHTML = `
+    if (showCardBack) {
+        cardDisplay.innerHTML = `
             <div class="deck-card-state">
                 <img src="cardimages/back.jpg" alt="Ready to draw" class="img-fluid">
                 <p class="deck-card-caption">Ready to draw</p>
@@ -217,16 +241,29 @@ export function showCurrentCard(direction = null) {
     } else {
         const currentCard = state.currentDeck[state.currentIndex];
         if (currentCard) {
-            output.innerHTML = `<img src="cardimages/${currentCard.contents}" alt="${currentCard.card}" class="img-fluid">`;
+            cardDisplay.innerHTML = `<img src="cardimages/${currentCard.contents}" alt="${currentCard.card}" class="img-fluid">`;
         }
     }
 
     const clearBtn = document.getElementById('clearActiveCard');
-    if (clearBtn) clearBtn.style.display = state.currentIndex >= 0 ? 'block' : 'none';
+    if (clearBtn) clearBtn.style.display = state.currentIndex >= 0 && !state.isActiveCardCleared ? 'block' : 'none';
 
     updateProgressBar();
     preloadUpcomingCards();
     debouncedSaveConfiguration();
+}
+
+function getDeckCardDisplay(output) {
+    let cardDisplay = output.querySelector('[data-deck-card-display]');
+    if (!cardDisplay) {
+        cardDisplay = document.createElement('div');
+        cardDisplay.className = 'deck-card-display';
+        if (cardDisplay.setAttribute) {
+            cardDisplay.setAttribute('data-deck-card-display', '');
+        }
+        output.appendChild(cardDisplay);
+    }
+    return cardDisplay;
 }
 
 export function updateProgressBar() {
@@ -252,6 +289,12 @@ export function updateProgressBar() {
 }
 
 export function advanceToNextCard() {
+    if (state.isActiveCardCleared) {
+        state.isActiveCardCleared = false;
+        showCurrentCard('forward');
+        return;
+    }
+
     if (state.currentIndex >= 0 && state.currentIndex < state.currentDeck.length) {
         state.discardPile.push(state.currentDeck[state.currentIndex]);
     }
@@ -273,6 +316,12 @@ export function advanceToNextCard() {
     }
 
     showCurrentCard('forward');
+}
+
+export function clearActiveCardView() {
+    if (state.currentIndex < 0) return;
+    state.isActiveCardCleared = true;
+    showCurrentCard();
 }
 
 function preloadUpcomingCards(count = 2) {

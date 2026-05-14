@@ -214,4 +214,34 @@ console.log('Testing card actions...');
     ]);
 }
 
+// ============================
+// Test: shuffleCardIntoTopN removes moved cards from discard pile
+// ============================
+{
+    const state = {
+        currentDeck: [
+            { id: 1, card: 'A' },
+            { id: 2, card: 'B' }
+        ],
+        currentIndex: 0,
+        discardPile: [
+            { id: 3, card: 'C' }
+        ],
+        availableCards: [
+            { id: 1, card: 'A' },
+            { id: 2, card: 'B' },
+            { id: 3, card: 'C' }
+        ],
+        cards: { selected: new Map([[1, true], [2, true], [3, true]]) }
+    };
+    const { shuffleCardIntoTopN } = loadCardActions(state);
+
+    shuffleCardIntoTopN(3, 1);
+
+    assert.deepStrictEqual(state.currentDeck.map(card => card.id), [1, 3, 2],
+        'shuffleCardIntoTopN should move the discarded card into the active deck');
+    assert.deepStrictEqual(state.discardPile, [],
+        'shuffleCardIntoTopN should remove moved cards from the discard pile');
+}
+
 console.log('All card action tests passed!');

@@ -284,7 +284,7 @@ export function initializeDeckFlowUI({ hasSavedConfig = false, hasActiveDeck = f
         setCollapseState('cardSearchContent', false);
     }
 
-    setCollapseState('cardActionContent', false);
+    setActionPanelOpen(false);
     setDeckMode(state.uiMode, { openUtilities: state.isUtilityDrawerOpen });
 }
 
@@ -523,6 +523,31 @@ export function showCardPreview({ id, name, image, type }) {
  */
 export function toggleDeckBuilderUI(hide) {
     setUtilitiesDrawerOpen(!hide);
+}
+
+export function setActionPanelOpen(isOpen) {
+    const content = document.getElementById('cardActionContent');
+    if (!content) return;
+
+    content.classList.add('collapse');
+    content.classList.remove('collapsing');
+    content.classList.toggle('show', !!isOpen);
+
+    if (content.style) {
+        content.style.height = '';
+    }
+
+    const trigger = document.querySelector('[data-bs-target="#cardActionContent"]');
+    if (trigger) {
+        trigger.classList.toggle('collapsed', !isOpen);
+        trigger.setAttribute('aria-expanded', String(!!isOpen));
+    }
+}
+
+export function toggleActionPanel() {
+    const content = document.getElementById('cardActionContent');
+    if (!content) return;
+    setActionPanelOpen(!content.classList.contains('show'));
 }
 
 function updateGenerateButtonLabel() {
