@@ -314,38 +314,86 @@ body.dark-mode .card {
 .card-type-input {
     background-color: rgba(0, 0, 0, 0.8);
     /* Black with some opacity */
-    padding: 10px;
+    padding: 8px 10px;
     border-radius: 8px;
     color: #ffffff;
 }
 
+.card-type-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 0.65rem;
+    min-height: 1.9rem;
+}
+
+.card-type-label-group {
+    display: grid;
+    grid-template-columns: 1.5rem minmax(0, 1fr);
+    align-items: center;
+    column-gap: 0.35rem;
+    min-width: 0;
+}
+
+.card-type-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: cover;
+}
+
 .card-type-input .card-title {
-    font-size: 16px;
+    margin: 0;
+    font-size: 0.78rem;
     font-weight: bold;
+    line-height: 1.1;
+}
+
+.card-type-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card-type-counter {
+    display: grid;
+    grid-template-columns: 1.35rem 2.25rem 1.35rem;
+    align-items: center;
+    column-gap: 0.3rem;
 }
 
 .card-type-input .input-count {
-    width: 60px;
-    margin-left: 10px;
+    width: 2.25rem;
+    height: 1.35rem;
+    margin: 0;
+    padding: 0 0.25rem;
+    text-align: center;
+    font-size: 0.75rem;
+    line-height: 1;
 }
 
 /* Responsive Design for Card Type Inputs */
 @media (max-width: 768px) {
-    .card-type-input {
-        flex-direction: column;
-        align-items: flex-start;
+    .card-type-row {
+        grid-template-columns: minmax(0, 1fr) auto;
+        column-gap: 0.5rem;
+    }
+
+    .card-type-counter {
+        grid-template-columns: 1.6rem 2.5rem 1.6rem;
+    }
+
+    .card-type-input .decrease-btn,
+    .card-type-input .increase-btn {
+        width: 1.6rem;
+        height: 1.6rem;
+        min-width: 1.6rem;
+        min-height: 1.6rem;
     }
 
     .card-type-input .input-count {
-        margin-left: 0;
-        margin-top: 5px;
-    }
-
-    .card-type-input .d-flex {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
+        width: 2.5rem;
+        height: 1.6rem;
     }
 }
 
@@ -386,13 +434,14 @@ body.dark-mode .card {
 /* Decrease and Increase Button Styling within Card Type Inputs */
 .card-type-input .decrease-btn,
 .card-type-input .increase-btn {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    min-height: 44px;
+    width: 1.35rem;
+    height: 1.35rem;
+    min-width: 1.35rem;
+    min-height: 1.35rem;
     line-height: 1;
     text-align: center;
     padding: 0;
+    font-size: 0.75rem;
 }
 
 /* Enhanced Buttons for Touch Devices */

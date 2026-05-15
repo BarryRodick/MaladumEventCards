@@ -130,12 +130,16 @@ export function generateCardTypeInputs() {
         const savedCount = getSavedCardCount(type);
 
         div.innerHTML = `
-            <div class="d-flex align-items-center">
-                <img src="logos/${imageName}.jpg" alt="${type}" class="mr-2" style="width: 30px; height: 30px;">
-                <span class="card-title mr-auto">${type} Cards</span>
-                <button class="btn btn-sm btn-outline-secondary decrease-btn" data-type="${type}" style="margin-right: 5px;">-</button>
-                <input type="number" id="${cardTypeId(type)}" min="0" max="${maxCount}" value="${savedCount}" class="form-control form-control-sm input-count" style="width: 60px;">
-                <button class="btn btn-sm btn-outline-secondary increase-btn" data-type="${type}" style="margin-left: 5px;">+</button>
+            <div class="card-type-row">
+                <div class="card-type-label-group">
+                    <img src="logos/${imageName}.jpg" alt="${type}" class="card-type-icon">
+                    <span class="card-title card-type-label" title="${type} Cards">${type} Cards</span>
+                </div>
+                <div class="card-type-counter">
+                    <button type="button" class="btn btn-sm btn-outline-secondary decrease-btn" data-type="${type}" aria-label="Decrease ${type} Cards">-</button>
+                    <input type="number" id="${cardTypeId(type)}" min="0" max="${maxCount}" value="${savedCount}" class="form-control form-control-sm input-count" aria-label="${type} Cards count">
+                    <button type="button" class="btn btn-sm btn-outline-secondary increase-btn" data-type="${type}" aria-label="Increase ${type} Cards">+</button>
+                </div>
             </div>
         `;
         fragment.appendChild(div);

@@ -1,6 +1,6 @@
 {
   "name": "maladum-event-cards",
-  "version": "2.15.2",
+  "version": "2.15.3",
   "scripts": {
     "test": "node tests/parseCardTypes.test.js && node tests/deckGeneration.test.js && node tests/deckManager.test.js && node tests/cardActions.test.js && node tests/storageUtils.test.js && node tests/initialization.test.js && node tests/deckFlowUtils.test.js && node tests/uiManager.test.js && node tests/versionSync.test.js && node tests/appShellAssets.test.js && node tests/campaignPersistence.test.js && node tests/updateUtils.test.js",
     "test:cards": "node tests/parseCardTypes.test.js",
