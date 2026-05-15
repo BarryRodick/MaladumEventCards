@@ -561,7 +561,43 @@ body.dark-mode .btn {
     padding: 1rem;
 }
 
+#inPlayCards .in-play-card {
+    background: #f3e5cf;
+    border: 1px solid rgba(52, 34, 20, 0.32);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+}
+
+#inPlayCards .in-play-card .card-body {
+    padding: 0.7rem;
+}
+
+#inPlayCards .in-play-card .card-title {
+    color: #1f150f;
+    font-size: 0.86rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 0.45rem;
+}
+
+.in-play-card-preview {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    cursor: zoom-in;
+}
+
+.in-play-card-preview:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+}
+
 #inPlayCards img {
+    display: block;
+    width: 100%;
+    height: auto;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
@@ -569,6 +605,29 @@ body.dark-mode .btn {
 
 #inPlayCards img:hover {
     transform: scale(1.05);
+}
+
+#inPlayCards .remove-from-play {
+    width: 100%;
+    min-height: 2.15rem;
+    margin-top: 0.6rem;
+    padding: 0.35rem 0.5rem;
+    color: #ffffff;
+    background: #8b1e16;
+    border: 1px solid rgba(255, 231, 217, 0.7);
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.24);
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1.1;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
+}
+
+#inPlayCards .remove-from-play:hover,
+#inPlayCards .remove-from-play:focus-visible {
+    background: #a3271d;
+    border-color: #ffffff;
+    color: #ffffff;
 }
 
 /* Style for the FAQ icon */
@@ -1919,11 +1978,18 @@ body {
 }
 
 .card-preview-image {
-    max-width: min(100%, 420px);
+    max-width: min(100%, 680px);
+    max-height: calc(100vh - 15rem);
     width: 100%;
     height: auto;
+    object-fit: contain;
     border-radius: 10px;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+#cardPreviewModal .modal-body {
+    max-height: calc(100vh - 7rem);
+    overflow-y: auto;
 }
 
 .card-preview-actions .input-group {

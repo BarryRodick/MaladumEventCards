@@ -45,16 +45,22 @@ export function updateInPlayCardsDisplay() {
 
     inPlaySection.style.display = 'block';
     state.inPlayCards.forEach(card => {
+        const cardName = escapeHtml(card.card);
+        const cardType = escapeHtml(card.type || '');
+        const cardImage = escapeHtml(card.contents.replace(/\.\w+$/, '.png'));
+
         const cardDiv = document.createElement('div');
-        cardDiv.classList.add('card', 'mb-2');
+        cardDiv.classList.add('card', 'mb-2', 'in-play-card');
 
         const cardBody = document.createElement('div');
         cardBody.classList.add('card-body');
 
         cardBody.innerHTML = `
-            <h5 class="card-title">${escapeHtml(card.card)}</h5>
-            <img src="cardimages/${escapeHtml(card.contents.replace(/\.\w+$/, '.png'))}" alt="${escapeHtml(card.card)}" class="card-img-top mb-2">
-            <button class="btn btn-danger btn-sm remove-from-play" data-id="${card.id}">Remove from Play</button>
+            <h5 class="card-title">${cardName}</h5>
+            <button type="button" class="in-play-card-preview" data-card-id="${card.id}" data-card-name="${cardName}" data-card-image="${cardImage}" data-card-type="${cardType}" aria-label="Open ${cardName} card preview">
+                <img src="cardimages/${cardImage}" alt="${cardName}" class="card-img-top">
+            </button>
+            <button type="button" class="btn btn-danger remove-from-play" data-id="${card.id}">Remove from Play</button>
         `;
 
         cardDiv.appendChild(cardBody);

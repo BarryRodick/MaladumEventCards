@@ -205,6 +205,25 @@ export function setupEventListeners() {
         });
     }
 
+    const inPlayCards = document.getElementById('inPlayCards');
+    if (inPlayCards) {
+        inPlayCards.addEventListener('click', (e) => {
+            const target = e.target.closest('.in-play-card-preview');
+            if (target) {
+                openCardPreviewFromInPlay(target);
+            }
+        });
+
+        inPlayCards.addEventListener('keydown', (e) => {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            const target = e.target.closest('.in-play-card-preview');
+            if (target) {
+                e.preventDefault();
+                openCardPreviewFromInPlay(target);
+            }
+        });
+    }
+
     const cardPreviewShuffleButton = document.querySelector('[data-card-preview-shuffle]');
     if (cardPreviewShuffleButton) {
         cardPreviewShuffleButton.addEventListener('click', () => {
@@ -265,6 +284,13 @@ function openCardPreviewFromResult(resultItem) {
     if (!cardImage) return;
     showCardPreview({ id: cardId, name: cardName, image: cardImage, type: cardType });
     trackEvent('Card Search', 'Preview Card', cardName || '');
+}
+
+function openCardPreviewFromInPlay(previewButton) {
+    const { cardId, cardName, cardImage, cardType } = previewButton.dataset;
+    if (!cardImage) return;
+    showCardPreview({ id: cardId, name: cardName, image: cardImage, type: cardType });
+    trackEvent('Card Status', 'Preview In Play', cardName || '');
 }
 
 function runCardPreviewAction(actionName) {

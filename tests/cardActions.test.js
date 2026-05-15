@@ -30,7 +30,7 @@ function loadCardActions(state, overrides = {}) {
         'saveConfiguration',
         'showCurrentCard',
         'updateProgressBar',
-        `${code}; return { cardActions, shuffleCardIntoTopN, insertSpecificCardById };`
+        `${code}; return { cardActions, updateInPlayCardsDisplay, shuffleCardIntoTopN, insertSpecificCardById };`
     );
 
     return factory(
@@ -46,6 +46,81 @@ function loadCardActions(state, overrides = {}) {
 }
 
 console.log('Testing card actions...');
+
+// ============================
+// Test: in-play cards render readable controls and preview triggers
+// ============================
+{
+    const previousDocument = global.document;
+    const escape = (value) => String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+
+    function createElement() {
+        return {
+            children: [],
+            classList: {
+                values: [],
+                add(...classes) {
+                    this.values.push(...classes);
+                }
+            },
+            innerHTML: '',
+            appendChild(child) {
+                this.children.push(child);
+            },
+            set textContent(value) {
+                this.innerHTML = escape(value);
+            }
+        };
+    }
+
+    const inPlayContainer = {
+        innerHTML: '',
+        children: [],
+        appendChild(child) {
+            this.children.push(child);
+        },
+        querySelectorAll() {
+            return [];
+        }
+    };
+    const inPlaySection = { style: { display: 'none' } };
+
+    global.document = {
+        createElement,
+        getElementById(id) {
+            if (id === 'inPlayCards') return inPlayContainer;
+            if (id === 'inPlaySection') return inPlaySection;
+            return null;
+        }
+    };
+
+    try {
+        const state = {
+            inPlayCards: [
+                { id: 17, card: 'Wanderer', type: 'Denizen', contents: 'wanderer.jpg' }
+            ]
+        };
+        const { updateInPlayCardsDisplay } = loadCardActions(state);
+
+        updateInPlayCardsDisplay();
+
+        const cardHtml = inPlayContainer.children[0].children[0].innerHTML;
+        assert.strictEqual(inPlaySection.style.display, 'block');
+        assert(cardHtml.includes('class="in-play-card-preview"'),
+            'In-play card image should be wrapped in a preview trigger');
+        assert(cardHtml.includes('data-card-image="wanderer.png"'),
+            'Preview trigger should provide the readable card image');
+        assert(cardHtml.includes('class="btn btn-danger remove-from-play"'),
+            'Remove from Play button should use the styled readable control');
+    } finally {
+        global.document = previousDocument;
+    }
+}
 
 // ============================
 // Test: shuffleTopN bounds
