@@ -37,13 +37,15 @@ console.log('Testing deck flow helpers...');
         enableCorrupterRules: false,
         currentDeckLength: 12,
         currentIndex: -1,
-        discardPileLength: 3
+        discardPileLength: 3,
+        inPlayCount: 2
     });
 
     assert.strictEqual(summary.gamesText, 'Maladum + Dungeons of Enveron');
     assert.strictEqual(summary.difficultyText, 'Nightmare');
     assert.strictEqual(summary.remainingCount, 12);
     assert.strictEqual(summary.discardCount, 3);
+    assert.strictEqual(summary.inPlayCount, 2);
     assert.strictEqual(summary.statusText, 'Ready to draw');
     assert.strictEqual(summary.showSentryBadge, true);
     assert.strictEqual(summary.showCorrupterBadge, false);

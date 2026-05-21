@@ -6,9 +6,19 @@ import { shuffleDeck, parseCardTypes } from './card-utils.js';
 import { showToast, trackEvent, debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
 import { renderDeckSummary, setActionPanelOpen, setDeckMode } from './ui-manager.js';
+import { updateInPlayCardsDisplay } from './card-actions.js';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
 const preloadCache = [];
+
+function escapeHtml(value) {
+    return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
 
 /**
  * Generates a new deck based on user configuration
@@ -133,7 +143,7 @@ export function generateDeck() {
     const activeDeckSection = document.getElementById('activeDeckSection');
     if (activeDeckSection) activeDeckSection.style.display = 'block';
 
-    document.getElementById('navigationButtons').style.display = 'flex';
+    document.getElementById('navigationButtons').style.display = 'grid';
     document.getElementById('deckProgress').style.display = 'block';
     const cardActionSection = document.getElementById('cardActionSection');
     if (cardActionSection) cardActionSection.style.display = 'block';
@@ -141,6 +151,7 @@ export function generateDeck() {
 
     setDeckMode('play', { openUtilities: false, scrollToPlay: true });
     showCurrentCard();
+    updateInPlayCardsDisplay();
     saveConfiguration();
 
     trackEvent('Deck', 'Generate', `Games: ${state.selectedGames.join(', ')}`, state.currentDeck.length);
@@ -241,7 +252,15 @@ export function showCurrentCard(direction = null) {
     } else {
         const currentCard = state.currentDeck[state.currentIndex];
         if (currentCard) {
-            cardDisplay.innerHTML = `<img src="cardimages/${currentCard.contents}" alt="${currentCard.card}" class="img-fluid">`;
+            const cardName = escapeHtml(currentCard.card || 'Current card');
+            const cardType = escapeHtml(currentCard.type || '');
+            const cardImage = escapeHtml(currentCard.contents || '');
+            const cardId = escapeHtml(currentCard.id ?? '');
+            cardDisplay.innerHTML = `
+                <button type="button" class="active-card-preview" data-active-card-preview data-card-id="${cardId}" data-card-name="${cardName}" data-card-image="${cardImage}" data-card-type="${cardType}" aria-label="Open ${cardName} card preview">
+                    <img src="cardimages/${cardImage}" alt="${cardName}" class="img-fluid">
+                </button>
+            `;
         }
     }
 

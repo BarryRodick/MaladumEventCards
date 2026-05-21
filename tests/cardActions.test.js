@@ -89,12 +89,14 @@ console.log('Testing card actions...');
         }
     };
     const inPlaySection = { style: { display: 'none' } };
+    const clearInPlayButton = { hidden: false, disabled: false };
 
     global.document = {
         createElement,
         getElementById(id) {
             if (id === 'inPlayCards') return inPlayContainer;
             if (id === 'inPlaySection') return inPlaySection;
+            if (id === 'clearInPlayCards') return clearInPlayButton;
             return null;
         }
     };
@@ -117,6 +119,66 @@ console.log('Testing card actions...');
             'Preview trigger should provide the readable card image');
         assert(cardHtml.includes('class="btn btn-danger remove-from-play"'),
             'Remove from Play button should use the styled readable control');
+        assert.strictEqual(clearInPlayButton.hidden, false,
+            'Clear All should be visible when cards are in play');
+        assert.strictEqual(clearInPlayButton.disabled, false,
+            'Clear All should be enabled when cards are in play');
+    } finally {
+        global.document = previousDocument;
+    }
+}
+
+// ============================
+// Test: in-play section remains visible for an empty active deck state
+// ============================
+{
+    const previousDocument = global.document;
+    const inPlayContainer = {
+        innerHTML: '',
+        children: [],
+        appendChild(child) {
+            this.children.push(child);
+        },
+        querySelectorAll() {
+            return [];
+        }
+    };
+    const inPlaySection = { style: { display: 'none' } };
+    const clearInPlayButton = { hidden: false, disabled: false };
+
+    global.document = {
+        createElement() {
+            return {
+                classList: { add() { } },
+                innerHTML: '',
+                appendChild() { }
+            };
+        },
+        getElementById(id) {
+            if (id === 'inPlayCards') return inPlayContainer;
+            if (id === 'inPlaySection') return inPlaySection;
+            if (id === 'clearInPlayCards') return clearInPlayButton;
+            return null;
+        }
+    };
+
+    try {
+        const state = {
+            currentDeck: [{ id: 1, card: 'Card A' }],
+            inPlayCards: []
+        };
+        const { updateInPlayCardsDisplay } = loadCardActions(state);
+
+        updateInPlayCardsDisplay();
+
+        assert.strictEqual(inPlaySection.style.display, 'block',
+            'In-play section should remain visible while a deck exists');
+        assert(inPlayContainer.innerHTML.includes('No cards in play.'),
+            'Empty active decks should show the in-play empty state');
+        assert.strictEqual(clearInPlayButton.hidden, true,
+            'Clear All should be hidden when there are no in-play cards');
+        assert.strictEqual(clearInPlayButton.disabled, true,
+            'Clear All should be disabled when there are no in-play cards');
     } finally {
         global.document = previousDocument;
     }

@@ -1,7 +1,7 @@
 /**
  * events.js - Handles all global event listeners
  */
-import { generateDeck, advanceToNextCard, showCurrentCard, clearActiveCardView } from './deck-manager.js';
+import { generateDeck, advanceToNextCard, showCurrentCard, clearActiveCardView, updateProgressBar } from './deck-manager.js';
 import {
     triggerCardAction,
     markCardAsInPlay,
@@ -73,7 +73,7 @@ export function setupEventListeners() {
 
     const generateBtn = document.getElementById('generateDeck');
     if (generateBtn) generateBtn.addEventListener('click', () => {
-        if (state.currentDeck.length > 0 && state.currentIndex >= 0) {
+        if (state.currentDeck.length > 0) {
             if (!confirm('This will replace your current deck. Continue?')) return;
         }
         generateDeck();
@@ -106,9 +106,26 @@ export function setupEventListeners() {
     // Interactions with the card image itself
     const deckOutput = document.getElementById('deckOutput');
     if (deckOutput) {
+        const openActivePreview = (target) => {
+            const { cardId, cardName, cardImage, cardType } = target.dataset;
+            if (!cardImage) return;
+            showCardPreview({ id: cardId, name: cardName, image: cardImage, type: cardType });
+            trackEvent('Card Status', 'Preview Active Card', cardName || '');
+        };
+
         deckOutput.addEventListener('click', (e) => {
-            if (e.target.tagName === 'IMG' && !e.target.closest('#clearActiveCard')) {
-                advanceToNextCard();
+            const target = e.target.closest('[data-active-card-preview]');
+            if (target) {
+                openActivePreview(target);
+            }
+        });
+
+        deckOutput.addEventListener('keydown', (e) => {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            const target = e.target.closest('[data-active-card-preview]');
+            if (target) {
+                e.preventDefault();
+                openActivePreview(target);
             }
         });
     }
@@ -172,8 +189,11 @@ export function setupEventListeners() {
     const clearInPlayBtn = document.getElementById('clearInPlayCards');
     if (clearInPlayBtn) {
         clearInPlayBtn.addEventListener('click', () => {
+            if (state.inPlayCards.length === 0) return;
+            if (!confirm('Clear all cards in play?')) return;
             state.inPlayCards = [];
             updateInPlayCardsDisplay();
+            updateProgressBar();
             debouncedSaveConfiguration();
             trackEvent('Card Status', 'Clear In Play', null);
         });

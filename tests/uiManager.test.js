@@ -37,7 +37,7 @@ function makeClassList(initialClasses = []) {
     };
 }
 
-function loadUiHelpers(document, window = {}) {
+function loadUiHelpers(document, window = {}, stateOverrides = {}) {
     const file = path.join(__dirname, '..', 'ui-manager.js');
     let code = fs.readFileSync(file, 'utf8');
     code = code.replace(/import .*?\r?\n/g, '');
@@ -54,14 +54,21 @@ function loadUiHelpers(document, window = {}) {
         'formatDeckSummary',
         'document',
         'window',
-        `${code}; return { setActionPanelOpen, toggleActionPanel };`
+        `${code}; return { setActionPanelOpen, toggleActionPanel, showCardPreview, renderDeckSummary };`
     )(
         {
             currentDeck: [],
             allCardTypes: [],
             dataStore: { sentryTypes: [], corrupterTypes: [] },
             cardCounts: {},
-            specialCardCounts: {}
+            specialCardCounts: {},
+            availableCards: [],
+            inPlayCards: [],
+            discardPile: [],
+            selectedGames: [],
+            difficultySettings: [],
+            selectedDifficultyIndex: 0,
+            ...stateOverrides
         },
         (text) => text,
         (type) => type,
@@ -73,6 +80,60 @@ function loadUiHelpers(document, window = {}) {
         document,
         window
     );
+}
+
+function escapeHtml(value) {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+function makeElement(tagName = 'div') {
+    return {
+        tagName: tagName.toUpperCase(),
+        children: [],
+        dataset: {},
+        style: {},
+        attributes: {},
+        classList: makeClassList(),
+        innerHTML: '',
+        _textContent: '',
+        src: '',
+        alt: '',
+        disabled: false,
+        appendChild(child) {
+            this.children.push(child);
+            return child;
+        },
+        replaceChildren(...children) {
+            this.children = children;
+            this.innerHTML = '';
+            this._textContent = '';
+        },
+        setAttribute(name, value) {
+            this.attributes[name] = String(value);
+        },
+        removeAttribute(name) {
+            delete this.attributes[name];
+        },
+        querySelector(selector) {
+            return this.queries?.[selector] || null;
+        },
+        querySelectorAll(selector) {
+            return this.queryLists?.[selector] || [];
+        },
+        set textContent(value) {
+            this._textContent = String(value);
+            this.innerHTML = escapeHtml(value);
+        },
+        get textContent() {
+            const childText = this.children.map(child => child.textContent || '').join(' ');
+            return [this._textContent, childText].filter(Boolean).join(' ');
+        }
+    };
 }
 
 console.log('Testing UI manager helpers...');
@@ -175,6 +236,104 @@ console.log('Testing UI manager helpers...');
 
     assert.strictEqual(content.classList.contains('show'), true,
         'toggleActionPanel should open a closed panel');
+}
+
+{
+    const title = makeElement('h5');
+    const image = makeElement('img');
+    const type = makeElement('p');
+    const readable = makeElement('div');
+    const modal = makeElement('div');
+    modal.queries = {
+        '[data-card-preview-title]': title,
+        '[data-card-preview-image]': image,
+        '[data-card-preview-type]': type,
+        '[data-card-preview-readable]': readable,
+        '[data-card-preview-hint]': makeElement('small')
+    };
+    modal.queryLists = {
+        '[data-preview-deck-action]': [makeElement('button')]
+    };
+    const shuffleCount = makeElement('input');
+    const document = {
+        createElement: makeElement,
+        getElementById(id) {
+            if (id === 'cardPreviewModal') return modal;
+            if (id === 'cardPreviewShuffleCount') return shuffleCount;
+            return null;
+        },
+        querySelector() {
+            return null;
+        }
+    };
+    const { showCardPreview } = loadUiHelpers(document, {}, {
+        currentDeck: [{ id: 99, card: 'Deck Card' }],
+        cardMap: new Map([
+            [42, {
+                id: 42,
+                card: 'Readable Card',
+                type: 'Denizen',
+                contents: 'readable.png',
+                sections: [
+                    {
+                        header: 'DOOM',
+                        threshold: 2,
+                        text: 'Trap springs.\n\nDraw a treasure.'
+                    }
+                ]
+            }]
+        ])
+    });
+
+    showCardPreview({ id: '42', name: 'Old Name', image: 'old.png', type: 'Old Type' });
+
+    assert.strictEqual(title.textContent, 'Readable Card');
+    assert.strictEqual(image.src, 'cardimages/readable.png');
+    assert.strictEqual(type.textContent, 'Type: Denizen');
+    assert(readable.textContent.includes('DOOM'),
+        'Card preview modal should render section headers from card data');
+    assert(readable.textContent.includes('Trap springs.'),
+        'Card preview modal should render readable section text');
+}
+
+{
+    const readable = makeElement('div');
+    const modal = makeElement('div');
+    modal.queries = {
+        '[data-card-preview-title]': makeElement('h5'),
+        '[data-card-preview-image]': makeElement('img'),
+        '[data-card-preview-type]': makeElement('p'),
+        '[data-card-preview-readable]': readable,
+        '[data-card-preview-hint]': makeElement('small')
+    };
+    modal.queryLists = {
+        '[data-preview-deck-action]': []
+    };
+    const document = {
+        createElement: makeElement,
+        getElementById(id) {
+            return id === 'cardPreviewModal' ? modal : null;
+        },
+        querySelector() {
+            return null;
+        }
+    };
+    const { showCardPreview } = loadUiHelpers(document, {}, {
+        cardMap: new Map([
+            [7, {
+                id: 7,
+                card: 'Image Only',
+                type: 'Dungeon',
+                contents: 'image-only.png',
+                sections: []
+            }]
+        ])
+    });
+
+    showCardPreview({ id: '7', name: 'Image Only', image: 'image-only.png', type: 'Dungeon' });
+
+    assert(readable.textContent.includes('Readable text unavailable'),
+        'Card preview modal should show an image-only fallback when no usable sections exist');
 }
 
 console.log('All UI manager helper tests passed!');

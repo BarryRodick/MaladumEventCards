@@ -422,6 +422,7 @@ export function renderDeckSummary() {
         currentDeckLength: state.currentDeck.length,
         currentIndex: state.currentIndex,
         discardPileLength: state.discardPile.length,
+        inPlayCount: state.inPlayCards.length,
         currentCardName: currentCard?.card || ''
     });
 
@@ -431,6 +432,7 @@ export function renderDeckSummary() {
     const summaryDifficulty = document.getElementById('deckSummaryDifficulty');
     const summaryRemaining = document.getElementById('deckSummaryRemaining');
     const summaryDiscard = document.getElementById('deckSummaryDiscard');
+    const summaryInPlay = document.getElementById('deckSummaryInPlay');
     const summarySentry = document.getElementById('deckSummarySentry');
     const summaryCorrupter = document.getElementById('deckSummaryCorrupter');
 
@@ -440,6 +442,7 @@ export function renderDeckSummary() {
     if (summaryDifficulty) summaryDifficulty.textContent = `Difficulty: ${summary.difficultyText}`;
     if (summaryRemaining) summaryRemaining.textContent = `Remaining: ${summary.remainingCount}`;
     if (summaryDiscard) summaryDiscard.textContent = `Discard: ${summary.discardCount}`;
+    if (summaryInPlay) summaryInPlay.textContent = `In Play: ${summary.inPlayCount}`;
 
     if (summarySentry) {
         summarySentry.hidden = !summary.showSentryBadge;
@@ -454,49 +457,41 @@ export function showCardPreview({ id, name, image, type }) {
     const modal = document.getElementById('cardPreviewModal');
     if (!modal) return;
 
-    if (id !== undefined && id !== null) {
-        modal.dataset.cardId = id;
-    } else {
-        delete modal.dataset.cardId;
-    }
+    const resolvedCard = resolvePreviewCard({ id, name, image });
+    const previewId = resolvedCard?.id ?? id;
+    const previewName = resolvedCard?.card || name || 'Card Preview';
+    const previewImage = resolvedCard?.contents || image || '';
+    const previewType = resolvedCard?.type || type || '';
 
-    if (name) {
-        modal.dataset.cardName = name;
-    } else {
-        delete modal.dataset.cardName;
-    }
-
-    if (image) {
-        modal.dataset.cardImage = image;
-    } else {
-        delete modal.dataset.cardImage;
-    }
-
-    if (type) {
-        modal.dataset.cardType = type;
-    } else {
-        delete modal.dataset.cardType;
-    }
+    setModalDataset(modal, 'cardId', previewId);
+    setModalDataset(modal, 'cardName', previewName);
+    setModalDataset(modal, 'cardImage', previewImage);
+    setModalDataset(modal, 'cardType', previewType);
 
     const title = modal.querySelector('[data-card-preview-title]');
     const imageEl = modal.querySelector('[data-card-preview-image]');
     const typeEl = modal.querySelector('[data-card-preview-type]');
+    const readableEl = modal.querySelector('[data-card-preview-readable]');
     const shuffleCountInput = document.getElementById('cardPreviewShuffleCount');
     const deckActionHint = modal.querySelector('[data-card-preview-hint]');
     const deckActionButtons = modal.querySelectorAll('[data-preview-deck-action]');
     const hasActiveDeck = state.currentDeck.length > 0;
 
     if (title) {
-        title.textContent = name || 'Card Preview';
+        title.textContent = previewName;
     }
 
     if (imageEl) {
-        imageEl.src = image ? `cardimages/${image}` : '';
-        imageEl.alt = name || 'Card preview';
+        imageEl.src = previewImage ? `cardimages/${previewImage}` : '';
+        imageEl.alt = previewName || 'Card preview';
     }
 
     if (typeEl) {
-        typeEl.textContent = type ? `Type: ${type}` : '';
+        typeEl.textContent = previewType ? `Type: ${previewType}` : '';
+    }
+
+    if (readableEl) {
+        renderCardPreviewSections(readableEl, resolvedCard?.sections);
     }
 
     if (shuffleCountInput) {
@@ -520,6 +515,115 @@ export function showCardPreview({ id, name, image, type }) {
         modal.style.display = 'block';
         modal.removeAttribute('aria-hidden');
     }
+}
+
+function setModalDataset(modal, key, value) {
+    if (value !== undefined && value !== null && value !== '') {
+        modal.dataset[key] = String(value);
+        return;
+    }
+
+    delete modal.dataset[key];
+}
+
+function resolvePreviewCard({ id, name, image } = {}) {
+    const cardId = id !== undefined && id !== null ? String(id) : '';
+    const numericId = Number(cardId);
+
+    if (state.cardMap instanceof Map) {
+        if (!Number.isNaN(numericId) && state.cardMap.has(numericId)) {
+            return state.cardMap.get(numericId);
+        }
+
+        for (const card of state.cardMap.values()) {
+            if (card && String(card.id) === cardId) {
+                return card;
+            }
+        }
+    }
+
+    const pools = [
+        state.availableCards,
+        state.currentDeck,
+        state.inPlayCards,
+        state.discardPile,
+        state.sentryDeck,
+        state.setAsideCards
+    ];
+
+    for (const pool of pools) {
+        if (!Array.isArray(pool)) continue;
+        const match = pool.find(card => {
+            if (!card) return false;
+            if (cardId && String(card.id) === cardId) return true;
+            if (image && card.contents === image) return true;
+            return name && card.card === name;
+        });
+        if (match) return match;
+    }
+
+    return null;
+}
+
+function renderCardPreviewSections(container, sections = []) {
+    if (typeof container.replaceChildren === 'function') {
+        container.replaceChildren();
+    } else {
+        container.innerHTML = '';
+    }
+
+    const usableSections = Array.isArray(sections)
+        ? sections.filter(isUsablePreviewSection)
+        : [];
+
+    if (usableSections.length === 0) {
+        const fallback = document.createElement('p');
+        fallback.classList.add('card-preview-readable-fallback');
+        fallback.textContent = 'Readable text unavailable for this card. Use the image view.';
+        container.appendChild(fallback);
+        return;
+    }
+
+    usableSections.forEach(section => {
+        const sectionEl = document.createElement('section');
+        sectionEl.classList.add('card-preview-readable-section');
+
+        const headerRow = document.createElement('div');
+        headerRow.classList.add('card-preview-readable-header');
+
+        const heading = document.createElement('h6');
+        heading.textContent = section.header || 'Card text';
+        headerRow.appendChild(heading);
+
+        if (section.threshold !== undefined && section.threshold !== null && section.threshold !== '') {
+            const threshold = document.createElement('span');
+            threshold.classList.add('card-preview-threshold');
+            threshold.textContent = `Threshold ${section.threshold}`;
+            headerRow.appendChild(threshold);
+        }
+
+        sectionEl.appendChild(headerRow);
+
+        String(section.text)
+            .split(/\n{2,}/)
+            .map(paragraph => paragraph.trim())
+            .filter(Boolean)
+            .forEach(paragraphText => {
+                const paragraph = document.createElement('p');
+                paragraph.textContent = paragraphText.replace(/\s*\n\s*/g, ' ');
+                sectionEl.appendChild(paragraph);
+            });
+
+        container.appendChild(sectionEl);
+    });
+}
+
+function isUsablePreviewSection(section) {
+    if (!section || typeof section !== 'object') return false;
+    const text = String(section.text || '').trim();
+    const header = String(section.header || '').trim();
+    if (!text) return false;
+    return !/^todo\b/i.test(text) && !/^todo\b/i.test(header);
 }
 
 /**

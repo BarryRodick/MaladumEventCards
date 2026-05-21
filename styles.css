@@ -107,7 +107,9 @@ body.dark-mode .card {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('logos/parchment-texture.png');
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 42%),
+        repeating-linear-gradient(35deg, rgba(52, 34, 20, 0.08) 0 2px, transparent 2px 8px);
     opacity: 0.1;
     pointer-events: none;
 }
@@ -2365,5 +2367,233 @@ button:focus,
 
     .deck-summary-title {
         font-size: 1.25rem;
+    }
+}
+
+/* Live deck cockpit refinements */
+#deckExperience[data-mode="play"] #deckOutput {
+    min-height: min(72vh, 44rem);
+}
+
+.active-card-preview {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: min(100%, 760px);
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+}
+
+.active-card-preview:focus-visible,
+.in-play-card-preview:focus-visible,
+#navigationButtons .rune-btn:focus-visible,
+.card-preview-actions .btn:focus-visible,
+#clearInPlayCards:focus-visible {
+    outline: 3px solid var(--maladum-gold);
+    outline-offset: 4px;
+}
+
+#deckExperience[data-mode="play"] .active-card-preview img {
+    max-height: min(72vh, 760px);
+}
+
+#navigationButtons {
+    grid-template-columns: minmax(132px, 0.85fr) minmax(172px, 1fr) minmax(260px, 1.6fr);
+}
+
+#navigationButtons .rune-btn {
+    min-height: 56px;
+}
+
+.rune-btn.next-draw {
+    min-height: 82px;
+    font-size: 1.12rem;
+    letter-spacing: 0.12rem;
+    box-shadow:
+        0 14px 30px rgba(0, 0, 0, 0.42),
+        0 0 0 1px rgba(255, 220, 150, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.card-preview-dialog {
+    max-width: min(1180px, 96vw);
+}
+
+.card-preview-image {
+    max-width: min(100%, 780px);
+    max-height: min(68vh, 820px);
+}
+
+.card-preview-readable {
+    max-width: 780px;
+    margin-inline: auto;
+    padding: 1rem;
+    border: 1px solid rgba(197, 165, 114, 0.22);
+    border-radius: 8px;
+    background: rgba(6, 6, 6, 0.58);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.card-preview-readable:empty {
+    display: none;
+}
+
+.card-preview-readable-section + .card-preview-readable-section {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-preview-readable-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-preview-readable-header h6 {
+    margin: 0;
+    color: var(--maladum-gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.04rem;
+    text-transform: uppercase;
+}
+
+.card-preview-readable-section p,
+.card-preview-readable-fallback {
+    margin: 0 0 0.65rem;
+    line-height: 1.55;
+}
+
+.card-preview-readable-section p:last-child,
+.card-preview-readable-fallback {
+    margin-bottom: 0;
+}
+
+.card-preview-threshold {
+    flex: 0 0 auto;
+    min-height: 28px;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(197, 165, 114, 0.14);
+    color: var(--maladum-gold);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.card-preview-actions .btn,
+#clearInPlayCards,
+.remove-from-play {
+    min-height: 44px;
+}
+
+#inPlaySection {
+    border-radius: 8px;
+}
+
+#inPlayCards {
+    align-items: stretch;
+}
+
+#inPlayCards .in-play-card {
+    border-radius: 8px;
+}
+
+#inPlayCards .in-play-card .card-body {
+    display: grid;
+    gap: 0.55rem;
+}
+
+#inPlayCards .in-play-card .card-title {
+    margin-bottom: 0.2rem;
+}
+
+.in-play-card-type {
+    margin: 0;
+    color: rgba(31, 21, 15, 0.74);
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.in-play-empty {
+    margin: 0;
+    padding: 1rem;
+    border: 1px dashed rgba(197, 165, 114, 0.24);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.72);
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    #deckExperience[data-mode="play"] #activeDeckSection {
+        display: flex !important;
+        flex-direction: column;
+        padding-bottom: calc(12rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    #deckExperience[data-mode="play"] #deckSummaryBar {
+        order: 1;
+    }
+
+    #deckExperience[data-mode="play"] #deckProgress {
+        order: 2;
+    }
+
+    #deckExperience[data-mode="play"] #deckOutput {
+        order: 4;
+    }
+
+    #deckExperience[data-mode="play"] #cardActionSection {
+        order: 5;
+    }
+
+    #deckExperience[data-mode="play"] #inPlaySection {
+        order: 6;
+    }
+
+    #deckExperience[data-mode="play"] #deckOutput {
+        min-height: 0;
+        padding: 0.75rem;
+    }
+
+    #deckExperience[data-mode="play"] .active-card-preview img {
+        max-height: 58vh;
+    }
+
+    #navigationButtons {
+        order: 3;
+        position: sticky;
+        bottom: 0;
+        z-index: 12;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        width: 100%;
+        margin: 0.75rem 0 0;
+        padding: 0.65rem 0.25rem calc(0.65rem + env(safe-area-inset-bottom, 0px));
+        border: 1px solid rgba(197, 165, 114, 0.14);
+        border-bottom: 0;
+        border-radius: 12px 12px 0 0;
+        background: linear-gradient(180deg, rgba(6, 6, 6, 0.2), rgba(6, 6, 6, 0.94) 28%, rgba(6, 6, 6, 0.98));
+        backdrop-filter: blur(10px);
+    }
+
+    .rune-btn.next-draw {
+        grid-column: 1 / -1;
+        min-height: 68px;
+    }
+
+    .card-preview-readable {
+        padding: 0.85rem;
+    }
+
+    .card-preview-readable-header {
+        align-items: flex-start;
+        flex-direction: column;
     }
 }

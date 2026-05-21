@@ -8,9 +8,12 @@ import { saveConfiguration } from './config-manager.js';
 import { showCurrentCard, updateProgressBar } from './deck-manager.js';
 
 function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
+    return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
 }
 
 /**
@@ -34,20 +37,36 @@ export function markCardAsInPlay(card) {
 export function updateInPlayCardsDisplay() {
     const inPlayContainer = document.getElementById('inPlayCards');
     const inPlaySection = document.getElementById('inPlaySection');
+    const clearInPlayButton = document.getElementById('clearInPlayCards');
     if (!inPlayContainer || !inPlaySection) return;
 
     inPlayContainer.innerHTML = '';
-    if (state.inPlayCards.length === 0) {
-        inPlayContainer.innerHTML = '<p>No cards in play.</p>';
+    const hasActiveDeck = Array.isArray(state.currentDeck) && state.currentDeck.length > 0;
+    const hasInPlayCards = Array.isArray(state.inPlayCards) && state.inPlayCards.length > 0;
+
+    if (clearInPlayButton) {
+        clearInPlayButton.hidden = !hasInPlayCards;
+        clearInPlayButton.disabled = !hasInPlayCards;
+    }
+
+    if (!hasActiveDeck && !hasInPlayCards) {
+        inPlayContainer.innerHTML = '<p class="in-play-empty">No cards in play.</p>';
         inPlaySection.style.display = 'none';
+        updateProgressBar();
         return;
     }
 
     inPlaySection.style.display = 'block';
+    if (!hasInPlayCards) {
+        inPlayContainer.innerHTML = '<p class="in-play-empty">No cards in play.</p>';
+        updateProgressBar();
+        return;
+    }
+
     state.inPlayCards.forEach(card => {
         const cardName = escapeHtml(card.card);
         const cardType = escapeHtml(card.type || '');
-        const cardImage = escapeHtml(card.contents.replace(/\.\w+$/, '.png'));
+        const cardImage = escapeHtml((card.contents || '').replace(/\.\w+$/, '.png'));
 
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('card', 'mb-2', 'in-play-card');
@@ -56,7 +75,10 @@ export function updateInPlayCardsDisplay() {
         cardBody.classList.add('card-body');
 
         cardBody.innerHTML = `
-            <h5 class="card-title">${cardName}</h5>
+            <div class="in-play-card-copy">
+                <h5 class="card-title">${cardName}</h5>
+                <p class="in-play-card-type">${cardType}</p>
+            </div>
             <button type="button" class="in-play-card-preview" data-card-id="${card.id}" data-card-name="${cardName}" data-card-image="${cardImage}" data-card-type="${cardType}" aria-label="Open ${cardName} card preview">
                 <img src="cardimages/${cardImage}" alt="${cardName}" class="card-img-top">
             </button>
@@ -74,6 +96,8 @@ export function updateInPlayCardsDisplay() {
             removeCardFromPlay(id);
         });
     });
+
+    updateProgressBar();
 }
 
 function removeCardFromPlay(cardId) {

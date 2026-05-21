@@ -25,6 +25,7 @@ function loadDeckManager(state, document, overrides = {}) {
         'renderDeckSummary',
         'setActionPanelOpen',
         'setDeckMode',
+        'updateInPlayCardsDisplay',
         'document',
         'Image',
         `${code}; return { generateDeck, showCurrentCard, advanceToNextCard, clearActiveCardView };`
@@ -52,6 +53,7 @@ function loadDeckManager(state, document, overrides = {}) {
         overrides.renderDeckSummary || (() => { }),
         overrides.setActionPanelOpen || (() => { }),
         overrides.setDeckMode || (() => { }),
+        overrides.updateInPlayCardsDisplay || (() => { }),
         document,
         overrides.Image || function TestImage() { }
     );
@@ -168,6 +170,37 @@ console.log('Testing deck-manager behavior...');
 }
 
 // ============================
+// Test: deck generation refreshes the in-play tray for empty active decks
+// ============================
+{
+    const state = makeBaseState();
+    state.allCardTypes = ['Denizen'];
+    state.availableCards = [
+        { id: 1, card: 'Denizen A', type: 'Denizen', contents: 'a.png' }
+    ];
+    state.deckDataByType = {
+        Denizen: [state.availableCards[0]]
+    };
+
+    const document = makeDeckGenerationDocument({
+        Denizen: 1
+    });
+    let inPlayRefreshes = 0;
+    const { generateDeck } = loadDeckManager(state, document, {
+        updateInPlayCardsDisplay: () => {
+            inPlayRefreshes++;
+        }
+    });
+
+    generateDeck();
+
+    assert.strictEqual(inPlayRefreshes, 1,
+        'Deck generation should refresh the in-play tray so the empty state remains visible');
+    assert.strictEqual(document.getElementById('navigationButtons').style.display, 'grid',
+        'Deck generation should let the cockpit navigation use the responsive grid layout');
+}
+
+// ============================
 // Test: corrupter replacement does not append duplicate corrupter cards
 // ============================
 {
@@ -221,10 +254,13 @@ console.log('Testing deck-manager behavior...');
 
     const clearButton = { style: {}, removed: false };
     const output = {
+        child: null,
         querySelector() {
             return null;
         },
-        appendChild() { },
+        appendChild(child) {
+            this.child = child;
+        },
         set innerHTML(value) {
             this._innerHTML = value;
             clearButton.removed = true;
@@ -238,6 +274,7 @@ console.log('Testing deck-manager behavior...');
             return {
                 className: '',
                 innerHTML: '',
+                setAttribute() { },
                 appendChild() { },
                 querySelector() { return null; }
             };
@@ -254,6 +291,12 @@ console.log('Testing deck-manager behavior...');
 
     assert.strictEqual(clearButton.removed, false,
         'showCurrentCard should not replace the deck output container and remove the clear button');
+    assert(output.child.innerHTML.includes('data-active-card-preview'),
+        'showCurrentCard should render the active card image as a preview trigger');
+    assert(output.child.innerHTML.includes('data-card-id="1"'),
+        'Active card preview trigger should expose the card id');
+    assert(output.child.innerHTML.includes('Open Card A card preview'),
+        'Active card preview trigger should have an accessible label');
     assert.strictEqual(clearButton.style.display, 'block',
         'showCurrentCard should keep the clear button visible for an active card');
 }

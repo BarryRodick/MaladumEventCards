@@ -89,7 +89,7 @@ console.log('Testing initialization helpers...');
     assert.strictEqual(state.cards.selected.has(101), true,
         'restoreDeckState should mark restored cards as selected');
     assert.strictEqual(elements.activeDeckSection.style.display, 'block');
-    assert.strictEqual(elements.navigationButtons.style.display, 'flex');
+    assert.strictEqual(elements.navigationButtons.style.display, 'grid');
     assert.strictEqual(elements.deckProgress.style.display, 'block');
     assert.strictEqual(elements.cardActionSection.style.display, 'block');
     assert.strictEqual(showCurrentCardCalls, 1);

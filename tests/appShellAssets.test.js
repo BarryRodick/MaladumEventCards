@@ -36,6 +36,28 @@ function extractLocalRefs(html) {
     return refs;
 }
 
+function extractCssLocalRefs(css) {
+    const refs = [];
+    const urlPattern = /url\((['"]?)([^'")]+)\1\)/g;
+    let match;
+
+    while ((match = urlPattern.exec(css)) !== null) {
+        const ref = match[2];
+        if (
+            ref.startsWith('http://') ||
+            ref.startsWith('https://') ||
+            ref.startsWith('data:') ||
+            ref.startsWith('#') ||
+            ref.startsWith('%23')
+        ) {
+            continue;
+        }
+        refs.push(ref.split('?')[0].replace(/^\.\//, ''));
+    }
+
+    return refs;
+}
+
 console.log('Testing app shell asset integrity...');
 
 htmlFiles.forEach(file => {
@@ -62,6 +84,12 @@ htmlFiles.forEach(file => {
         !html.includes('transport_url'),
         `${file} should not override Google Analytics transport routing`
     );
+});
+
+const styles = fs.readFileSync(path.join(repoRoot, 'styles.css'), 'utf8');
+extractCssLocalRefs(styles).forEach(ref => {
+    const absolutePath = path.join(repoRoot, ref);
+    assert(fs.existsSync(absolutePath), `styles.css references missing local asset ${ref}`);
 });
 
 const manifest = JSON.parse(fs.readFileSync(path.join(repoRoot, 'manifest.json'), 'utf8'));

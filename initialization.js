@@ -157,7 +157,7 @@ function restoreDeckState(deckState) {
         const activeDeckSection = document.getElementById('activeDeckSection');
         if (activeDeckSection) activeDeckSection.style.display = 'block';
 
-        document.getElementById('navigationButtons').style.display = 'flex';
+        document.getElementById('navigationButtons').style.display = 'grid';
         document.getElementById('deckProgress').style.display = 'block';
         document.getElementById('cardActionSection').style.display = 'block';
 

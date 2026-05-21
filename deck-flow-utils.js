@@ -22,6 +22,7 @@ export function formatDeckSummary({
     currentDeckLength = 0,
     currentIndex = -1,
     discardPileLength = 0,
+    inPlayCount = 0,
     currentCardName = ''
 } = {}) {
     const remainingCount = Math.max(0, currentDeckLength - Math.max(0, currentIndex + 1));
@@ -36,6 +37,7 @@ export function formatDeckSummary({
         difficultyText,
         remainingCount,
         discardCount: Math.max(0, discardPileLength),
+        inPlayCount: Math.max(0, inPlayCount),
         statusText,
         showSentryBadge: !!enableSentryRules,
         showCorrupterBadge: !!enableCorrupterRules
