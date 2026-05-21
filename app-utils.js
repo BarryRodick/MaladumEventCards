@@ -20,10 +20,11 @@ export function debounce(fn, delay = 400) {
 export function trackEvent(eventCategory, eventAction, eventLabel = null, eventValue = null) {
     if (typeof gtag === 'function') {
         const eventData = {
-            event_category: eventCategory,
-            event_label: eventLabel,
-            value: eventValue
+            event_category: eventCategory
         };
+        if (eventLabel !== null) eventData.event_label = eventLabel;
+        if (eventValue !== null) eventData.value = eventValue;
+
         gtag('event', eventAction, eventData);
     }
 }

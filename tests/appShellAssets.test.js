@@ -13,6 +13,7 @@ const htmlFiles = [
     'dungeons_of_enveron.html',
     'forbidden_creed.html'
 ];
+const googleAnalyticsId = 'G-ZMTSM9B7Q7';
 
 function extractLocalRefs(html) {
     const refs = [];
@@ -49,6 +50,18 @@ htmlFiles.forEach(file => {
     assert(!html.includes('https://cdn.jsdelivr.net/'), `${file} should not depend on jsDelivr runtime assets`);
     assert(!html.includes('https://cdnjs.cloudflare.com/'), `${file} should not depend on cdnjs runtime assets`);
     assert(!html.includes('https://fonts.googleapis.com/'), `${file} should not depend on Google Fonts at runtime`);
+    assert(
+        html.includes(`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`),
+        `${file} should load the Google Analytics tag`
+    );
+    assert(
+        html.includes(`gtag('config', '${googleAnalyticsId}'`),
+        `${file} should configure the Google Analytics measurement ID`
+    );
+    assert(
+        !html.includes('transport_url'),
+        `${file} should not override Google Analytics transport routing`
+    );
 });
 
 const manifest = JSON.parse(fs.readFileSync(path.join(repoRoot, 'manifest.json'), 'utf8'));
