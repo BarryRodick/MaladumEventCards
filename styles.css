@@ -2625,9 +2625,6 @@ button:focus,
     --charcoal-grain:
         radial-gradient(circle at 10% 8%, rgba(197, 165, 114, 0.08), transparent 28%),
         linear-gradient(150deg, rgba(28, 28, 27, 0.98), rgba(7, 8, 8, 0.98));
-    --asset-dark-surface: url('assets/ui/dark-surface-texture.svg');
-    --asset-parchment-surface: url('assets/ui/parchment-panel-texture.svg');
-    --asset-campaign-divider: url('assets/ui/campaign-divider.svg');
 }
 
 body.dark-mode {
@@ -2641,7 +2638,7 @@ body.dark-mode {
 body.dark-mode::before {
     background-image:
         linear-gradient(180deg, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.68)),
-        var(--asset-dark-surface),
+        url('assets/ui/dark-surface-texture.svg'),
         var(--glass-noise);
     background-size: auto, 240px 240px, 140px 140px;
     background-blend-mode: normal, soft-light, soft-light;
@@ -2693,7 +2690,7 @@ body.dark-mode::before {
     border-radius: 10px;
     background-color: var(--surface-charcoal-2);
     background-image:
-        var(--asset-dark-surface),
+        url('assets/ui/dark-surface-texture.svg'),
         var(--charcoal-grain);
     background-size: 240px 240px, auto;
     border-color: var(--border-gold-soft);
@@ -2800,7 +2797,7 @@ body.dark-mode::before {
     border: 1px solid rgba(64, 43, 21, 0.18) !important;
     background-color: var(--surface-parchment-deep) !important;
     background-image:
-        var(--asset-parchment-surface),
+        url('assets/ui/parchment-panel-texture.svg'),
         var(--parchment-grain) !important;
     background-size: 240px 240px, auto, auto, auto !important;
     color: var(--ink-dark);
@@ -3087,7 +3084,7 @@ body.dark-mode #insertCardConfig select.form-control,
     padding: 1rem;
     background-image:
         linear-gradient(180deg, rgba(255, 250, 230, 0.22), rgba(220, 194, 150, 0.08)),
-        var(--asset-parchment-surface);
+        url('assets/ui/parchment-panel-texture.svg');
     background-size: auto, 240px 240px;
 }
 
@@ -3101,7 +3098,7 @@ body.dark-mode #insertCardConfig select.form-control,
     border-radius: 8px;
     background-color: var(--surface-parchment-deep) !important;
     background-image:
-        var(--asset-parchment-surface),
+        url('assets/ui/parchment-panel-texture.svg'),
         var(--parchment-grain) !important;
     background-size: 240px 240px, auto, auto, auto !important;
     border: 1px solid rgba(78, 52, 24, 0.28) !important;
@@ -3159,7 +3156,7 @@ body.dark-mode #insertCardConfig select.form-control,
     height: 18px;
     flex: 1 1 2rem;
     max-width: 10rem;
-    background: var(--asset-campaign-divider) center / 100% 100% no-repeat;
+    background: url('assets/ui/campaign-divider.svg') center / 100% 100% no-repeat;
 }
 
 .campaign-page .section-title::after {
