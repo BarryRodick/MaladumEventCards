@@ -32,6 +32,7 @@ const TOP_LEVEL_RUNTIME_FILES = [
 ];
 
 const ASSET_DIRECTORIES = [
+  'assets',
   'cardimages',
   'icons',
   'logos',

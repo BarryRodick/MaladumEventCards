@@ -2625,6 +2625,9 @@ button:focus,
     --charcoal-grain:
         radial-gradient(circle at 10% 8%, rgba(197, 165, 114, 0.08), transparent 28%),
         linear-gradient(150deg, rgba(28, 28, 27, 0.98), rgba(7, 8, 8, 0.98));
+    --asset-dark-surface: url('assets/ui/dark-surface-texture.svg');
+    --asset-parchment-surface: url('assets/ui/parchment-panel-texture.svg');
+    --asset-campaign-divider: url('assets/ui/campaign-divider.svg');
 }
 
 body.dark-mode {
@@ -2636,9 +2639,12 @@ body.dark-mode {
 }
 
 body.dark-mode::before {
-    background:
+    background-image:
         linear-gradient(180deg, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.68)),
+        var(--asset-dark-surface),
         var(--glass-noise);
+    background-size: auto, 240px 240px, 140px 140px;
+    background-blend-mode: normal, soft-light, soft-light;
     opacity: 1;
 }
 
@@ -2685,7 +2691,11 @@ body.dark-mode::before {
 .glass-panel {
     padding: clamp(0.75rem, 2vw, 1.35rem);
     border-radius: 10px;
-    background: var(--charcoal-grain);
+    background-color: var(--surface-charcoal-2);
+    background-image:
+        var(--asset-dark-surface),
+        var(--charcoal-grain);
+    background-size: 240px 240px, auto;
     border-color: var(--border-gold-soft);
     box-shadow:
         0 16px 42px rgba(0, 0, 0, 0.48),
@@ -2788,7 +2798,11 @@ body.dark-mode::before {
 #shuffleNConfig,
 #insertCardConfig {
     border: 1px solid rgba(64, 43, 21, 0.18) !important;
-    background: var(--parchment-grain) !important;
+    background-color: var(--surface-parchment-deep) !important;
+    background-image:
+        var(--asset-parchment-surface),
+        var(--parchment-grain) !important;
+    background-size: 240px 240px, auto, auto, auto !important;
     color: var(--ink-dark);
     border-radius: 6px !important;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
@@ -3071,6 +3085,10 @@ body.dark-mode #insertCardConfig select.form-control,
 
 .campaign-page .campaign-container {
     padding: 1rem;
+    background-image:
+        linear-gradient(180deg, rgba(255, 250, 230, 0.22), rgba(220, 194, 150, 0.08)),
+        var(--asset-parchment-surface);
+    background-size: auto, 240px 240px;
 }
 
 .campaign-page .app-header a,
@@ -3081,7 +3099,11 @@ body.dark-mode #insertCardConfig select.form-control,
 .campaign-page .campaign-card,
 .campaign-page .notes-section {
     border-radius: 8px;
-    background: var(--parchment-grain) !important;
+    background-color: var(--surface-parchment-deep) !important;
+    background-image:
+        var(--asset-parchment-surface),
+        var(--parchment-grain) !important;
+    background-size: 240px 240px, auto, auto, auto !important;
     border: 1px solid rgba(78, 52, 24, 0.28) !important;
     box-shadow:
         0 16px 34px rgba(0, 0, 0, 0.34),
@@ -3134,14 +3156,14 @@ body.dark-mode #insertCardConfig select.form-control,
 .campaign-page .section-title::before,
 .campaign-page .section-title::after {
     content: '';
-    height: 1px;
+    height: 18px;
     flex: 1 1 2rem;
     max-width: 10rem;
-    background: linear-gradient(90deg, transparent, rgba(109, 76, 20, 0.55));
+    background: var(--asset-campaign-divider) center / 100% 100% no-repeat;
 }
 
 .campaign-page .section-title::after {
-    background: linear-gradient(90deg, rgba(109, 76, 20, 0.55), transparent);
+    transform: scaleX(-1);
 }
 
 .campaign-page .notes-header {

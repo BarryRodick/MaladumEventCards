@@ -103,6 +103,9 @@ const updateVersionScript = fs.readFileSync(path.join(repoRoot, 'scripts', 'upda
 [
     './app-snapshot.js',
     './campaign-tracker.js',
+    './assets/ui/campaign-divider.svg',
+    './assets/ui/dark-surface-texture.svg',
+    './assets/ui/parchment-panel-texture.svg',
     './vendor/bootstrap/css/bootstrap.min.css',
     './vendor/bootstrap/js/bootstrap.bundle.min.js',
     './deck-flow-utils.js',
@@ -126,5 +129,7 @@ assert(updateVersionScript.includes("'./app-snapshot.js'"),
     'Build asset manifest should include app-snapshot.js for future service-worker syncs');
 assert(updateVersionScript.includes("'./campaign-tracker.js'"),
     'Build asset manifest should include campaign-tracker.js for future service-worker syncs');
+assert(updateVersionScript.includes("'assets'"),
+    'Build asset manifest should scan the assets directory for future service-worker syncs');
 
 console.log('All app shell asset checks passed!');
