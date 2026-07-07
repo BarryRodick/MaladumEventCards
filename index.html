@@ -49,7 +49,7 @@
     <link rel="icon" type="image/png" href="icons/icon-192x192.png">
 </head>
 
-<body class="dark-mode">
+<body class="dark-mode deck-page">
     <!-- Skip to main content link for keyboard users -->
     <a href="#main-content" class="visually-hidden-focusable skip-link">Skip to main content</a>
 
@@ -97,10 +97,12 @@
                     </div>
                     <div class="deck-mode-tabs" role="tablist" aria-label="Deck builder modes">
                         <button id="buildModeButton" class="mode-tab is-active" type="button" aria-pressed="true">
-                            Build
+                            <i class="fas fa-layer-group" aria-hidden="true"></i>
+                            <span>Build</span>
                         </button>
                         <button id="playModeButton" class="mode-tab" type="button" aria-pressed="false">
-                            Play
+                            <i class="fas fa-play" aria-hidden="true"></i>
+                            <span>Play</span>
                         </button>
                     </div>
                 </section>

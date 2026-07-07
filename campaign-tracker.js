@@ -264,6 +264,8 @@ function renderImageGallery(doc, config, elements, trackerState, saveState) {
         img.addEventListener('click', () => openImageModal(elements, src));
 
         const btn = doc.createElement('button');
+        btn.type = 'button';
+        btn.className = 'tracker-remove-image';
         btn.textContent = 'Remove';
         btn.addEventListener('click', () => {
             trackerState.images.splice(index, 1);
@@ -291,9 +293,7 @@ function isChecked(element, mode) {
 }
 
 function setChecked(element, checked, mode, activeColor) {
-    if (mode === 'dataset') {
-        element.dataset.checked = checked ? 'true' : '';
-    }
+    element.dataset.checked = checked ? 'true' : '';
 
     element.style.backgroundColor = checked ? activeColor : '';
 

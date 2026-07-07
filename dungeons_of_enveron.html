@@ -315,12 +315,12 @@
     </style>
 </head>
 
-<body class="dark-mode">
+<body class="dark-mode campaign-page campaign-page--enveron">
     <header class="app-header dark-green-bar d-flex align-items-center justify-content-between p-3">
         <div class="d-flex align-items-center">
             <a href="index.html" class="text-white text-decoration-none d-flex align-items-center">
-                <h1 class="app-logo-text mb-0">Event Cards</h1>
-                <i class="fas fa-scroll ml-2"></i>
+                <i class="fas fa-home me-2" aria-hidden="true"></i>
+                <h1 class="app-logo-text mb-0">Dungeons of Enveron</h1>
             </a>
         </div>
 
@@ -581,8 +581,9 @@
         });
 
         const resetButton = document.createElement('button');
-        resetButton.textContent = 'Reset Campaign';
-        resetButton.className = 'reset-button';
+        resetButton.type = 'button';
+        resetButton.innerHTML = '<i class="fas fa-trash-alt" aria-hidden="true"></i><span>Reset Campaign</span>';
+        resetButton.className = 'reset-button campaign-danger-action';
         resetButton.addEventListener('click', function () {
             if (confirm('Are you sure you want to reset the campaign? This will clear all progress.')) {
                 localStorage.removeItem('dungeonState');

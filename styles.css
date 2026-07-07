@@ -2597,3 +2597,970 @@ button:focus,
         flex-direction: column;
     }
 }
+
+/* =========================================
+   Mobile-first UI/assets refresh
+   Grounded in the accepted screen-only ImageGen concepts.
+   ========================================= */
+
+:root {
+    --surface-charcoal: #101111;
+    --surface-charcoal-2: #191817;
+    --surface-panel: rgba(17, 17, 16, 0.94);
+    --surface-panel-soft: rgba(24, 23, 21, 0.82);
+    --surface-parchment: #f2e2c6;
+    --surface-parchment-deep: #dcc49d;
+    --ink-dark: #17120d;
+    --ink-muted: #5d4a34;
+    --accent-danger: #941616;
+    --accent-danger-deep: #5e0c0c;
+    --accent-success: #2f6b35;
+    --accent-success-soft: #dfead1;
+    --border-gold-soft: rgba(197, 165, 114, 0.34);
+    --border-gold-strong: rgba(219, 178, 91, 0.72);
+    --parchment-grain:
+        radial-gradient(circle at 20% 12%, rgba(116, 77, 33, 0.11), transparent 22%),
+        radial-gradient(circle at 74% 6%, rgba(116, 77, 33, 0.09), transparent 24%),
+        linear-gradient(135deg, rgba(255, 250, 230, 0.76), rgba(220, 194, 150, 0.78));
+    --charcoal-grain:
+        radial-gradient(circle at 10% 8%, rgba(197, 165, 114, 0.08), transparent 28%),
+        linear-gradient(150deg, rgba(28, 28, 27, 0.98), rgba(7, 8, 8, 0.98));
+}
+
+body.dark-mode {
+    background-color: var(--surface-charcoal) !important;
+    background-image:
+        radial-gradient(circle at 50% -10%, rgba(197, 165, 114, 0.08), transparent 34rem),
+        linear-gradient(180deg, #151615 0%, #090a0a 100%) !important;
+    background-attachment: scroll !important;
+}
+
+body.dark-mode::before {
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.68)),
+        var(--glass-noise);
+    opacity: 1;
+}
+
+.app-header {
+    background: linear-gradient(180deg, rgba(11, 12, 12, 0.98), rgba(14, 15, 14, 0.94)) !important;
+    border-bottom: 1px solid var(--border-gold-strong) !important;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.42);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.app-header img {
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(197, 165, 114, 0.36);
+}
+
+.app-logo-text {
+    color: var(--maladum-gold) !important;
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: clamp(1.12rem, 1.8vw, 1.85rem);
+    line-height: 1.05;
+}
+
+#headerButtons {
+    gap: 0.2rem;
+}
+
+.faq-icon {
+    color: var(--maladum-gold) !important;
+    min-width: 44px;
+    min-height: 44px;
+    margin: 0;
+    border-radius: 6px;
+}
+
+.faq-icon:hover,
+.faq-icon:focus-visible {
+    background: rgba(197, 165, 114, 0.12);
+    color: #f4d484 !important;
+}
+
+.glass-panel {
+    padding: clamp(0.75rem, 2vw, 1.35rem);
+    border-radius: 10px;
+    background: var(--charcoal-grain);
+    border-color: var(--border-gold-soft);
+    box-shadow:
+        0 16px 42px rgba(0, 0, 0, 0.48),
+        inset 0 0 0 1px rgba(255, 244, 204, 0.04);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.deck-experience {
+    gap: 1rem;
+}
+
+#activeDeckSection,
+#deckSummaryBar,
+#deckUtilityDrawer {
+    scroll-margin-top: calc(4.9rem + env(safe-area-inset-top, 0px));
+}
+
+.deck-mode-header,
+.deck-utility-drawer,
+#deckSummaryBar,
+#cardActionSection,
+#inPlaySection {
+    border-radius: 8px;
+    background: var(--surface-panel);
+    border: 1px solid var(--border-gold-soft);
+    box-shadow:
+        0 12px 26px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 244, 204, 0.06);
+}
+
+.deck-mode-header {
+    padding: 1rem;
+}
+
+.deck-mode-eyebrow,
+.deck-summary-mode,
+.deck-utility-kicker {
+    letter-spacing: 0.12rem;
+    font-size: 0.72rem;
+}
+
+.deck-mode-description,
+.deck-utility-description,
+.deck-summary-games {
+    line-height: 1.45;
+}
+
+.deck-mode-tabs {
+    width: min(100%, 28rem);
+    padding: 0.25rem;
+    border-radius: 999px;
+    background: #080808;
+    border: 1px solid rgba(197, 165, 114, 0.28);
+}
+
+.mode-tab {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    border-radius: 999px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: rgba(255, 255, 255, 0.74);
+}
+
+.mode-tab.is-active {
+    color: #fff6df;
+    background: linear-gradient(180deg, var(--accent-danger), var(--accent-danger-deep));
+    border-color: rgba(255, 218, 145, 0.36);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.16),
+        0 0 0 1px rgba(93, 11, 11, 0.64);
+}
+
+.section-header .btn-link,
+.section-header button.btn-link {
+    min-height: 56px;
+    padding: 0.9rem 1rem;
+    border-radius: 6px;
+    background: linear-gradient(180deg, #171817, #0a0b0b);
+    border-color: var(--border-gold-soft);
+    box-shadow: none;
+}
+
+.section-header .btn-link h3,
+.section-header button.btn-link h3,
+.section-header .btn-link h4,
+.section-header button.btn-link h4 {
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: clamp(1rem, 1.2vw, 1.18rem);
+}
+
+#gameCheckboxes,
+#scenarioConfig,
+#cardSearchContent,
+#shuffleNConfig,
+#insertCardConfig {
+    border: 1px solid rgba(64, 43, 21, 0.18) !important;
+    background: var(--parchment-grain) !important;
+    color: var(--ink-dark);
+    border-radius: 6px !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+}
+
+#gameCheckboxes {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#gameCheckboxes .form-check {
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(86, 57, 27, 0.18);
+}
+
+#gameCheckboxes .form-check:last-child {
+    border-bottom: 0;
+}
+
+#gameCheckboxes .form-check-label,
+#scenarioConfig label,
+#cardSearchContent label,
+#shuffleNConfig label,
+#insertCardConfig label,
+#insertCardConfig h5 {
+    color: var(--ink-dark) !important;
+    text-shadow: none;
+}
+
+#gameCheckboxes .form-check-input,
+#scenarioConfig .form-check-input {
+    width: 1.55rem;
+    height: 1.55rem;
+    flex: 0 0 auto;
+    margin-top: 0;
+    border: 2px solid rgba(39, 64, 33, 0.82);
+    background-color: rgba(255, 255, 255, 0.55);
+}
+
+#gameCheckboxes .form-check-input:checked,
+#scenarioConfig .form-check-input:checked {
+    background-color: var(--accent-success);
+    border-color: #214b28;
+}
+
+#scenarioConfig .form-check {
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.35rem !important;
+}
+
+body.dark-mode #scenarioConfig select.form-control,
+body.dark-mode #cardSearchContent input.form-control,
+body.dark-mode #insertCardConfig select.form-control,
+#actionN.input-rune {
+    min-height: 48px;
+    background: rgba(255, 250, 239, 0.78) !important;
+    color: var(--ink-dark) !important;
+    border: 1px solid rgba(64, 43, 21, 0.32) !important;
+    border-radius: 6px;
+}
+
+#difficultyDetails,
+#cardSearchStatus {
+    color: var(--ink-muted) !important;
+}
+
+.card-type-input {
+    background: transparent !important;
+    padding: 0.25rem;
+    color: var(--ink-dark);
+}
+
+.card-type-row {
+    min-height: 64px;
+    padding: 0.72rem 0.85rem;
+    border-radius: 6px;
+    border: 1px solid rgba(64, 43, 21, 0.18);
+    background: var(--parchment-grain);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+.card-type-label-group {
+    grid-template-columns: 2.1rem minmax(0, 1fr);
+    column-gap: 0.65rem;
+}
+
+.card-type-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 5px;
+}
+
+.card-type-input .card-title {
+    color: var(--ink-dark);
+    font-size: 0.98rem;
+}
+
+.card-type-counter {
+    grid-template-columns: 2.45rem 3.2rem 2.45rem;
+    column-gap: 0.25rem;
+}
+
+.card-type-input .decrease-btn,
+.card-type-input .increase-btn,
+#shuffleNConfig .btn-outline-secondary {
+    width: 2.45rem;
+    height: 2.45rem;
+    min-width: 2.45rem;
+    min-height: 2.45rem;
+    border-radius: 5px;
+    background: linear-gradient(180deg, #242321, #0e0f0f);
+    color: #fff6df;
+    border: 1px solid rgba(197, 165, 114, 0.38);
+    font-size: 1.2rem;
+}
+
+.card-type-input .input-count {
+    width: 3.2rem;
+    height: 2.45rem;
+    color: var(--ink-dark);
+    background: rgba(255, 250, 239, 0.72);
+    border-color: rgba(64, 43, 21, 0.28);
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+#generateDeck,
+.rune-btn,
+.action-card-btn {
+    background-image: none !important;
+    border-radius: 6px;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+#generateDeck,
+.rune-btn.primary,
+.rune-btn.next-draw {
+    background: linear-gradient(180deg, #b51a1a 0%, #821111 52%, #530a0a 100%) !important;
+    color: #fff6df !important;
+    border: 1px solid rgba(255, 215, 150, 0.34) !important;
+}
+
+.rune-btn.secondary,
+.rune-btn.tertiary,
+.rune-btn:not(.primary):not(.next-draw) {
+    background: linear-gradient(180deg, #242321, #111211);
+    color: var(--maladum-gold);
+    border: 1px solid rgba(197, 165, 114, 0.28);
+    filter: none;
+    opacity: 1;
+}
+
+.rune-btn.tertiary {
+    background: linear-gradient(180deg, #365f2d, #1f391d);
+    color: #dcedc7;
+}
+
+#generateDeck {
+    max-width: 100% !important;
+    min-height: 62px;
+}
+
+#deckSummaryBar {
+    top: calc(4.25rem + env(safe-area-inset-top, 0px));
+}
+
+.deck-summary-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+}
+
+.summary-chip {
+    justify-content: center;
+    min-height: 44px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+#deckProgress .progress {
+    height: 1.55rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(197, 165, 114, 0.18);
+}
+
+#deckOutput {
+    border: 1px solid rgba(197, 165, 114, 0.16);
+    background: linear-gradient(180deg, rgba(13, 13, 13, 0.78), rgba(5, 5, 5, 0.7));
+    border-radius: 8px;
+    box-shadow: inset 0 0 0 1px rgba(255, 244, 204, 0.04);
+}
+
+.deck-card-display {
+    width: 100%;
+}
+
+.deck-card-state img,
+.active-card-preview img {
+    border-radius: 8px;
+}
+
+#clearActiveCard {
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 999px;
+}
+
+.action-grid {
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: 0.75rem;
+    padding: 0;
+}
+
+.action-card-btn {
+    min-height: 118px;
+    padding: 1rem 0.75rem;
+    background: linear-gradient(180deg, #242321, #0e0f0f);
+    border: 1px solid rgba(197, 165, 114, 0.25);
+    color: var(--maladum-gold);
+}
+
+.action-card-icon {
+    width: 58px;
+    height: 58px;
+    margin-bottom: 0.45rem;
+}
+
+.action-card-icon svg {
+    width: 40px;
+    height: 40px;
+}
+
+.action-card-label {
+    font-size: 0.9rem;
+    letter-spacing: 0;
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    text-transform: none;
+}
+
+.card-search-item {
+    border: 1px solid rgba(197, 165, 114, 0.18);
+    background: rgba(12, 12, 12, 0.86) !important;
+    border-radius: 6px;
+}
+
+.card-preview-readable {
+    background: var(--parchment-grain);
+    color: var(--ink-dark);
+}
+
+.card-preview-readable-header h6,
+.card-preview-threshold {
+    color: #6f1616;
+}
+
+.in-play-empty {
+    min-height: 52px;
+}
+
+.campaign-page .campaign-container,
+.campaign-page .notes-section,
+.campaign-page .image-input-label,
+.campaign-page .image-gallery,
+.campaign-page .reset-button {
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.campaign-page .campaign-container {
+    padding: 1rem;
+}
+
+.campaign-page .app-header a,
+.campaign-page .app-header i {
+    color: var(--maladum-gold) !important;
+}
+
+.campaign-page .campaign-card,
+.campaign-page .notes-section {
+    border-radius: 8px;
+    background: var(--parchment-grain) !important;
+    border: 1px solid rgba(78, 52, 24, 0.28) !important;
+    box-shadow:
+        0 16px 34px rgba(0, 0, 0, 0.34),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.32) !important;
+}
+
+.campaign-page .campaign-card::before {
+    background:
+        var(--glass-noise),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(121, 80, 32, 0.08)) !important;
+    opacity: 0.16 !important;
+}
+
+.campaign-page .title,
+.campaign-page .section-title {
+    color: #6d4c14 !important;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0;
+    text-transform: none;
+    text-align: center;
+    text-shadow: none !important;
+}
+
+.campaign-page .subtitle,
+.campaign-page p,
+.campaign-page span,
+.campaign-page li,
+.campaign-page div:not(.notes-content) {
+    text-shadow: none !important;
+}
+
+.campaign-page .subtitle,
+.campaign-page .reward-text,
+.campaign-page .note-text,
+.campaign-page .servant-section,
+.campaign-page .achievement-row,
+.campaign-page .companion-item,
+.campaign-page .entry-point-item {
+    color: var(--ink-dark) !important;
+}
+
+.campaign-page .section-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    border-bottom: 0 !important;
+}
+
+.campaign-page .section-title::before,
+.campaign-page .section-title::after {
+    content: '';
+    height: 1px;
+    flex: 1 1 2rem;
+    max-width: 10rem;
+    background: linear-gradient(90deg, transparent, rgba(109, 76, 20, 0.55));
+}
+
+.campaign-page .section-title::after {
+    background: linear-gradient(90deg, rgba(109, 76, 20, 0.55), transparent);
+}
+
+.campaign-page .notes-header {
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1rem;
+    background: rgba(255, 248, 231, 0.58) !important;
+    color: var(--ink-dark) !important;
+}
+
+.campaign-page .notes-content {
+    background: rgba(255, 248, 231, 0.72) !important;
+}
+
+.campaign-page .notes-content textarea {
+    min-height: 9rem;
+    border-radius: 6px;
+}
+
+.campaign-page .delay-track,
+.campaign-page .malagaunt-track,
+.campaign-page .checkbox-track,
+.campaign-page .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.campaign-page .achievement-row,
+.campaign-page .reward-item,
+.campaign-page .track-row,
+.campaign-page .apprentice-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(78, 52, 24, 0.12);
+}
+
+.campaign-page .achievement-row:last-child,
+.campaign-page .reward-item:last-child,
+.campaign-page .track-row:last-child {
+    border-bottom: 0;
+}
+
+.campaign-page .checkbox,
+.campaign-page .delay-checkbox,
+.campaign-page .malagaunt-checkbox {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    background-color: rgba(255, 248, 231, 0.64);
+    border-width: 2px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.38);
+}
+
+.campaign-page .delay-checkbox {
+    border-radius: 50%;
+}
+
+.campaign-page .checkbox[data-checked="true"],
+.campaign-page .checkbox[style*="black"],
+.campaign-page .delay-checkbox[style*="black"],
+.campaign-page .malagaunt-checkbox[style*="black"] {
+    background-color: var(--accent-success) !important;
+    border-color: #214b28 !important;
+}
+
+.campaign-page .checkbox[data-checked="true"]::after,
+.campaign-page .checkbox[style*="black"]::after,
+.campaign-page .delay-checkbox[style*="black"]::after,
+.campaign-page .malagaunt-checkbox[style*="black"]::after {
+    content: '\2713';
+    color: #fff6df;
+    font-weight: 800;
+    font-size: 1.45rem;
+    line-height: 1;
+}
+
+.campaign-page .input-field {
+    min-height: 44px;
+    border-radius: 6px;
+}
+
+.campaign-page .image-input-label,
+.campaign-page .reset-button,
+.campaign-page .tracker-remove-image {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border-radius: 6px;
+    border: 1px solid rgba(197, 165, 114, 0.34);
+    font-weight: 700;
+}
+
+.campaign-page .image-input-label {
+    background: linear-gradient(180deg, #365f2d, #1f391d) !important;
+    color: #fff6df !important;
+    padding: 0.75rem 1rem;
+}
+
+.campaign-page .image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+    gap: 0.75rem;
+    padding: 0 1rem;
+}
+
+.campaign-page .image-item {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.campaign-page .image-item img {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    border-radius: 6px;
+}
+
+.campaign-page .tracker-remove-image {
+    background: rgba(20, 20, 20, 0.9);
+    color: var(--maladum-gold);
+}
+
+.campaign-page .reset-button {
+    width: calc(100% - 2rem);
+    display: flex;
+    background: linear-gradient(180deg, #b51a1a, #701010) !important;
+    color: #fff6df !important;
+}
+
+.campaign-page .reset-button span,
+.campaign-page .reset-button i {
+    color: #fff6df !important;
+}
+
+.campaign-page .servant-section,
+.campaign-page .entry-point-item {
+    border-radius: 6px;
+    background: rgba(255, 248, 231, 0.56) !important;
+}
+
+@media (max-width: 768px) {
+    body.dark-mode {
+        min-height: 100svh;
+    }
+
+    .app-header {
+        padding: 0.65rem 0.75rem !important;
+    }
+
+    .app-header > .d-flex:first-child {
+        min-width: 0;
+    }
+
+    .app-header img {
+        width: 34px !important;
+        height: 34px !important;
+        margin-right: 0.55rem !important;
+    }
+
+    .app-logo-text {
+        max-width: 62vw;
+        overflow-wrap: anywhere;
+    }
+
+    .faq-icon {
+        min-width: 38px;
+        min-height: 38px;
+        padding: 0.45rem;
+        font-size: 1.1rem;
+    }
+
+    #headerButtons {
+        flex: 0 0 auto;
+        flex-wrap: nowrap;
+        gap: 0.1rem;
+    }
+
+    .deck-page .app-logo-text {
+        max-width: 38vw;
+        font-size: 0.95rem;
+    }
+
+    #main-content.container {
+        max-width: 100%;
+        padding-left: 0.65rem;
+        padding-right: 0.65rem;
+        margin-top: 0.65rem !important;
+    }
+
+    .deck-mode-header,
+    .deck-utility-header,
+    .deck-summary-main {
+        gap: 0.75rem;
+    }
+
+    .deck-mode-tabs {
+        width: 100%;
+    }
+
+    .deck-utility-drawer {
+        padding: 0.85rem;
+    }
+
+    #deckUtilityDrawer.is-collapsed .deck-utility-kicker,
+    #deckExperience[data-mode="play"] .deck-mode-copy {
+        display: none;
+    }
+
+    #scenarioConfig {
+        padding: 0.85rem !important;
+    }
+
+    .card-type-row {
+        grid-template-columns: 1fr;
+        gap: 0.7rem;
+    }
+
+    .card-type-counter {
+        width: 100%;
+        grid-template-columns: 3rem minmax(4rem, 1fr) 3rem;
+    }
+
+    .card-type-input .decrease-btn,
+    .card-type-input .increase-btn {
+        width: 3rem;
+        height: 2.75rem;
+    }
+
+    .card-type-input .input-count {
+        width: 100%;
+        height: 2.75rem;
+    }
+
+    #deckExperience[data-mode="play"] #activeDeckSection {
+        display: flex !important;
+        flex-direction: column;
+        padding-bottom: calc(9.5rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    #deckSummaryBar {
+        position: static;
+        padding: 0.85rem;
+    }
+
+    .deck-summary-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .deck-summary-actions .rune-btn {
+        min-width: 0;
+        padding-left: 0.6rem;
+        padding-right: 0.6rem;
+    }
+
+    .deck-summary-meta {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.45rem;
+    }
+
+    .summary-chip {
+        padding: 0.45rem 0.5rem;
+        font-size: 0.82rem;
+        justify-content: flex-start;
+    }
+
+    #deckExperience[data-mode="play"] #deckOutput {
+        order: 4;
+        min-height: 0;
+        padding: 0.55rem;
+        margin-bottom: 0;
+    }
+
+    #deckExperience[data-mode="play"] .active-card-preview img {
+        max-height: 48vh;
+    }
+
+    #navigationButtons {
+        order: 3;
+        position: sticky;
+        bottom: 0;
+        z-index: 12;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        width: 100%;
+        margin: 0.6rem 0 0;
+        padding: 0.6rem 0.45rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
+        border: 1px solid var(--border-gold-soft);
+        border-bottom: 0;
+        border-radius: 8px 8px 0 0;
+        background: linear-gradient(180deg, rgba(9, 9, 9, 0.88), rgba(4, 4, 4, 0.98));
+        backdrop-filter: blur(10px);
+    }
+
+    .rune-btn.next-draw {
+        grid-column: 1 / -1;
+        min-height: 64px;
+        order: -1;
+    }
+
+    #navigationButtons .rune-btn {
+        min-height: 50px;
+        padding: 0.6rem;
+        font-size: 0.88rem;
+    }
+
+    #cardActionSection {
+        padding: 0.85rem;
+        margin-top: 1rem !important;
+    }
+
+    .action-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .action-card-btn {
+        min-height: 96px;
+    }
+
+    .action-card-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .action-card-icon svg {
+        width: 34px;
+        height: 34px;
+    }
+
+    .action-card-label {
+        font-size: 0.78rem;
+    }
+
+    #inPlaySection {
+        padding: 0.85rem !important;
+        margin-top: 1rem !important;
+    }
+
+    .campaign-page .app-logo-text {
+        max-width: 68vw;
+    }
+
+    .campaign-page .campaign-container {
+        padding: 0.75rem;
+    }
+
+    .campaign-page .campaign-card {
+        padding: 1rem;
+    }
+
+    .campaign-page .notes-section {
+        margin: 0.75rem;
+    }
+
+    .campaign-page .image-input-label {
+        margin: 0.75rem;
+    }
+
+    .campaign-page .achievement-row,
+    .campaign-page .reward-item,
+    .campaign-page .track-row,
+    .campaign-page .apprentice-section,
+    .campaign-page .arrival-track .achievement-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: stretch;
+    }
+
+    .campaign-page .achievement-row span,
+    .campaign-page .companion-item,
+    .campaign-page .entry-point-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.7rem;
+        width: 100%;
+    }
+
+    .campaign-page .checkbox-track,
+    .campaign-page .delay-track,
+    .campaign-page .malagaunt-track {
+        justify-content: center;
+    }
+
+    .campaign-page .checkbox,
+    .campaign-page .delay-checkbox,
+    .campaign-page .malagaunt-checkbox {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        min-height: 42px;
+    }
+}
+
+@media (max-width: 380px) {
+    .app-logo-text {
+        font-size: 1rem;
+    }
+
+    .deck-summary-meta {
+        grid-template-columns: 1fr;
+    }
+
+    .action-grid {
+        grid-template-columns: 1fr;
+    }
+}
