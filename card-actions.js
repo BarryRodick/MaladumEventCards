@@ -2,10 +2,16 @@
  * card-actions.js - Handles specific card actions and in-play state
  */
 import { state } from './state.js';
-import { parseCardTypes, shuffleDeck } from './card-utils.js';
 import { showToast, trackEvent } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
 import { showCurrentCard, updateProgressBar } from './deck-manager.js';
+import {
+    insertSpecificCardById as insertSpecificCardIntoLiveDeck,
+    liveDeckActions,
+    markCardInPlay,
+    removeCardFromPlay as removeLiveCardFromPlay,
+    shuffleCardIntoTopN as shuffleLiveCardIntoTopN
+} from './live-deck.js';
 
 function escapeHtml(str) {
     return String(str ?? '')
@@ -20,8 +26,7 @@ function escapeHtml(str) {
  * Marks a card as being in play
  */
 export function markCardAsInPlay(card) {
-    if (!state.inPlayCards.some(c => c.id === card.id)) {
-        state.inPlayCards.push(card);
+    if (markCardInPlay(state, card)) {
         updateInPlayCardsDisplay();
         showToast(`Card "${escapeHtml(card.card)}" marked as in play.`);
         saveConfiguration();
@@ -101,7 +106,7 @@ export function updateInPlayCardsDisplay() {
 }
 
 function removeCardFromPlay(cardId) {
-    state.inPlayCards = state.inPlayCards.filter(c => c.id !== cardId);
+    removeLiveCardFromPlay(state, cardId);
     updateInPlayCardsDisplay();
     saveConfiguration();
 }
@@ -110,241 +115,45 @@ function removeCardFromPlay(cardId) {
  * Handles the application of selected card actions
  */
 export const cardActions = {
-    shuffleAnywhere: (card) => {
-        state.currentDeck.splice(state.currentIndex, 1);
-        const remaining = state.currentDeck.length - state.currentIndex;
-        const randomOffset = Math.floor(Math.random() * (remaining + 1));
-        state.currentDeck.splice(state.currentIndex + randomOffset, 0, card);
-
-        if (state.currentIndex > 0) {
-            state.currentIndex--;
-        } else {
-            state.currentIndex = -1;
-        }
-        showCurrentCard('backward');
-        return `Card "${card.card}" shuffled back into the deck.`;
-    },
-
-    shuffleTopN: (card, n) => {
-        const remaining = state.currentDeck.length - (state.currentIndex + 1);
-        if (remaining <= 0) {
-            return 'No remaining cards to shuffle into.';
-        }
-        const requestedN = Math.max(1, parseInt(n, 10) || 1);
-        const actualN = Math.min(requestedN, remaining);
-
-        state.currentDeck.splice(state.currentIndex, 1);
-        const insertIdx = state.currentIndex + Math.floor(Math.random() * actualN);
-        state.currentDeck.splice(insertIdx, 0, card);
-
-        showCurrentCard();
-        return `Card "${card.card}" shuffled into the next ${actualN} cards.`;
-    },
-
-    replaceSameType: (card) => {
-        const typeInfo = parseCardTypes(card.type);
-        const replacements = state.availableCards.filter(c => {
-            if (c.id === card.id || state.cards.selected.has(c.id)) return false;
-            const rTypeInfo = parseCardTypes(c.type);
-            // Exclude sentry and corrupter cards from replacements
-            const isSentry = rTypeInfo.allTypes.some(t => state.dataStore.sentryTypes.includes(t));
-            const isCorrupter = rTypeInfo.allTypes.some(t => state.dataStore.corrupterTypes.includes(t));
-            if ((isSentry && state.enableSentryRules) || (isCorrupter && state.enableCorrupterRules)) return false;
-            return rTypeInfo.allTypes.some(t => typeInfo.allTypes.includes(t));
-        });
-
-        if (replacements.length === 0) return `No replacement cards of the same type available.`;
-
-        const replacement = replacements[Math.floor(Math.random() * replacements.length)];
-        state.currentDeck[state.currentIndex] = replacement;
-        state.cards.selected.delete(card.id);
-        state.cards.selected.set(replacement.id, true);
-
-        showCurrentCard();
-        return `Card "${card.card}" replaced with "${replacement.card}".`;
-    },
-
-    introduceSentry: () => {
-        if (!state.sentryDeck || state.sentryDeck.length === 0) {
-            return "No Sentry cards available to introduce.";
-        }
-
-        // Remove current card from deck momentarily to shuffle sentries into the *remaining* deck
-        // Actually, usually sentries are just shuffled into the draw pile.
-        // Let's keep specific logic: Shuffle sentries into the portion of the deck AFTER the current card.
-
-        const pastCards = state.currentDeck.slice(0, state.currentIndex + 1);
-        const futureCards = state.currentDeck.slice(state.currentIndex + 1);
-
-        const newFuture = shuffleDeck(futureCards.concat(state.sentryDeck));
-        state.currentDeck = pastCards.concat(newFuture);
-
-        const count = state.sentryDeck.length;
-        state.sentryDeck = []; // Clear them
-
-        updateProgressBar();
-        return `${count} Sentry cards shuffled into the deck.`;
-    },
-
-    insertCardType: (activeCard, params) => {
-        const { cardType, specificCardId, position } = params;
-
-        // Find potential cards
-        const potentialCards = state.deckDataByType[cardType] || [];
-        if (potentialCards.length === 0) {
-            return `No cards of type "${cardType}" available.`;
-        }
-
-        let cardToInsert;
-        if (specificCardId) {
-            // Need to convert ID to string/number match if necessary, assuming string from select value
-            cardToInsert = potentialCards.find(c => String(c.id) === String(specificCardId));
-            if (!cardToInsert) {
-                return `Selected card not found for type "${cardType}".`;
-            }
-            if (state.cards.selected.has(cardToInsert.id)) {
-                return `Card "${cardToInsert.card}" is already in the deck.`;
-            }
-        }
-
-        if (!cardToInsert) {
-            // Pick random
-            const availableCards = potentialCards.filter(c => !state.cards.selected.has(c.id));
-            if (availableCards.length === 0) {
-                return `No available cards of type "${cardType}" to insert.`;
-            }
-            cardToInsert = availableCards[Math.floor(Math.random() * availableCards.length)];
-        }
-
-        cardToInsert = { ...cardToInsert };
-        insertCardIntoDeck(cardToInsert, position);
-        return `Inserted "${cardToInsert.card}" (${cardType}) into the deck (${position}).`;
-    }
+    shuffleAnywhere: (card) => applyLiveDeckAction('shuffleAnywhere', card),
+    shuffleTopN: (card, n) => applyLiveDeckAction('shuffleTopN', card, n),
+    replaceSameType: (card) => applyLiveDeckAction('replaceSameType', card),
+    introduceSentry: (card) => applyLiveDeckAction('introduceSentry', card),
+    insertCardType: (activeCard, params) => applyLiveDeckAction('insertCardType', activeCard, params)
 };
 
-function insertCardIntoDeck(cardToInsert, position = 'random') {
-    let insertIndex;
-
-    if (position === 'next') {
-        insertIndex = Math.max(0, state.currentIndex + 1);
-    } else if (position === 'bottom') {
-        insertIndex = state.currentDeck.length;
-    } else {
-        const remaining = state.currentDeck.length - (state.currentIndex + 1);
-        insertIndex = state.currentIndex + 1 + Math.floor(Math.random() * (remaining + 1));
+function applyLiveDeckAction(actionName, activeCard, params) {
+    const result = liveDeckActions[actionName](state, activeCard, params);
+    if (result.render) {
+        showCurrentCard(result.direction);
     }
-
-    state.currentDeck.splice(insertIndex, 0, cardToInsert);
-    state.cards.selected.set(cardToInsert.id, true);
-    updateProgressBar();
-}
-
-function findCardById(cardId) {
-    if (state.cardMap instanceof Map && state.cardMap.has(Number(cardId))) {
-        return state.cardMap.get(Number(cardId));
+    if (result.progress) {
+        updateProgressBar();
     }
-
-    return state.availableCards.find(card => String(card.id) === String(cardId)) || null;
+    return result.message;
 }
 
 export function shuffleCardIntoTopN(cardId, n) {
-    if (!cardId) {
-        showToast('Select a card to shuffle into the deck.');
-        return;
-    }
+    const result = shuffleLiveCardIntoTopN(state, cardId, n);
+    showToast(result.message);
 
-    if (!state.currentDeck || state.currentDeck.length === 0) {
-        showToast('No active deck available. Generate a deck first.');
-        return;
-    }
-
-    const targetCard = state.availableCards.find(card => String(card.id) === String(cardId));
-    if (!targetCard) {
-        showToast('Selected card could not be found.');
-        return;
-    }
-
-    if (state.currentIndex >= 0) {
-        const activeCard = state.currentDeck[state.currentIndex];
-        if (activeCard && String(activeCard.id) === String(targetCard.id)) {
-            showToast('Cannot shuffle the currently active card.');
-            return;
-        }
-    }
-
-    const requestedN = Math.max(1, parseInt(n, 10) || 1);
-    const insertStart = Math.max(0, state.currentIndex + 1);
-    const remaining = state.currentDeck.length - insertStart;
-
-    if (remaining <= 0) {
-        showToast('No remaining cards to shuffle into.');
-        return;
-    }
-
-    let existingIndex = state.currentDeck.findIndex(card => String(card.id) === String(targetCard.id));
-    let cardToInsert = targetCard;
-    let nextCurrentIndex = state.currentIndex;
-
-    if (existingIndex !== -1) {
-        const [existingCard] = state.currentDeck.splice(existingIndex, 1);
-        cardToInsert = existingCard || targetCard;
-        if (existingIndex <= state.currentIndex) {
-            nextCurrentIndex = Math.max(-1, state.currentIndex - 1);
-        }
-    } else if (Array.isArray(state.discardPile)) {
-        const discardedIndex = state.discardPile.findIndex(card => String(card.id) === String(targetCard.id));
-        if (discardedIndex !== -1) {
-            const [discardedCard] = state.discardPile.splice(discardedIndex, 1);
-            cardToInsert = discardedCard || targetCard;
-        } else {
-            cardToInsert = { ...targetCard };
-        }
-    } else {
-        cardToInsert = { ...targetCard };
-    }
-
-    const actualN = Math.min(requestedN, remaining);
-    const adjustedInsertStart = Math.max(0, nextCurrentIndex + 1);
-    const insertIndex = adjustedInsertStart + Math.floor(Math.random() * actualN);
-
-    state.currentIndex = nextCurrentIndex;
-    state.currentDeck.splice(insertIndex, 0, cardToInsert);
-    state.cards.selected.set(cardToInsert.id, true);
+    if (!result.ok) return;
 
     updateProgressBar();
-    showToast(`Card "${cardToInsert.card}" shuffled into the next ${actualN} cards.`);
     saveConfiguration();
-    trackEvent('Card Action', 'shuffleTopNCard', cardToInsert.card);
+    trackEvent('Card Action', 'shuffleTopNCard', result.card.card);
     showCurrentCard();
 }
 
 export function insertSpecificCardById(cardId, position = 'next') {
-    if (!cardId) {
-        showToast('Select a card to insert.');
-        return;
-    }
+    const result = insertSpecificCardIntoLiveDeck(state, cardId, position);
+    showToast(result.message);
 
-    if (!state.currentDeck || state.currentDeck.length === 0) {
-        showToast('No active deck available. Generate a deck first.');
-        return;
-    }
+    if (!result.ok) return;
 
-    const targetCard = findCardById(cardId);
-    if (!targetCard) {
-        showToast('Selected card could not be found.');
-        return;
-    }
-
-    if (state.cards.selected.has(targetCard.id)) {
-        showToast(`Card "${targetCard.card}" is already in the deck.`);
-        return;
-    }
-
-    const cardToInsert = { ...targetCard };
-    insertCardIntoDeck(cardToInsert, position);
-    showToast(`Inserted "${cardToInsert.card}" into the deck (${position}).`);
+    updateProgressBar();
     saveConfiguration();
-    trackEvent('Card Action', `insertSpecificCard:${position}`, cardToInsert.card);
+    trackEvent('Card Action', `insertSpecificCard:${position}`, result.card.card);
     showCurrentCard();
 }
 

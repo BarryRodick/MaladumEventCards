@@ -15,6 +15,7 @@ import { saveConfiguration } from './config-manager.js';
 import { setupManualUpdateCheck } from './update-utils.js';
 import { updateCardSearchResults, showCardPreview, setDeckMode, toggleUtilityDrawer, openBuildTools, openSearchTools, toggleActionPanel } from './ui-manager.js';
 import { buildPreviewActionRequest } from './deck-flow-utils.js';
+import { clearInPlayCards, goToPreviousCard } from './live-deck.js';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
 const debouncedCardSearch = debounce((value) => updateCardSearchResults(value), 150);
@@ -86,16 +87,7 @@ export function setupEventListeners() {
     const prevBtn = document.getElementById('prevCard');
     if (prevBtn) {
         prevBtn.addEventListener('click', () => {
-            if (state.currentIndex > -1) {
-                state.isActiveCardCleared = false;
-                if (state.currentIndex === 0) {
-                    state.currentIndex = -1;
-                } else {
-                    if (state.discardPile.length > 0) {
-                        state.discardPile.pop();
-                    }
-                    state.currentIndex--;
-                }
+            if (goToPreviousCard(state)) {
                 showCurrentCard('backward');
                 debouncedSaveConfiguration();
                 trackEvent('Navigation', 'Previous Card', state.currentIndex);
@@ -191,7 +183,7 @@ export function setupEventListeners() {
         clearInPlayBtn.addEventListener('click', () => {
             if (state.inPlayCards.length === 0) return;
             if (!confirm('Clear all cards in play?')) return;
-            state.inPlayCards = [];
+            clearInPlayCards(state);
             updateInPlayCardsDisplay();
             updateProgressBar();
             debouncedSaveConfiguration();

@@ -6,6 +6,14 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 
+function loadHydrateDeckState() {
+    const file = path.join(__dirname, '..', 'app-snapshot.js');
+    let code = fs.readFileSync(file, 'utf8');
+    code = code.replace(/export function /g, 'function ');
+
+    return new Function(`${code}; return hydrateDeckState;`)();
+}
+
 function loadRestoreDeckState(state, document, hooks = {}) {
     const file = path.join(__dirname, '..', 'initialization.js');
     const code = fs.readFileSync(file, 'utf8');
@@ -17,6 +25,7 @@ function loadRestoreDeckState(state, document, hooks = {}) {
         'showCurrentCard',
         'updateProgressBar',
         'updateInPlayCardsDisplay',
+        'hydrateDeckState',
         'document',
         `${match[0]}; return restoreDeckState;`
     )(
@@ -24,6 +33,7 @@ function loadRestoreDeckState(state, document, hooks = {}) {
         hooks.showCurrentCard || (() => { }),
         hooks.updateProgressBar || (() => { }),
         hooks.updateInPlayCardsDisplay || (() => { }),
+        hooks.hydrateDeckState || loadHydrateDeckState(),
         document
     );
 }

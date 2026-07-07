@@ -9,6 +9,7 @@ import { showCurrentCard, updateProgressBar } from './deck-manager.js';
 import { updateInPlayCardsDisplay } from './card-actions.js';
 import { setupUpdateNotifications } from './update-utils.js';
 import { saveState, loadState } from './storage-utils.js';
+import { hydrateDeckState } from './app-snapshot.js';
 
 const CACHE_KEYS = {
     cards: 'cachedCardsData',
@@ -125,35 +126,9 @@ function loadCachedData() {
 }
 
 function restoreDeckState(deckState) {
-    state.currentDeck = deckState.currentDeck || [];
-    state.currentIndex = deckState.currentIndex ?? -1;
-    state.discardPile = deckState.discardPile || [];
-    state.sentryDeck = deckState.sentryDeck || [];
-    state.initialDeckSize = deckState.initialDeckSize || 0;
-    state.inPlayCards = deckState.inPlayCards || [];
-    state.isActiveCardCleared = deckState.isActiveCardCleared || false;
-    state.deck.main = deckState.mainDeck || [];
-    state.deck.special = deckState.specialDeck || [];
-    state.deck.combined = deckState.combinedDeck || state.currentDeck;
-    if (!state.cards || !state.cards.selected) {
-        state.cards = { selected: new Map() };
-    } else {
-        state.cards.selected.clear();
-    }
+    const hydration = hydrateDeckState(state, deckState);
 
-    const selectedCards = [
-        ...state.currentDeck,
-        ...state.discardPile,
-        ...state.sentryDeck,
-        ...state.inPlayCards
-    ];
-    selectedCards.forEach(card => {
-        if (card && card.id !== undefined) {
-            state.cards.selected.set(card.id, true);
-        }
-    });
-
-    if (state.currentDeck.length > 0) {
+    if (hydration.hasActiveDeck) {
         const activeDeckSection = document.getElementById('activeDeckSection');
         if (activeDeckSection) activeDeckSection.style.display = 'block';
 

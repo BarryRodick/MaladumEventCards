@@ -9,22 +9,35 @@ const path = require('path');
 console.log('Testing campaign persistence wiring...');
 
 const dungeonsHtml = fs.readFileSync(path.join(__dirname, '..', 'dungeons_of_enveron.html'), 'utf8');
+const forbiddenHtml = fs.readFileSync(path.join(__dirname, '..', 'forbidden_creed.html'), 'utf8');
 
 assert(
-    dungeonsHtml.includes("document.querySelectorAll('.checkbox').forEach(checkbox =>"),
-    'Dungeons tracker should attach save listeners to all campaign checkboxes'
+    dungeonsHtml.includes("import { initializeCampaignTracker } from './campaign-tracker.js';"),
+    'Dungeons tracker should use the shared campaign tracker module'
 );
 assert(
-    dungeonsHtml.includes("checkboxes: Array.from(document.querySelectorAll('.checkbox')).map"),
-    'Dungeons tracker should save every campaign checkbox, not only reward checkboxes'
+    dungeonsHtml.includes("storageKey: 'dungeonState'"),
+    'Dungeons tracker should keep the existing storage key'
 );
 assert(
-    dungeonsHtml.includes("document.querySelectorAll('.checkbox').forEach((cb, i) =>"),
-    'Dungeons tracker should restore every campaign checkbox'
+    dungeonsHtml.includes("checkboxGroupSelector: '.checkbox-group'"),
+    'Dungeons tracker should preserve grouped checkbox persistence'
 );
 assert(
-    !dungeonsHtml.includes("reward-item:not(:has(.checkbox-group)) .checkbox"),
-    'Dungeons tracker should not use a reward-only selector for campaign checkbox persistence'
+    dungeonsHtml.includes("legacyCheckboxSelector: '.reward-item'"),
+    'Dungeons tracker should preserve legacy reward-only restore'
+);
+assert(
+    forbiddenHtml.includes("import { initializeCampaignTracker } from './campaign-tracker.js';"),
+    'Forbidden Creed tracker should use the shared campaign tracker module'
+);
+assert(
+    forbiddenHtml.includes("storageKey: 'forbiddenCreedState'"),
+    'Forbidden Creed tracker should keep the existing storage key'
+);
+assert(
+    forbiddenHtml.includes("checkboxMode: 'dataset'"),
+    'Forbidden Creed tracker should preserve dataset-backed checkbox state'
 );
 
 console.log('All campaign persistence wiring tests passed!');

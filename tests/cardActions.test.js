@@ -6,15 +6,38 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 
+function loadLiveDeck(overrides = {}) {
+    const file = path.join(__dirname, '..', 'live-deck.js');
+    let code = fs.readFileSync(file, 'utf8');
+    code = code.replace(/import .*?\r?\n/g, '');
+    code = code.replace(/export const /g, 'const ');
+    code = code.replace(/export function /g, 'function ');
+
+    const factory = new Function(
+        'parseCardTypes',
+        'shuffleDeck',
+        `${code}; return { insertSpecificCardById, liveDeckActions, markCardInPlay, removeCardFromPlay, shuffleCardIntoTopN };`
+    );
+
+    return factory(
+        overrides.parseCardTypes || ((typeString = '') => {
+            const andGroups = typeString.split('+').map(group =>
+                group.trim().split('/').map(option => option.trim())
+            );
+            return { andGroups, allTypes: [...new Set(andGroups.flat())] };
+        }),
+        overrides.shuffleDeck || ((deck) => deck)
+    );
+}
+
 function loadCardActions(state, overrides = {}) {
     const file = path.join(__dirname, '..', 'card-actions.js');
     let code = fs.readFileSync(file, 'utf8');
-    code = code.replace(/import .*?\r?\n/g, '');
+    code = code.replace(/import[\s\S]*?from ['"].*?['"];\r?\n/g, '');
     code = code.replace(/export const cardActions\s*=\s*/, 'const cardActions = ');
     code = code.replace(/export function /g, 'function ');
 
-    const parseCardTypes = overrides.parseCardTypes || (() => ({ andGroups: [], allTypes: [] }));
-    const shuffleDeck = overrides.shuffleDeck || ((deck) => deck);
+    const liveDeck = loadLiveDeck(overrides);
     const showToast = overrides.showToast || (() => { });
     const trackEvent = overrides.trackEvent || (() => { });
     const saveConfiguration = overrides.saveConfiguration || (() => { });
@@ -23,25 +46,31 @@ function loadCardActions(state, overrides = {}) {
 
     const factory = new Function(
         'state',
-        'parseCardTypes',
-        'shuffleDeck',
         'showToast',
         'trackEvent',
         'saveConfiguration',
         'showCurrentCard',
         'updateProgressBar',
+        'insertSpecificCardIntoLiveDeck',
+        'liveDeckActions',
+        'markCardInPlay',
+        'removeLiveCardFromPlay',
+        'shuffleLiveCardIntoTopN',
         `${code}; return { cardActions, updateInPlayCardsDisplay, shuffleCardIntoTopN, insertSpecificCardById };`
     );
 
     return factory(
         state,
-        parseCardTypes,
-        shuffleDeck,
         showToast,
         trackEvent,
         saveConfiguration,
         showCurrentCard,
-        updateProgressBar
+        updateProgressBar,
+        liveDeck.insertSpecificCardById,
+        liveDeck.liveDeckActions,
+        liveDeck.markCardInPlay,
+        liveDeck.removeCardFromPlay,
+        liveDeck.shuffleCardIntoTopN
     );
 }
 

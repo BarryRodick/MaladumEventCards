@@ -2,7 +2,9 @@
  * deck-manager.js - Handles deck generation, navigation, and display
  */
 import { state, CONFIG, cardTypeId } from './state.js';
-import { shuffleDeck, parseCardTypes } from './card-utils.js';
+import { shuffleDeck } from './card-utils.js';
+import { buildDeck, DECK_RULE_ERRORS } from './deck-rules.js';
+import { advanceLiveDeck, clearActiveCard, rebuildSelectedCardsMap } from './live-deck.js';
 import { showToast, trackEvent, debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
 import { renderDeckSummary, setActionPanelOpen, setDeckMode } from './ui-manager.js';
@@ -55,89 +57,33 @@ export function generateDeck() {
         }
     });
 
-    // 1. Set Aside Cards Based on heldBackCardTypes
-    const allAvailableCards = [...state.availableCards];
-    state.setAsideCards = [];
-    const regularCardPool = allAvailableCards.filter(card => {
-        if (isHeldBackCard(card)) {
-            state.setAsideCards.push(card);
-            return false;
-        }
-        return true;
+    const deckResult = buildDeck({
+        allCardTypes: state.allCardTypes,
+        availableCards: state.availableCards,
+        dataStore: state.dataStore,
+        cardCounts,
+        specialCardCounts,
+        sentryCardCounts,
+        enableSentryRules: state.enableSentryRules,
+        enableCorrupterRules: state.enableCorrupterRules,
+        corrupterReplacementCount: CONFIG.deck.corrupter.defaultCount,
+        deckDataByType: state.deckDataByType,
+        shuffle: shuffleDeck
     });
 
-    // 2. Select Cards
-    let hasRegularCardSelection = false;
-    state.allCardTypes.forEach(type => {
-        if (state.dataStore.sentryTypes.includes(type) && state.enableSentryRules) return;
-        if (state.dataStore.corrupterTypes.includes(type) && state.enableCorrupterRules) return;
-
-        const count = cardCounts[type];
-        if (count > 0) {
-            hasRegularCardSelection = true;
-            const cardPool = isHeldBackType(type) ? state.setAsideCards : regularCardPool;
-            const selected = selectCardsByType(type, count, state.cards.selected, cardCounts, cardPool);
-            state.deck.main = state.deck.main.concat(selected);
-        }
-    });
-
-    // Corrupter cards
-    let hasSpecialCardSelection = false;
-    if (state.enableCorrupterRules) {
-        state.allCardTypes.forEach(type => {
-            if (state.dataStore.corrupterTypes.includes(type)) {
-                const count = specialCardCounts[type];
-                if (count > 0) {
-                    hasSpecialCardSelection = true;
-                    const selected = selectCardsByType(type, count, state.cards.selected, specialCardCounts, allAvailableCards);
-                    state.deck.special = state.deck.special.concat(selected);
-                }
-            }
-        });
-    }
-
-    // Sentry cards
-    if (state.enableSentryRules) {
-        state.allCardTypes.forEach(type => {
-            if (state.dataStore.sentryTypes.includes(type)) {
-                const count = sentryCardCounts[type];
-                if (count > 0) {
-                    const selected = selectCardsByType(type, count, state.cards.selected, sentryCardCounts, allAvailableCards);
-                    state.sentryDeck = state.sentryDeck.concat(selected);
-                }
-            }
-        });
-    }
-
-    if (!hasRegularCardSelection && !hasSpecialCardSelection && state.sentryDeck.length === 0) {
+    if (deckResult.error === DECK_RULE_ERRORS.emptySelection) {
         showToast('Please select at least one card type with a count greater than zero.');
         return;
     }
 
-    // Apply Corrupter replacement Rules
-    if (state.enableCorrupterRules && state.deck.main.length >= CONFIG.deck.corrupter.defaultCount) {
-        const replacementCount = CONFIG.deck.corrupter.defaultCount;
-        const replacementPool = state.deck.special.length > 0
-            ? state.deck.special
-            : getSpecialCards(replacementCount, state.dataStore.corrupterTypes);
-        const corrupterCards = shuffleDeck([...replacementPool]).slice(0, replacementCount);
-
-        if (corrupterCards.length > 0) {
-            // Since we shuffle at the end, we can validly just remove from the front
-            // instead of splicing from random indices repeatedly.
-            state.deck.main.splice(0, corrupterCards.length);
-            state.deck.main = state.deck.main.concat(corrupterCards);
-        }
-
-        state.deck.special = [];
-    }
-
-    // Final shuffle and combine
-    state.deck.main = shuffleDeck(state.deck.main);
-    state.currentDeck = state.deck.main.concat(state.deck.special);
+    state.deck.main = deckResult.mainDeck;
+    state.deck.special = deckResult.specialDeck;
+    state.currentDeck = deckResult.combinedDeck;
     state.deck.combined = state.currentDeck;
+    state.sentryDeck = deckResult.sentryDeck;
+    state.setAsideCards = deckResult.setAsideCards;
     state.initialDeckSize = state.currentDeck.length;
-    rebuildSelectedCardsMap();
+    rebuildSelectedCardsMap(state, [state.currentDeck, state.sentryDeck]);
 
     // UI Updates
     const activeDeckSection = document.getElementById('activeDeckSection');
@@ -155,82 +101,6 @@ export function generateDeck() {
     saveConfiguration();
 
     trackEvent('Deck', 'Generate', `Games: ${state.selectedGames.join(', ')}`, state.currentDeck.length);
-}
-
-/**
- * Core selection logic
- */
-function isHeldBackType(type) {
-    return state.dataStore.heldBackCardTypes.includes(type);
-}
-
-function isHeldBackCard(card) {
-    const typeInfo = parseCardTypes(card.type);
-    return typeInfo.allTypes.some(type => isHeldBackType(type));
-}
-
-function rebuildSelectedCardsMap() {
-    state.cards.selected.clear();
-    [
-        ...state.currentDeck,
-        ...state.sentryDeck
-    ].forEach(card => {
-        if (card && card.id !== undefined) {
-            state.cards.selected.set(card.id, true);
-        }
-    });
-}
-
-function selectCardsByType(cardType, count, selectedCardsMap, cardCounts, cardPool = state.availableCards) {
-    let selectedCards = [];
-    let cardsOfType = cardPool.filter(card => {
-        const typeInfo = parseCardTypes(card.type);
-        return typeInfo.allTypes.includes(cardType);
-    });
-
-    let shuffledCards = shuffleDeck([...cardsOfType]);
-
-    for (let card of shuffledCards) {
-        if (selectedCards.length >= count) break;
-        if (selectedCardsMap.has(card.id)) continue;
-
-        const typeInfo = parseCardTypes(card.type);
-        let canSelect = true;
-
-        typeInfo.andGroups.forEach(orOptions => {
-            let hasValidOption = orOptions.some(type => {
-                if (type === cardType) return true;
-                return cardCounts[type] && cardCounts[type] > 0;
-            });
-            if (!hasValidOption) canSelect = false;
-        });
-
-        if (canSelect) {
-            selectedCards.push(card);
-            selectedCardsMap.set(card.id, true);
-
-            typeInfo.andGroups.forEach(orOptions => {
-                for (let type of orOptions) {
-                    if (cardCounts[type] && cardCounts[type] > 0) {
-                        cardCounts[type]--;
-                        break;
-                    }
-                }
-            });
-        }
-    }
-    return selectedCards;
-}
-
-function getSpecialCards(count, specialTypes) {
-    let specialCards = [];
-    specialTypes.forEach(type => {
-        if (state.deckDataByType[type]) {
-            specialCards = specialCards.concat(state.deckDataByType[type]);
-        }
-    });
-    if (specialCards.length === 0) return [];
-    return shuffleDeck([...specialCards]).slice(0, count);
 }
 
 /**
@@ -308,39 +178,20 @@ export function updateProgressBar() {
 }
 
 export function advanceToNextCard() {
-    if (state.isActiveCardCleared) {
-        state.isActiveCardCleared = false;
-        showCurrentCard('forward');
-        return;
+    const result = advanceLiveDeck(state, { shuffle: shuffleDeck });
+    if (result.message) {
+        showToast(result.message);
     }
 
-    if (state.currentIndex >= 0 && state.currentIndex < state.currentDeck.length) {
-        state.discardPile.push(state.currentDeck[state.currentIndex]);
+    if (result.render) {
+        showCurrentCard(result.direction);
     }
-
-    state.currentIndex++;
-
-    if (state.currentIndex >= state.currentDeck.length) {
-        if (state.discardPile.length > 0) {
-            state.currentDeck = shuffleDeck(state.discardPile);
-            state.initialDeckSize = state.currentDeck.length;
-            state.discardPile = [];
-            state.currentIndex = -1;
-            showToast('Deck reshuffled from discard pile.');
-        } else {
-            showToast('No more cards in the deck.');
-            state.currentIndex--;
-            return;
-        }
-    }
-
-    showCurrentCard('forward');
 }
 
 export function clearActiveCardView() {
-    if (state.currentIndex < 0) return;
-    state.isActiveCardCleared = true;
-    showCurrentCard();
+    if (clearActiveCard(state)) {
+        showCurrentCard();
+    }
 }
 
 function preloadUpcomingCards(count = 2) {

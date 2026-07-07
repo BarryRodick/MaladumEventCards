@@ -554,225 +554,31 @@
     </div>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="module">
-        import * as storageUtils from './storage-utils.js';
+        import { initializeCampaignTracker } from './campaign-tracker.js';
         import { setupManualUpdateCheck, setupUpdateNotifications } from './update-utils.js';
 
         setupManualUpdateCheck();
         setupUpdateNotifications();
-        document.querySelectorAll('.checkbox').forEach(checkbox => {
-            checkbox.addEventListener('click', function () {
-                if (this.style.backgroundColor === 'black') {
-                    this.style.backgroundColor = '';
-                } else {
-                    this.style.backgroundColor = 'black';
+        initializeCampaignTracker({
+            storageKey: 'dungeonState',
+            checkboxGroupSelector: '.checkbox-group',
+            legacyCheckboxSelector: '.reward-item',
+            legacyCheckboxExcludeSelector: '.checkbox-group',
+            binaryTracks: [
+                { stateKey: 'delayTrack', selector: '.delay-checkbox', mode: 'style', activeColor: 'black' },
+                { stateKey: 'malagauntTrack', selector: '.malagaunt-checkbox', mode: 'style', activeColor: 'black' },
+                { stateKey: 'numberedCircles', selector: '.numbered-circle', mode: 'numbered', activeColor: 'black' }
+            ],
+            cycleClassControls: [
+                {
+                    selector: '.circle',
+                    excludeClass: 'numbered-circle',
+                    firstClass: 'blue-border',
+                    secondClass: 'red-border',
+                    emptyClass: 'empty'
                 }
-                saveState();
-            });
+            ]
         });
-
-        document.querySelectorAll('.circle').forEach(circle => {
-            circle.addEventListener('click', function () {
-                if (!this.classList.contains('numbered-circle')) {
-                    if (this.classList.contains('blue-border')) {
-                        this.classList.remove('blue-border');
-                        this.classList.add('red-border');
-                    } else if (this.classList.contains('red-border')) {
-                        this.classList.remove('red-border');
-                        this.classList.add('empty');
-                    } else {
-                        this.classList.remove('empty');
-                        this.classList.add('blue-border');
-                    }
-                    saveState();
-                }
-            });
-        });
-
-        document.querySelectorAll('.numbered-circle').forEach(circle => {
-            circle.addEventListener('click', function () {
-                if (this.style.backgroundColor === 'black') {
-                    this.style.backgroundColor = '';
-                    this.style.color = 'black';
-                } else {
-                    this.style.backgroundColor = 'black';
-                    this.style.color = 'white';
-                }
-                saveState();
-            });
-        });
-
-        document.querySelectorAll('.input-field').forEach(input => {
-            input.addEventListener('input', saveState);
-        });
-
-        document.querySelectorAll('.delay-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('click', function () {
-                if (this.style.backgroundColor === 'black') {
-                    this.style.backgroundColor = '';
-                } else {
-                    this.style.backgroundColor = 'black';
-                }
-                saveState();
-            });
-        });
-
-        const notesContent = document.getElementById('notesContent');
-        const notesTextarea = document.getElementById('notesTextarea');
-        const collapseIcon = document.querySelector('.collapse-icon');
-        const imageInput = document.getElementById('imageInput');
-        const imageGallery = document.getElementById('imageGallery');
-        const imageModal = document.getElementById("imageModal");
-        const modalImage = document.getElementById("modalImage");
-        imageModal.addEventListener("click", () => imageModal.classList.remove("show"));
-        let images = [];
-
-        imageInput.addEventListener('change', handleImageUpload);
-
-        function toggleNotes() {
-            notesContent.classList.toggle('visible');
-            collapseIcon.classList.toggle('rotated');
-            saveState();
-        }
-
-        document.querySelector('[data-toggle-notes]').addEventListener('click', toggleNotes);
-
-        document.querySelectorAll('.malagaunt-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('click', function () {
-                if (this.style.backgroundColor === 'black') {
-                    this.style.backgroundColor = '';
-                } else {
-                    this.style.backgroundColor = 'black';
-                }
-                saveState();
-            });
-        });
-
-        function handleImageUpload(event) {
-            Array.from(event.target.files).forEach(file => {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    images.push(e.target.result);
-                    renderGallery();
-                    saveState();
-                };
-                reader.readAsDataURL(file);
-            });
-            imageInput.value = '';
-        }
-
-        function openModal(src) {
-            modalImage.src = src;
-            imageModal.classList.add("show");
-        }
-
-        function renderGallery() {
-            imageGallery.innerHTML = '';
-            images.forEach((src, index) => {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'image-item';
-                const img = document.createElement('img');
-                img.src = src;
-                img.addEventListener('click', () => openModal(src));
-                const btn = document.createElement('button');
-                btn.textContent = 'Remove';
-                btn.addEventListener('click', () => {
-                    images.splice(index, 1);
-                    renderGallery();
-                    saveState();
-                });
-                wrapper.appendChild(img);
-                wrapper.appendChild(btn);
-                imageGallery.appendChild(wrapper);
-            });
-        }
-
-        function saveState() {
-            try {
-                const state = {
-                    checkboxGroups: Array.from(document.querySelectorAll('.checkbox-group')).map(group =>
-                        Array.from(group.querySelectorAll('.checkbox')).map(cb => cb.style.backgroundColor === 'black')
-                    ),
-                    checkboxes: Array.from(document.querySelectorAll('.checkbox')).map(cb => cb.style.backgroundColor === 'black'),
-                    delayTrack: Array.from(document.querySelectorAll('.delay-checkbox')).map(cb => cb.style.backgroundColor === 'black'),
-                    malagauntTrack: Array.from(document.querySelectorAll('.malagaunt-checkbox')).map(cb => cb.style.backgroundColor === 'black'),
-                    numberedCircles: Array.from(document.querySelectorAll('.numbered-circle')).map(circle => circle.style.backgroundColor === 'black'),
-                    inputs: Array.from(document.querySelectorAll('.input-field')).map(input => input.value),
-                    notes: notesTextarea.value,
-                    notesVisible: notesContent.classList.contains('visible'),
-                    images
-                };
-                storageUtils.saveState('dungeonState', state);
-            } catch (e) {
-                console.warn('Error saving state:', e);
-            }
-        }
-
-        function loadState() {
-            try {
-                const state = storageUtils.loadState('dungeonState');
-                if (state) {
-
-                    // Load checkbox groups
-                    document.querySelectorAll('.checkbox-group').forEach((group, groupIndex) => {
-                        group.querySelectorAll('.checkbox').forEach((cb, cbIndex) => {
-                            cb.style.backgroundColor = state.checkboxGroups?.[groupIndex]?.[cbIndex] ? 'black' : '';
-                        });
-                    });
-
-                    // Load all campaign checkboxes. Older saves only covered rewards, so only
-                    // apply the flat list when it matches the current page shape.
-                    if (state.checkboxes?.length === document.querySelectorAll('.checkbox').length) {
-                        document.querySelectorAll('.checkbox').forEach((cb, i) => {
-                            cb.style.backgroundColor = state.checkboxes[i] ? 'black' : '';
-                        });
-                    } else {
-                        const legacyRewardCheckboxes = Array.from(document.querySelectorAll('.reward-item'))
-                            .filter(item => !item.querySelector('.checkbox-group'))
-                            .map(item => item.querySelector('.checkbox'))
-                            .filter(Boolean);
-                        legacyRewardCheckboxes.forEach((cb, i) => {
-                            cb.style.backgroundColor = state.checkboxes?.[i] ? 'black' : '';
-                        });
-                    }
-
-                    document.querySelectorAll('.delay-checkbox').forEach((cb, i) => {
-                        cb.style.backgroundColor = state.delayTrack[i] ? 'black' : '';
-                    });
-
-                    document.querySelectorAll('.numbered-circle').forEach((circle, i) => {
-                        if (state.numberedCircles[i]) {
-                            circle.style.backgroundColor = 'black';
-                            circle.style.color = 'white';
-                        } else {
-                            circle.style.backgroundColor = '';
-                            circle.style.color = 'black';
-                        }
-                    });
-
-                    document.querySelectorAll('.input-field').forEach((input, i) => {
-                        input.value = state.inputs[i] || '';
-                    });
-
-                    if (state.notes) {
-                        notesTextarea.value = state.notes;
-                    }
-
-                    if (state.notesVisible) {
-                        notesContent.classList.add('visible');
-                        collapseIcon.classList.add('rotated');
-                    }
-
-                    document.querySelectorAll('.malagaunt-checkbox').forEach((cb, i) => {
-                        cb.style.backgroundColor = state.malagauntTrack[i] ? 'black' : '';
-                    });
-
-                    images = state.images || [];
-                    renderGallery();
-                }
-            } catch (e) {
-                console.warn('Error loading state:', e);
-            }
-        }
 
         const resetButton = document.createElement('button');
         resetButton.textContent = 'Reset Campaign';
@@ -784,12 +590,6 @@
             }
         });
         document.body.appendChild(resetButton);
-
-        if (storageUtils.isStorageAvailable()) {
-            loadState();
-        }
-
-        notesTextarea.addEventListener('input', saveState);
     </script>
 </body>
 

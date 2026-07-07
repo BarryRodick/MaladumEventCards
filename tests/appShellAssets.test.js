@@ -101,9 +101,13 @@ manifest.icons.forEach(icon => {
 const serviceWorker = fs.readFileSync(path.join(repoRoot, 'service-worker.js'), 'utf8');
 const updateVersionScript = fs.readFileSync(path.join(repoRoot, 'scripts', 'update-version.js'), 'utf8');
 [
+    './app-snapshot.js',
+    './campaign-tracker.js',
     './vendor/bootstrap/css/bootstrap.min.css',
     './vendor/bootstrap/js/bootstrap.bundle.min.js',
     './deck-flow-utils.js',
+    './deck-rules.js',
+    './live-deck.js',
     './vendor/fontawesome/css/all.min.css',
     './vendor/fonts/cinzel-latin-400-normal.woff2',
     './icons/icon-192x192.png',
@@ -114,5 +118,13 @@ const updateVersionScript = fs.readFileSync(path.join(repoRoot, 'scripts', 'upda
 
 assert(updateVersionScript.includes("'./deck-flow-utils.js'"),
     'Build asset manifest should include deck-flow-utils.js for future service-worker syncs');
+assert(updateVersionScript.includes("'./deck-rules.js'"),
+    'Build asset manifest should include deck-rules.js for future service-worker syncs');
+assert(updateVersionScript.includes("'./live-deck.js'"),
+    'Build asset manifest should include live-deck.js for future service-worker syncs');
+assert(updateVersionScript.includes("'./app-snapshot.js'"),
+    'Build asset manifest should include app-snapshot.js for future service-worker syncs');
+assert(updateVersionScript.includes("'./campaign-tracker.js'"),
+    'Build asset manifest should include campaign-tracker.js for future service-worker syncs');
 
 console.log('All app shell asset checks passed!');
