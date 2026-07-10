@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="360" height="18" viewBox="0 0 360 18" role="img" aria-label="">
-  <defs>
-    <linearGradient id="line" x1="0" x2="1">
-      <stop offset="0" stop-color="#6e4d1f" stop-opacity="0"/>
-      <stop offset="0.16" stop-color="#8f6a2c" stop-opacity="0.62"/>
-      <stop offset="0.5" stop-color="#d9b25d" stop-opacity="0.92"/>
-      <stop offset="0.84" stop-color="#8f6a2c" stop-opacity="0.62"/>
-      <stop offset="1" stop-color="#6e4d1f" stop-opacity="0"/>
-    </linearGradient>
-    <radialGradient id="jewel" cx="50%" cy="50%" r="68%">
-      <stop offset="0" stop-color="#f2d281"/>
-      <stop offset="0.48" stop-color="#b38637"/>
-      <stop offset="1" stop-color="#6b1111"/>
-    </radialGradient>
-  </defs>
-  <path d="M12 9h128" stroke="url(#line)" stroke-width="1.4" stroke-linecap="round"/>
-  <path d="M220 9h128" stroke="url(#line)" stroke-width="1.4" stroke-linecap="round"/>
-  <path d="M180 2l10 7-10 7-10-7z" fill="url(#jewel)" stroke="#f4d484" stroke-opacity="0.58" stroke-width="0.8"/>
-  <circle cx="158" cy="9" r="2.4" fill="#b38637" opacity="0.72"/>
-  <circle cx="202" cy="9" r="2.4" fill="#b38637" opacity="0.72"/>
+    <defs>
+        <linearGradient id="line" x1="0" x2="1">
+            <stop offset="0" stop-color="#6e4d1f" stop-opacity="0"/>
+            <stop offset="0.16" stop-color="#8f6a2c" stop-opacity="0.62"/>
+            <stop offset="0.5" stop-color="#d9b25d" stop-opacity="0.92"/>
+            <stop offset="0.84" stop-color="#8f6a2c" stop-opacity="0.62"/>
+            <stop offset="1" stop-color="#6e4d1f" stop-opacity="0"/>
+        </linearGradient>
+        <radialGradient id="jewel" cx="50%" cy="50%" r="68%">
+            <stop offset="0" stop-color="#f2d281"/>
+            <stop offset="0.48" stop-color="#b38637"/>
+            <stop offset="1" stop-color="#6b1111"/>
+        </radialGradient>
+    </defs>
+    <path d="M12 9h128" stroke="url(#line)" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M220 9h128" stroke="url(#line)" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M180 2l10 7-10 7-10-7z" fill="url(#jewel)" stroke="#f4d484" stroke-opacity="0.58" stroke-width="0.8"/>
+    <circle cx="158" cy="9" r="2.4" fill="#b38637" opacity="0.72"/>
+    <circle cx="202" cy="9" r="2.4" fill="#b38637" opacity="0.72"/>
 </svg>

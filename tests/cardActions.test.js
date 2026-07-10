@@ -3,78 +3,58 @@
  * Run with: node tests/cardActions.test.js
  */
 const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
-
-function loadLiveDeck(overrides = {}) {
-    const file = path.join(__dirname, '..', 'live-deck.js');
-    let code = fs.readFileSync(file, 'utf8');
-    code = code.replace(/import .*?\r?\n/g, '');
-    code = code.replace(/export const /g, 'const ');
-    code = code.replace(/export function /g, 'function ');
-
-    const factory = new Function(
-        'parseCardTypes',
-        'shuffleDeck',
-        `${code}; return { insertSpecificCardById, liveDeckActions, markCardInPlay, removeCardFromPlay, shuffleCardIntoTopN };`
-    );
-
-    return factory(
-        overrides.parseCardTypes || ((typeString = '') => {
-            const andGroups = typeString.split('+').map(group =>
-                group.trim().split('/').map(option => option.trim())
-            );
-            return { andGroups, allTypes: [...new Set(andGroups.flat())] };
-        }),
-        overrides.shuffleDeck || ((deck) => deck)
-    );
-}
+const { loadSourceModule } = require('./helpers/load-source-module');
 
 function loadCardActions(state, overrides = {}) {
-    const file = path.join(__dirname, '..', 'card-actions.js');
-    let code = fs.readFileSync(file, 'utf8');
-    code = code.replace(/import[\s\S]*?from ['"].*?['"];\r?\n/g, '');
-    code = code.replace(/export const cardActions\s*=\s*/, 'const cardActions = ');
-    code = code.replace(/export function /g, 'function ');
+    const parseCardTypes = overrides.parseCardTypes || ((typeString = '') => {
+        const andGroups = typeString.split('+').map(group =>
+            group.trim().split('/').map(option => option.trim())
+        );
+        return { andGroups, allTypes: [...new Set(andGroups.flat())] };
+    });
+    const shuffleDeck = overrides.shuffleDeck || ((deck) => deck);
+    const liveDeck = loadSourceModule('live-deck.js', {
+        dependencies: { parseCardTypes, shuffleDeck },
+        exports: [
+            'insertSpecificCardById',
+            'liveDeckActions',
+            'markCardInPlay',
+            'removeCardFromPlay',
+            'shuffleCardIntoTopN'
+        ]
+    });
 
-    const liveDeck = loadLiveDeck(overrides);
-    const showToast = overrides.showToast || (() => { });
-    const trackEvent = overrides.trackEvent || (() => { });
-    const saveConfiguration = overrides.saveConfiguration || (() => { });
-    const showCurrentCard = overrides.showCurrentCard || (() => { });
-    const updateProgressBar = overrides.updateProgressBar || (() => { });
-
-    const factory = new Function(
-        'state',
-        'showToast',
-        'trackEvent',
-        'saveConfiguration',
-        'showCurrentCard',
-        'updateProgressBar',
-        'insertSpecificCardIntoLiveDeck',
-        'liveDeckActions',
-        'markCardInPlay',
-        'removeLiveCardFromPlay',
-        'shuffleLiveCardIntoTopN',
-        `${code}; return { cardActions, updateInPlayCardsDisplay, shuffleCardIntoTopN, insertSpecificCardById };`
-    );
-
-    return factory(
-        state,
-        showToast,
-        trackEvent,
-        saveConfiguration,
-        showCurrentCard,
-        updateProgressBar,
-        liveDeck.insertSpecificCardById,
-        liveDeck.liveDeckActions,
-        liveDeck.markCardInPlay,
-        liveDeck.removeCardFromPlay,
-        liveDeck.shuffleCardIntoTopN
-    );
+    return loadSourceModule('card-actions.js', {
+        dependencies: {
+            state,
+            showToast: overrides.showToast || (() => { }),
+            trackEvent: overrides.trackEvent || (() => { }),
+            saveConfiguration: overrides.saveConfiguration || (() => { }),
+            showCurrentCard: overrides.showCurrentCard || (() => { }),
+            updateProgressBar: overrides.updateProgressBar || (() => { }),
+            insertSpecificCardIntoLiveDeck: overrides.insertSpecificCardIntoLiveDeck || liveDeck.insertSpecificCardById,
+            liveDeckActions: overrides.liveDeckActions || liveDeck.liveDeckActions,
+            markCardInPlay: overrides.markCardInPlay || liveDeck.markCardInPlay,
+            removeLiveCardFromPlay: overrides.removeLiveCardFromPlay || liveDeck.removeCardFromPlay,
+            shuffleLiveCardIntoTopN: overrides.shuffleLiveCardIntoTopN || liveDeck.shuffleCardIntoTopN
+        },
+        exports: [
+            'markCardAsInPlay',
+            'updateInPlayCardsDisplay',
+            'shuffleCardIntoTopN',
+            'insertSpecificCardById',
+            'triggerCardAction'
+        ]
+    });
 }
 
 console.log('Testing card actions...');
+
+assert.throws(
+    () => loadSourceModule('card-actions.js', { exports: ['cardActions'] }),
+    error => error.message.includes('Requested export was not found: cardActions'),
+    'card-actions should not expose a second domain action registry'
+);
 
 // ============================
 // Test: in-play cards render readable controls and preview triggers
@@ -213,201 +193,184 @@ console.log('Testing card actions...');
     }
 }
 
-// ============================
-// Test: shuffleTopN bounds
-// ============================
-{
-    const state = {
-        currentDeck: [
-            { id: 1, card: 'A' },
-            { id: 2, card: 'B' },
-            { id: 3, card: 'C' },
-            { id: 4, card: 'D' },
-            { id: 5, card: 'E' }
-        ],
-        currentIndex: 1,
-        cards: { selected: new Map() }
-    };
-    const { cardActions } = loadCardActions(state);
-
-    const originalRandom = Math.random;
-    Math.random = () => 0.999;
-
-    const active = state.currentDeck[state.currentIndex];
-    const result = cardActions.shuffleTopN(active, 2);
-    const newIndex = state.currentDeck.findIndex(c => c.id === active.id);
-
-    Math.random = originalRandom;
-
-    assert.strictEqual(result.includes('next 2 cards'), true, 'shuffleTopN should report the correct N');
-    assert(newIndex >= state.currentIndex && newIndex <= state.currentIndex + 1,
-        'shuffleTopN should insert within the next N cards');
-}
-
-// ============================
-// Test: shuffleTopN no remaining
-// ============================
-{
-    const state = {
-        currentDeck: [{ id: 1, card: 'A' }],
-        currentIndex: 0,
-        cards: { selected: new Map() }
-    };
-    const { cardActions } = loadCardActions(state);
-    const result = cardActions.shuffleTopN(state.currentDeck[0], 3);
-    assert.strictEqual(result, 'No remaining cards to shuffle into.');
-    assert.strictEqual(state.currentDeck.length, 1);
-}
-
-// ============================
-// Test: shuffleCardIntoTopN does not remove existing card on exhausted deck
-// ============================
 {
     const toasts = [];
-    const state = {
-        currentDeck: [
-            { id: 1, card: 'A' },
-            { id: 2, card: 'B' }
-        ],
-        currentIndex: 1,
-        availableCards: [
-            { id: 1, card: 'A' },
-            { id: 2, card: 'B' }
-        ],
-        cards: { selected: new Map([[1, true], [2, true]]) }
-    };
-    const { shuffleCardIntoTopN } = loadCardActions(state, {
-        showToast: (message) => toasts.push(message)
+    let progressCalls = 0;
+    let saveCalls = 0;
+    let renderCalls = 0;
+    let telemetryCalls = 0;
+    const { shuffleCardIntoTopN } = loadCardActions({}, {
+        shuffleLiveCardIntoTopN: () => ({
+            ok: false,
+            message: 'No remaining cards to shuffle into.'
+        }),
+        showToast: message => toasts.push(message),
+        updateProgressBar: () => { progressCalls++; },
+        saveConfiguration: () => { saveCalls++; },
+        showCurrentCard: () => { renderCalls++; },
+        trackEvent: () => { telemetryCalls++; }
     });
 
     shuffleCardIntoTopN(1, 3);
 
-    assert.deepStrictEqual(state.currentDeck.map(card => card.id), [1, 2],
-        'shuffleCardIntoTopN should leave the deck unchanged when there are no remaining cards');
-    assert.strictEqual(state.currentIndex, 1,
-        'shuffleCardIntoTopN should preserve the active index when no shuffle occurs');
     assert.deepStrictEqual(toasts, ['No remaining cards to shuffle into.']);
+    assert.strictEqual(progressCalls, 0);
+    assert.strictEqual(saveCalls, 0);
+    assert.strictEqual(renderCalls, 0);
+    assert.strictEqual(telemetryCalls, 0);
 }
 
-// ============================
-// Test: shuffleAnywhere at start
-// ============================
 {
-    const state = {
-        currentDeck: [
-            { id: 1, card: 'A' },
-            { id: 2, card: 'B' },
-            { id: 3, card: 'C' }
-        ],
-        currentIndex: 0,
-        cards: { selected: new Map() }
-    };
-    const { cardActions } = loadCardActions(state);
-    const originalRandom = Math.random;
-    Math.random = () => 0;
-    cardActions.shuffleAnywhere(state.currentDeck[0]);
-    Math.random = originalRandom;
-    assert.strictEqual(state.currentIndex, -1, 'shuffleAnywhere should reveal card back at index 0');
-}
-
-// ============================
-// Test: insertCardType uniqueness
-// ============================
-{
-    const state = {
-        currentDeck: [{ id: 1, card: 'A' }],
-        currentIndex: 0,
-        deckDataByType: {
-            Denizen: [
-                { id: 1, card: 'A' },
-                { id: 2, card: 'B' }
-            ]
+    const commandCalls = [];
+    const toasts = [];
+    const telemetry = [];
+    let progressCalls = 0;
+    let saveCalls = 0;
+    let renderCalls = 0;
+    const state = {};
+    const { insertSpecificCardById } = loadCardActions(state, {
+        insertSpecificCardIntoLiveDeck: (...args) => {
+            commandCalls.push(args);
+            return {
+                ok: true,
+                card: { id: 3, card: 'C' },
+                message: 'Inserted "C" into the deck (bottom).'
+            };
         },
-        cards: { selected: new Map([[1, true]]) }
-    };
-    const { cardActions } = loadCardActions(state);
-
-    const duplicateResult = cardActions.insertCardType(state.currentDeck[0], {
-        cardType: 'Denizen',
-        specificCardId: 1,
-        position: 'bottom'
+        showToast: message => toasts.push(message),
+        updateProgressBar: () => { progressCalls++; },
+        saveConfiguration: () => { saveCalls++; },
+        showCurrentCard: () => { renderCalls++; },
+        trackEvent: (...args) => telemetry.push(args)
     });
-    assert.strictEqual(duplicateResult, 'Card "A" is already in the deck.');
-    assert.strictEqual(state.currentDeck.length, 1);
 
-    const insertResult = cardActions.insertCardType(state.currentDeck[0], {
-        cardType: 'Denizen',
-        specificCardId: 2,
-        position: 'bottom'
-    });
-    assert.strictEqual(insertResult.includes('Inserted "B"'), true);
-    assert.strictEqual(state.currentDeck.length, 2);
-    assert.strictEqual(state.cards.selected.has(2), true);
+    insertSpecificCardById(3, 'bottom');
+
+    assert.deepStrictEqual(commandCalls, [[state, 3, 'bottom']]);
+    assert.deepStrictEqual(toasts, ['Inserted "C" into the deck (bottom).']);
+    assert.strictEqual(progressCalls, 1);
+    assert.strictEqual(saveCalls, 1);
+    assert.strictEqual(renderCalls, 1);
+    assert.deepStrictEqual(telemetry, [['Card Action', 'insertSpecificCard:bottom', 'C']]);
 }
 
-// ============================
-// Test: insertSpecificCardById routes to next/bottom positions
-// ============================
 {
     const toasts = [];
-    const state = {
-        currentDeck: [
-            { id: 1, card: 'A' },
-            { id: 2, card: 'B' }
-        ],
-        currentIndex: 0,
-        availableCards: [
-            { id: 1, card: 'A' },
-            { id: 2, card: 'B' },
-            { id: 3, card: 'C' },
-            { id: 4, card: 'D' }
-        ],
-        cards: { selected: new Map([[1, true], [2, true]]) }
-    };
-    const { insertSpecificCardById } = loadCardActions(state, {
-        showToast: (message) => toasts.push(message)
+    let actionCalls = 0;
+    let sideEffectCalls = 0;
+    const { triggerCardAction } = loadCardActions({
+        currentDeck: [],
+        currentIndex: -1
+    }, {
+        liveDeckActions: {
+            shuffleAnywhere() { actionCalls++; }
+        },
+        showToast: message => toasts.push(message),
+        updateProgressBar: () => { sideEffectCalls++; },
+        saveConfiguration: () => { sideEffectCalls++; },
+        showCurrentCard: () => { sideEffectCalls++; },
+        trackEvent: () => { sideEffectCalls++; }
     });
 
-    insertSpecificCardById(3, 'next');
-    insertSpecificCardById(4, 'bottom');
+    triggerCardAction('shuffleAnywhere');
 
-    assert.deepStrictEqual(state.currentDeck.map(card => card.id), [1, 3, 2, 4]);
-    assert.strictEqual(state.cards.selected.has(3), true);
-    assert.strictEqual(state.cards.selected.has(4), true);
-    assert.deepStrictEqual(toasts, [
-        'Inserted "C" into the deck (next).',
-        'Inserted "D" into the deck (bottom).'
-    ]);
+    assert.deepStrictEqual(toasts, ['No active card to perform action on.']);
+    assert.strictEqual(actionCalls, 0);
+    assert.strictEqual(sideEffectCalls, 0);
 }
 
-// ============================
-// Test: shuffleCardIntoTopN removes moved cards from discard pile
-// ============================
 {
-    const state = {
-        currentDeck: [
-            { id: 1, card: 'A' },
-            { id: 2, card: 'B' }
-        ],
-        currentIndex: 0,
-        discardPile: [
-            { id: 3, card: 'C' }
-        ],
-        availableCards: [
-            { id: 1, card: 'A' },
-            { id: 2, card: 'B' },
-            { id: 3, card: 'C' }
-        ],
-        cards: { selected: new Map([[1, true], [2, true], [3, true]]) }
+    const activeCard = { id: 1, card: 'A' };
+    const errors = [];
+    let sideEffectCalls = 0;
+    const originalConsoleError = console.error;
+    const { triggerCardAction } = loadCardActions({
+        currentDeck: [activeCard],
+        currentIndex: 0
+    }, {
+        liveDeckActions: {},
+        showToast: () => { sideEffectCalls++; },
+        updateProgressBar: () => { sideEffectCalls++; },
+        saveConfiguration: () => { sideEffectCalls++; },
+        showCurrentCard: () => { sideEffectCalls++; },
+        trackEvent: () => { sideEffectCalls++; }
+    });
+
+    try {
+        console.error = message => errors.push(message);
+        triggerCardAction('unknownAction');
+    } finally {
+        console.error = originalConsoleError;
+    }
+
+    assert.deepStrictEqual(errors, ['Action unknownAction not found']);
+    assert.strictEqual(sideEffectCalls, 0);
+}
+
+{
+    const previousDocument = global.document;
+    const activeCard = { id: 1, card: 'A' };
+    const actionCalls = [];
+    const toasts = [];
+    const renderDirections = [];
+    const telemetry = [];
+    let progressCalls = 0;
+    let saveCalls = 0;
+    const inPlayContainer = {
+        innerHTML: '',
+        querySelectorAll() { return []; }
     };
-    const { shuffleCardIntoTopN } = loadCardActions(state);
+    const inPlaySection = { style: {} };
+    const clearInPlayButton = {};
 
-    shuffleCardIntoTopN(3, 1);
+    global.document = {
+        getElementById(id) {
+            if (id === 'inPlayCards') return inPlayContainer;
+            if (id === 'inPlaySection') return inPlaySection;
+            if (id === 'clearInPlayCards') return clearInPlayButton;
+            return null;
+        }
+    };
 
-    assert.deepStrictEqual(state.currentDeck.map(card => card.id), [1, 3, 2],
-        'shuffleCardIntoTopN should move the discarded card into the active deck');
-    assert.deepStrictEqual(state.discardPile, [],
-        'shuffleCardIntoTopN should remove moved cards from the discard pile');
+    try {
+        const state = {
+            currentDeck: [activeCard],
+            currentIndex: 0,
+            inPlayCards: []
+        };
+        const { triggerCardAction } = loadCardActions(state, {
+            liveDeckActions: {
+                shuffleAnywhere(...args) {
+                    actionCalls.push(args);
+                    return {
+                        message: 'Action complete.',
+                        render: true,
+                        direction: 'backward',
+                        progress: true
+                    };
+                }
+            },
+            showToast: message => toasts.push(message),
+            showCurrentCard: direction => renderDirections.push(direction),
+            updateProgressBar: () => { progressCalls++; },
+            saveConfiguration: () => { saveCalls++; },
+            trackEvent: (...args) => telemetry.push(args)
+        });
+
+        triggerCardAction('shuffleAnywhere', 7);
+
+        assert.deepStrictEqual(actionCalls, [[state, activeCard, 7]]);
+        assert.deepStrictEqual(renderDirections, ['backward']);
+        assert.strictEqual(progressCalls, 2,
+            'The domain progress flag and in-play refresh should both update progress');
+        assert.deepStrictEqual(toasts, ['Action complete.']);
+        assert.strictEqual(inPlaySection.style.display, 'block');
+        assert(inPlayContainer.innerHTML.includes('No cards in play.'));
+        assert.strictEqual(saveCalls, 1);
+        assert.deepStrictEqual(telemetry, [['Card Action', 'shuffleAnywhere', 'A']]);
+    } finally {
+        global.document = previousDocument;
+    }
 }
 
 console.log('All card action tests passed!');

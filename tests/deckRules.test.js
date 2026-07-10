@@ -3,31 +3,21 @@
  * Run with: node tests/deckRules.test.js
  */
 const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+const { loadSourceModule } = require('./helpers/load-source-module');
 
 function loadDeckRules(overrides = {}) {
-    const file = path.join(__dirname, '..', 'deck-rules.js');
-    let code = fs.readFileSync(file, 'utf8');
-    code = code.replace(/import .*?\r?\n/g, '');
-    code = code.replace(/export const /g, 'const ');
-    code = code.replace(/export function /g, 'function ');
-
-    const factory = new Function(
-        'parseCardTypes',
-        'shuffleDeck',
-        `${code}; return { buildDeck, DECK_RULE_ERRORS };`
-    );
-
-    return factory(
-        overrides.parseCardTypes || ((typeString) => {
-            const andGroups = typeString.split('+').map(group =>
-                group.trim().split('/').map(option => option.trim())
-            );
-            return { andGroups, allTypes: [...new Set(andGroups.flat())] };
-        }),
-        overrides.shuffleDeck || ((deck) => deck)
-    );
+    return loadSourceModule('deck-rules.js', {
+        dependencies: {
+            parseCardTypes: overrides.parseCardTypes || ((typeString) => {
+                const andGroups = typeString.split('+').map(group =>
+                    group.trim().split('/').map(option => option.trim())
+                );
+                return { andGroups, allTypes: [...new Set(andGroups.flat())] };
+            }),
+            shuffleDeck: overrides.shuffleDeck || ((deck) => deck)
+        },
+        exports: ['buildDeck', 'DECK_RULE_ERRORS']
+    });
 }
 
 console.log('Testing deck rules...');

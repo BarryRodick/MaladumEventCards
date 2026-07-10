@@ -5,13 +5,17 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const { loadSourceModule } = require('./helpers/load-source-module');
 
 function loadHydrateDeckState() {
-    const file = path.join(__dirname, '..', 'app-snapshot.js');
-    let code = fs.readFileSync(file, 'utf8');
-    code = code.replace(/export function /g, 'function ');
+    const { rebuildSelectedCardsMap } = loadSourceModule('live-deck.js', {
+        exports: ['rebuildSelectedCardsMap']
+    });
 
-    return new Function(`${code}; return hydrateDeckState;`)();
+    return loadSourceModule('app-snapshot.js', {
+        dependencies: { rebuildSelectedCardsMap },
+        exports: ['hydrateDeckState']
+    }).hydrateDeckState;
 }
 
 function loadRestoreDeckState(state, document, hooks = {}) {

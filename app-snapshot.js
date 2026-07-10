@@ -1,3 +1,5 @@
+import { rebuildSelectedCardsMap } from './live-deck.js';
+
 export function captureConfigurationSnapshot(appState, {
     cardCounts = {},
     specialCardCounts = {}
@@ -50,28 +52,9 @@ export function hydrateDeckState(appState, deckState = {}) {
     appState.deck.special = deckState.specialDeck || [];
     appState.deck.combined = deckState.combinedDeck || appState.currentDeck;
 
-    rebuildHydratedSelectedMap(appState);
+    rebuildSelectedCardsMap(appState);
 
     return {
         hasActiveDeck: appState.currentDeck.length > 0
     };
-}
-
-function rebuildHydratedSelectedMap(appState) {
-    if (!appState.cards || !(appState.cards.selected instanceof Map)) {
-        appState.cards = { selected: new Map() };
-    } else {
-        appState.cards.selected.clear();
-    }
-
-    [
-        ...appState.currentDeck,
-        ...appState.discardPile,
-        ...appState.sentryDeck,
-        ...appState.inPlayCards
-    ].forEach(card => {
-        if (card && card.id !== undefined) {
-            appState.cards.selected.set(card.id, true);
-        }
-    });
 }
