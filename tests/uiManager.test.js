@@ -3,8 +3,7 @@
  * Run with: node tests/uiManager.test.js
  */
 const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+const { loadSourceModule } = require('./helpers/load-source-module');
 
 function makeClassList(initialClasses = []) {
     const classes = new Set(initialClasses);
@@ -38,48 +37,34 @@ function makeClassList(initialClasses = []) {
 }
 
 function loadUiHelpers(document, window = {}, stateOverrides = {}) {
-    const file = path.join(__dirname, '..', 'ui-manager.js');
-    let code = fs.readFileSync(file, 'utf8');
-    code = code.replace(/import .*?\r?\n/g, '');
-    code = code.replace(/export function /g, 'function ');
-
-    return new Function(
-        'state',
-        'slugify',
-        'cardTypeId',
-        'parseCardTypes',
-        'debounce',
-        'saveConfiguration',
-        'deriveDeckMode',
-        'formatDeckSummary',
-        'document',
-        'window',
-        `${code}; return { setActionPanelOpen, toggleActionPanel, showCardPreview, renderDeckSummary };`
-    )(
-        {
-            currentDeck: [],
-            allCardTypes: [],
-            dataStore: { sentryTypes: [], corrupterTypes: [] },
-            cardCounts: {},
-            specialCardCounts: {},
-            availableCards: [],
-            inPlayCards: [],
-            discardPile: [],
-            selectedGames: [],
-            difficultySettings: [],
-            selectedDifficultyIndex: 0,
-            ...stateOverrides
+    return loadSourceModule('ui-manager.js', {
+        dependencies: {
+            state: {
+                currentDeck: [],
+                allCardTypes: [],
+                dataStore: { sentryTypes: [], corrupterTypes: [] },
+                cardCounts: {},
+                specialCardCounts: {},
+                availableCards: [],
+                inPlayCards: [],
+                discardPile: [],
+                selectedGames: [],
+                difficultySettings: [],
+                selectedDifficultyIndex: 0,
+                ...stateOverrides
+            },
+            slugify: text => text,
+            cardTypeId: type => type,
+            parseCardTypes: () => ({ allTypes: [] }),
+            debounce: fn => fn,
+            saveConfiguration: () => { },
+            deriveDeckMode: () => 'build',
+            formatDeckSummary: () => ({}),
+            document,
+            window
         },
-        (text) => text,
-        (type) => type,
-        () => ({ allTypes: [] }),
-        (fn) => fn,
-        () => { },
-        () => 'build',
-        () => ({}),
-        document,
-        window
-    );
+        exports: ['setActionPanelOpen', 'toggleActionPanel', 'showCardPreview', 'renderDeckSummary']
+    });
 }
 
 function escapeHtml(value) {

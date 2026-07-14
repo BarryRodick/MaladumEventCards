@@ -111,17 +111,6 @@ function removeCardFromPlay(cardId) {
     saveConfiguration();
 }
 
-/**
- * Handles the application of selected card actions
- */
-export const cardActions = {
-    shuffleAnywhere: (card) => applyLiveDeckAction('shuffleAnywhere', card),
-    shuffleTopN: (card, n) => applyLiveDeckAction('shuffleTopN', card, n),
-    replaceSameType: (card) => applyLiveDeckAction('replaceSameType', card),
-    introduceSentry: (card) => applyLiveDeckAction('introduceSentry', card),
-    insertCardType: (activeCard, params) => applyLiveDeckAction('insertCardType', activeCard, params)
-};
-
 function applyLiveDeckAction(actionName, activeCard, params) {
     const result = liveDeckActions[actionName](state, activeCard, params);
     if (result.render) {
@@ -170,15 +159,12 @@ export function triggerCardAction(actionName, param = null) {
 
     const activeCard = state.currentDeck[state.currentIndex];
 
-    // Check if function exists
-    if (!cardActions[actionName]) {
+    if (typeof liveDeckActions[actionName] !== 'function') {
         console.error(`Action ${actionName} not found`);
         return;
     }
 
-    // Call action
-    // Note: ensure 'introduceSentry' handles its own parameter ignoring if needed
-    const result = cardActions[actionName](activeCard, param);
+    const result = applyLiveDeckAction(actionName, activeCard, param);
 
     if (result) {
         showToast(result);

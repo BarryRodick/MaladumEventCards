@@ -439,10 +439,16 @@ export function renderDeckSummary() {
     if (summaryModeLabel) summaryModeLabel.textContent = state.uiMode === 'play' ? 'You are in Play' : 'Build preview';
     if (summaryTitle) summaryTitle.textContent = summary.statusText;
     if (summaryGames) summaryGames.textContent = summary.gamesText;
-    if (summaryDifficulty) summaryDifficulty.textContent = `Difficulty: ${summary.difficultyText}`;
-    if (summaryRemaining) summaryRemaining.textContent = `Remaining: ${summary.remainingCount}`;
-    if (summaryDiscard) summaryDiscard.textContent = `Discard: ${summary.discardCount}`;
-    if (summaryInPlay) summaryInPlay.textContent = `In Play: ${summary.inPlayCount}`;
+    const compactDifficulty = summary.difficultyText.replace(/\s*\([^)]*\)\s*$/, '');
+    setSummaryChipValue(summaryDifficulty, compactDifficulty);
+    setSummaryChipValue(summaryRemaining, summary.remainingCount);
+    setSummaryChipValue(summaryDiscard, summary.discardCount);
+    setSummaryChipValue(summaryInPlay, summary.inPlayCount);
+
+    summaryDifficulty?.setAttribute('aria-label', `Difficulty: ${summary.difficultyText}`);
+    summaryRemaining?.setAttribute('aria-label', `Remaining cards: ${summary.remainingCount}`);
+    summaryDiscard?.setAttribute('aria-label', `Discarded cards: ${summary.discardCount}`);
+    summaryInPlay?.setAttribute('aria-label', `Cards in play: ${summary.inPlayCount}`);
 
     if (summarySentry) {
         summarySentry.hidden = !summary.showSentryBadge;
@@ -451,6 +457,16 @@ export function renderDeckSummary() {
     if (summaryCorrupter) {
         summaryCorrupter.hidden = !summary.showCorrupterBadge;
     }
+}
+
+function setSummaryChipValue(chip, value) {
+    if (!chip) return;
+    const valueElement = chip.querySelector?.('.summary-chip-value');
+    if (valueElement) {
+        valueElement.textContent = String(value);
+        return;
+    }
+    chip.textContent = String(value);
 }
 
 export function showCardPreview({ id, name, image, type }) {
@@ -649,6 +665,12 @@ export function setActionPanelOpen(isOpen) {
     if (trigger) {
         trigger.classList.toggle('collapsed', !isOpen);
         trigger.setAttribute('aria-expanded', String(!!isOpen));
+    }
+
+    const utilityTrigger = document.getElementById('playUtilityActions');
+    if (utilityTrigger) {
+        utilityTrigger.classList.toggle('is-active', !!isOpen);
+        utilityTrigger.setAttribute('aria-expanded', String(!!isOpen));
     }
 }
 

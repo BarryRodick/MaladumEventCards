@@ -3,119 +3,53 @@
  * Run with: node tests/deckManager.test.js
  */
 const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
-
-function loadDeckRules(overrides = {}) {
-    const file = path.join(__dirname, '..', 'deck-rules.js');
-    let code = fs.readFileSync(file, 'utf8');
-    code = code.replace(/import .*?\r?\n/g, '');
-    code = code.replace(/export const /g, 'const ');
-    code = code.replace(/export function /g, 'function ');
-
-    const factory = new Function(
-        'parseCardTypes',
-        'shuffleDeck',
-        `${code}; return { buildDeck, DECK_RULE_ERRORS };`
-    );
-
-    return factory(
-        overrides.parseCardTypes || ((typeString) => {
-            const andGroups = typeString.split('+').map(group =>
-                group.trim().split('/').map(option => option.trim())
-            );
-            return { andGroups, allTypes: [...new Set(andGroups.flat())] };
-        }),
-        overrides.shuffleDeck || ((deck) => deck)
-    );
-}
-
-function loadLiveDeck(overrides = {}) {
-    const file = path.join(__dirname, '..', 'live-deck.js');
-    let code = fs.readFileSync(file, 'utf8');
-    code = code.replace(/import .*?\r?\n/g, '');
-    code = code.replace(/export const /g, 'const ');
-    code = code.replace(/export function /g, 'function ');
-
-    const factory = new Function(
-        'parseCardTypes',
-        'shuffleDeck',
-        `${code}; return { advanceLiveDeck, clearActiveCard, rebuildSelectedCardsMap };`
-    );
-
-    return factory(
-        overrides.parseCardTypes || ((typeString) => {
-            const andGroups = typeString.split('+').map(group =>
-                group.trim().split('/').map(option => option.trim())
-            );
-            return { andGroups, allTypes: [...new Set(andGroups.flat())] };
-        }),
-        overrides.shuffleDeck || ((deck) => deck)
-    );
-}
+const { loadSourceModule } = require('./helpers/load-source-module');
 
 function loadDeckManager(state, document, overrides = {}) {
-    const file = path.join(__dirname, '..', 'deck-manager.js');
-    let code = fs.readFileSync(file, 'utf8');
-    code = code.replace(/import .*?\r?\n/g, '');
-    code = code.replace(/export function /g, 'function ');
-    const deckRules = loadDeckRules({
-        parseCardTypes: overrides.parseCardTypes,
-        shuffleDeck: overrides.shuffleDeck
+    const parseCardTypes = overrides.parseCardTypes || ((typeString) => {
+        const andGroups = typeString.split('+').map(group =>
+            group.trim().split('/').map(option => option.trim())
+        );
+        return { andGroups, allTypes: [...new Set(andGroups.flat())] };
     });
-    const liveDeck = loadLiveDeck({
-        parseCardTypes: overrides.parseCardTypes,
-        shuffleDeck: overrides.shuffleDeck
+    const shuffleDeck = overrides.shuffleDeck || ((deck) => deck);
+    const deckRules = loadSourceModule('deck-rules.js', {
+        dependencies: { parseCardTypes, shuffleDeck },
+        exports: ['buildDeck', 'DECK_RULE_ERRORS']
+    });
+    const liveDeck = loadSourceModule('live-deck.js', {
+        dependencies: { parseCardTypes, shuffleDeck },
+        exports: ['advanceLiveDeck', 'clearActiveCard', 'rebuildSelectedCardsMap']
     });
 
-    const factory = new Function(
-        'state',
-        'CONFIG',
-        'cardTypeId',
-        'shuffleDeck',
-        'buildDeck',
-        'DECK_RULE_ERRORS',
-        'advanceLiveDeck',
-        'clearActiveCard',
-        'rebuildSelectedCardsMap',
-        'showToast',
-        'trackEvent',
-        'debounce',
-        'saveConfiguration',
-        'renderDeckSummary',
-        'setActionPanelOpen',
-        'setDeckMode',
-        'updateInPlayCardsDisplay',
-        'document',
-        'Image',
-        `${code}; return { generateDeck, showCurrentCard, advanceToNextCard, clearActiveCardView };`
-    );
-
-    return factory(
-        state,
-        overrides.CONFIG || {
-            deck: {
-                corrupter: { defaultCount: 5 }
-            }
+    return loadSourceModule('deck-manager.js', {
+        dependencies: {
+            state,
+            CONFIG: overrides.CONFIG || {
+                deck: {
+                    corrupter: { defaultCount: 5 }
+                }
+            },
+            cardTypeId: overrides.cardTypeId || ((type) => `type-${type.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`),
+            shuffleDeck,
+            buildDeck: overrides.buildDeck || deckRules.buildDeck,
+            DECK_RULE_ERRORS: deckRules.DECK_RULE_ERRORS,
+            advanceLiveDeck: overrides.advanceLiveDeck || liveDeck.advanceLiveDeck,
+            clearActiveCard: overrides.clearActiveCard || liveDeck.clearActiveCard,
+            rebuildSelectedCardsMap: overrides.rebuildSelectedCardsMap || liveDeck.rebuildSelectedCardsMap,
+            showToast: overrides.showToast || (() => { }),
+            trackEvent: overrides.trackEvent || (() => { }),
+            debounce: overrides.debounce || ((fn) => fn),
+            saveConfiguration: overrides.saveConfiguration || (() => { }),
+            renderDeckSummary: overrides.renderDeckSummary || (() => { }),
+            setActionPanelOpen: overrides.setActionPanelOpen || (() => { }),
+            setDeckMode: overrides.setDeckMode || (() => { }),
+            updateInPlayCardsDisplay: overrides.updateInPlayCardsDisplay || (() => { }),
+            document,
+            Image: overrides.Image || function TestImage() { }
         },
-        overrides.cardTypeId || ((type) => `type-${type.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`),
-        overrides.shuffleDeck || ((deck) => deck),
-        overrides.buildDeck || deckRules.buildDeck,
-        deckRules.DECK_RULE_ERRORS,
-        overrides.advanceLiveDeck || liveDeck.advanceLiveDeck,
-        overrides.clearActiveCard || liveDeck.clearActiveCard,
-        overrides.rebuildSelectedCardsMap || liveDeck.rebuildSelectedCardsMap,
-        overrides.showToast || (() => { }),
-        overrides.trackEvent || (() => { }),
-        overrides.debounce || ((fn) => fn),
-        overrides.saveConfiguration || (() => { }),
-        overrides.renderDeckSummary || (() => { }),
-        overrides.setActionPanelOpen || (() => { }),
-        overrides.setDeckMode || (() => { }),
-        overrides.updateInPlayCardsDisplay || (() => { }),
-        document,
-        overrides.Image || function TestImage() { }
-    );
+        exports: ['generateDeck', 'showCurrentCard', 'advanceToNextCard', 'clearActiveCardView']
+    });
 }
 
 function makeClassList() {

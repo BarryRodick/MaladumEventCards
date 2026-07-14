@@ -3,22 +3,18 @@
  * Run with: node tests/campaignTracker.test.js
  */
 const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+const { loadSourceModule } = require('./helpers/load-source-module');
 
 function loadCampaignTracker() {
-    const file = path.join(__dirname, '..', 'campaign-tracker.js');
-    let code = fs.readFileSync(file, 'utf8');
-    code = code.replace(/import .*?\r?\n/g, '');
-    code = code.replace(/export function /g, 'function ');
-
-    return new Function(
-        'storageUtils',
-        `${code}; return { captureCampaignState, applyCampaignState };`
-    )({
-        saveState() { },
-        loadState() { return null; },
-        isStorageAvailable() { return true; }
+    return loadSourceModule('campaign-tracker.js', {
+        dependencies: {
+            storageUtils: {
+                saveState() { },
+                loadState() { return null; },
+                isStorageAvailable() { return true; }
+            }
+        },
+        exports: ['captureCampaignState', 'applyCampaignState']
     });
 }
 
