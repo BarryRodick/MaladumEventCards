@@ -72,6 +72,17 @@ export function setupEventListeners() {
         });
     }
 
+    const playUtilityActions = document.getElementById('playUtilityActions');
+    if (playUtilityActions) {
+        playUtilityActions.addEventListener('click', () => {
+            toggleActionPanel();
+            const actionContent = document.getElementById('cardActionContent');
+            if (actionContent?.classList.contains('show')) {
+                document.getElementById('cardActionSection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    }
+
     const generateBtn = document.getElementById('generateDeck');
     if (generateBtn) generateBtn.addEventListener('click', () => {
         if (state.currentDeck.length > 0) {

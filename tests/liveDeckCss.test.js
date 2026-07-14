@@ -19,12 +19,38 @@ console.log('Testing live deck cockpit CSS...');
         styles.includes('display: flex !important;') &&
         styles.includes('flex-direction: column;'),
         'Mobile play mode should order active deck children explicitly');
-    assert(mobileNavigationBlock.includes('position: sticky;'),
-        'Mobile live deck controls should stay sticky at the bottom while scrolling');
-    assert(mobileNavigationBlock.includes('order: 3;'),
-        'Mobile live deck controls should appear before the large card image in the first viewport');
-    assert(mobileNavigationBlock.includes('grid-template-columns: 1fr 1fr;'),
+    assert(mobileNavigationBlock.includes('position: static;'),
+        'Mobile live deck controls should remain in the DM console flow');
+    assert(styles.includes('#deckExperience[data-mode="play"] #navigationButtons') &&
+        styles.includes('order: 4;'),
+        'Mobile live deck controls should follow the card and progress indicator');
+    assert(styles.includes('#navigationButtons') &&
+        styles.includes('grid-template-columns: repeat(2, minmax(0, 1fr));'),
         'Mobile live deck controls should keep secondary controls readable in two columns');
+}
+
+{
+    assert(styles.includes('#deckExperience[data-mode="play"] #deckSummaryBar') &&
+        styles.includes('order: 1;'),
+        'The tactile deck counters should lead the Play surface');
+    assert(styles.includes('width: min(100%, 34rem);') &&
+        styles.includes('align-self: center;'),
+        'The deck counters should stay centred and match the compact Play controls width');
+    assert(styles.includes('grid-template-columns: minmax(0, 1fr);') &&
+        styles.includes('justify-content: stretch;'),
+        'Each deck counter should centre its contents within the full grid quarter');
+    assert(styles.includes('#deckExperience[data-mode="play"] .deck-mode-header') &&
+        styles.includes('align-items: center;'),
+        'The Build and Play switcher should remain centred at wider responsive breakpoints');
+    assert(styles.includes('#deckExperience[data-mode="play"] #deckOutput') &&
+        styles.includes('order: 2;'),
+        'The active event card should follow the deck counters');
+    assert(styles.includes("background-image: url('assets/ui/dark-walnut-texture.png');") &&
+        styles.includes('background-size: 760px 760px;'),
+        'The Play surface should use the real dark-walnut tabletop texture');
+    assert(styles.includes('.play-utility-nav') &&
+        styles.includes('grid-template-columns: repeat(3, minmax(0, 1fr));'),
+        'Play utilities should form a compact three-control footer');
 }
 
 {

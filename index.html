@@ -212,20 +212,28 @@
                             <h3 id="deckSummaryTitle" class="deck-summary-title">Ready to draw</h3>
                             <p id="deckSummaryGames" class="deck-summary-games">Choose a deck to begin.</p>
                         </div>
-                        <div class="deck-summary-actions">
-                            <button id="summaryEditDeck" class="rune-btn small secondary" type="button">
-                                <i class="fas fa-compass me-2"></i> Edit Build
-                            </button>
-                            <button id="summaryOpenSearch" class="rune-btn small" type="button">
-                                <i class="fas fa-search me-2"></i> Search Cards
-                            </button>
-                        </div>
                     </div>
                     <div class="deck-summary-meta">
-                        <span id="deckSummaryDifficulty" class="summary-chip">Difficulty: Custom difficulty</span>
-                        <span id="deckSummaryRemaining" class="summary-chip">Remaining: 0</span>
-                        <span id="deckSummaryDiscard" class="summary-chip">Discard: 0</span>
-                        <span id="deckSummaryInPlay" class="summary-chip">In Play: 0</span>
+                        <span id="deckSummaryDifficulty" class="summary-chip">
+                            <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                            <strong class="summary-chip-value">Custom</strong>
+                            <small class="summary-chip-label">Difficulty</small>
+                        </span>
+                        <span id="deckSummaryRemaining" class="summary-chip">
+                            <i class="fas fa-layer-group" aria-hidden="true"></i>
+                            <strong class="summary-chip-value">0</strong>
+                            <small class="summary-chip-label">Remaining</small>
+                        </span>
+                        <span id="deckSummaryDiscard" class="summary-chip">
+                            <i class="fas fa-box-archive" aria-hidden="true"></i>
+                            <strong class="summary-chip-value">0</strong>
+                            <small class="summary-chip-label">Discard</small>
+                        </span>
+                        <span id="deckSummaryInPlay" class="summary-chip">
+                            <i class="fas fa-chess-pawn" aria-hidden="true"></i>
+                            <strong class="summary-chip-value">0</strong>
+                            <small class="summary-chip-label">In Play</small>
+                        </span>
                         <span id="deckSummarySentry" class="summary-chip summary-chip--rule" hidden>Sentry</span>
                         <span id="deckSummaryCorrupter" class="summary-chip summary-chip--rule" hidden>Corrupter</span>
                     </div>
@@ -261,6 +269,21 @@
                     </button>
                 </nav>
 
+                <nav id="playUtilityNav" class="play-utility-nav" aria-label="Play utilities">
+                    <button id="summaryEditDeck" class="play-utility-button" type="button">
+                        <i class="fas fa-pen-nib" aria-hidden="true"></i>
+                        <span>Edit Build</span>
+                    </button>
+                    <button id="summaryOpenSearch" class="play-utility-button" type="button">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                        <span>Search</span>
+                    </button>
+                    <button id="playUtilityActions" class="play-utility-button" type="button" aria-controls="cardActionContent" aria-expanded="false">
+                        <i class="fas fa-bars" aria-hidden="true"></i>
+                        <span>Actions</span>
+                    </button>
+                </nav>
+
                 <!-- Action Grid Panel -->
                 <section id="cardActionSection" class="mt-5" style="display: none;">
                     <div class="section-header">
@@ -273,72 +296,27 @@
                     <div id="cardActionContent" class="collapse mt-3">
                         <div class="action-grid">
                             <button class="action-card-btn" data-action="shuffleAnywhere">
-                                <span class="action-card-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 64 64" role="presentation" focusable="false">
-                                        <rect class="icon-line" x="22" y="20" width="20" height="24" rx="3"></rect>
-                                        <path class="icon-line" d="M26 27h12"></path>
-                                        <path class="icon-line" d="M26 34h8"></path>
-                                        <path class="icon-line" d="M17 29c1-9 8-15 18-15h8"></path>
-                                        <path class="icon-line" d="M39 10l4 4-4 4"></path>
-                                        <path class="icon-line" d="M47 35c-2 9-9 15-18 15h-8"></path>
-                                        <path class="icon-line" d="M25 54l-4-4 4-4"></path>
-                                    </svg>
-                                </span>
+                                <i class="fas fa-shuffle action-card-icon" aria-hidden="true"></i>
                                 <span class="action-card-label">Shuffle Back Into Deck</span>
                             </button>
                             
                             <button class="action-card-btn" data-action="shuffleTopN">
-                                <span class="action-card-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 64 64" role="presentation" focusable="false">
-                                        <path class="icon-line" d="M32 9v15"></path>
-                                        <path class="icon-line" d="M24 18l8 8 8-8"></path>
-                                        <rect class="icon-line" x="19" y="29" width="26" height="8" rx="3"></rect>
-                                        <rect class="icon-line" x="16" y="38" width="32" height="8" rx="3"></rect>
-                                        <rect class="icon-line" x="13" y="47" width="38" height="8" rx="3"></rect>
-                                    </svg>
-                                </span>
+                                <i class="fas fa-layer-group action-card-icon" aria-hidden="true"></i>
                                 <span class="action-card-label">Shuffle Top N</span>
                             </button>
                             
                             <button class="action-card-btn" data-action="replaceSameType">
-                                <span class="action-card-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 64 64" role="presentation" focusable="false">
-                                        <rect class="icon-line" x="12" y="14" width="16" height="24" rx="3"></rect>
-                                        <rect class="icon-line" x="36" y="26" width="16" height="24" rx="3"></rect>
-                                        <path class="icon-fill" d="M20 24l3 3-3 3-3-3z"></path>
-                                        <path class="icon-fill" d="M44 36l3 3-3 3-3-3z"></path>
-                                        <path class="icon-line" d="M25 24h15"></path>
-                                        <path class="icon-line" d="M36 20l5 4-5 4"></path>
-                                        <path class="icon-line" d="M39 40H24"></path>
-                                        <path class="icon-line" d="M28 36l-5 4 5 4"></path>
-                                    </svg>
-                                </span>
+                                <i class="fas fa-right-left action-card-icon" aria-hidden="true"></i>
                                 <span class="action-card-label">Replace</span>
                             </button>
                             
                             <button class="action-card-btn" data-action="introduceSentry">
-                                <span class="action-card-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 64 64" role="presentation" focusable="false">
-                                        <path class="icon-line" d="M32 10l16 6v12c0 12-6 21-16 28-10-7-16-16-16-28V16l16-6z"></path>
-                                        <path class="icon-line" d="M22 29c4-5 16-5 20 0-4 5-16 5-20 0z"></path>
-                                        <circle class="icon-fill" cx="32" cy="29" r="2.75"></circle>
-                                    </svg>
-                                </span>
+                                <i class="fas fa-shield-halved action-card-icon" aria-hidden="true"></i>
                                 <span class="action-card-label">Sentry</span>
                             </button>
 
                             <button class="action-card-btn" data-action="insertCardType">
-                                <span class="action-card-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 64 64" role="presentation" focusable="false">
-                                        <rect class="icon-line" x="16" y="34" width="32" height="18" rx="3"></rect>
-                                        <path class="icon-line" d="M22 40h20"></path>
-                                        <path class="icon-line" d="M22 46h14"></path>
-                                        <rect class="icon-line" x="25" y="12" width="18" height="22" rx="3" transform="rotate(-9 34 23)"></rect>
-                                        <path class="icon-line" d="M34 18v8"></path>
-                                        <path class="icon-line" d="M30 22h8"></path>
-                                        <path class="icon-line" d="M32 28v6"></path>
-                                    </svg>
-                                </span>
+                                <i class="fas fa-square-plus action-card-icon" aria-hidden="true"></i>
                                 <span class="action-card-label">Insert Card</span>
                             </button>
                         </div>

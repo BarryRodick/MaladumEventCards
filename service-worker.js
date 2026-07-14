@@ -33,6 +33,7 @@ const urlsToCache = [
     './version.json',
     './assets/ui/campaign-divider.svg',
     './assets/ui/dark-surface-texture.svg',
+    './assets/ui/dark-walnut-texture.png',
     './assets/ui/parchment-panel-texture.svg',
     './cardimages/Alarm.jpg',
     './cardimages/Alarm.png',
