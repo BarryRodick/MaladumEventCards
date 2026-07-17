@@ -11,7 +11,7 @@ Live site: https://barryrodick.github.io/MaladumEventCards/
 ## Commands
 
 - **Run all tests:** `npm test`
-- **Run a single test suite:** `node tests/parseCardTypes.test.js` (or `deckGeneration`, `cardActions`, `storageUtils`)
+- **Run a single test suite:** `node tests/parseCardTypes.test.js` (or `deckGeneration`, `liveDeckSession`, `storageUtils`)
 - **Build (sync version to service worker):** `npm run build` (reads `version.json`, stamps `service-worker.js`)
 
 Tests are plain Node.js scripts with `assert` — no test framework.
@@ -32,8 +32,10 @@ initialization.js  (app entry — fetches JSON data, restores saved state, regis
   ├── config-manager.js (save/load config via localStorage)
   │   └── storage-utils.js (low-level localStorage helpers)
   ├── ui-manager.js    (DOM generation: game selection, card type inputs, difficulty, search)
-  ├── deck-manager.js  (deck generation, card navigation, display, progress bar)
-  ├── card-actions.js  (in-play tracking, shuffle/replace/insert actions during gameplay)
+  ├── deck-manager.js  (deck generation)
+  ├── live-deck-session.js (play commands: transition, render, persist, notify, track)
+  │   ├── live-deck.js (pure deck transitions and rules)
+  │   └── live-deck-view.js (active card, progress, and in-play DOM rendering)
   ├── card-utils.js    (parseCardTypes for "A/B+C" type strings, Fisher-Yates shuffle)
   └── app-utils.js     (debounce, gtag tracking, toast notifications)
 ```

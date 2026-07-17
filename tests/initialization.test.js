@@ -26,17 +26,13 @@ function loadRestoreDeckState(state, document, hooks = {}) {
 
     return new Function(
         'state',
-        'showCurrentCard',
-        'updateProgressBar',
-        'updateInPlayCardsDisplay',
+        'liveDeckSession',
         'hydrateDeckState',
         'document',
         `${match[0]}; return restoreDeckState;`
     )(
         state,
-        hooks.showCurrentCard || (() => { }),
-        hooks.updateProgressBar || (() => { }),
-        hooks.updateInPlayCardsDisplay || (() => { }),
+        hooks.liveDeckSession || { present() { } },
         hooks.hydrateDeckState || loadHydrateDeckState(),
         document
     );
@@ -57,9 +53,7 @@ console.log('Testing initialization helpers...');
         }
     };
 
-    let showCurrentCardCalls = 0;
-    let updateProgressBarCalls = 0;
-    let updateInPlayCardsDisplayCalls = 0;
+    let presentCalls = 0;
 
     const state = {
         currentDeck: [],
@@ -79,9 +73,7 @@ console.log('Testing initialization helpers...');
     };
 
     const restoreDeckState = loadRestoreDeckState(state, document, {
-        showCurrentCard: () => { showCurrentCardCalls++; },
-        updateProgressBar: () => { updateProgressBarCalls++; },
-        updateInPlayCardsDisplay: () => { updateInPlayCardsDisplayCalls++; }
+        liveDeckSession: { present: () => { presentCalls++; } }
     });
 
     const restoredCard = { id: 101, card: 'Restored Card' };
@@ -106,9 +98,7 @@ console.log('Testing initialization helpers...');
     assert.strictEqual(elements.navigationButtons.style.display, 'grid');
     assert.strictEqual(elements.deckProgress.style.display, 'block');
     assert.strictEqual(elements.cardActionSection.style.display, 'block');
-    assert.strictEqual(showCurrentCardCalls, 1);
-    assert.strictEqual(updateProgressBarCalls, 1);
-    assert.strictEqual(updateInPlayCardsDisplayCalls, 1);
+    assert.strictEqual(presentCalls, 1);
 }
 
 console.log('All initialization helper tests passed!');
