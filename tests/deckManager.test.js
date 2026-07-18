@@ -17,9 +17,9 @@ function loadDeckManager(state, document, overrides = {}) {
         dependencies: { parseCardTypes, shuffleDeck },
         exports: ['buildDeck', 'DECK_RULE_ERRORS']
     });
-    const liveDeck = loadSourceModule('live-deck.js', {
+    const { rebuildSelectedCardsMap } = loadSourceModule('live-deck.js', {
         dependencies: { parseCardTypes, shuffleDeck },
-        exports: ['advanceLiveDeck', 'clearActiveCard', 'rebuildSelectedCardsMap']
+        exports: ['rebuildSelectedCardsMap']
     });
 
     return loadSourceModule('deck-manager.js', {
@@ -34,21 +34,16 @@ function loadDeckManager(state, document, overrides = {}) {
             shuffleDeck,
             buildDeck: overrides.buildDeck || deckRules.buildDeck,
             DECK_RULE_ERRORS: deckRules.DECK_RULE_ERRORS,
-            advanceLiveDeck: overrides.advanceLiveDeck || liveDeck.advanceLiveDeck,
-            clearActiveCard: overrides.clearActiveCard || liveDeck.clearActiveCard,
-            rebuildSelectedCardsMap: overrides.rebuildSelectedCardsMap || liveDeck.rebuildSelectedCardsMap,
+            rebuildSelectedCardsMap: overrides.rebuildSelectedCardsMap || rebuildSelectedCardsMap,
             showToast: overrides.showToast || (() => { }),
             trackEvent: overrides.trackEvent || (() => { }),
-            debounce: overrides.debounce || ((fn) => fn),
             saveConfiguration: overrides.saveConfiguration || (() => { }),
-            renderDeckSummary: overrides.renderDeckSummary || (() => { }),
             setActionPanelOpen: overrides.setActionPanelOpen || (() => { }),
             setDeckMode: overrides.setDeckMode || (() => { }),
-            updateInPlayCardsDisplay: overrides.updateInPlayCardsDisplay || (() => { }),
-            document,
-            Image: overrides.Image || function TestImage() { }
+            liveDeckView: overrides.liveDeckView || { renderAll() { } },
+            document
         },
-        exports: ['generateDeck', 'showCurrentCard', 'advanceToNextCard', 'clearActiveCardView']
+        exports: ['generateDeck']
     });
 }
 
@@ -180,9 +175,7 @@ console.log('Testing deck-manager behavior...');
     });
     let inPlayRefreshes = 0;
     const { generateDeck } = loadDeckManager(state, document, {
-        updateInPlayCardsDisplay: () => {
-            inPlayRefreshes++;
-        }
+        liveDeckView: { renderAll: () => { inPlayRefreshes++; } }
     });
 
     generateDeck();
@@ -235,110 +228,6 @@ console.log('Testing deck-manager behavior...');
         'Corrupter replacements should not duplicate cards already selected as special cards');
     assert.strictEqual(state.currentDeck.length, 5,
         'Corrupter replacements should replace regular cards instead of appending a second special deck');
-}
-
-// ============================
-// Test: showCurrentCard preserves the clear-active button
-// ============================
-{
-    const state = makeBaseState();
-    state.currentDeck = [{ id: 1, card: 'Card A', type: 'Denizen', contents: 'a.png' }];
-    state.currentIndex = 0;
-
-    const clearButton = { style: {}, removed: false };
-    const output = {
-        child: null,
-        querySelector() {
-            return null;
-        },
-        appendChild(child) {
-            this.child = child;
-        },
-        set innerHTML(value) {
-            this._innerHTML = value;
-            clearButton.removed = true;
-        },
-        get innerHTML() {
-            return this._innerHTML || '';
-        }
-    };
-    const document = {
-        createElement() {
-            return {
-                className: '',
-                innerHTML: '',
-                setAttribute() { },
-                appendChild() { },
-                querySelector() { return null; }
-            };
-        },
-        getElementById(id) {
-            if (id === 'deckOutput') return output;
-            if (id === 'clearActiveCard') return clearButton.removed ? null : clearButton;
-            return null;
-        }
-    };
-
-    const { showCurrentCard } = loadDeckManager(state, document);
-    showCurrentCard();
-
-    assert.strictEqual(clearButton.removed, false,
-        'showCurrentCard should not replace the deck output container and remove the clear button');
-    assert(output.child.innerHTML.includes('data-active-card-preview'),
-        'showCurrentCard should render the active card image as a preview trigger');
-    assert(output.child.innerHTML.includes('data-card-id="1"'),
-        'Active card preview trigger should expose the card id');
-    assert(output.child.innerHTML.includes('Open Card A card preview'),
-        'Active card preview trigger should have an accessible label');
-    assert.strictEqual(clearButton.style.display, 'block',
-        'showCurrentCard should keep the clear button visible for an active card');
-}
-
-// ============================
-// Test: clearing an active card pauses on the card back without advancing
-// ============================
-{
-    const state = makeBaseState();
-    state.currentDeck = [
-        { id: 1, card: 'Card A', type: 'Denizen', contents: 'a.png' },
-        { id: 2, card: 'Card B', type: 'Denizen', contents: 'b.png' }
-    ];
-    state.currentIndex = 1;
-    state.discardPile = [state.currentDeck[0]];
-
-    const elements = {
-        deckOutput: {
-            querySelector() {
-                return {
-                    innerHTML: ''
-                };
-            }
-        },
-        clearActiveCard: { style: {} }
-    };
-    const document = {
-        getElementById(id) {
-            return elements[id] || null;
-        },
-        createElement() {
-            return { className: '', innerHTML: '' };
-        }
-    };
-
-    const { clearActiveCardView, advanceToNextCard } = loadDeckManager(state, document);
-    clearActiveCardView();
-
-    assert.strictEqual(state.currentIndex, 1,
-        'Clearing the active card should keep the deck positioned at the same card');
-    assert.strictEqual(state.discardPile.length, 1,
-        'Clearing the active card should not mutate the discard pile');
-
-    advanceToNextCard();
-
-    assert.strictEqual(state.currentIndex, 1,
-        'The next draw after clearing should reveal the same card rather than skipping it');
-    assert.deepStrictEqual(state.discardPile.map(card => card.id), [1],
-        'The next draw after clearing should not duplicate the previous card in the discard pile');
 }
 
 console.log('All deck-manager behavior tests passed!');

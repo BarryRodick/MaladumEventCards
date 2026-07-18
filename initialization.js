@@ -5,8 +5,7 @@ import { state } from './state.js';
 import { trackEvent, showToast } from './app-utils.js';
 import { loadSavedConfig, restoreBasicConfig } from './config-manager.js';
 import { generateGameSelection, populateDifficultySelection, loadCardTypes, initializeDeckFlowUI } from './ui-manager.js';
-import { showCurrentCard, updateProgressBar } from './deck-manager.js';
-import { updateInPlayCardsDisplay } from './card-actions.js';
+import { liveDeckSession } from './live-deck-session.js';
 import { setupUpdateNotifications } from './update-utils.js';
 import { saveState, loadState } from './storage-utils.js';
 import { hydrateDeckState } from './app-snapshot.js';
@@ -136,8 +135,6 @@ function restoreDeckState(deckState) {
         document.getElementById('deckProgress').style.display = 'block';
         document.getElementById('cardActionSection').style.display = 'block';
 
-        showCurrentCard();
-        updateProgressBar();
-        updateInPlayCardsDisplay();
+        liveDeckSession.present();
     }
 }

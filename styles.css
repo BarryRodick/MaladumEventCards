@@ -352,9 +352,10 @@ body.dark-mode .card {
 
 .card-type-label {
     min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+    white-space: normal;
 }
 
 .card-type-counter {
@@ -2265,10 +2266,16 @@ button:focus,
 }
 
 .deck-card-caption {
+    min-width: min(18rem, 100%);
     margin: 0;
+    padding: 0.45rem 1rem;
+    border: 1px solid rgba(197, 165, 114, 0.3);
+    background: rgba(8, 8, 7, 0.76);
     color: var(--maladum-gold);
     font-family: 'Cinzel', serif;
     letter-spacing: 0.08rem;
+    text-align: center;
+    text-shadow: 0 1px 2px #000000;
     text-transform: uppercase;
 }
 
@@ -2870,6 +2877,36 @@ body.dark-mode #insertCardConfig select.form-control,
     border-radius: 6px;
 }
 
+.themed-select-wrap {
+    position: relative;
+}
+
+.deck-page #scenarioConfig select.form-control.themed-select {
+    appearance: none;
+    padding-right: 3rem;
+    background-color: #ead8b8 !important;
+    background-image: url('assets/ui/parchment-panel-texture.svg') !important;
+    background-position: 0 0 !important;
+    background-repeat: repeat !important;
+    background-size: 180px 180px !important;
+    color-scheme: light;
+}
+
+.themed-select-icon {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    z-index: 1;
+    color: #6f1616;
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+.deck-page #scenarioConfig select.form-control.themed-select:hover,
+.deck-page #scenarioConfig select.form-control.themed-select:focus {
+    border-color: #6f1616 !important;
+}
+
 #difficultyDetails,
 #cardSearchStatus {
     color: var(--ink-muted) !important;
@@ -3015,6 +3052,19 @@ body.dark-mode #insertCardConfig select.form-control,
     min-width: 44px;
     min-height: 44px;
     border-radius: 999px;
+}
+
+.deck-card-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 10;
+    border: 1px solid var(--dm-brass-bright);
+    background: linear-gradient(180deg, var(--dm-oxblood), var(--dm-oxblood-dark));
+    color: #fff2d0;
+    box-shadow:
+        inset 0 0 0 2px rgba(45, 5, 5, 0.58),
+        0 6px 14px rgba(0, 0, 0, 0.48);
 }
 
 .action-grid {
@@ -3164,13 +3214,38 @@ body.dark-mode #insertCardConfig select.form-control,
 }
 
 .campaign-page .notes-header {
+    width: 100%;
     min-height: 54px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0.85rem 1rem;
+    border: 1px solid rgba(109, 76, 20, 0.42);
+    border-radius: 4px 4px 0 0;
     background: rgba(255, 248, 231, 0.58) !important;
     color: var(--ink-dark) !important;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    text-align: left;
+    box-shadow: inset 0 -2px 0 rgba(109, 76, 20, 0.12);
+}
+
+.campaign-page .notes-header:hover,
+.campaign-page .notes-header:focus-visible {
+    border-color: #6f1616;
+    background: rgba(255, 243, 215, 0.84) !important;
+}
+
+.campaign-page .notes-header__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: #6d4c14 !important;
+}
+
+.campaign-page .notes-header__label i,
+.campaign-page .collapse-icon {
+    color: #6f1616 !important;
 }
 
 .campaign-page .notes-content {
@@ -3222,7 +3297,8 @@ body.dark-mode #insertCardConfig select.form-control,
     justify-content: center;
     margin: 0;
     background-color: rgba(255, 248, 231, 0.64);
-    border-width: 2px;
+    border: 2px solid rgba(86, 54, 20, 0.62);
+    cursor: pointer;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.38);
 }
 
@@ -3232,21 +3308,37 @@ body.dark-mode #insertCardConfig select.form-control,
 
 .campaign-page .checkbox[data-checked="true"],
 .campaign-page .checkbox[style*="black"],
+.campaign-page .checkbox[aria-checked="true"] {
+    background-color: rgba(111, 22, 22, 0.12) !important;
+    border-color: #6f1616 !important;
+}
+
 .campaign-page .delay-checkbox[style*="black"],
-.campaign-page .malagaunt-checkbox[style*="black"] {
-    background-color: var(--accent-success) !important;
+.campaign-page .delay-checkbox[aria-checked="true"],
+.campaign-page .malagaunt-checkbox[style*="black"],
+.campaign-page .malagaunt-checkbox[aria-checked="true"] {
+    background-color: rgba(47, 107, 53, 0.16) !important;
     border-color: #214b28 !important;
 }
 
-.campaign-page .checkbox[data-checked="true"]::after,
-.campaign-page .checkbox[style*="black"]::after,
-.campaign-page .delay-checkbox[style*="black"]::after,
-.campaign-page .malagaunt-checkbox[style*="black"]::after {
-    content: '\2713';
-    color: #fff6df;
-    font-weight: 800;
+.campaign-marker-icon {
+    color: #6f1616;
     font-size: 1.45rem;
-    line-height: 1;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.72);
+    transition: opacity 120ms ease, transform 120ms ease;
+}
+
+[aria-checked="true"] > .campaign-marker-icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.campaign-page .delay-checkbox .campaign-marker-icon,
+.campaign-page .malagaunt-checkbox .campaign-marker-icon {
+    color: #214b28;
+    font-size: 1.15rem;
 }
 
 .campaign-page .input-field {
@@ -3268,9 +3360,28 @@ body.dark-mode #insertCardConfig select.form-control,
 }
 
 .campaign-page .image-input-label {
-    background: linear-gradient(180deg, #365f2d, #1f391d) !important;
+    width: fit-content;
+    display: flex;
+    margin: 1rem auto;
+    background: linear-gradient(180deg, var(--dm-oxblood), var(--dm-oxblood-dark)) !important;
     color: #fff6df !important;
     padding: 0.75rem 1rem;
+    font-family: 'Cinzel', serif;
+    cursor: pointer;
+    box-shadow:
+        inset 0 0 0 2px rgba(64, 5, 5, 0.5),
+        0 8px 18px rgba(0, 0, 0, 0.28);
+}
+
+.campaign-page .image-input-label span,
+.campaign-page .image-input-label i {
+    color: #fff6df !important;
+}
+
+.campaign-page .image-input-label:hover,
+.campaign-page .image-input-label:focus-visible {
+    border-color: var(--dm-brass-bright);
+    color: #ffffff !important;
 }
 
 .campaign-page .image-gallery {
@@ -3315,6 +3426,359 @@ body.dark-mode #insertCardConfig select.form-control,
     background: rgba(255, 248, 231, 0.56) !important;
 }
 
+/* Shared feedback surfaces */
+.toast-container {
+    top: calc(0.75rem + env(safe-area-inset-top, 0px)) !important;
+    right: max(0.5rem, env(safe-area-inset-right, 0px)) !important;
+    left: auto !important;
+    width: min(25rem, calc(100vw - 1rem));
+    max-width: none;
+    padding: 0 !important;
+}
+
+body.dark-mode .feedback-toast {
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid rgba(86, 54, 20, 0.55) !important;
+    border-left: 5px solid var(--dm-oxblood) !important;
+    border-radius: 4px;
+    background-color: var(--surface-parchment-deep) !important;
+    background-image:
+        url('assets/ui/parchment-panel-texture.svg'),
+        var(--parchment-grain) !important;
+    background-size: 180px 180px, auto !important;
+    color: var(--ink-dark);
+    box-shadow:
+        0 16px 34px rgba(0, 0, 0, 0.5),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.feedback-toast__sigil {
+    width: 3.35rem;
+    flex: 0 0 3.35rem;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(180deg, var(--dm-oxblood), var(--dm-oxblood-dark));
+    color: #fff2d0;
+    font-size: 1.1rem;
+}
+
+.feedback-toast__body {
+    min-width: 0;
+    display: grid;
+    gap: 0.25rem;
+    padding: 0.8rem 0.9rem;
+}
+
+.feedback-toast__title {
+    color: #6f1616;
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.feedback-toast__message {
+    color: var(--ink-dark);
+    line-height: 1.4;
+}
+
+.themed-close {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    display: inline-grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid var(--dm-brass-muted);
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--dm-oxblood), var(--dm-oxblood-dark));
+    color: #fff2d0;
+    box-shadow: inset 0 0 0 2px rgba(29, 4, 4, 0.48);
+}
+
+.themed-close:hover,
+.themed-close:focus-visible {
+    border-color: var(--dm-brass-bright);
+    background: var(--dm-oxblood-dark);
+    color: #ffffff;
+}
+
+.themed-modal .modal-content {
+    overflow: hidden;
+    border: 2px solid var(--dm-brass-muted);
+    border-radius: 5px;
+    background-color: var(--surface-parchment-deep);
+    background-image:
+        url('assets/ui/parchment-panel-texture.svg'),
+        var(--parchment-grain);
+    background-size: 220px 220px, auto;
+    color: var(--ink-dark);
+    box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.62),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.themed-modal .modal-header {
+    align-items: center;
+    border-bottom: 1px solid var(--dm-brass-muted);
+    background-color: var(--dm-walnut);
+    background-image: url('assets/ui/dark-walnut-texture.png');
+    background-size: 360px auto;
+    color: var(--dm-brass-bright);
+}
+
+.themed-modal__kicker {
+    margin: 0 0 0.15rem;
+    color: var(--dm-brass);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.themed-modal .modal-title {
+    color: #fff2d0;
+    font-family: 'Cinzel', serif;
+}
+
+.themed-modal .modal-body {
+    line-height: 1.55;
+}
+
+.themed-modal .modal-body p:last-child {
+    margin-bottom: 0;
+}
+
+.themed-modal .modal-footer {
+    border-top: 1px solid rgba(86, 54, 20, 0.25);
+    background: rgba(255, 248, 231, 0.38);
+}
+
+.themed-modal .campaign-item {
+    border: 1px solid rgba(86, 54, 20, 0.24);
+    background: rgba(255, 248, 231, 0.52);
+    color: var(--ink-dark);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.24);
+}
+
+.themed-modal .campaign-item:hover,
+.themed-modal .campaign-item:focus-visible {
+    border-color: #6f1616;
+    background: rgba(255, 243, 215, 0.82);
+    color: var(--ink-dark);
+    transform: translateY(-1px);
+}
+
+.themed-modal .campaign-item h4 {
+    color: #6f1616;
+    font-family: 'Cinzel', serif;
+}
+
+.themed-modal .campaign-item small,
+.themed-modal [data-card-preview-type],
+.themed-modal [data-card-preview-hint] {
+    color: var(--ink-muted) !important;
+}
+
+.themed-modal .themed-input {
+    min-height: 48px;
+    border: 1px solid rgba(86, 54, 20, 0.42);
+    background: rgba(255, 250, 239, 0.78);
+    color: var(--ink-dark);
+}
+
+.themed-modal .card-preview-actions label {
+    color: #6d4c14 !important;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+}
+
+.themed-modal .card-preview-direct-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.65rem;
+}
+
+/* About / FAQ field guide */
+.about-page {
+    color: var(--dm-brass);
+    font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+}
+
+.about-page .app-header {
+    background-color: var(--dm-walnut) !important;
+    background-image: url('assets/ui/dark-walnut-texture.png') !important;
+    background-size: 360px auto !important;
+    background-blend-mode: multiply;
+    border-bottom: 2px solid var(--dm-brass-muted) !important;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.62);
+}
+
+.about-brand {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--dm-brass-bright);
+    text-decoration: none;
+}
+
+.about-brand:hover {
+    color: #fff2d0;
+}
+
+.about-brand img {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--dm-brass);
+    border-radius: 8px;
+    box-shadow: 0 0 0 2px rgba(7, 7, 6, 0.82);
+}
+
+.about-brand .app-logo-text,
+.about-page h1,
+.about-page h2,
+.about-page h3,
+.about-page .header-action-button,
+.about-page .about-back-link {
+    font-family: 'Cinzel', serif;
+}
+
+.about-brand .app-logo-text {
+    margin: 0;
+}
+
+.header-action-button {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--dm-brass-muted);
+    border-radius: 3px;
+    background: rgba(8, 8, 7, 0.76);
+    color: var(--dm-brass-bright);
+    font-weight: 700;
+}
+
+.header-action-button:hover,
+.header-action-button:focus-visible {
+    border-color: var(--dm-brass-bright);
+    background: var(--dm-oxblood-dark);
+    color: #fff2d0;
+}
+
+.about-shell {
+    max-width: 980px;
+}
+
+.about-intro {
+    margin-bottom: 1.25rem;
+    padding: 1.1rem 1.25rem;
+    border-left: 4px solid var(--dm-oxblood);
+    background: rgba(9, 9, 8, 0.72);
+}
+
+.about-intro h1 {
+    margin: 0;
+    color: var(--dm-brass-bright);
+    font-size: clamp(1.75rem, 4vw, 2.8rem);
+}
+
+.about-intro > p:last-child {
+    max-width: 54rem;
+    margin: 0.45rem 0 0;
+    color: rgba(255, 246, 223, 0.78);
+}
+
+.about-kicker {
+    margin: 0 0 0.2rem;
+    color: var(--dm-brass);
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.about-panel {
+    position: relative;
+    margin-bottom: 1rem;
+    padding: clamp(1.1rem, 3vw, 1.8rem);
+    overflow: hidden;
+    border: 1px solid rgba(78, 52, 24, 0.34);
+    border-radius: 5px;
+    background-color: var(--surface-parchment-deep);
+    background-image:
+        url('assets/ui/parchment-panel-texture.svg'),
+        var(--parchment-grain);
+    background-size: 240px 240px, auto;
+    color: var(--ink-dark);
+    box-shadow:
+        0 16px 34px rgba(0, 0, 0, 0.38),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.32);
+}
+
+.about-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0.35rem;
+    border: 1px solid rgba(112, 72, 28, 0.18);
+    pointer-events: none;
+}
+
+.about-panel > * {
+    position: relative;
+}
+
+.about-panel h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0 0 1.2rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid rgba(112, 72, 28, 0.28);
+    color: #6d4c14;
+    font-size: clamp(1.25rem, 3vw, 1.65rem);
+}
+
+.about-panel h2 i {
+    color: var(--dm-oxblood);
+    font-size: 0.9em;
+}
+
+.about-panel h3 {
+    margin: 1.15rem 0 0.35rem;
+    color: #6f1616;
+    font-size: clamp(1rem, 2.5vw, 1.18rem);
+}
+
+.about-panel h2 + h3 {
+    margin-top: 0;
+}
+
+.about-panel p {
+    margin: 0;
+    color: var(--ink-dark);
+    line-height: 1.65;
+}
+
+.about-panel strong {
+    color: #571111;
+}
+
+.about-back-link {
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+}
+
 @media (max-width: 768px) {
     body.dark-mode {
         min-height: 100svh;
@@ -3340,8 +3804,8 @@ body.dark-mode #insertCardConfig select.form-control,
     }
 
     .faq-icon {
-        min-width: 38px;
-        min-height: 38px;
+        min-width: 44px;
+        min-height: 44px;
         padding: 0.45rem;
         font-size: 1.1rem;
     }
@@ -3350,6 +3814,17 @@ body.dark-mode #insertCardConfig select.form-control,
         flex: 0 0 auto;
         flex-wrap: nowrap;
         gap: 0.1rem;
+    }
+
+    .about-page .header-action-label {
+        display: none;
+    }
+
+    .about-page .header-action-button {
+        width: 44px;
+        min-width: 44px;
+        justify-content: center;
+        padding: 0;
     }
 
     .deck-page .app-logo-text {
@@ -3870,20 +4345,28 @@ body.dark-mode #insertCardConfig select.form-control,
 }
 
 #deckProgress .progress {
-    height: 1.35rem;
-    border: 1px solid var(--dm-brass-muted);
+    height: 1.55rem;
+    border: 2px solid var(--dm-brass-muted);
     border-radius: 2px;
-    background: #090909;
+    background-color: #090909;
+    background-image: url('assets/ui/dark-walnut-texture.png');
+    background-size: 220px auto;
+    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.72);
 }
 
 #deckProgress .progress-bar {
-    background: var(--dm-moss);
+    background: linear-gradient(180deg, #3f7044, var(--dm-moss));
+    box-shadow: inset -1px 0 0 rgba(234, 211, 155, 0.42);
 }
 
 #deckProgress .progress-text {
     color: #fff3d5;
+    font-family: 'Cinzel', serif;
     font-size: 0.78rem;
     font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.35rem;
+    text-shadow: 0 1px 2px #000000;
 }
 
 #navigationButtons {

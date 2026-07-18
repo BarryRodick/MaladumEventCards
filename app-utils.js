@@ -38,10 +38,18 @@ export function showToast(message) {
 
     const toastId = 'toast-' + Date.now();
     const toastHTML = `
-        <div id="${toastId}" class="toast align-items-center text-white bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body">${message}</div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        <div id="${toastId}" class="toast feedback-toast border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-stretch">
+                <div class="feedback-toast__sigil" aria-hidden="true">
+                    <i class="fas fa-scroll"></i>
+                </div>
+                <div class="toast-body feedback-toast__body">
+                    <span class="feedback-toast__title">Event deck notice</span>
+                    <span class="feedback-toast__message">${message}</span>
+                </div>
+                <button type="button" class="themed-close me-2 my-auto" data-bs-dismiss="toast" aria-label="Dismiss notification">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
             </div>
         </div>
     `;

@@ -335,17 +335,23 @@
         </div>
     </header>
 
+    <div id="toastContainer" aria-live="polite" aria-atomic="true"
+        class="toast-container position-fixed top-0 end-0 p-3"></div>
+
     <div class="notes-section">
-        <div class="notes-header" data-toggle-notes>
-            Campaign Notes <span class="collapse-icon">▼</span>
-        </div>
+        <button type="button" class="notes-header" data-toggle-notes aria-expanded="false" aria-controls="notesContent">
+            <span class="notes-header__label"><i class="fas fa-book-open" aria-hidden="true"></i> Campaign Notes</span>
+            <i class="fas fa-chevron-down collapse-icon" aria-hidden="true"></i>
+        </button>
         <div class="notes-content" id="notesContent">
             <textarea id="notesTextarea" placeholder="Add your campaign notes here..."></textarea>
         </div>
     </div>
 
     <input id="imageInput" type="file" accept="image/*" capture="environment" style="display:none;">
-    <label for="imageInput" class="image-input-label">Add Photo</label>
+    <button type="button" class="image-input-label" data-add-photo>
+        <i class="fas fa-camera" aria-hidden="true"></i><span>Add Photo</span>
+    </button>
     <div id="imageGallery" class="image-gallery"></div>
     <div id="imageModal" class="image-modal"><img id="modalImage"></div>
 

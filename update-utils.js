@@ -31,20 +31,25 @@ export function getUpdateNotificationMessage(newVersion) {
 export function buildUpdateModalMarkup(newVersion) {
     const versionMessage = getUpdateNotificationMessage(newVersion);
     return `
-        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal fade themed-modal" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content bg-dark text-white">
+                <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="updateModalLabel">New Version Available</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div>
+                            <p class="themed-modal__kicker">App update</p>
+                            <h5 class="modal-title" id="updateModalLabel">New Version Available</h5>
+                        </div>
+                        <button type="button" class="themed-close" data-bs-dismiss="modal" aria-label="Close update dialog">
+                            <i class="fas fa-times" aria-hidden="true"></i>
+                        </button>
                     </div>
                     <div class="modal-body">
                         <p>${versionMessage}</p>
                         <p>Update now to get the latest features and improvements.</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Later</button>
-                        <button type="button" class="btn btn-primary" id="updateNowButton">Update Now</button>
+                        <button type="button" class="rune-btn small secondary" data-bs-dismiss="modal">Later</button>
+                        <button type="button" class="rune-btn small primary" id="updateNowButton">Update Now</button>
                     </div>
                 </div>
             </div>

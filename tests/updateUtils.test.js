@@ -49,6 +49,10 @@ assert.strictEqual(
 const versionedMarkup = buildUpdateModalMarkup('2.15.1');
 assert(versionedMarkup.includes('A new version (2.15.1) of the app is available.'),
     'Modal markup should include the provided version');
+assert(versionedMarkup.includes('themed-modal'),
+    'Update modal should use the shared themed dialog surface');
+assert(!versionedMarkup.includes('modal-content bg-dark text-white'),
+    'Update modal should not use the generic Bootstrap dark surface');
 assert(!versionedMarkup.includes('undefined'),
     'Modal markup should never render the string "undefined"');
 

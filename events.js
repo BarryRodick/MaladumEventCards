@@ -1,23 +1,14 @@
 /**
  * events.js - Handles all global event listeners
  */
-import { generateDeck, advanceToNextCard, showCurrentCard, clearActiveCardView, updateProgressBar } from './deck-manager.js';
-import {
-    triggerCardAction,
-    markCardAsInPlay,
-    updateInPlayCardsDisplay,
-    shuffleCardIntoTopN,
-    insertSpecificCardById
-} from './card-actions.js';
+import { generateDeck } from './deck-manager.js';
+import { liveDeckSession } from './live-deck-session.js';
 import { state } from './state.js';
 import { trackEvent, debounce } from './app-utils.js';
-import { saveConfiguration } from './config-manager.js';
 import { setupManualUpdateCheck } from './update-utils.js';
 import { updateCardSearchResults, showCardPreview, setDeckMode, toggleUtilityDrawer, openBuildTools, openSearchTools, toggleActionPanel } from './ui-manager.js';
 import { buildPreviewActionRequest } from './deck-flow-utils.js';
-import { clearInPlayCards, goToPreviousCard } from './live-deck.js';
 
-const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
 const debouncedCardSearch = debounce((value) => updateCardSearchResults(value), 150);
 
 export function setupEventListeners() {
@@ -93,16 +84,12 @@ export function setupEventListeners() {
 
     // Navigation
     const nextBtn = document.getElementById('nextCard');
-    if (nextBtn) nextBtn.addEventListener('click', advanceToNextCard);
+    if (nextBtn) nextBtn.addEventListener('click', () => liveDeckSession.advance());
 
     const prevBtn = document.getElementById('prevCard');
     if (prevBtn) {
         prevBtn.addEventListener('click', () => {
-            if (goToPreviousCard(state)) {
-                showCurrentCard('backward');
-                debouncedSaveConfiguration();
-                trackEvent('Navigation', 'Previous Card', state.currentIndex);
-            }
+            liveDeckSession.previous();
         });
     }
 
@@ -157,7 +144,7 @@ export function setupEventListeners() {
                 }
             } else {
                 // Trigger action immediately
-                triggerCardAction(action);
+                liveDeckSession.performAction(action);
             }
         });
     });
@@ -166,7 +153,7 @@ export function setupEventListeners() {
     if (confirmShuffleN) {
         confirmShuffleN.addEventListener('click', () => {
             const nVal = parseInt(document.getElementById('actionN').value) || 3;
-            triggerCardAction('shuffleTopN', nVal);
+            liveDeckSession.performAction('shuffleTopN', nVal);
             document.getElementById('shuffleNConfig').style.display = 'none';
         });
     }
@@ -174,9 +161,7 @@ export function setupEventListeners() {
     const markInPlayBtn = document.getElementById('markInPlay');
     if (markInPlayBtn) {
         markInPlayBtn.addEventListener('click', () => {
-            if (state.currentIndex >= 0 && state.currentDeck[state.currentIndex]) {
-                markCardAsInPlay(state.currentDeck[state.currentIndex]);
-            }
+            liveDeckSession.markActiveInPlay();
         });
     }
 
@@ -184,8 +169,7 @@ export function setupEventListeners() {
     if (clearActiveCardBtn) {
         clearActiveCardBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            clearActiveCardView();
-            trackEvent('Navigation', 'Clear Active Card', null);
+            liveDeckSession.clearActive();
         });
     }
 
@@ -194,11 +178,7 @@ export function setupEventListeners() {
         clearInPlayBtn.addEventListener('click', () => {
             if (state.inPlayCards.length === 0) return;
             if (!confirm('Clear all cards in play?')) return;
-            clearInPlayCards(state);
-            updateInPlayCardsDisplay();
-            updateProgressBar();
-            debouncedSaveConfiguration();
-            trackEvent('Card Status', 'Clear In Play', null);
+            liveDeckSession.clearInPlay();
         });
     }
 
@@ -231,6 +211,12 @@ export function setupEventListeners() {
     const inPlayCards = document.getElementById('inPlayCards');
     if (inPlayCards) {
         inPlayCards.addEventListener('click', (e) => {
+            const removeButton = e.target.closest('.remove-from-play');
+            if (removeButton) {
+                liveDeckSession.removeFromPlay(Number(removeButton.dataset.id));
+                return;
+            }
+
             const target = e.target.closest('.in-play-card-preview');
             if (target) {
                 openCardPreviewFromInPlay(target);
@@ -282,7 +268,7 @@ export function setupEventListeners() {
             const posInput = document.querySelector('input[name="insertPos"]:checked');
             const position = posInput ? posInput.value : 'random';
 
-            triggerCardAction('insertCardType', {
+            liveDeckSession.performAction('insertCardType', {
                 cardType: type,
                 specificCardId: specificId,
                 position: position
@@ -327,12 +313,12 @@ function runCardPreviewAction(actionName) {
     if (!request) return;
 
     if (request.kind === 'shuffleTopN') {
-        shuffleCardIntoTopN(request.cardId, request.count);
+        liveDeckSession.shuffleIntoTop(request.cardId, request.count);
         return;
     }
 
     if (request.kind === 'insertSpecificCard') {
-        insertSpecificCardById(request.cardId, request.position);
+        liveDeckSession.insertCard(request.cardId, request.position);
     }
 }
 

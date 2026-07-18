@@ -151,19 +151,22 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="difficultyLevel" class="brand-text text-gold mb-2">Difficulty</label>
-                                    <select id="difficultyLevel" class="form-control form-control-lg bg-dark text-light border-secondary">
-                                        <!-- Populated by JS -->
-                                    </select>
+                                    <div class="themed-select-wrap">
+                                        <select id="difficultyLevel" class="form-control form-control-lg themed-select">
+                                            <!-- Populated by JS -->
+                                        </select>
+                                        <i class="fas fa-chevron-down themed-select-icon" aria-hidden="true"></i>
+                                    </div>
                                     <small id="difficultyDetails" class="text-muted mt-1 d-block"></small>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-check mb-2">
                                         <input type="checkbox" class="form-check-input" id="enableSentryRules">
-                                        <label class="form-check-label text-light" for="enableSentryRules">Enable Sentry Rules</label>
+                                        <label class="form-check-label" for="enableSentryRules">Enable Sentry Rules</label>
                                     </div>
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="enableCorrupterRules">
-                                        <label class="form-check-label text-light" for="enableCorrupterRules">Enable Corrupter Rules</label>
+                                        <label class="form-check-label" for="enableCorrupterRules">Enable Corrupter Rules</label>
                                     </div>
                                 </div>
                             </div>
@@ -186,7 +189,7 @@
                     </div>
                     <div id="cardSearchContent" class="collapse mt-3">
                         <label for="cardSearchInput" class="brand-text text-gold mb-2">Search by card name</label>
-                        <input id="cardSearchInput" type="search" class="form-control form-control-lg bg-dark text-light border-secondary"
+                        <input id="cardSearchInput" type="search" class="form-control form-control-lg"
                             placeholder="Start typing a card name..." autocomplete="off">
                         <small id="cardSearchStatus" class="text-muted mt-2 d-block"></small>
                         <div id="cardSearchResults" class="card-search-results mt-3" aria-live="polite"></div>
@@ -242,7 +245,8 @@
                 <!-- Progress Bar -->
                 <div id="deckProgress" class="mb-3" style="display: none;">
                     <div class="progress">
-                        <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%"
+                            aria-label="Deck progress" aria-valuemin="0" aria-valuemax="100"></div>
                         <div id="progressText" class="progress-text">Ready to draw</div>
                     </div>
                 </div>
@@ -250,9 +254,9 @@
                 <!-- Deck Output -->
                 <section id="deckOutput" class="text-center">
                     <!-- Current Card Image will be inserted here -->
-                     <button id="clearActiveCard" class="btn btn-danger btn-sm position-absolute"
-                        style="top: 10px; right: 10px; display: none; z-index: 10;">
-                        <i class="fas fa-times"></i>
+                    <button id="clearActiveCard" type="button" aria-label="Clear active card"
+                        class="themed-close deck-card-close" style="display: none;">
+                        <i class="fas fa-times" aria-hidden="true"></i>
                     </button>
                 </section>
 
@@ -338,20 +342,20 @@
                         <div id="insertCardConfig" class="mt-3 p-3" style="display: none; background: rgba(0,0,0,0.5); border-radius: 8px;">
                             <h5 class="text-gold mb-3 text-center">Insert Card</h5>
                             <div class="mb-3">
-                                <label class="text-light">Card Type</label>
-                                <select id="insertTypeSelect" class="form-control bg-dark text-light border-secondary">
+                                <label>Card Type</label>
+                                <select id="insertTypeSelect" class="form-control">
                                     <!-- Populated by JS -->
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="text-light">Specific Card (Optional)</label>
-                                <select id="insertSpecificCardSelect" class="form-control bg-dark text-light border-secondary">
+                                <label>Specific Card (Optional)</label>
+                                <select id="insertSpecificCardSelect" class="form-control">
                                     <option value="">Random</option>
                                     <!-- Populated by JS -->
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="text-light">Position</label>
+                                <label>Position</label>
                                 <div class="btn-group w-100" role="group">
                                     <input type="radio" class="btn-check" name="insertPos" id="posNext" value="next" checked>
                                     <label class="btn btn-outline-secondary" for="posNext">Next</label>
@@ -393,14 +397,19 @@
     <script type="module" src="deckbuilder.js"></script>
 
     <!-- Add Campaign Modal -->
-    <div class="modal fade" id="campaignModal" tabindex="-1" role="dialog" aria-labelledby="campaignModalLabel"
+    <div class="modal fade themed-modal" id="campaignModal" tabindex="-1" role="dialog" aria-labelledby="campaignModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content bg-dark text-white">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="campaignModalLabel">Campaign Manager</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <div>
+                        <p class="themed-modal__kicker">Campaign archive</p>
+                        <h5 class="modal-title" id="campaignModalLabel">Campaign Manager</h5>
+                    </div>
+                    <button type="button" class="themed-close" data-bs-dismiss="modal"
+                        aria-label="Close campaign manager">
+                        <i class="fas fa-times" aria-hidden="true"></i>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="campaign-list">
@@ -418,14 +427,19 @@
         </div>
     </div>
 
-    <div class="modal fade" id="cardPreviewModal" tabindex="-1" role="dialog" aria-labelledby="cardPreviewModalLabel"
+    <div class="modal fade themed-modal" id="cardPreviewModal" tabindex="-1" role="dialog" aria-labelledby="cardPreviewModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl card-preview-dialog" role="document">
-            <div class="modal-content bg-dark text-white">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="cardPreviewModalLabel" data-card-preview-title>Card Preview</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <div>
+                        <p class="themed-modal__kicker">Event card</p>
+                        <h5 class="modal-title" id="cardPreviewModalLabel" data-card-preview-title>Card Preview</h5>
+                    </div>
+                    <button type="button" class="themed-close" data-bs-dismiss="modal"
+                        aria-label="Close card preview">
+                        <i class="fas fa-times" aria-hidden="true"></i>
+                    </button>
                 </div>
                 <div class="modal-body text-center">
                     <img class="card-preview-image" data-card-preview-image alt="">
@@ -435,16 +449,16 @@
                         <label class="form-label text-gold" for="cardPreviewShuffleCount">Shuffle into top X cards</label>
                         <div class="input-group justify-content-center">
                             <input id="cardPreviewShuffleCount" type="number" min="1" value="6"
-                                class="form-control bg-dark text-light border-secondary">
-                            <button class="btn btn-outline-warning" type="button" data-card-preview-shuffle data-preview-deck-action>
+                                class="form-control themed-input">
+                            <button class="rune-btn small primary" type="button" data-card-preview-shuffle data-preview-deck-action>
                                 Shuffle
                             </button>
                         </div>
                         <div class="card-preview-direct-actions mt-3">
-                            <button class="btn btn-outline-light" type="button" data-card-preview-insert-next data-preview-deck-action>
+                            <button class="rune-btn small secondary" type="button" data-card-preview-insert-next data-preview-deck-action>
                                 Insert Next
                             </button>
-                            <button class="btn btn-outline-secondary" type="button" data-card-preview-add-bottom data-preview-deck-action>
+                            <button class="rune-btn small secondary" type="button" data-card-preview-add-bottom data-preview-deck-action>
                                 Add to Bottom
                             </button>
                         </div>
