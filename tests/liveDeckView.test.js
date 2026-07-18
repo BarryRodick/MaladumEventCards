@@ -79,6 +79,7 @@ console.log('Testing live deck browser view...');
     assert.strictEqual(progressText.textContent, 'Card 2 of 3');
     assert.strictEqual(progressBar.style.width, `${(2 / 3) * 100}%`);
     assert.strictEqual(progressBar['aria-valuenow'], '67');
+    assert.strictEqual(progressBar['aria-valuetext'], 'Card 2 of 3');
     assert.strictEqual(summaryCalls, 1);
 }
 

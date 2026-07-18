@@ -18,6 +18,17 @@ function loadTrackEvent(gtag) {
     )(gtag);
 }
 
+function loadShowToast() {
+    const file = path.join(__dirname, '..', 'app-utils.js');
+    const code = fs.readFileSync(file, 'utf8');
+    const match = code.match(/export function showToast\(message\) \{[\s\S]*?\n\}/);
+    if (!match) throw new Error('showToast function not found');
+
+    return new Function(
+        `${match[0].replace('export ', '')}; return showToast;`
+    )();
+}
+
 console.log('Testing app utility helpers...');
 
 {
@@ -56,5 +67,47 @@ assert.doesNotThrow(() => {
     const trackEvent = loadTrackEvent(undefined);
     trackEvent('App', 'Initialize');
 }, 'trackEvent should be safe when Google Analytics is unavailable');
+
+{
+    let insertedMarkup = '';
+    const toastElement = {
+        addEventListener() { }
+    };
+    const previousDocument = global.document;
+    const previousBootstrap = global.bootstrap;
+
+    global.document = {
+        getElementById(id) {
+            if (id === 'toastContainer') {
+                return {
+                    insertAdjacentHTML(position, markup) {
+                        assert.strictEqual(position, 'beforeend');
+                        insertedMarkup = markup;
+                    }
+                };
+            }
+            return id.startsWith('toast-') ? toastElement : null;
+        }
+    };
+    global.bootstrap = {
+        Toast: class {
+            show() { }
+        }
+    };
+
+    try {
+        loadShowToast()('Choose at least one card.');
+    } finally {
+        global.document = previousDocument;
+        global.bootstrap = previousBootstrap;
+    }
+
+    assert(insertedMarkup.includes('feedback-toast'),
+        'Toast markup should use the shared themed feedback surface');
+    assert(insertedMarkup.includes('feedback-toast__title'),
+        'Toast markup should expose a themed notice heading');
+    assert(!insertedMarkup.includes('bg-dark') && !insertedMarkup.includes('text-white'),
+        'Toast markup should not use generic Bootstrap dark utility classes');
+}
 
 console.log('All app utility helper tests passed!');

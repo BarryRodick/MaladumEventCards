@@ -9,6 +9,7 @@ const DEFAULT_OPTIONS = {
     notesTextareaId: 'notesTextarea',
     collapseIconSelector: '.collapse-icon',
     notesToggleSelector: '[data-toggle-notes]',
+    imageTriggerSelector: '[data-add-photo]',
     imageInputId: 'imageInput',
     imageGalleryId: 'imageGallery',
     imageModalId: 'imageModal',
@@ -26,7 +27,9 @@ export function initializeCampaignTracker(options = {}) {
     const elements = {
         notesContent: doc.getElementById(config.notesContentId),
         notesTextarea: doc.getElementById(config.notesTextareaId),
+        notesToggle: doc.querySelector(config.notesToggleSelector),
         collapseIcon: doc.querySelector(config.collapseIconSelector),
+        imageTrigger: doc.querySelector(config.imageTriggerSelector),
         imageInput: doc.getElementById(config.imageInputId),
         imageGallery: doc.getElementById(config.imageGalleryId),
         imageModal: doc.getElementById(config.imageModalId),
@@ -58,9 +61,16 @@ export function initializeCampaignTracker(options = {}) {
 }
 
 function bindCheckboxes(doc, config, saveState) {
-    doc.querySelectorAll(config.checkboxSelector).forEach(checkbox => {
-        checkbox.addEventListener('click', function () {
-            setChecked(this, !isChecked(this, config.checkboxMode), config.checkboxMode, config.checkboxActiveColor);
+    doc.querySelectorAll(config.checkboxSelector).forEach((checkbox, index) => {
+        prepareCampaignMarker(
+            doc,
+            checkbox,
+            config.checkboxMode,
+            `Campaign marker ${index + 1}`,
+            'fa-xmark'
+        );
+        bindMarkerToggle(checkbox, () => {
+            setChecked(checkbox, !isChecked(checkbox, config.checkboxMode), config.checkboxMode, config.checkboxActiveColor);
             saveState();
         });
     });
@@ -68,9 +78,16 @@ function bindCheckboxes(doc, config, saveState) {
 
 function bindBinaryTracks(doc, config, saveState) {
     config.binaryTracks.forEach(track => {
-        doc.querySelectorAll(track.selector).forEach(element => {
-            element.addEventListener('click', function () {
-                setChecked(this, !isChecked(this, track.mode), track.mode, track.activeColor || 'black');
+        doc.querySelectorAll(track.selector).forEach((element, index) => {
+            prepareCampaignMarker(
+                doc,
+                element,
+                track.mode,
+                `${track.label || 'Campaign track marker'} ${index + 1}`,
+                track.markerIconClass || 'fa-location-dot'
+            );
+            bindMarkerToggle(element, () => {
+                setChecked(element, !isChecked(element, track.mode), track.mode, track.activeColor || 'black');
                 saveState();
             });
         });
@@ -96,12 +113,13 @@ function bindInputs(doc, config, saveState) {
 }
 
 function bindNotesToggle(doc, config, elements, saveState) {
-    const toggle = doc.querySelector(config.notesToggleSelector);
+    const toggle = elements.notesToggle || doc.querySelector(config.notesToggleSelector);
     if (!toggle || !elements.notesContent || !elements.collapseIcon) return;
 
     toggle.addEventListener('click', () => {
-        elements.notesContent.classList.toggle('visible');
+        const isVisible = elements.notesContent.classList.toggle('visible');
         elements.collapseIcon.classList.toggle('rotated');
+        toggle.setAttribute('aria-expanded', String(isVisible));
         saveState();
     });
 }
@@ -118,6 +136,10 @@ function bindImages(config, elements, trackerState, renderGallery, saveState) {
     }
 
     if (!elements.imageInput) return;
+
+    if (elements.imageTrigger) {
+        elements.imageTrigger.addEventListener('click', () => elements.imageInput.click());
+    }
 
     elements.imageInput.addEventListener('change', event => {
         Array.from(event.target.files).forEach(file => {
@@ -187,6 +209,9 @@ export function applyCampaignState(doc, config, elements, trackerState, state, s
     if (state.notesVisible && elements.notesContent && elements.collapseIcon) {
         elements.notesContent.classList.add('visible');
         elements.collapseIcon.classList.add('rotated');
+    }
+    if (elements.notesToggle) {
+        elements.notesToggle.setAttribute('aria-expanded', String(!!state.notesVisible));
     }
 
     restoreCheckboxGroups(doc, config, state);
@@ -296,10 +321,35 @@ function setChecked(element, checked, mode, activeColor) {
     element.dataset.checked = checked ? 'true' : '';
 
     element.style.backgroundColor = checked ? activeColor : '';
+    element.setAttribute?.('aria-checked', String(checked));
 
     if (mode === 'numbered') {
         element.style.color = checked ? 'white' : 'black';
     }
+}
+
+function prepareCampaignMarker(doc, element, mode, label, iconClass) {
+    element.setAttribute('role', 'checkbox');
+    element.setAttribute('tabindex', '0');
+    element.setAttribute('aria-checked', String(isChecked(element, mode)));
+    if (!element.hasAttribute('aria-label')) {
+        element.setAttribute('aria-label', label);
+    }
+
+    if (element.querySelector?.('.campaign-marker-icon')) return;
+    const icon = doc.createElement('i');
+    icon.className = `fas ${iconClass} campaign-marker-icon`;
+    icon.setAttribute?.('aria-hidden', 'true');
+    element.appendChild(icon);
+}
+
+function bindMarkerToggle(element, toggle) {
+    element.addEventListener('click', toggle);
+    element.addEventListener('keydown', event => {
+        if (event.key !== ' ' && event.key !== 'Enter') return;
+        event.preventDefault();
+        toggle();
+    });
 }
 
 function cycleClassState(element, control) {

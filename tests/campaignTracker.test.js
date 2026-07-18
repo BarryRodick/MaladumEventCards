@@ -14,7 +14,7 @@ function loadCampaignTracker() {
                 isStorageAvailable() { return true; }
             }
         },
-        exports: ['captureCampaignState', 'applyCampaignState']
+        exports: ['initializeCampaignTracker', 'captureCampaignState', 'applyCampaignState']
     });
 }
 
@@ -37,6 +37,7 @@ function makeClassList(initial = []) {
 
 function makeElement() {
     return {
+        attributes: {},
         style: {},
         dataset: {},
         value: '',
@@ -48,6 +49,19 @@ function makeElement() {
         listeners: {},
         addEventListener(event, handler) {
             this.listeners[event] = handler;
+        },
+        setAttribute(name, value) {
+            this.attributes[name] = String(value);
+        },
+        getAttribute(name) {
+            return this.attributes[name] ?? null;
+        },
+        hasAttribute(name) {
+            return Object.prototype.hasOwnProperty.call(this.attributes, name);
+        },
+        click() {
+            this.clickCount = (this.clickCount || 0) + 1;
+            this.listeners.click?.({ preventDefault() { } });
         },
         appendChild(child) {
             this.children.push(child);
@@ -139,6 +153,7 @@ console.log('Testing campaign tracker helpers...');
     const input = makeElement();
     const notesContent = makeElement();
     const collapseIcon = makeElement();
+    const notesToggle = makeElement();
     const notesTextarea = makeElement();
     const imageGallery = makeElement();
     const doc = makeDocument({
@@ -155,7 +170,7 @@ console.log('Testing campaign tracker helpers...');
             inputSelector: '.input-field',
             binaryTracks: []
         },
-        { notesContent, collapseIcon, notesTextarea, imageGallery },
+        { notesContent, collapseIcon, notesToggle, notesTextarea, imageGallery },
         { images: [] },
         {
             checkboxes: [true, false],
@@ -173,7 +188,81 @@ console.log('Testing campaign tracker helpers...');
     assert.strictEqual(notesTextarea.value, 'Recovered');
     assert.strictEqual(notesContent.classList.contains('visible'), true);
     assert.strictEqual(collapseIcon.classList.contains('rotated'), true);
+    assert.strictEqual(notesToggle.getAttribute('aria-expanded'), 'true');
     assert.strictEqual(imageGallery.children.length, 1);
+}
+
+{
+    const { initializeCampaignTracker } = loadCampaignTracker();
+    const checkbox = makeElement();
+    const delayMarker = makeElement();
+    const notesToggle = makeElement();
+    const notesContent = makeElement();
+    const collapseIcon = makeElement();
+    const notesTextarea = makeElement();
+    const imageInput = makeElement();
+    const imageTrigger = makeElement();
+    const imageGallery = makeElement();
+    const imageModal = makeElement();
+    const modalImage = makeElement();
+    const doc = makeDocument(
+        {
+            '.checkbox': [checkbox],
+            '.input-field': [],
+            '.delay-checkbox': [delayMarker],
+            '[data-toggle-notes]': [notesToggle],
+            '.collapse-icon': [collapseIcon],
+            '[data-add-photo]': [imageTrigger]
+        },
+        {
+            notesContent,
+            notesTextarea,
+            imageInput,
+            imageGallery,
+            imageModal,
+            modalImage
+        }
+    );
+    let prevented = false;
+
+    initializeCampaignTracker({
+        document: doc,
+        storage: {
+            saveState() { },
+            loadState() { return null; },
+            isStorageAvailable() { return true; }
+        },
+        storageKey: 'campaign-test',
+        checkboxMode: 'dataset',
+        binaryTracks: [{
+            stateKey: 'delayTrack',
+            selector: '.delay-checkbox',
+            mode: 'style',
+            markerIconClass: 'fa-location-dot'
+        }]
+    });
+
+    assert.strictEqual(checkbox.getAttribute('role'), 'checkbox');
+    assert.strictEqual(checkbox.getAttribute('tabindex'), '0');
+    assert.strictEqual(checkbox.getAttribute('aria-checked'), 'false');
+    assert(checkbox.children[0].className.includes('fa-xmark'),
+        'Campaign checkboxes should use an explicit X icon');
+    assert(delayMarker.children[0].className.includes('fa-location-dot'),
+        'Campaign tracks should use an explicit peg icon');
+
+    checkbox.listeners.keydown({
+        key: ' ',
+        preventDefault() { prevented = true; }
+    });
+    assert.strictEqual(prevented, true);
+    assert.strictEqual(checkbox.getAttribute('aria-checked'), 'true');
+
+    notesToggle.listeners.click();
+    assert.strictEqual(notesContent.classList.contains('visible'), true);
+    assert.strictEqual(notesToggle.getAttribute('aria-expanded'), 'true');
+
+    imageTrigger.listeners.click();
+    assert.strictEqual(imageInput.clickCount, 1);
 }
 
 console.log('All campaign tracker helper tests passed!');

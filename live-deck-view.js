@@ -83,11 +83,13 @@ export const liveDeckView = {
             ? 0
             : (currentCardNumber / totalCards) * 100;
 
-        progressText.textContent = state.currentIndex === -1
+        const progressLabel = state.currentIndex === -1
             ? 'Ready to draw'
             : `Card ${currentCardNumber} of ${totalCards}`;
+        progressText.textContent = progressLabel;
         progressBar.style.width = `${percentage}%`;
         progressBar.setAttribute('aria-valuenow', percentage.toFixed(0));
+        progressBar.setAttribute('aria-valuetext', progressLabel);
         renderDeckSummary();
     },
 

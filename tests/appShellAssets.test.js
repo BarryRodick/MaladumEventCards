@@ -84,6 +84,10 @@ htmlFiles.forEach(file => {
         !html.includes('transport_url'),
         `${file} should not override Google Analytics transport routing`
     );
+    assert(
+        html.includes('id="toastContainer"'),
+        `${file} should expose the shared themed toast surface`
+    );
 });
 
 const styles = fs.readFileSync(path.join(repoRoot, 'styles.css'), 'utf8');

@@ -35,50 +35,60 @@
     <link rel="icon" type="image/png" href="icons/icon-192x192.png">
 </head>
 
-<body class="dark-mode">
+<body class="dark-mode about-page">
+    <a href="#main-content" class="visually-hidden-focusable skip-link">Skip to main content</a>
 
     <!-- Header Section -->
     <header class="app-header dark-green-bar d-flex align-items-center justify-content-between p-3">
-        <h1 class="app-logo-text mb-0">Event Cards</h1>
+        <a href="index.html" class="about-brand" aria-label="Maladum Event Cards home">
+            <img src="logos/gameicon.jpg" alt="" aria-hidden="true">
+            <span class="app-logo-text">Maladum Event Cards</span>
+        </a>
 
         <div id="headerButtons" class="d-flex align-items-center">
-            <!-- Home Icon -->
-            <a href="index.html" class="btn btn-link faq-icon" title="Back to Home" aria-label="Back to Home">
-                <i class="fas fa-home"></i>
-            </a>
-
-            <button id="checkUpdateBtn" class="btn btn-info ml-3" data-check-updates>Check for Updates</button>
+            <button id="checkUpdateBtn" class="header-action-button" type="button" data-check-updates>
+                <i class="fas fa-arrows-rotate" aria-hidden="true"></i>
+                <span class="header-action-label">Check for updates</span>
+            </button>
         </div>
     </header>
-    
-    <div class="container my-4">
-        <h1>About / FAQ</h1>
-        
-        <div class="card bg-dark text-white mb-4">
-            <div class="card-body">
-                <h2>General Questions</h2>
+
+    <div id="toastContainer" aria-live="polite" aria-atomic="true"
+        class="toast-container position-fixed top-0 end-0 p-3"></div>
+
+    <main id="main-content" class="container about-shell my-4" role="main">
+        <header class="about-intro">
+            <p class="about-kicker">Adventurer's field guide</p>
+            <h1>About / FAQ</h1>
+            <p>Rules, controls, and field notes for running your Maladum event deck.</p>
+        </header>
+
+        <section class="about-panel" aria-labelledby="general-questions-title">
+                <h2 id="general-questions-title"><i class="fas fa-compass" aria-hidden="true"></i> General Questions</h2>
                 
-                <h4>What is this app?</h4>
+                <h3>What is this app?</h3>
                 <p>This is a digital event deck manager for Maladum and its expansions. It helps you manage and manipulate the event deck during gameplay.</p>
 
-                <h4>How do I start?</h4>
+                <h3>How do I start?</h3>
                 <p>Start in <strong>Build mode</strong>. Select which game boxes you want to use, set your deck counts and rules, then click <strong>Generate Deck</strong>. The page then switches into <strong>Play mode</strong>, scrolls you into the live deck, and keeps build tools demoted behind the play surface.</p>
 
-                <h4>What do the different card types mean?</h4>
+                <h3>What do the different card types mean?</h3>
                 <p>Cards are categorized by their type (e.g., Denizen, Revenant, Veteran). Some cards can have multiple types, indicated by "+" (must be both) or "/" (can be either).</p>
+        </section>
 
-                <h2>Deck Management</h2>
+        <section class="about-panel" aria-labelledby="deck-management-title">
+                <h2 id="deck-management-title"><i class="fas fa-layer-group" aria-hidden="true"></i> Deck Management</h2>
 
-                <h4>What are Build and Play modes?</h4>
+                <h3>What are Build and Play modes?</h3>
                 <p><strong>Build mode</strong> is where you choose games, set difficulty, and configure the event deck. <strong>Play mode</strong> keeps the current card and live deck controls front and center, with a sticky summary bar showing games, difficulty, rules, remaining cards, and discard count.</p>
 
-                <h4>Where did the setup controls go during play?</h4>
+                <h3>Where did the setup controls go during play?</h3>
                 <p>They now live in the utility drawer. Use <strong>Edit Build</strong> to return to the setup phase, or <strong>Search Cards</strong> to jump straight into the search utility without leaving the main play view.</p>
 
-                <h4>How do I navigate through the deck?</h4>
+                <h3>How do I navigate through the deck?</h3>
                 <p>Use <strong>Next</strong> as the main draw control. <strong>Prev</strong> lets you step back, and <strong>In Play</strong> marks the current card as active without removing it from the deck flow. The progress bar shows your current position, and the ready state now displays as <strong>Ready to draw</strong>.</p>
 
-                <h4>What are Card Actions?</h4>
+                <h3>What are Card Actions?</h3>
                 <p>Card Actions now live in a collapsible drawer under the main controls. They allow you to manipulate the deck during gameplay:<br>
                 - Shuffle into remaining deck: Places the current card randomly in the remaining cards<br>
                 - Shuffle into next N cards: Places the card within the next N cards<br>
@@ -86,49 +96,54 @@
                 - Introduce Sentry cards: Adds Sentry cards into the remaining deck<br>
                 - Insert card by type: Adds a new card of a specific type to the deck</p>
 
-                <h4>Can I search while I am already playing?</h4>
+                <h3>Can I search while I am already playing?</h3>
                 <p>Yes. Search is now a persistent utility instead of a setup-only panel. You can open a card preview at any time, then shuffle that card near the top of the deck, insert it next, or add it to the bottom if you already have an active deck.</p>
 
-                <h4>How do Sentry cards work?</h4>
+                <h3>How do Sentry cards work?</h3>
                 <p>Sentry cards (Revenants and Malagaunts) represent elite enemies that can be introduced during gameplay. When Sentry rules are enabled:<br>
                 1. A separate deck of 3-5 Sentry cards is created but not included in your initial deck<br>
                 2. These cards can be introduced into the remaining deck when needed using the "Introduce Sentry cards" action<br>
                 3. Once introduced, they are shuffled into the remaining cards<br>
                 4. This matches game scenarios where reinforcements arrive during exploration</p>
 
-                <h4>How do Corrupter cards work?</h4>
+                <h3>How do Corrupter cards work?</h3>
                 <p>Corrupter cards represent chaos-tainted enemies that infest the fortress. When Corrupter rules are enabled:<br>
                 1. Five random cards in your initial deck are replaced with Corrupter cards<br>
                 2. These replacements happen during deck generation<br>
                 3. Corrupter cards include special enemies like Chaos Beasts and other tainted creatures<br>
                 4. This creates additional challenges and represents the fortress's corruption</p>
 
-                <h4>What is the "In Play Cards" section?</h4>
+                <h3>What is the "In Play Cards" section?</h3>
                 <p>This area shows cards that are currently active or in play. You can clear these cards when they're no longer needed.</p>
+        </section>
 
-                <h2>Technical Details</h2>
+        <section class="about-panel" aria-labelledby="technical-details-title">
+                <h2 id="technical-details-title"><i class="fas fa-gears" aria-hidden="true"></i> Technical Details</h2>
 
-                <h4>Does the app save my progress?</h4>
+                <h3>Does the app save my progress?</h3>
                 <p>Yes, your current deck state, position, and settings are automatically saved and will persist even if you refresh the page or close the browser.</p>
 
-                <h4>Can I use this offline?</h4>
+                <h3>Can I use this offline?</h3>
                 <p>Yes, this is a Progressive Web App (PWA) that can be installed on your device and used offline.</p>
 
-                <h4>How do I handle duplicate cards?</h4>
+                <h3>How do I handle duplicate cards?</h3>
                 <p>The app respects duplicate cards in the source material - if a card appears multiple times in the game, it can appear multiple times in your deck.</p>
 
-                <h4>What should I do if I encounter an error?</h4>
+                <h3>What should I do if I encounter an error?</h3>
                 <p>Try refreshing the page. If the problem persists, you can clear your saved state by clicking "Reset All" in the deck builder options.</p>
+        </section>
 
-                <h2>Game Rules</h2>
+        <section class="about-panel" aria-labelledby="game-rules-title">
+                <h2 id="game-rules-title"><i class="fas fa-scroll" aria-hidden="true"></i> Game Rules</h2>
 
-                <h4>How do I handle special game scenarios?</h4>
+                <h3>How do I handle special game scenarios?</h3>
                 <p>Use the card type insertion feature to add specific types of cards when required by special game rules or scenarios.</p>
-            </div>
-        </div>
+        </section>
 
-        <a href="index.html" class="btn btn-primary mb-4">Back to Deck Builder</a>
-    </div>
+        <a href="index.html" class="rune-btn primary about-back-link mb-4">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Deck Builder
+        </a>
+    </main>
 
     <!-- Include Bootstrap JS -->
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
