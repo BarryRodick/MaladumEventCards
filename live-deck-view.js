@@ -1,15 +1,13 @@
 import { state } from './state.js';
 import { renderDeckSummary } from './ui-manager.js';
+import { renderCardNode, renderCompactCardNode } from './card-renderer.mjs';
 
 const preloadCache = [];
 
-function escapeHtml(value) {
-    return String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+function clearChildren(node) {
+    while (node.firstChild) {
+        node.removeChild(node.firstChild);
+    }
 }
 
 function getDeckCardDisplay(output) {
@@ -17,20 +15,76 @@ function getDeckCardDisplay(output) {
     if (!cardDisplay) {
         cardDisplay = document.createElement('div');
         cardDisplay.className = 'deck-card-display';
-        cardDisplay.setAttribute?.('data-deck-card-display', '');
+        cardDisplay.setAttribute('data-deck-card-display', '');
         output.appendChild(cardDisplay);
     }
     return cardDisplay;
 }
 
+function getRenderOptions() {
+    return {
+        document,
+        iconRegistry: state.iconRegistry || {}
+    };
+}
+
+function getCardImage(card, { pngFallback = false } = {}) {
+    const image = String(card?.sourceImage || card?.contents || '');
+    return pngFallback ? image.replace(/\.\w+$/, '.png') : image;
+}
+
+function configurePreviewButton(button, card, className, markerAttribute, { pngFallback = false } = {}) {
+    const cardName = String(card?.card || 'Current card');
+    button.type = 'button';
+    button.className = className;
+    if (markerAttribute) {
+        button.setAttribute(markerAttribute, '');
+    }
+    button.dataset.cardId = String(card?.id ?? '');
+    button.dataset.cardName = cardName;
+    button.dataset.cardImage = getCardImage(card, { pngFallback });
+    button.dataset.cardType = String(card?.type || '');
+    button.setAttribute('aria-label', `Open ${cardName} card preview`);
+}
+
+function appendReadyState(container) {
+    const readyState = document.createElement('div');
+    readyState.className = 'deck-card-state';
+
+    const image = document.createElement('img');
+    image.src = 'cardimages/back.jpg';
+    image.alt = 'Ready to draw';
+    image.className = 'img-fluid';
+    readyState.appendChild(image);
+
+    const caption = document.createElement('p');
+    caption.className = 'deck-card-caption';
+    caption.textContent = 'Ready to draw';
+    readyState.appendChild(caption);
+
+    container.appendChild(readyState);
+}
+
+function appendEmptyInPlayState(container) {
+    const emptyState = document.createElement('p');
+    emptyState.className = 'in-play-empty';
+    emptyState.textContent = 'No cards in play.';
+    container.appendChild(emptyState);
+}
+
 function preloadUpcomingCards(count = 2) {
     preloadCache.length = 0;
+    const currentDeck = Array.isArray(state.currentDeck) ? state.currentDeck : [];
+
     for (let i = 1; i <= count; i++) {
-        const card = state.currentDeck[state.currentIndex + i];
-        if (!card?.contents) continue;
+        const card = currentDeck[state.currentIndex + i];
+        if (!card || card.renderMode === 'rich') continue;
+
+        const sourceImage = getCardImage(card);
+        if (!sourceImage) continue;
 
         const image = new Image();
-        image.src = `cardimages/${card.contents}`;
+        image.src = `cardimages/${sourceImage}`;
         preloadCache.push(image);
     }
 }
@@ -40,29 +94,19 @@ export const liveDeckView = {
         const output = document.getElementById('deckOutput');
         if (!output) return;
 
+        const currentDeck = Array.isArray(state.currentDeck) ? state.currentDeck : [];
+        const currentCard = currentDeck[state.currentIndex];
         const cardDisplay = getDeckCardDisplay(output);
-        const showCardBack = state.currentIndex === -1 || state.isActiveCardCleared;
+        const showCardBack = state.currentIndex === -1 || state.isActiveCardCleared || !currentCard;
+        clearChildren(cardDisplay);
 
         if (showCardBack) {
-            cardDisplay.innerHTML = `
-                <div class="deck-card-state">
-                    <img src="cardimages/back.jpg" alt="Ready to draw" class="img-fluid">
-                    <p class="deck-card-caption">Ready to draw</p>
-                </div>
-            `;
+            appendReadyState(cardDisplay);
         } else {
-            const currentCard = state.currentDeck[state.currentIndex];
-            if (currentCard) {
-                const cardName = escapeHtml(currentCard.card || 'Current card');
-                const cardType = escapeHtml(currentCard.type || '');
-                const cardImage = escapeHtml(currentCard.contents || '');
-                const cardId = escapeHtml(currentCard.id ?? '');
-                cardDisplay.innerHTML = `
-                    <button type="button" class="active-card-preview" data-active-card-preview data-card-id="${cardId}" data-card-name="${cardName}" data-card-image="${cardImage}" data-card-type="${cardType}" aria-label="Open ${cardName} card preview">
-                        <img src="cardimages/${cardImage}" alt="${cardName}" class="img-fluid">
-                    </button>
-                `;
-            }
+            const preview = document.createElement('button');
+            configurePreviewButton(preview, currentCard, 'active-card-preview', 'data-active-card-preview');
+            preview.appendChild(renderCardNode(currentCard, getRenderOptions()));
+            cardDisplay.appendChild(preview);
         }
 
         const clearButton = document.getElementById('clearActiveCard');
@@ -77,7 +121,8 @@ export const liveDeckView = {
         const progressText = document.getElementById('progressText');
         if (!progressBar || !progressText) return;
 
-        const totalCards = state.currentDeck.length;
+        const currentDeck = Array.isArray(state.currentDeck) ? state.currentDeck : [];
+        const totalCards = currentDeck.length;
         const currentCardNumber = state.currentIndex + 1;
         const percentage = state.currentIndex === -1 || totalCards === 0
             ? 0
@@ -99,9 +144,11 @@ export const liveDeckView = {
         const clearInPlayButton = document.getElementById('clearInPlayCards');
         if (!inPlayContainer || !inPlaySection) return;
 
-        inPlayContainer.innerHTML = '';
-        const hasActiveDeck = Array.isArray(state.currentDeck) && state.currentDeck.length > 0;
-        const hasInPlayCards = Array.isArray(state.inPlayCards) && state.inPlayCards.length > 0;
+        clearChildren(inPlayContainer);
+        const currentDeck = Array.isArray(state.currentDeck) ? state.currentDeck : [];
+        const inPlayCards = Array.isArray(state.inPlayCards) ? state.inPlayCards : [];
+        const hasActiveDeck = currentDeck.length > 0;
+        const hasInPlayCards = inPlayCards.length > 0;
 
         if (clearInPlayButton) {
             clearInPlayButton.hidden = !hasInPlayCards;
@@ -109,38 +156,47 @@ export const liveDeckView = {
         }
 
         if (!hasActiveDeck && !hasInPlayCards) {
-            inPlayContainer.innerHTML = '<p class="in-play-empty">No cards in play.</p>';
+            appendEmptyInPlayState(inPlayContainer);
             inPlaySection.style.display = 'none';
             return;
         }
 
         inPlaySection.style.display = 'block';
         if (!hasInPlayCards) {
-            inPlayContainer.innerHTML = '<p class="in-play-empty">No cards in play.</p>';
+            appendEmptyInPlayState(inPlayContainer);
             return;
         }
 
-        state.inPlayCards.forEach(card => {
-            const cardName = escapeHtml(card.card);
-            const cardType = escapeHtml(card.type || '');
-            const cardImage = escapeHtml((card.contents || '').replace(/\.\w+$/, '.png'));
-            const cardId = escapeHtml(card.id);
+        inPlayCards.forEach(card => {
             const cardElement = document.createElement('div');
             const cardBody = document.createElement('div');
+            const copy = document.createElement('div');
+            const title = document.createElement('h5');
+            const type = document.createElement('p');
+            const preview = document.createElement('button');
+            const removeButton = document.createElement('button');
 
             cardElement.classList.add('card', 'mb-2', 'in-play-card');
             cardBody.classList.add('card-body');
-            cardBody.innerHTML = `
-                <div class="in-play-card-copy">
-                    <h5 class="card-title">${cardName}</h5>
-                    <p class="in-play-card-type">${cardType}</p>
-                </div>
-                <button type="button" class="in-play-card-preview" data-card-id="${cardId}" data-card-name="${cardName}" data-card-image="${cardImage}" data-card-type="${cardType}" aria-label="Open ${cardName} card preview">
-                    <img src="cardimages/${cardImage}" alt="${cardName}" class="card-img-top">
-                </button>
-                <button type="button" class="btn btn-danger remove-from-play" data-id="${cardId}">Remove from Play</button>
-            `;
+            copy.className = 'in-play-card-copy';
+            title.className = 'card-title';
+            title.textContent = String(card?.card || 'Card');
+            type.className = 'in-play-card-type';
+            type.textContent = String(card?.type || '');
+            copy.appendChild(title);
+            copy.appendChild(type);
 
+            configurePreviewButton(preview, card, 'in-play-card-preview', null, { pngFallback: true });
+            preview.appendChild(renderCompactCardNode(card, getRenderOptions()));
+
+            removeButton.type = 'button';
+            removeButton.className = 'btn btn-danger remove-from-play';
+            removeButton.dataset.id = String(card?.id ?? '');
+            removeButton.textContent = 'Remove from Play';
+
+            cardBody.appendChild(copy);
+            cardBody.appendChild(preview);
+            cardBody.appendChild(removeButton);
             cardElement.appendChild(cardBody);
             inPlayContainer.appendChild(cardElement);
         });

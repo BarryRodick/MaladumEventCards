@@ -37,25 +37,46 @@ export function showToast(message) {
     if (!toastContainer) return;
 
     const toastId = 'toast-' + Date.now();
-    const toastHTML = `
-        <div id="${toastId}" class="toast feedback-toast border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex align-items-stretch">
-                <div class="feedback-toast__sigil" aria-hidden="true">
-                    <i class="fas fa-scroll"></i>
-                </div>
-                <div class="toast-body feedback-toast__body">
-                    <span class="feedback-toast__title">Event deck notice</span>
-                    <span class="feedback-toast__message">${message}</span>
-                </div>
-                <button type="button" class="themed-close me-2 my-auto" data-bs-dismiss="toast" aria-label="Dismiss notification">
-                    <i class="fas fa-times" aria-hidden="true"></i>
-                </button>
-            </div>
-        </div>
-    `;
+    const toastElement = document.createElement('div');
+    toastElement.id = toastId;
+    toastElement.className = 'toast feedback-toast border-0';
+    toastElement.setAttribute('role', 'alert');
+    toastElement.setAttribute('aria-live', 'assertive');
+    toastElement.setAttribute('aria-atomic', 'true');
 
-    toastContainer.insertAdjacentHTML('beforeend', toastHTML);
-    const toastElement = document.getElementById(toastId);
+    const layout = document.createElement('div');
+    layout.className = 'd-flex align-items-stretch';
+
+    const sigil = document.createElement('div');
+    sigil.className = 'feedback-toast__sigil';
+    sigil.setAttribute('aria-hidden', 'true');
+    const sigilIcon = document.createElement('i');
+    sigilIcon.className = 'fas fa-scroll';
+    sigil.appendChild(sigilIcon);
+
+    const body = document.createElement('div');
+    body.className = 'toast-body feedback-toast__body';
+    const title = document.createElement('span');
+    title.className = 'feedback-toast__title';
+    title.textContent = 'Event deck notice';
+    const messageNode = document.createElement('span');
+    messageNode.className = 'feedback-toast__message';
+    messageNode.textContent = String(message ?? '');
+    body.append(title, messageNode);
+
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'themed-close me-2 my-auto';
+    closeButton.setAttribute('data-bs-dismiss', 'toast');
+    closeButton.setAttribute('aria-label', 'Dismiss notification');
+    const closeIcon = document.createElement('i');
+    closeIcon.className = 'fas fa-times';
+    closeIcon.setAttribute('aria-hidden', 'true');
+    closeButton.appendChild(closeIcon);
+
+    layout.append(sigil, body, closeButton);
+    toastElement.appendChild(layout);
+    toastContainer.appendChild(toastElement);
 
     if (typeof bootstrap !== 'undefined') {
         const toast = new bootstrap.Toast(toastElement, { delay: 3000 });

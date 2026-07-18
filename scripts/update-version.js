@@ -6,6 +6,9 @@ const TOP_LEVEL_RUNTIME_FILES = [
     './about.html',
     './app-snapshot.js',
     './app-utils.js',
+    './card-data.mjs',
+    './card-renderer.mjs',
+    './card-tokenizer.mjs',
     './card-utils.js',
     './campaign-tracker.js',
     './config-manager.js',
@@ -35,14 +38,21 @@ const TOP_LEVEL_RUNTIME_FILES = [
 const ASSET_DIRECTORIES = [
     'assets',
     'cardimages',
+    'data',
     'icons',
     'logos',
     'vendor'
 ];
 
+const EXCLUDED_RUNTIME_ASSETS = new Set([
+    './data/cards/extraction-report.json'
+]);
+const EXCLUDED_ASSET_NAMES = new Set(['.DS_Store', 'Thumbs.db']);
 const SEMVER_PATTERN = /^\d+\.\d+\.\d+$/;
-const SERVICE_WORKER_VERSION_REGEX = /const APP_VERSION = '.*?';/;
-const ASSET_MANIFEST_REGEX = /(\/\/ BUILD_ASSET_MANIFEST_START\r?\n)([\s\S]*?)(\r?\n    \/\/ BUILD_ASSET_MANIFEST_END)/;
+const SERVICE_WORKER_VERSION_REGEX = /^const APP_VERSION = '[^'\r\n]*';$/m;
+const ASSET_MANIFEST_REGEX = /(^[ \t]*\/\/ BUILD_ASSET_MANIFEST_START[ \t]*\r?\n)([\s\S]*?)(\r?\n[ \t]*\/\/ BUILD_ASSET_MANIFEST_END[ \t]*$)/m;
+const ASSET_MANIFEST_START = '// BUILD_ASSET_MANIFEST_START';
+const ASSET_MANIFEST_END = '// BUILD_ASSET_MANIFEST_END';
 
 function loadVersionMetadata(repoRoot) {
     const versionFile = path.join(repoRoot, 'version.json');
@@ -73,12 +83,14 @@ function collectDirectoryAssets(repoRoot, relativeDir) {
                 return;
             }
 
-            if (entry.name === 'Thumbs.db') {
+            if (EXCLUDED_ASSET_NAMES.has(entry.name)) {
                 return;
             }
 
             const relativePath = './' + path.relative(repoRoot, fullPath).replace(/\\/g, '/');
-            assets.push(relativePath);
+            if (!EXCLUDED_RUNTIME_ASSETS.has(relativePath)) {
+                assets.push(relativePath);
+            }
         });
     }
 
@@ -104,28 +116,74 @@ function syncPackageVersion(repoRoot, version) {
     fs.writeFileSync(packageFile, JSON.stringify(packageData, null, 2) + '\n');
 }
 
+function syncPackageLockVersion(repoRoot, version) {
+    const packageLockFile = path.join(repoRoot, 'package-lock.json');
+    if (!fs.existsSync(packageLockFile)) {
+        return false;
+    }
+
+    const packageLockData = JSON.parse(fs.readFileSync(packageLockFile, 'utf8'));
+    if (!packageLockData.packages || !packageLockData.packages['']) {
+        throw new Error('package-lock.json is missing its root package metadata');
+    }
+
+    packageLockData.version = version;
+    packageLockData.packages[''].version = version;
+    fs.writeFileSync(packageLockFile, JSON.stringify(packageLockData, null, 2) + '\n');
+    return true;
+}
+
+function countOccurrences(source, needle) {
+    return source.split(needle).length - 1;
+}
+
+function renderServiceWorker(serviceWorker, version, assetManifest) {
+    const versionMatches = serviceWorker.match(new RegExp(SERVICE_WORKER_VERSION_REGEX.source, 'gm')) || [];
+    if (versionMatches.length !== 1) {
+        throw new Error('service-worker.js must contain exactly one APP_VERSION marker');
+    }
+    if (
+        countOccurrences(serviceWorker, ASSET_MANIFEST_START) !== 1 ||
+        countOccurrences(serviceWorker, ASSET_MANIFEST_END) !== 1 ||
+        !ASSET_MANIFEST_REGEX.test(serviceWorker)
+    ) {
+        throw new Error('service-worker.js must contain exactly one generated asset manifest marker pair');
+    }
+
+    const lineEnding = serviceWorker.includes('\r\n') ? '\r\n' : '\n';
+    const versionedServiceWorker = serviceWorker.replace(
+        SERVICE_WORKER_VERSION_REGEX,
+        `const APP_VERSION = '${version}';`
+    );
+    const renderedManifest = assetManifest.map(asset => `    '${asset}',`).join(lineEnding);
+
+    return versionedServiceWorker.replace(
+        ASSET_MANIFEST_REGEX,
+        (_match, startMarker, _existingManifest, endMarker) =>
+            startMarker + renderedManifest + endMarker
+    );
+}
+
 function syncServiceWorker(repoRoot, version, assetManifest) {
     const serviceWorkerFile = path.join(repoRoot, 'service-worker.js');
-    let serviceWorker = fs.readFileSync(serviceWorkerFile, 'utf8');
-    const lineEnding = serviceWorker.includes('\r\n') ? '\r\n' : '\n';
-
-    serviceWorker = serviceWorker.replace(SERVICE_WORKER_VERSION_REGEX, `const APP_VERSION = '${version}';`);
-
-    const renderedManifest = assetManifest.map(asset => `    '${asset}',`).join(lineEnding);
-    serviceWorker = serviceWorker.replace(
-        ASSET_MANIFEST_REGEX,
-        `$1${renderedManifest}$3`
-    );
-
-    fs.writeFileSync(serviceWorkerFile, serviceWorker);
+    const serviceWorker = fs.readFileSync(serviceWorkerFile, 'utf8');
+    const renderedServiceWorker = renderServiceWorker(serviceWorker, version, assetManifest);
+    fs.writeFileSync(serviceWorkerFile, renderedServiceWorker);
 }
 
 function syncBuildArtifacts(repoRoot) {
     const { version } = loadVersionMetadata(repoRoot);
     const assetManifest = buildAssetManifest(repoRoot);
+    const serviceWorkerFile = path.join(repoRoot, 'service-worker.js');
+    const renderedServiceWorker = renderServiceWorker(
+        fs.readFileSync(serviceWorkerFile, 'utf8'),
+        version,
+        assetManifest
+    );
 
     syncPackageVersion(repoRoot, version);
-    syncServiceWorker(repoRoot, version, assetManifest);
+    syncPackageLockVersion(repoRoot, version);
+    fs.writeFileSync(serviceWorkerFile, renderedServiceWorker);
 
     return {
         version,
@@ -136,14 +194,17 @@ function syncBuildArtifacts(repoRoot) {
 if (require.main === module) {
     const repoRoot = process.argv[2] ? path.resolve(process.argv[2]) : path.join(__dirname, '..');
     const result = syncBuildArtifacts(repoRoot);
-    console.log(`Synchronized package.json and service-worker.js to version ${result.version}`);
+    console.log(`Synchronized package metadata and service-worker.js to version ${result.version}`);
     console.log(`Updated service-worker asset manifest with ${result.assetCount} cached URLs`);
 }
 
 module.exports = {
+    TOP_LEVEL_RUNTIME_FILES,
     buildAssetManifest,
     loadVersionMetadata,
+    renderServiceWorker,
     syncBuildArtifacts,
+    syncPackageLockVersion,
     syncPackageVersion,
     syncServiceWorker
 };

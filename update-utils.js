@@ -57,6 +57,10 @@ export function buildUpdateModalMarkup(newVersion) {
     `;
 }
 
+export function shouldDeleteAppCache(cacheName) {
+    return String(cacheName || '').startsWith('maladum-event-cards-');
+}
+
 function notifyUser(message) {
     const toastContainer = document.getElementById('toastContainer');
     if (toastContainer) {
@@ -220,7 +224,9 @@ export function showUpdateNotification(newVersion) {
         if ('caches' in window) {
             caches.keys().then(cacheNames => {
                 return Promise.all(
-                    cacheNames.map(cacheName => caches.delete(cacheName))
+                    cacheNames
+                        .filter(shouldDeleteAppCache)
+                        .map(cacheName => caches.delete(cacheName))
                 );
             }).then(() => {
                 window.location.reload();

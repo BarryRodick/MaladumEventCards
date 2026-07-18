@@ -1,0 +1,625 @@
+{
+  "game": "Of Ale And Adventure",
+  "cards": [
+    {
+      "id": 51,
+      "card": "Questgiver",
+      "slug": "questgiver",
+      "type": "Denizen",
+      "game": "Of Ale And Adventure",
+      "sourceImage": "Questgiver.png",
+      "contents": "Questgiver.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Select a random Denizen. It gains two additional Health pegs, one additional Magic peg, one random uncommon weapon and one random item from the token pouch. Place it at a random Entry Point."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "When activated, the character Moves towards the nearest Adventurer.\n\nIt will not engage enemies – it will stop one square away if there is no route around. If it starts its turn engaged, it will make a Melee Attack if possible, or a Knock Back if not. If still engaged it will Move directly away if possible, or Attack/Knock Back again if not. It resumes its normal rules for any remaining actions.\n\nIf this character makes contact with an Adventurer, that player draws a Side Quest card and resolves it. Discard this card – for the rest of the game the Questgiver will act as detailed in the Side Quest."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "It’s too late for this Adventurer’s quest, but not for yours! All Adventurers in play are Blessed."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "questgiver denizen of ale and adventure todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 52,
+      "card": "Questgiver",
+      "slug": "questgiver",
+      "type": "Denizen",
+      "game": "Of Ale And Adventure",
+      "sourceImage": "Questgiver.png",
+      "contents": "Questgiver.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Select a random Denizen. It gains two additional Health pegs, one additional Magic peg, one random uncommon weapon and one random item from the token pouch. Place it at a random Entry Point.\n\nWhen activated, the character Moves towards the nearest Adventurer.\n\nIt will not engage enemies – it will stop one square away if there is no route around. If it starts its turn engaged, it will make a Melee Attack if possible, or a Knock Back if not. If still engaged it will Move directly away if possible, or Attack/Knock Back again if not. It resumes its normal rules for any remaining actions.\n\nIf this character makes contact with an Adventurer, that player draws a Side Quest card and resolves it. Discard this card – for the rest of the game the Questgiver will act as detailed in the Side Quest."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "It’s too late for this Adventurer’s quest, but not for yours! All Adventurers in play are Blessed."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Denizen"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "questgiver denizen of ale and adventure todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 53,
+      "card": "Stand And Deliver!",
+      "slug": "stand-and-deliver",
+      "type": "Denizen",
+      "game": "Of Ale And Adventure",
+      "sourceImage": "Stand_And_Deliver.png",
+      "contents": "Stand_And_Deliver.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Select a random Denizen. It gains one additional Health peg, one random uncommon weapon and one random item from the token pouch. Place it at a random Entry Point.\n\nThis character follows normal NPC activation rules but only targets characters with equipment that have not been Searched (see below). It has Plunderer [plunderer] and Hit and Run [move:3] and will only attack within short range. Before it attacks, the defender may choose to give the attacker G.5 or an item from their inventory to cancel the attack. Mark the defender with a Searched counter.\n\nThis NPC will not target or engage Searched enemies or those without equipment. If engaged with one, when activated it will use its first action to make a Melee attack and its Hit and Run ability to move away before continuing its turn.\n\nOnce its inventory is full it will leave via the nearest Entry Point."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Denizen"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "stand and deliver! denizen of ale and adventure todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 54,
+      "card": "Bounty!",
+      "slug": "bounty",
+      "type": "Denizen",
+      "game": "Of Ale And Adventure",
+      "sourceImage": "Bounty.png",
+      "contents": "Bounty.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Bounty!",
+          "text": "DISQUIET-DOOM"
+        },
+        {
+          "kind": "body",
+          "label": "",
+          "text": "Select a random Denizen. It gains two Health pegs, one Magic peg, one uncommon ranged weapon, one uncommon melee weapon, one uncommon armour token, and one item from the pouch. Place it at a random Entry Point. Select one random Adventurer/Denizen per three in play, rounding up, distributed evenly between parties. Mark them with a Reminder counter.\nThis character follows normal NPC activation rules but only targets marked characters. If it engages an enemy, it will attempt to defeat it before resuming its normal rules.\nBefore it first attacks a marked character, roll the Magic Die.\n1-3: It wants them dead and will attack until they are defeated. Once defeated, it will make a melee attack to permanently kill the character.\n4-6: It wants them alive. Its attacks against the target gain Bludgeoning [bludgeoning]. If the target's last health would be taken, Stun them instead. Once a target is Stunned, this character will drag them off via the nearest Entry Point. Characters in contact with this Denizen cannot remove their Stun status. Characters dragged off are Left for Dead.\nIf no eligible targets remain it will leave."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Denizen"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "bounty! denizen of ale and adventure todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 55,
+      "card": "Nomadic Trader",
+      "slug": "nomadic-trader",
+      "type": "Denizen",
+      "game": "Of Ale And Adventure",
+      "sourceImage": "Nomadic_Trader.png",
+      "contents": "Nomadic_Trader.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Select a random Denizen. It gains one additional Health peg and two random items from the pouch. Place it at a random Entry Point.\n\nWhen activated, if in short range of an Adventurer the character will Move towards the closest. Otherwise, it scatters once per action. It will not engage enemies – it will stop one square away. If engaged, when activated it will use its first action to make a Melee attack, and its second to Move directly away.\n\nThe character is here to sell their wares. When an Adventurer first enters contact with the NPC, set aside 5 items from the pouch, 5 uncommon items, and 2 rare items at random. Any number of items can be purchased by Persuading the NPC. Each unblocked hit (if any) reduces the cost of each item by G1 (to a min. of G1). These items are not in the NPC’s inventory and cannot be taken in any other way. If the NPC is defeated the items are returned to the supply. If all items are purchased, the NPC will leave via the nearest Entry Point."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "nomadic trader denizen of ale and adventure todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 56,
+      "card": "Excursionist",
+      "slug": "excursionist",
+      "type": "Denizen",
+      "game": "Of Ale And Adventure",
+      "sourceImage": "Excursionist.png",
+      "contents": "Excursionist.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Select a random Denizen. It gains one additional Health peg, two additional Magic pegs, one random uncommon item and one random rare item. Place it at a random Entry Point.\nWhen activated, the character Moves towards the nearest Adventurer – its chosen ‘guide’. Once contact is made, it will instead Move towards the nearest unsearched room, or the guiding party’s Staging Point if all rooms are Searched.\nIf the character engages an enemy, it will use an action to attempt to talk to it – Fatigue the enemy. The character will then resume its normal rules, moving away from and past the enemy.\nIf this character leaves play via a Staging Point the rescuing player gains [fire]20.\nIf this Denizen is defeated, the ‘guiding’ party (or closest party if it has not yet made contact) loses two Renown."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Denizen"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "excursionist denizen of ale and adventure todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 57,
+      "card": "Panhandler",
+      "slug": "panhandler",
+      "type": "Denizen",
+      "game": "Of Ale And Adventure",
+      "sourceImage": "Panhandler.png",
+      "contents": "Panhandler.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Doom",
+          "text": "Select a random Denizen. It gains one random item from the token pouch. Place it at a random Entry Point."
+        },
+        {
+          "kind": "body",
+          "label": "",
+          "text": "When activated, the character Moves towards the nearest Adventurer. Once in contact, it will use its actions to Fatigue the Adventurer.\n\nAn Adventurer in contact may spend G.5 or discard a Provisions to mark this card as Searched. The Denizen will no longer follow the rules above; instead it will scatter once per action.\n\nIt will not engage enemies – it will stop one square away if there is no route around. If it starts its turn engaged, it will make a Knock Back action. If still engaged it will Move directly away if possible, or Knock Back again if not. It resumes its normal rules for any remaining actions.\n\nIf this Denizen is defeated, all parties in play lose one Renown."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "panhandler denizen of ale and adventure todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 58,
+      "card": "Wanderer",
+      "slug": "wanderer",
+      "type": "Denizen",
+      "game": "Of Ale And Adventure",
+      "sourceImage": "Wanderer.png",
+      "contents": "Wanderer.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Select a random Denizen. It gains two random items from the token pouch. Place it at a random Entry Point.\n\nThe character does not use its regular actions. Instead, when activated, roll the Magic Die and resolve as follows:\n\n1-2: Scatter the character once for each action.\n\n3: Use the character’s actions to Move towards the nearest Adventurer. Once in contact, use its actions to Fatigue the Adventurer.\n\n4-5: Use the character’s actions to Move to a position out of sight or in cover from the most other characters.\n\n6: Follow normal NPC rules, targeting the closest character."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Denizen"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "wanderer denizen of ale and adventure todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 59,
+      "card": "Rumours",
+      "slug": "rumours",
+      "type": "Environment",
+      "game": "Of Ale And Adventure",
+      "sourceImage": "Rumours.png",
+      "contents": "Rumours.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "body",
+          "label": "DISQUIET-DISMAY",
+          "text": "An Adventurer spots something that reminds them of a rumour they heard on a drunken evening – maybe there’s some truth to it?\n\nDraw a Side Quest card at random and resolve it. Follow the Questgiver instructions if applicable, albeit with no Questgiver in play (they are not considered defeated). If this is not possible, discard the Side Quest and draw another."
+        },
+        {
+          "kind": "body",
+          "label": "DESPERATION-DOOM",
+          "text": "Something catches your eye and triggers a memory. Distracted in the heat of battle, you can’t quite remember the full story, but there was something about a hidden compartment…\n\nSelect one of your Adventurers at random. Add a random rare item to the nearest Searchable terrain piece to that Adventurer, even if it has already been Searched."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "rumours environment of ale and adventure todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 60,
+      "card": "Escape Route",
+      "slug": "escape-route",
+      "type": "Novice",
+      "game": "Of Ale And Adventure",
+      "sourceImage": "Escape_Route.png",
+      "contents": "Escape_Route.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "The first player keeps this card, without showing the other players.\n\nYou’ve spotted an unguarded way out, but the window of opportunity is only big enough for one.\n\nYou may discard this card when a character activates. That character may use any Entry Point to leave the board this round and return to their Staging Area. No Adversaries will arrive from the chosen Entry Point this round – re-roll the arrival location if necessary.\n\nAlternatively, you may keep this card until after the game to add 3 to a Left for Dead roll in the Escape Phase."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "escape route novice of ale and adventure todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 61,
+      "card": "It's A Trap!",
+      "slug": "it-s-a-trap",
+      "type": "Novice",
+      "game": "Of Ale And Adventure",
+      "sourceImage": "Its_A_Trap.png",
+      "contents": "Its_A_Trap.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "The first player keeps this card, without showing the other players.\nPlay this card during one of your Adventurer's turns. They have a brainwave and jury-rig a trap—they make an Interact action and discard an item of their choice. Choose a trap token from the pouch of up to the same size as the discarded item and place it adjacent to the Adventurer.\nNPCs are unaware of the trap and will not adjust their route to avoid it. The trap is triggered immediately when an enemy enters an adjacent square and its effects are resolved against that enemy. Then flip the token face down – it will not resolve again this round. Flip it face up again in the Assessment Phase. Each time the trap is resolved, roll a die. On a [skull], discard the token.\nPlace this card to the side of the board as a reminder and discard it when the trap is removed."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Novice"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "it's a trap! novice of ale and adventure todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 62,
+      "card": "Outta My Way!",
+      "slug": "outta-my-way",
+      "type": "Novice",
+      "game": "Of Ale And Adventure",
+      "sourceImage": "Outta_My_Way.png",
+      "contents": "Outta_My_Way.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "The first player keeps this card, without showing the other players.\n\nYou may discard this card at the start of one of your Adventurer’s turns if they have at least three enemies in short range.\n\nThe Adventurer has been cornered and their fight or flight responses get all mixed up into an enraged outburst. All enemies of up to the Adventurer’s size that are within short range and LoS suffer two Fatigue counters. All enemies engaged with the Adventurer are also knocked prone."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "outta my way! novice of ale and adventure todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 63,
+      "card": "Stroke Of Fortune",
+      "slug": "stroke-of-fortune",
+      "type": "Novice",
+      "game": "Of Ale And Adventure",
+      "sourceImage": "Stroke_Of_Fortune.png",
+      "contents": "Stroke_Of_Fortune.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "The first player keeps this card, without showing the other players.\n\nYou feel different, as if someone’s watching out for you. You may discard this card at any of the following times:\n\n- Before making a Search to gain a Potion of your choice in addition to anything else you find. Traps found during this Search are discarded with no effect.\n- When in contact with a locked door to unlock the door.\n- Before an enemy attacks one of your Adventurers to ignore all effects of the attack."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "stroke of fortune novice of ale and adventure todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 64,
+      "card": "Lights Out",
+      "slug": "lights-out",
+      "type": "Veteran + Dungeon",
+      "game": "Of Ale And Adventure",
+      "sourceImage": "Lights_Out.png",
+      "contents": "Lights_Out.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "Increase Dread by 1 and shuffle this card back into the deck. Then, draw and resolve another Event Card."
+        },
+        {
+          "kind": "body",
+          "label": "DISMAY-DOOM",
+          "text": "Increase Dread by 1.\n\nThe lights have gone out. The whole gaming area follows the rules for Darkness for the rest of this quest. Remove any Darkness counters. Sconces and any other light sources remain in place.\n\nIf the Darkness rules are already in effect for this quest, all Adventurers and Denizens currently in the dark become Terrified."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Veteran",
+        "Dungeon"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "lights out veteran + dungeon of ale and adventure todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 65,
+      "card": "Paradigm Shift",
+      "slug": "paradigm-shift",
+      "type": "Veteran",
+      "game": "Of Ale And Adventure",
+      "sourceImage": "Paradigm_Shift.png",
+      "contents": "Paradigm_Shift.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet",
+          "text": "The Adventurers feel something changing, a shift in the magical energy that surrounds them.\n\nIf the Dread board is on side A, flip it to side B. Whether the board was flipped or not, shuffle this card back into the deck.\n\nCollectively, Adventurers may spend a number of Magic pegs equal to the number of characters in play to resist the changing energy. Each rolls the Magic Die separately. If sufficient pegs are spent, the above effects are cancelled."
+        },
+        {
+          "kind": "mode",
+          "label": "Distress-Doom",
+          "text": "The unnerving surge of energy has returned.\n\nIf the Dread board is on side B, flip it to side A. If the board was not flipped, shuffle all Adversary cards (e.g. [Revenant] unless using other Adversaries) in the discard pile back into the deck.\n\nAdventurers may collectively spend Magic pegs as above to cancel this effect."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "grave"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Veteran"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "paradigm shift veteran of ale and adventure todo todo - requires manual entry unknown-icon unknown-icon"
+    }
+  ]
+}

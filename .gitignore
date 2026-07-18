@@ -1,0 +1,27 @@
+node_modules/
+output/
+reports/
+test-results/
+playwright-report/
+.playwright-cli/
+.playwright-mcp/
+*.log
+*.tsbuildinfo
+
+# Local environment and automation configuration
+.env
+.env.*
+!.env.example
+.claude/
+.codex/
+.cursor/
+.windsurf/
+AGENTS.md
+CLAUDE.md
+CODEX.md
+docs/agents/
+design-qa.md
+
+# Operating-system artifacts
+Thumbs.db
+.DS_Store

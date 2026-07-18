@@ -5,7 +5,9 @@ import { state, slugify, cardTypeId } from './state.js';
 import { parseCardTypes } from './card-utils.js';
 import { debounce } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
-import { deriveDeckMode, formatDeckSummary } from './deck-flow-utils.js';
+import { deriveDeckMode, formatDeckSummary, getGenerateDeckState } from './deck-flow-utils.js';
+import { searchCards } from './card-data.mjs';
+import { renderCardNode, renderCompactCardNode } from './card-renderer.mjs';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
 
@@ -21,6 +23,28 @@ const MODE_COPY = {
         description: 'Draw from the live deck here. Use Edit Build to change setup or Search Cards to inject specific cards during play.'
     }
 };
+
+function clearElement(element) {
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
+}
+
+function getRenderOptions(extraOptions = {}) {
+    return {
+        document,
+        iconRegistry: state.iconRegistry || {},
+        ...extraOptions
+    };
+}
+
+function getConfiguredCardCounts() {
+    return state.allCardTypes.reduce((counts, type) => {
+        const input = document.getElementById(cardTypeId(type));
+        counts[type] = Math.max(0, parseInt(input?.value, 10) || 0);
+        return counts;
+    }, {});
+}
 
 /**
  * Generates game selection checkboxes
@@ -239,39 +263,46 @@ export function updateCardSearchResults(rawQuery) {
     if (!resultsContainer || !status) return;
 
     const query = (rawQuery || '').trim().toLowerCase();
-    resultsContainer.innerHTML = '';
+    clearElement(resultsContainer);
 
     if (!query) {
-        status.textContent = 'Type to search across all available cards.';
+        status.textContent = '';
         return;
     }
 
-    const matches = state.availableCards.filter(card => card.card.toLowerCase().includes(query));
-    const sortedMatches = matches.sort((a, b) => a.card.localeCompare(b.card));
+    const sortedMatches = searchCards(state.availableCards, query);
     const maxResults = 50;
     const displayMatches = sortedMatches.slice(0, maxResults);
 
-    status.textContent = matches.length === 0
+    status.textContent = sortedMatches.length === 0
         ? 'No matching cards found.'
-        : `Showing ${displayMatches.length} of ${matches.length} matching cards.`;
+        : `Showing ${displayMatches.length} of ${sortedMatches.length} matching cards.`;
 
     displayMatches.forEach(card => {
-        const item = document.createElement('div');
+        const item = document.createElement('button');
+        item.type = 'button';
         item.classList.add('card-search-item');
-        item.setAttribute('role', 'button');
-        item.setAttribute('tabindex', '0');
         item.setAttribute('aria-label', `Preview ${card.card}`);
-        item.dataset.cardName = card.card;
-        item.dataset.cardId = card.id;
-        item.dataset.cardImage = card.contents;
-        item.dataset.cardType = card.type;
-        item.innerHTML = `
-            <img src="cardimages/${card.contents}" alt="${card.card}" class="card-search-thumb">
-            <div>
-                <div class="card-search-name">${card.card}</div>
-                <div class="card-search-type text-muted">${card.type}</div>
-            </div>
-        `;
+        item.dataset.cardId = String(card.id);
+
+        const preview = document.createElement('div');
+        preview.className = 'card-search-thumb';
+        preview.appendChild(renderCompactCardNode(card, getRenderOptions({ maxSections: 1 })));
+
+        const meta = document.createElement('div');
+
+        const name = document.createElement('div');
+        name.className = 'card-search-name';
+        name.textContent = card.card;
+        meta.appendChild(name);
+
+        const type = document.createElement('div');
+        type.className = 'card-search-type text-muted';
+        type.textContent = `${card.type} • ${card.game}`;
+        meta.appendChild(type);
+
+        item.appendChild(preview);
+        item.appendChild(meta);
         resultsContainer.appendChild(item);
     });
 }
@@ -337,7 +368,6 @@ export function setDeckMode(requestedMode, options = {}) {
         playButton.setAttribute('aria-pressed', String(mode === 'play'));
     }
 
-    updateGenerateButtonLabel();
     setUtilitiesDrawerOpen(state.isUtilityDrawerOpen);
     renderDeckSummary();
 
@@ -402,6 +432,8 @@ export function openSearchTools() {
 }
 
 export function renderDeckSummary() {
+    updateGenerateButtonState();
+
     const activeDeckSection = document.getElementById('activeDeckSection');
     if (activeDeckSection) {
         activeDeckSection.style.display = state.currentDeck.length > 0 ? 'block' : 'none';
@@ -469,23 +501,22 @@ function setSummaryChipValue(chip, value) {
     chip.textContent = String(value);
 }
 
-export function showCardPreview({ id, name, image, type }) {
+export function showCardPreview({ id, name, image, type, card: providedCard } = {}) {
     const modal = document.getElementById('cardPreviewModal');
     if (!modal) return;
 
-    const resolvedCard = resolvePreviewCard({ id, name, image });
-    const previewId = resolvedCard?.id ?? id;
-    const previewName = resolvedCard?.card || name || 'Card Preview';
-    const previewImage = resolvedCard?.contents || image || '';
-    const previewType = resolvedCard?.type || type || '';
+    const resolvedCard = providedCard || resolvePreviewCard({ id, name, image });
+    const card = preparePreviewCard(resolvedCard, { id, name, image, type });
+    if (!card) return;
 
-    setModalDataset(modal, 'cardId', previewId);
-    setModalDataset(modal, 'cardName', previewName);
-    setModalDataset(modal, 'cardImage', previewImage);
-    setModalDataset(modal, 'cardType', previewType);
+    setModalDataset(modal, 'cardId', card.id);
+    setModalDataset(modal, 'cardName', card.card);
+    setModalDataset(modal, 'cardImage', card.sourceImage || card.contents);
+    setModalDataset(modal, 'cardType', card.type);
+    setModalDataset(modal, 'cardGame', card.game);
 
     const title = modal.querySelector('[data-card-preview-title]');
-    const imageEl = modal.querySelector('[data-card-preview-image]');
+    const surface = modal.querySelector('[data-card-preview-surface]');
     const typeEl = modal.querySelector('[data-card-preview-type]');
     const readableEl = modal.querySelector('[data-card-preview-readable]');
     const shuffleCountInput = document.getElementById('cardPreviewShuffleCount');
@@ -494,20 +525,26 @@ export function showCardPreview({ id, name, image, type }) {
     const hasActiveDeck = state.currentDeck.length > 0;
 
     if (title) {
-        title.textContent = previewName;
+        title.textContent = card.card || 'Card Preview';
     }
 
-    if (imageEl) {
-        imageEl.src = previewImage ? `cardimages/${previewImage}` : '';
-        imageEl.alt = previewName || 'Card preview';
+    if (surface) {
+        clearElement(surface);
+        surface.appendChild(renderCardNode(card, getRenderOptions()));
     }
 
     if (typeEl) {
-        typeEl.textContent = previewType ? `Type: ${previewType}` : '';
+        typeEl.textContent = [card.type, card.game].filter(Boolean).join(' • ');
     }
 
     if (readableEl) {
-        renderCardPreviewSections(readableEl, resolvedCard?.sections);
+        const rendererAlreadyShowsText = card.renderMode === 'rich';
+        readableEl.hidden = rendererAlreadyShowsText;
+        if (rendererAlreadyShowsText) {
+            clearElement(readableEl);
+        } else {
+            renderCardPreviewSections(readableEl, card.sections);
+        }
     }
 
     if (shuffleCountInput) {
@@ -531,6 +568,25 @@ export function showCardPreview({ id, name, image, type }) {
         modal.style.display = 'block';
         modal.removeAttribute('aria-hidden');
     }
+}
+
+function preparePreviewCard(card, legacy = {}) {
+    if (!card && !legacy.id && !legacy.name && !legacy.image) return null;
+
+    const sourceImage = card?.sourceImage || card?.contents || legacy.image || '';
+    const sections = Array.isArray(card?.sections) ? card.sections : [];
+
+    return {
+        ...card,
+        id: card?.id ?? legacy.id ?? '',
+        card: card?.card || legacy.name || 'Card Preview',
+        type: card?.type || legacy.type || '',
+        game: card?.game || '',
+        contents: card?.contents || sourceImage,
+        sourceImage,
+        sections,
+        renderMode: card?.renderMode || (sourceImage ? 'image' : 'rich')
+    };
 }
 
 function setModalDataset(modal, key, value) {
@@ -608,7 +664,7 @@ function renderCardPreviewSections(container, sections = []) {
         headerRow.classList.add('card-preview-readable-header');
 
         const heading = document.createElement('h6');
-        heading.textContent = section.header || 'Card text';
+        heading.textContent = section.label || section.header || 'Card text';
         headerRow.appendChild(heading);
 
         if (section.threshold !== undefined && section.threshold !== null && section.threshold !== '') {
@@ -637,7 +693,7 @@ function renderCardPreviewSections(container, sections = []) {
 function isUsablePreviewSection(section) {
     if (!section || typeof section !== 'object') return false;
     const text = String(section.text || '').trim();
-    const header = String(section.header || '').trim();
+    const header = String(section.label || section.header || '').trim();
     if (!text) return false;
     return !/^todo\b/i.test(text) && !/^todo\b/i.test(header);
 }
@@ -680,16 +736,28 @@ export function toggleActionPanel() {
     setActionPanelOpen(!content.classList.contains('show'));
 }
 
-function updateGenerateButtonLabel() {
+function updateGenerateButtonState() {
     const generateButton = document.getElementById('generateDeck');
     if (!generateButton) return;
 
-    if (state.currentDeck.length > 0) {
-        generateButton.innerHTML = '<i class="fas fa-rotate me-2"></i> Rebuild Deck';
-        return;
-    }
+    const generateState = getGenerateDeckState({
+        selectedGames: state.selectedGames,
+        cardCounts: getConfiguredCardCounts(),
+        sentryTypes: state.dataStore.sentryTypes,
+        corrupterTypes: state.dataStore.corrupterTypes,
+        enableSentryRules: state.enableSentryRules,
+        enableCorrupterRules: state.enableCorrupterRules,
+        hasActiveDeck: state.currentDeck.length > 0
+    });
+    const iconClass = generateState.label === 'Rebuild Deck'
+        ? 'fas fa-rotate'
+        : generateState.label === 'Generate Deck'
+            ? 'fas fa-dungeon'
+            : 'fas fa-sliders';
 
-    generateButton.innerHTML = '<i class="fas fa-dungeon me-2"></i> Generate Deck';
+    generateButton.disabled = !generateState.canGenerate;
+    generateButton.setAttribute('aria-disabled', String(!generateState.canGenerate));
+    generateButton.innerHTML = `<i class="${iconClass} me-2"></i> ${generateState.label}`;
 }
 
 function scrollPlaySurfaceIntoView() {

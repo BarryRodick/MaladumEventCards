@@ -5,10 +5,21 @@ import { generateDeck } from './deck-manager.js';
 import { liveDeckSession } from './live-deck-session.js';
 import { state } from './state.js';
 import { trackEvent, debounce } from './app-utils.js';
+import { saveConfiguration } from './config-manager.js';
 import { setupManualUpdateCheck } from './update-utils.js';
-import { updateCardSearchResults, showCardPreview, setDeckMode, toggleUtilityDrawer, openBuildTools, openSearchTools, toggleActionPanel } from './ui-manager.js';
+import {
+    updateCardSearchResults,
+    showCardPreview,
+    setDeckMode,
+    toggleUtilityDrawer,
+    openBuildTools,
+    openSearchTools,
+    toggleActionPanel,
+    renderDeckSummary
+} from './ui-manager.js';
 import { buildPreviewActionRequest } from './deck-flow-utils.js';
 
+const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
 const debouncedCardSearch = debounce((value) => updateCardSearchResults(value), 150);
 
 export function setupEventListeners() {
@@ -82,6 +93,24 @@ export function setupEventListeners() {
         generateDeck();
     });
 
+    const sentryRulesToggle = document.getElementById('enableSentryRules');
+    if (sentryRulesToggle) {
+        sentryRulesToggle.addEventListener('change', (e) => {
+            state.enableSentryRules = e.target.checked;
+            debouncedSaveConfiguration();
+            renderDeckSummary();
+        });
+    }
+
+    const corrupterRulesToggle = document.getElementById('enableCorrupterRules');
+    if (corrupterRulesToggle) {
+        corrupterRulesToggle.addEventListener('change', (e) => {
+            state.enableCorrupterRules = e.target.checked;
+            debouncedSaveConfiguration();
+            renderDeckSummary();
+        });
+    }
+
     // Navigation
     const nextBtn = document.getElementById('nextCard');
     if (nextBtn) nextBtn.addEventListener('click', () => liveDeckSession.advance());
@@ -93,14 +122,14 @@ export function setupEventListeners() {
         });
     }
 
-    // Interactions with the card image itself
+    // Interactions with the active deck surface
     const deckOutput = document.getElementById('deckOutput');
     if (deckOutput) {
         const openActivePreview = (target) => {
-            const { cardId, cardName, cardImage, cardType } = target.dataset;
-            if (!cardImage) return;
-            showCardPreview({ id: cardId, name: cardName, image: cardImage, type: cardType });
-            trackEvent('Card Status', 'Preview Active Card', cardName || '');
+            const card = resolveCardFromPreviewTarget(target);
+            if (!card) return;
+            showCardPreview({ id: card.id, card });
+            trackEvent('Card Status', 'Preview Active Card', card.card || '');
         };
 
         deckOutput.addEventListener('click', (e) => {
@@ -289,17 +318,38 @@ export function setupEventListeners() {
 }
 
 function openCardPreviewFromResult(resultItem) {
-    const { cardId, cardName, cardImage, cardType } = resultItem.dataset;
-    if (!cardImage) return;
-    showCardPreview({ id: cardId, name: cardName, image: cardImage, type: cardType });
-    trackEvent('Card Search', 'Preview Card', cardName || '');
+    const { cardId } = resultItem.dataset;
+    if (!cardId) return;
+    const card = state.cardMap.get(Number(cardId));
+    if (!card) return;
+    showCardPreview({ id: cardId, card });
+    trackEvent('Card Search', 'Preview Card', card.card || '');
 }
 
 function openCardPreviewFromInPlay(previewButton) {
-    const { cardId, cardName, cardImage, cardType } = previewButton.dataset;
-    if (!cardImage) return;
-    showCardPreview({ id: cardId, name: cardName, image: cardImage, type: cardType });
-    trackEvent('Card Status', 'Preview In Play', cardName || '');
+    const card = resolveCardFromPreviewTarget(previewButton);
+    if (!card) return;
+    showCardPreview({ id: card.id, card });
+    trackEvent('Card Status', 'Preview In Play', card.card || '');
+}
+
+function resolveCardFromPreviewTarget(target) {
+    const { cardId, cardName, cardImage, cardType } = target.dataset;
+    const numericId = Number(cardId);
+    const richCard = state.cardMap instanceof Map && Number.isFinite(numericId)
+        ? state.cardMap.get(numericId)
+        : null;
+
+    return richCard || {
+        id: cardId,
+        card: cardName,
+        contents: cardImage,
+        sourceImage: cardImage,
+        type: cardType,
+        game: '',
+        renderMode: 'image',
+        sections: []
+    };
 }
 
 function runCardPreviewAction(actionName) {

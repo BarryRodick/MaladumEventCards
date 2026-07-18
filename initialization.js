@@ -9,6 +9,7 @@ import { liveDeckSession } from './live-deck-session.js';
 import { setupUpdateNotifications } from './update-utils.js';
 import { saveState, loadState } from './storage-utils.js';
 import { hydrateDeckState } from './app-snapshot.js';
+import { mergeCardCatalogs, normalizeCachedCardCatalog } from './card-data.mjs';
 
 const CACHE_KEYS = {
     cards: 'cachedCardsData',
@@ -24,8 +25,12 @@ export async function initializeApp() {
         games: {},
         sentryTypes: [],
         corrupterTypes: [],
-        heldBackCardTypes: []
+        heldBackCardTypes: [],
+        icons: {},
+        cardManifest: null
     };
+    state.iconRegistry = {};
+    state.cardManifest = null;
 
     // 2. Load Saved Config
     const savedConfig = loadSavedConfig();
@@ -82,12 +87,20 @@ export async function initializeApp() {
 
 async function loadGameData() {
     try {
-        const [cardsData, difficultiesData] = await Promise.all([
-            fetch('maladumcards.json').then(r => r.json()),
-            fetch('difficulties.json').then(r => r.json())
+        const [legacyCardsData, difficultiesData, richCardsData] = await Promise.all([
+            fetchJson('maladumcards.json'),
+            fetchJson('difficulties.json'),
+            loadRichCardsData().catch(error => {
+                console.warn('Structured card catalog unavailable, continuing with legacy image cards:', error);
+                return null;
+            })
         ]);
 
+        const cardsData = mergeCardCatalogs(legacyCardsData, richCardsData);
+
         state.dataStore = cardsData;
+        state.iconRegistry = cardsData.icons || {};
+        state.cardManifest = cardsData.cardManifest || null;
         state.difficultySettings = difficultiesData.difficulties || [];
         cacheFetchedData(cardsData, difficultiesData);
     } catch (error) {
@@ -119,9 +132,39 @@ function loadCachedData() {
         return false;
     }
 
-    state.dataStore = cachedCards;
+    const normalizedCards = normalizeCachedCardCatalog(cachedCards);
+    state.dataStore = normalizedCards;
+    state.iconRegistry = normalizedCards.icons || {};
+    state.cardManifest = normalizedCards.cardManifest || null;
     state.difficultySettings = cachedDiffs.difficulties || [];
     return true;
+}
+
+async function fetchJson(path) {
+    const response = await fetch(path);
+    if (!response.ok) {
+        throw new Error(`Failed to load ${path}: ${response.status}`);
+    }
+    return response.json();
+}
+
+async function loadRichCardsData() {
+    const manifest = await fetchJson('data/cards/manifest.json');
+    const [icons, richGameEntries] = await Promise.all([
+        fetchJson('data/cards/icons.json'),
+        Promise.all(
+            Object.entries(manifest.games || {}).map(async ([gameName, path]) => {
+                const payload = await fetchJson(path);
+                return [gameName, payload];
+            })
+        )
+    ]);
+
+    return {
+        manifest,
+        icons,
+        games: Object.fromEntries(richGameEntries)
+    };
 }
 
 function restoreDeckState(deckState) {

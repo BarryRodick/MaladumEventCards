@@ -1,0 +1,417 @@
+{
+  "game": "Beasts Of Environ",
+  "cards": [
+    {
+      "id": 89,
+      "card": "Split-Tail Rats",
+      "slug": "split-tail-rats",
+      "type": "Wandering Beast",
+      "game": "Beasts Of Environ",
+      "sourceImage": "Split_Tail_Rats.png",
+      "contents": "Split_Tail_Rats.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Place a pack of Split-Tail Rats at a random Entry Point and activate them immediately."
+        },
+        {
+          "kind": "body",
+          "label": "Body",
+          "text": "These characters follow normal NPC activation rules considering all non-Revenant characters to be enemies.\n\nHowever, if unengaged they will target the enemy in LoS furthest from any friendly characters.\n\nWhen all Split-Tail Rats in play are defeated, shuffle this card back into the Event Deck."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "As above, but flip the Split-Tail Rats’ character board to the Elite side."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Wandering Beast"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "split-tail rats wandering beast beasts of environ todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 90,
+      "card": "Alary",
+      "slug": "alary",
+      "type": "Wandering Beast",
+      "game": "Beasts Of Environ",
+      "sourceImage": "Alary.png",
+      "contents": "Alary.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Place an Alary at a random Entry Point and activate it immediately."
+        },
+        {
+          "kind": "note",
+          "label": "Note",
+          "text": "This character follows normal NPC activation rules considering all other characters to be enemies."
+        },
+        {
+          "kind": "body",
+          "label": "DESPERATION-DOOM",
+          "text": "As above, but flip the Alary's character board to the Elite side."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ]
+      },
+      "tags": [
+        "Wandering Beast"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "alary wandering beast beasts of environ todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 91,
+      "card": "Great Bear",
+      "slug": "great-bear",
+      "type": "Wandering Beast",
+      "game": "Beasts Of Environ",
+      "sourceImage": "Great_Bear.png",
+      "contents": "Great_Bear.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Dismay",
+          "text": "Place a Great Bear on the gaming area adjacent to a random Entry Point. Flip the Entry Point. Activate the Great Bear immediately.\n\nThe Entry Point is the beast’s lair. While it is flipped, re-roll it for arrival purposes.\n\nThis character follows normal NPC activation rules considering all other characters to be enemies.\n\nHowever, while the Bear does not have LoS to an enemy, it will Move towards its lair and take no further actions.\n\nThe Great Bear adds one die to its attacks made within short range of its lair.\n\nWhen the Great Bear is defeated, flip the Entry Point back again."
+        },
+        {
+          "kind": "mode",
+          "label": "Desperation-Doom",
+          "text": "As above, but flip the Great Bear’s character board to the Elite side."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 0.95,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "great bear wandering beast beasts of environ todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 92,
+      "card": "Bloodwyrm",
+      "slug": "bloodwyrm",
+      "type": "Wandering Beast",
+      "game": "Beasts Of Environ",
+      "sourceImage": "Bloodwyrm.png",
+      "contents": "Bloodwyrm.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Place a Bloodwyrm on the closest empty Grave Point to an Adventurer. If Grave Points are not being used, scatter from a random Adventurer, ignoring terrain, and place it in that position.\n\nWhen activated, it will attack any character in range of its attacks. If no enemies are in range it uses its action to withdraw into its tunnel and re-emerge. Replace the Bloodwyrm with a small Pit. If none are available, take one from elsewhere in play. Then, roll to scatter, ignoring terrain, and place the Bloodwyrm in the closest empty square to the new position.\n\nIf an enemy is Stunned following a Bloodwyrm attack they are defeated and removed – they will be Left for Dead. Remove the Bloodwyrm from play and shuffle this card back into the deck.\n\nPits remain in play following the normal rules."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "As above, but flip the Bloodwyrm’s character board to the Elite side."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Wandering Beast"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "bloodwyrm wandering beast beasts of environ todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 93,
+      "card": "Skin Shifter",
+      "slug": "skin-shifter",
+      "type": "Wandering Beast",
+      "game": "Beasts Of Environ",
+      "sourceImage": "Skin_Shifter.png",
+      "contents": "Skin_Shifter.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Place a Skin Shifter at a random Entry Point and activate it immediately."
+        },
+        {
+          "kind": "box",
+          "label": "Character Rules",
+          "text": "This character follows normal NPC activation rules considering all other characters to be enemies.\n\nHowever, this character only targets enemies in short range and LoS. If there are none, it will scatter once per action until there are."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "As above, but flip the Skin Shifter’s character board to the Elite side."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          }
+        ]
+      },
+      "tags": [
+        "Wandering Beast"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "skin shifter wandering beast beasts of environ todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 94,
+      "card": "Crag Troll",
+      "slug": "crag-troll",
+      "type": "Wandering Beast",
+      "game": "Beasts Of Environ",
+      "sourceImage": "Crag_Troll.png",
+      "contents": "Crag_Troll.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Place a Crag Troll at a random Entry Point and activate it immediately."
+        },
+        {
+          "kind": "box",
+          "label": "NPC Activation Rules",
+          "text": "This character follows normal NPC activation rules considering all other characters to be enemies."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "As above, but flip the Crag Troll's character board to the Elite side."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Wandering Beast"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "crag troll wandering beast beasts of environ todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 95,
+      "card": "It's Alive",
+      "slug": "it-s-alive",
+      "type": "Environment",
+      "game": "Beasts Of Environ",
+      "sourceImage": "Its_Alive.png",
+      "contents": "Its_Alive.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "A concentration of Maladum inside a magical item has leached out into the container housing it, and it is no longer inanimate!\n\nChoose a Searchable terrain piece at random and mark it with a Reminder counter.\n\nFor the rest of the game, treat the terrain piece as a Wandering Beast with the following statistics:\n\n[actions] [move:2] [creature] [armour:2] [health:3] [melee:1]\n\nThis character follows normal NPC activation rules considering all other characters to be enemies.\n\nAny items inside will be dropped when it is defeated."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Environment"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "it's alive environment beasts of environ todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 96,
+      "card": "Home Invasion",
+      "slug": "home-invasion",
+      "type": "Environment",
+      "game": "Beasts Of Environ",
+      "sourceImage": "Home_Invasion.png",
+      "contents": "Home_Invasion.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Your Adversaries have disturbed the lair of a wild beast!\n\nTake all [creature] cards not being used for this game and draw one at random. Resolve it immediately. However, instead of placing the character(s) at a random Entry Point, place them anywhere within short range and LoS of, but not in contact with, an Adversary. If no Adversaries are in play, place it at an Entry Point as normal."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "home invasion environment beasts of environ todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 97,
+      "card": "Unmasked!",
+      "slug": "unmasked",
+      "type": "Denizen",
+      "game": "Beasts Of Environ",
+      "sourceImage": "Unmasked.png",
+      "contents": "Unmasked.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "An Adventurer you’ve encountered on your travels is not who they seem... They are a Skin Shifter in disguise and the illusion is failing!\n\nIf there are no Denizens in play, take all [denizen] cards not being used for this game and draw one at random. Resolve it intermediately. Then shuffle this card back into the deck.\n\nOtherwise, choose a random Denizen in play. Discard its character board and Event Card. It is considered defeated for any relevant rules.\n\nFor the rest of the game, it will use the rules and statistics from the Skin Shifter character board. It will continue to use its original miniature and any Magic and Health pegs in its dashboard. It will carry any equipment in its inventory but will not use it."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "This character follows normal NPC activation rules considering all other characters to be enemies.\n\nHowever, this character only targets enemies in short range and LoS. If there are none, it will scatter once per action until there are."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "denizen"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Denizen"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "unmasked! denizen beasts of environ denizen disquiet-doom an adventurer you’ve encountered on your travels is not who they seem... they are a skin shifter in disguise and the illusion is failing! if there are no denizens in play, take all denizen cards not being used for this game and draw one at random. resolve it intermediately. then shuffle this card back into the deck. otherwise, choose a random denizen in play. discard its character board and event card. it is considered defeated for any relevant rules. for the rest of the game, it will use the rules and statistics from the skin shifter character board. it will continue to use its original miniature and any magic and health pegs in its dashboard. it will carry any equipment in its inventory but will not use it. this character follows normal npc activation rules considering all other characters to be enemies. however, this character only targets enemies in short range and los. if there are none, it will scatter once per action until there are. denizen"
+    }
+  ]
+}

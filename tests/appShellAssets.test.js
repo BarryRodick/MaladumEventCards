@@ -5,6 +5,10 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const {
+    TOP_LEVEL_RUNTIME_FILES,
+    buildAssetManifest
+} = require('../scripts/update-version.js');
 
 const repoRoot = path.join(__dirname, '..');
 const htmlFiles = [
@@ -58,6 +62,50 @@ function extractCssLocalRefs(css) {
     return refs;
 }
 
+function extractLocalModuleSpecifiers(source) {
+    const specifiers = [];
+    const patterns = [
+        /(?:import|export)\s+(?:[^'";]*?\s+from\s*)?['"](\.[^'"]+)['"]/g,
+        /import\s*\(\s*['"](\.[^'"]+)['"]\s*\)/g
+    ];
+
+    patterns.forEach(pattern => {
+        let match;
+        while ((match = pattern.exec(source)) !== null) {
+            specifiers.push(match[1].split(/[?#]/)[0]);
+        }
+    });
+
+    return [...new Set(specifiers)];
+}
+
+function assertRecursiveImportClosure(entryFiles, cachedAssets) {
+    const visited = new Set();
+
+    function visit(relativeFile) {
+        const normalizedFile = './' + relativeFile.replace(/\\/g, '/').replace(/^\.\//, '');
+        if (visited.has(normalizedFile)) return;
+        visited.add(normalizedFile);
+
+        assert(cachedAssets.has(normalizedFile),
+            `Service worker manifest should include imported runtime module ${normalizedFile}`);
+
+        const absoluteFile = path.join(repoRoot, normalizedFile.slice(2));
+        assert(fs.existsSync(absoluteFile), `Runtime module is missing: ${normalizedFile}`);
+        const source = fs.readFileSync(absoluteFile, 'utf8');
+
+        extractLocalModuleSpecifiers(source).forEach(specifier => {
+            const importedFile = path.relative(
+                repoRoot,
+                path.resolve(path.dirname(absoluteFile), specifier)
+            );
+            visit(importedFile);
+        });
+    }
+
+    entryFiles.forEach(entryFile => visit(entryFile));
+}
+
 console.log('Testing app shell asset integrity...');
 
 htmlFiles.forEach(file => {
@@ -104,9 +152,14 @@ manifest.icons.forEach(icon => {
 
 const serviceWorker = fs.readFileSync(path.join(repoRoot, 'service-worker.js'), 'utf8');
 const updateVersionScript = fs.readFileSync(path.join(repoRoot, 'scripts', 'update-version.js'), 'utf8');
+const runtimeAssetManifest = buildAssetManifest(repoRoot);
+const cachedAssets = new Set(runtimeAssetManifest);
 [
     './app-snapshot.js',
     './campaign-tracker.js',
+    './card-data.mjs',
+    './card-renderer.mjs',
+    './card-tokenizer.mjs',
     './assets/ui/campaign-divider.svg',
     './assets/ui/dark-surface-texture.svg',
     './assets/ui/parchment-panel-texture.svg',
@@ -115,6 +168,8 @@ const updateVersionScript = fs.readFileSync(path.join(repoRoot, 'scripts', 'upda
     './deck-flow-utils.js',
     './deck-rules.js',
     './live-deck.js',
+    './live-deck-session.js',
+    './live-deck-view.js',
     './vendor/fontawesome/css/all.min.css',
     './vendor/fonts/cinzel-latin-400-normal.woff2',
     './icons/icon-192x192.png',
@@ -123,12 +178,37 @@ const updateVersionScript = fs.readFileSync(path.join(repoRoot, 'scripts', 'upda
     assert(serviceWorker.includes(`'${asset}'`), `Service worker asset manifest should include ${asset}`);
 });
 
+runtimeAssetManifest.forEach(asset => {
+    assert(serviceWorker.includes(`'${asset}'`),
+        `Generated service worker should include runtime asset ${asset}`);
+});
+
+assert(!runtimeAssetManifest.includes('./data/cards/extraction-report.json'),
+    'Generated extraction reports should not be deployed as app-shell assets');
+assert(!serviceWorker.includes("'./data/cards/extraction-report.json'"),
+    'Service worker should not cache developer-only extraction reports');
+assert(serviceWorker.includes("const CACHE_PREFIX = 'maladum-event-cards-';"),
+    'Service worker should define an app-owned cache namespace');
+assert(serviceWorker.includes('name.startsWith(CACHE_PREFIX) && name !== CACHE_NAME'),
+    'Service worker activation should preserve caches outside the app namespace');
+
+assertRecursiveImportClosure(
+    TOP_LEVEL_RUNTIME_FILES.filter(asset => /\.(?:js|mjs)$/.test(asset) && cachedAssets.has(asset)),
+    cachedAssets
+);
+
 assert(updateVersionScript.includes("'./deck-flow-utils.js'"),
     'Build asset manifest should include deck-flow-utils.js for future service-worker syncs');
 assert(updateVersionScript.includes("'./deck-rules.js'"),
     'Build asset manifest should include deck-rules.js for future service-worker syncs');
 assert(updateVersionScript.includes("'./live-deck.js'"),
     'Build asset manifest should include live-deck.js for future service-worker syncs');
+assert(updateVersionScript.includes("'./live-deck-session.js'"),
+    'Build asset manifest should include live-deck-session.js for future service-worker syncs');
+assert(updateVersionScript.includes("'./live-deck-view.js'"),
+    'Build asset manifest should include live-deck-view.js for future service-worker syncs');
+assert(updateVersionScript.includes("'./card-renderer.mjs'"),
+    'Build asset manifest should include the rich-card renderer for future service-worker syncs');
 assert(updateVersionScript.includes("'./app-snapshot.js'"),
     'Build asset manifest should include app-snapshot.js for future service-worker syncs');
 assert(updateVersionScript.includes("'./campaign-tracker.js'"),

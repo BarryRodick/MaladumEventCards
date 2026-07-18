@@ -69,24 +69,38 @@ assert.doesNotThrow(() => {
 }, 'trackEvent should be safe when Google Analytics is unavailable');
 
 {
-    let insertedMarkup = '';
-    const toastElement = {
-        addEventListener() { }
-    };
+    const createdNodes = [];
+    const createNode = (tagName) => ({
+        tagName: tagName.toUpperCase(),
+        children: [],
+        attributes: {},
+        className: '',
+        textContent: '',
+        appendChild(child) {
+            this.children.push(child);
+            return child;
+        },
+        append(...children) {
+            this.children.push(...children);
+        },
+        setAttribute(name, value) {
+            this.attributes[name] = String(value);
+        },
+        addEventListener() { },
+        remove() { }
+    });
+    const toastContainer = createNode('div');
     const previousDocument = global.document;
     const previousBootstrap = global.bootstrap;
 
     global.document = {
         getElementById(id) {
-            if (id === 'toastContainer') {
-                return {
-                    insertAdjacentHTML(position, markup) {
-                        assert.strictEqual(position, 'beforeend');
-                        insertedMarkup = markup;
-                    }
-                };
-            }
-            return id.startsWith('toast-') ? toastElement : null;
+            return id === 'toastContainer' ? toastContainer : null;
+        },
+        createElement(tagName) {
+            const node = createNode(tagName);
+            createdNodes.push(node);
+            return node;
         }
     };
     global.bootstrap = {
@@ -96,17 +110,21 @@ assert.doesNotThrow(() => {
     };
 
     try {
-        loadShowToast()('Choose at least one card.');
+        loadShowToast()('<img src=x onerror=alert(1)>');
     } finally {
         global.document = previousDocument;
         global.bootstrap = previousBootstrap;
     }
 
-    assert(insertedMarkup.includes('feedback-toast'),
+    const toastElement = toastContainer.children[0];
+    const messageNode = createdNodes.find(node => node.className === 'feedback-toast__message');
+    assert(toastElement.className.includes('feedback-toast'),
         'Toast markup should use the shared themed feedback surface');
-    assert(insertedMarkup.includes('feedback-toast__title'),
+    assert(createdNodes.some(node => node.className === 'feedback-toast__title'),
         'Toast markup should expose a themed notice heading');
-    assert(!insertedMarkup.includes('bg-dark') && !insertedMarkup.includes('text-white'),
+    assert.strictEqual(messageNode.textContent, '<img src=x onerror=alert(1)>',
+        'Toast messages should remain literal text instead of being parsed as HTML');
+    assert(!toastElement.className.includes('bg-dark') && !toastElement.className.includes('text-white'),
         'Toast markup should not use generic Bootstrap dark utility classes');
 }
 

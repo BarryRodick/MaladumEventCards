@@ -3,6 +3,8 @@
  * Run with: node tests/deckManager.test.js
  */
 const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
 const { loadSourceModule } = require('./helpers/load-source-module');
 
 function loadDeckManager(state, document, overrides = {}) {
@@ -122,6 +124,37 @@ function makeBaseState() {
 }
 
 console.log('Testing deck-manager behavior...');
+
+// ============================
+// Test: newly catalogued Veteran cards remain reachable
+// ============================
+{
+    const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'maladumcards.json'), 'utf8'));
+    const newVeteranCards = catalog.games['Base Game'].filter(card => card.id >= 128 && card.id <= 142);
+    const state = makeBaseState();
+    state.allCardTypes = ['Veteran', 'Dungeon'];
+    state.dataStore.heldBackCardTypes = ['Veteran'];
+    state.availableCards = newVeteranCards;
+    state.deckDataByType = {
+        Veteran: newVeteranCards,
+        Dungeon: newVeteranCards.filter(card => card.type.includes('Dungeon'))
+    };
+
+    const document = makeDeckGenerationDocument({
+        Veteran: newVeteranCards.length,
+        Dungeon: newVeteranCards.filter(card => card.type.includes('Dungeon')).length
+    });
+    const { generateDeck } = loadDeckManager(state, document);
+
+    generateDeck();
+
+    assert.strictEqual(newVeteranCards.length, 15, 'The merged catalog should contain all 15 new Veteran cards');
+    assert.deepStrictEqual(
+        state.currentDeck.map(card => card.id).sort((left, right) => left - right),
+        newVeteranCards.map(card => card.id).sort((left, right) => left - right),
+        'Held-back deck rules should keep every newly catalogued Veteran card selectable'
+    );
+}
 
 // ============================
 // Test: held-back cards can be selected by their configured counts

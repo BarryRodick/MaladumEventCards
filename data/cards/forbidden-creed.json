@@ -1,0 +1,672 @@
+{
+  "game": "Forbidden Creed",
+  "cards": [
+    {
+      "id": 113,
+      "card": "Maladite Golum",
+      "slug": "maladite-golum",
+      "type": "Wandering Beast",
+      "game": "Forbidden Creed",
+      "sourceImage": "Maladite_Golum.png",
+      "contents": "Maladite_Golum.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DESPERATION",
+          "text": "If there are fewer than five blue pegs in the Dread Tracker, replace the lowest black peg with a blue peg and shuffle this card back into the deck.\n\nOtherwise, place a Maladite Golem at a random Entry Point and activate it immediately.\n\nBefore the Golem activates each turn, replace the lowest blue peg in the Dread Tracker with a black peg. If you cannot, the Golem is defeated.\n\nThis character follows normal NPC activation rules considering all other characters to be enemies.\n\nHowever, if unengaged it will target the closest Corrupted character if possible.\n\nUnengaged Adventurers within LoS and medium range of the Golem may spend X Magic pegs as an action to place X Reminder counters on the Golem. When it activates, that character may discard them to take actions with the Golem up to its normal limit. Any remaining actions follow its normal rules. Other characters may add Reminders, discarding any already there, provided X is more than the current number of counters."
+        },
+        {
+          "kind": "mode",
+          "label": "DISASTER-DOOM",
+          "text": "As above, but flip the Maladite Golem’s character board to the Elite side."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "creature"
+          }
+        ],
+        "right": [
+          {
+            "type": "icon",
+            "name": "malacytic-conduit"
+          }
+        ]
+      },
+      "tags": [
+        "Wandering Beast"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "maladite golum wandering beast forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 114,
+      "card": "The Cabal",
+      "slug": "the-cabal",
+      "type": "Cabal",
+      "game": "Forbidden Creed",
+      "sourceImage": "The_Cabal.png",
+      "contents": "The_Cabal.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "Resolve a Cabal spell. Then shuffle this card back into the deck."
+        },
+        {
+          "kind": "body",
+          "label": "DISMAY-DOOM",
+          "text": "If the Cabal have been defeated in the current quest, discard this card.\n\nIf they are in play, resolve a Cabal spell. Then shuffle this card back into the deck.\n\nOtherwise, increase the Members track by 1, if possible. Then that many Cabal members enter play at random Entry Points (roll separately for each). Refer to the Cabal Reference card for their rules. Then shuffle this card back into the deck."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Cabal"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "the cabal cabal forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 115,
+      "card": "Debased Acolyte",
+      "slug": "debased-acolyte",
+      "type": "Cabal",
+      "game": "Forbidden Creed",
+      "sourceImage": "Debased_Acolyte.png",
+      "contents": "Debased_Acolyte.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "If the Cabal have been defeated in this quest, discard this card.\n\nOtherwise, select a random Denizen. It gains one random uncommon weapon and one random item from the token pouch. Place it at a random Entry Point.\n\nThis Denizen is an Acolyte of the Cabal and is treated as an Adversary for all purposes.\n\nResolve a Cabal spell. Then shuffle this card back into the deck."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "debased acolyte cabal forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 116,
+      "card": "Treacherous Terrain",
+      "slug": "treacherous-terrain",
+      "type": "Mountain",
+      "game": "Forbidden Creed",
+      "sourceImage": "Treacherous_Terrain.png",
+      "contents": "Treacherous_Terrain.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Determine a random Adventurer. They have stumbled on some loose scree or black ice and must spend a Skill peg (reaction) or be knocked prone. All other characters in the same room roll a combat die – on a blunder they are knocked prone."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "As Disquiet-Dismay. In addition, place a Reminder counter into the room. If a copy of this card is already in play, the chosen room must be different to the one already marked if possible, and the second copy of the card can be discarded.",
+          "threshold": 2
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "Marked rooms are [move:2] until the end of the game."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Mountain"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "treacherous terrain mountain forbidden creed mountain disquiet-dismay determine a random adventurer. they have stumbled on some loose scree or black ice and must spend a skill peg (reaction) or be knocked prone. all other characters in the same room roll a combat die – on a blunder they are knocked prone. desperation-doom as disquiet-dismay. in addition, place a reminder counter into the room. if a copy of this card is already in play, the chosen room must be different to the one already marked if possible, and the second copy of the card can be discarded. marked rooms are move 2 until the end of the game. mountain"
+    },
+    {
+      "id": 117,
+      "card": "Treacherous Terrain",
+      "slug": "treacherous-terrain",
+      "type": "Mountain",
+      "game": "Forbidden Creed",
+      "sourceImage": "Treacherous_Terrain.png",
+      "contents": "Treacherous_Terrain.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Dismay",
+          "text": "Determine a random Adventurer. They have stumbled on some loose scree or black ice and must spend a Skill peg (reaction) or be knocked prone. All other characters in the same room roll a combat die – on a blunder they are knocked prone."
+        },
+        {
+          "kind": "mode",
+          "label": "Desperation-Doom",
+          "text": "As Disquiet-Dismay. In addition, place a Reminder counter into the room. If a copy of this card is already in play, the chosen room must be different to the one already marked if possible, and the second copy of the card can be discarded."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "Marked rooms are [move:2] until the end of the game."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Mountain"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "treacherous terrain mountain forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 118,
+      "card": "Thunderstorm",
+      "slug": "thunderstorm",
+      "type": "Mountain",
+      "game": "Forbidden Creed",
+      "sourceImage": "Thunderstorm.png",
+      "contents": "Thunderstorm.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "Increase Dread by 1."
+        },
+        {
+          "kind": "body",
+          "label": "",
+          "text": "The entire gaming area is [move:1] unless already higher, and all squares are a source of water. LoS is limited to short range unless characters have Hawkeye [hawkeye] or Night Sight [night-sight].\n\nIn the Assessment Phase, scatter from the centre of the gaming area and place a Reminder counter. Any character in or adjacent to that square is struck by lightning and suffers an attack with three dice and Piercing [piercing]. Repeat this in each subsequent Assessment Phase, scattering from the previous position.\n\nAfter resolving the lightning strike, if a 1 was rolled for the scatter, discard this card."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Mountain"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "thunderstorm mountain forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 119,
+      "card": "Ambush!",
+      "slug": "ambush",
+      "type": "Mountain",
+      "game": "Forbidden Creed",
+      "sourceImage": "Ambush.png",
+      "contents": "Ambush.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Dismay",
+          "text": "In such an open location your attackers could be hiding anywhere... For each Adversary type arriving this round, instead of rolling for Entry Points, instead determine a random Adventurer. That Adversary will arrive from the square on the edge of the gaming area with the shortest route to that Adventurer. Adversaries arriving from Grave Points or any other arrival position arrive as normal. Shuffle this card back into the deck."
+        },
+        {
+          "kind": "mode",
+          "label": "Desperation-Doom",
+          "text": "This round, resolve the Adversary Phase before the Adventurer Phase. Adversary arrival is resolved as detailed for Disquiet-Dismay."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "ambush! mountain forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 120,
+      "card": "Chill Wind",
+      "slug": "chill-wind",
+      "type": "Mountain",
+      "game": "Forbidden Creed",
+      "sourceImage": "Chill_Wind.png",
+      "contents": "Chill_Wind.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "The wind changes and the biting cold starts to affect your Adventurers. Count eight spaces up the Dread tracker and add a purple peg."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "While this card is in play, Adventurers and Denizens become Fatigued at the end of any turn in which they did not Move. If an Adventurer or Denizen becomes Stunned they lose one Health.\n\nDiscard this card when the purple peg is replaced."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Mountain"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "chill wind mountain forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 121,
+      "card": "Dusk To Dawn",
+      "slug": "dusk-to-dawn",
+      "type": "Mountain",
+      "game": "Forbidden Creed",
+      "sourceImage": "Dusk_To_Dawn.png",
+      "contents": "Dusk_To_Dawn.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DESPERATION",
+          "text": "The sun is slowly rising/setting. The gaming area gradually changes from light to dark or vice versa.\n\nRandomly determine an edge of the gaming area.\n\nAs each new Dread band is entered for the first time, the area within four squares of the chosen edge becomes dark/light as appropriate. Move two Darkness/Light counters along the sides of the gaming area to mark how far the effect has reached."
+        },
+        {
+          "kind": "mode",
+          "label": "DISASTER-DOOM",
+          "text": "The sun breaks through/is obscured by clouds. The gaming area suddenly changes from light to dark or vice versa.\n\nRandomly determine an edge of the gaming area and mark it with a Darkness/Light counter.\n\nThe half of the gaming area closest to that edge becomes dark/light as appropriate."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Mountain"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "dusk to dawn mountain forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 122,
+      "card": "Falling Rocks",
+      "slug": "falling-rocks",
+      "type": "Mountain",
+      "game": "Forbidden Creed",
+      "sourceImage": "Falling_Rocks.png",
+      "contents": "Falling_Rocks.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DESPERATION",
+          "text": "An Adventurer has put a foot wrong and rocks and rubble become loose. The Adventurer closest to a wall suffers an attack with two dice, Blast and Bludgeoning [bludgeoning]. Then shuffle this card back into the deck."
+        },
+        {
+          "kind": "mode",
+          "label": "DISASTER-DOOM",
+          "text": "There is too much movement in the area and the walls themselves are coming down! The Adventurer closest to a wall suffers an attack with three dice, Blast and Bludgeoning [bludgeoning]. The wall closest to them is removed from the game and replaced with a Barricade."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "falling rocks mountain forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 123,
+      "card": "Howling Gale",
+      "slug": "howling-gale",
+      "type": "Mountain",
+      "game": "Forbidden Creed",
+      "sourceImage": "Howling_Gale.png",
+      "contents": "Howling_Gale.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DOOM",
+          "text": "A powerful wind blasts through the area. Roll the Magic Die to determine a direction. The number rolled is the strength of the wind. If a 1 was rolled, increase Dread by 1 and shuffle this card back into the deck.\n\nOtherwise, the wind affects all movable terrain pieces and all characters not in contact with a wall or immovable terrain piece. Each is moved a number of squares in the direction rolled equal to the number rolled minus their size, rounding down. Attacks of opportunity do not apply.\n\nAny character moved three or more squares is knocked prone. Any character that hits a wall or other obstacle and would still be moved further suffers an attack with two dice and Bludgeoning [bludgeoning].\n\nAny character may spend a Skill peg (reaction) to avoid these effects."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Mountain"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "howling gale mountain forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 124,
+      "card": "Malacytic Scourge",
+      "slug": "malacytic-scourge",
+      "type": "Environment",
+      "game": "Forbidden Creed",
+      "sourceImage": "Malacytic_Scourge.png",
+      "contents": "Malacytic_Scourge.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "Determine a random Adventurer. They become Cursed. Then shuffle this card back into the deck."
+        },
+        {
+          "kind": "mode",
+          "label": "DISMAY-DESPERATION",
+          "text": "Determine a random Adventurer. They become Corrupted. The closest other character to them becomes Cursed. Then shuffle this card back into the deck."
+        },
+        {
+          "kind": "mode",
+          "label": "DISASTER-DOOM",
+          "text": "Determine a random Adventurer. They become Corrupted. Each character within short range of them becomes Cursed."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "map"
+          }
+        ],
+        "right": []
+      },
+      "tags": [],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "malacytic scourge environment forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 125,
+      "card": "Purifying Aether",
+      "slug": "purifying-aether",
+      "type": "Novice",
+      "game": "Forbidden Creed",
+      "sourceImage": "Purifying_Aether.png",
+      "contents": "Purifying_Aether.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISTRESS",
+          "text": "Reduce Dread by 1.\n\nAll characters may replace their rightmost black Health peg with a green one. NPCs will automatically do this. Characters with no black Health pegs gain a Skill peg, ignoring their normal limit.\n\nThen, if the Ascendant is in play, all characters with no black pegs increase their Tethered value by 1."
+        },
+        {
+          "kind": "mode",
+          "label": "DISMAY-DOOM",
+          "text": "As Disquiet-Distress. Then, all characters may restore the rightmost crossed-out Health space on their character board, if applicable."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Novice"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "purifying aether novice forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 126,
+      "card": "Touched By Darkness",
+      "slug": "touched-by-darkness",
+      "type": "Veteran",
+      "game": "Forbidden Creed",
+      "sourceImage": "Touched_By_Darkness.png",
+      "contents": "Touched_By_Darkness.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DESPERATION",
+          "text": "Increase Dread by 1.\n\nAll characters must discard a Magic peg or become Corrupted. Then shuffle this card back into the deck."
+        },
+        {
+          "kind": "mode",
+          "label": "DISASTER-DOOM",
+          "text": "All characters with any black Health pegs that have not lost control cross out the leftmost Health space on their character board.\n\nThen all characters must discard two Magic pegs or become Corrupted."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Veteran"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "touched by darkness veteran forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+    },
+    {
+      "id": 127,
+      "card": "They Are Coming",
+      "slug": "they-are-coming",
+      "type": "Veteran",
+      "game": "Forbidden Creed",
+      "sourceImage": "They_Are_Coming.png",
+      "contents": "They_Are_Coming.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "Disquiet-Dismay",
+          "text": "Increase Dread by 1.\nThen, roll the Magic Die. Count empty spaces from the bottom of the Dread Tracker equal to the number rolled and insert a purple peg. Repeat this, starting from the previous purple peg, until you have added three pegs.\nIn any round where a purple peg was replaced, resolve Adversary arrival twice. Discard this card at the end of the round when the last purple peg is replaced."
+        },
+        {
+          "kind": "mode",
+          "label": "Desperation-Doom",
+          "text": "For the rest of the game, resolve Adversary arrival twice in any round where a Magic peg was added to the tracker."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "arrow-up"
+          },
+          {
+            "type": "icon",
+            "name": "entry-point"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Veteran"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "auto",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "extractor"
+      },
+      "searchText": "they are coming veteran forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+    }
+  ]
+}

@@ -188,9 +188,9 @@
                         </button>
                     </div>
                     <div id="cardSearchContent" class="collapse mt-3">
-                        <label for="cardSearchInput" class="brand-text text-gold mb-2">Search by card name</label>
+                        <label for="cardSearchInput" class="brand-text text-gold mb-2">Search cards</label>
                         <input id="cardSearchInput" type="search" class="form-control form-control-lg"
-                            placeholder="Start typing a card name..." autocomplete="off">
+                            placeholder="Search title, type, game, or rules text..." autocomplete="off">
                         <small id="cardSearchStatus" class="text-muted mt-2 d-block"></small>
                         <div id="cardSearchResults" class="card-search-results mt-3" aria-live="polite"></div>
                     </div>
@@ -252,8 +252,8 @@
                 </div>
 
                 <!-- Deck Output -->
-                <section id="deckOutput" class="text-center">
-                    <!-- Current Card Image will be inserted here -->
+                <section id="deckOutput" class="text-center" aria-live="polite" aria-label="Active deck display">
+                    <!-- Active card preview will be inserted here -->
                     <button id="clearActiveCard" type="button" aria-label="Clear active card"
                         class="themed-close deck-card-close" style="display: none;">
                         <i class="fas fa-times" aria-hidden="true"></i>
@@ -442,7 +442,7 @@
                     </button>
                 </div>
                 <div class="modal-body text-center">
-                    <img class="card-preview-image" data-card-preview-image alt="">
+                    <div class="card-preview-surface" data-card-preview-surface></div>
                     <p class="text-muted mt-3 mb-0" data-card-preview-type></p>
                     <div class="card-preview-readable mt-4 text-start" data-card-preview-readable></div>
                     <div class="card-preview-actions mt-4">

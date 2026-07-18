@@ -15,15 +15,6 @@ import { liveDeckView } from './live-deck-view.js';
 import { saveConfiguration } from './config-manager.js';
 import { showToast, trackEvent } from './app-utils.js';
 
-function escapeHtml(value) {
-    return String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-}
-
 function renderCurrentAndSave(direction) {
     liveDeckView.renderCurrentCard(direction);
     liveDeckView.renderProgress();
@@ -69,13 +60,13 @@ export const liveDeckSession = {
         }
 
         if (!markCardInPlay(state, activeCard)) {
-            showToast(`Card "${escapeHtml(activeCard.card)}" is already in play.`);
+            showToast(`Card "${activeCard.card}" is already in play.`);
             return;
         }
 
         liveDeckView.renderInPlayCards();
         liveDeckView.renderProgress();
-        showToast(`Card "${escapeHtml(activeCard.card)}" marked as in play.`);
+        showToast(`Card "${activeCard.card}" marked as in play.`);
         saveConfiguration();
         trackEvent('Card Status', 'Mark In Play', activeCard.card);
     },

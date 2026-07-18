@@ -73,7 +73,6 @@ export function generateDeck() {
     state.initialDeckSize = state.currentDeck.length;
     rebuildSelectedCardsMap(state, [state.currentDeck, state.sentryDeck]);
 
-    // UI Updates
     const activeDeckSection = document.getElementById('activeDeckSection');
     if (activeDeckSection) activeDeckSection.style.display = 'block';
 
