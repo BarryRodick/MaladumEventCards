@@ -84,7 +84,7 @@ A rich card record looks like this:
 
 ## Commands
 
-The deployed app is static and requires no installation. Contributors need Node.js and can install the extraction and review tooling with:
+The deployed app is static and requires no installation. Contributors need Node.js 20.9 or later and can install the extraction and review tooling with:
 
 ```bash
 npm install
