@@ -4,6 +4,12 @@
 
 Maladum Event Cards is the canonical static browser app for building Maladum event decks, running a live deck, searching the structured card catalog, and tracking campaigns. GitHub Pages serves the checked-in HTML, JavaScript, JSON, and assets; Node.js is local maintenance and validation tooling only.
 
+## Language
+
+**Card Catalog**:
+The searchable collection of Maladum event cards, drawn from legacy image records and structured rich records.
+_Avoid_: card data, card list
+
 ## Canonical Repository
 
 `BarryRodick/MaladumEventCards` is the sole development repository. Treat the former `BarryRodick/maladum-rich-event-cards` split repository as a reconciled donor pending archival; it must not receive new product work.
