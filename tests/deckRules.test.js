@@ -61,11 +61,40 @@ console.log('Testing deck rules...');
         { id: 102, card: 'Corrupter E', type: 'Corrupter', contents: 'ce.png' }
     ];
 
-    const result = buildDeck({
+    [0, 1, 5].forEach(configuredCount => {
+        const result = buildDeck({
+            allCardTypes: ['Denizen', 'Corrupter'],
+            availableCards: cards,
+            deckDataByType: {
+                Denizen: cards.slice(0, 5),
+                Corrupter: cards.slice(5)
+            },
+            dataStore: {
+                sentryTypes: [],
+                corrupterTypes: ['Corrupter'],
+                heldBackCardTypes: []
+            },
+            enableCorrupterRules: true,
+            cardCounts: { Denizen: 5 },
+            specialCardCounts: { Corrupter: configuredCount },
+            corrupterReplacementCount: 5
+        });
+
+        const corrupterIds = result.combinedDeck
+            .filter(card => card.type === 'Corrupter')
+            .map(card => card.id);
+
+        assert.strictEqual(result.combinedDeck.length, 5);
+        assert.strictEqual(corrupterIds.length, 5,
+            `Corrupter rules should replace five cards when the configured count is ${configuredCount}`);
+        assert.strictEqual(new Set(corrupterIds).size, 5);
+    });
+
+    const shortDeck = buildDeck({
         allCardTypes: ['Denizen', 'Corrupter'],
         availableCards: cards,
         deckDataByType: {
-            Denizen: cards.slice(0, 5),
+            Denizen: cards.slice(0, 4),
             Corrupter: cards.slice(5)
         },
         dataStore: {
@@ -74,18 +103,14 @@ console.log('Testing deck rules...');
             heldBackCardTypes: []
         },
         enableCorrupterRules: true,
-        cardCounts: { Denizen: 5 },
+        cardCounts: { Denizen: 4 },
         specialCardCounts: { Corrupter: 5 },
         corrupterReplacementCount: 5
     });
 
-    const corrupterIds = result.combinedDeck
-        .filter(card => card.type === 'Corrupter')
-        .map(card => card.id);
-
-    assert.strictEqual(result.combinedDeck.length, 5);
-    assert.strictEqual(corrupterIds.length, 5);
-    assert.strictEqual(new Set(corrupterIds).size, 5);
+    assert.strictEqual(shortDeck.combinedDeck.length, 4,
+        'Corrupter cards should not be appended when the main deck is too short for replacement');
+    assert.strictEqual(shortDeck.combinedDeck.some(card => card.type === 'Corrupter'), false);
 }
 
 {
@@ -102,6 +127,28 @@ console.log('Testing deck rules...');
     });
 
     assert.strictEqual(result.error, DECK_RULE_ERRORS.emptySelection);
+}
+
+{
+    const { buildDeck, DECK_RULE_ERRORS } = loadDeckRules();
+    const result = buildDeck({
+        allCardTypes: ['Corrupter'],
+        availableCards: [{ id: 98, card: 'Corrupter A', type: 'Corrupter' }],
+        deckDataByType: {
+            Corrupter: [{ id: 98, card: 'Corrupter A', type: 'Corrupter' }]
+        },
+        dataStore: {
+            sentryTypes: [],
+            corrupterTypes: ['Corrupter'],
+            heldBackCardTypes: []
+        },
+        enableCorrupterRules: true,
+        specialCardCounts: { Corrupter: 5 },
+        corrupterReplacementCount: 5
+    });
+
+    assert.strictEqual(result.error, DECK_RULE_ERRORS.emptySelection,
+        'Corrupter rules require a regular or Sentry selection to build a deck');
 }
 
 console.log('All deck rules tests passed!');

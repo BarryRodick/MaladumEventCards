@@ -40,6 +40,18 @@ async function loadModule(relativePath) {
                     text: 'Increase the Dread by 1.'
                 }
             ]
+        }, 'Base Game', 'legacy'),
+        normalizeCard({
+            id: 139,
+            card: 'Not Again?',
+            type: 'Veteran',
+            contents: 'Not_Again.png',
+            sections: [
+                {
+                    header: 'DISQUIET-DOOM',
+                    text: 'You are overcome with an uneasy feeling of Déjà vu and impending doom.'
+                }
+            ]
         }, 'Base Game', 'legacy')
     ];
 
@@ -49,6 +61,9 @@ async function loadModule(relativePath) {
 
     const titleMatches = searchCards(cards, 'alarm');
     assert.strictEqual(titleMatches[0].id, 51, 'Title search behavior should still work');
+
+    const accentMatches = searchCards(cards, 'deja');
+    assert.strictEqual(accentMatches[0].id, 139, 'ASCII search should match accented card text');
 
     const repositoryRoot = path.join(__dirname, '..');
     const manifest = JSON.parse(fs.readFileSync(
@@ -68,8 +83,8 @@ async function loadModule(relativePath) {
     const productionRulesMatches = searchCards(productionCards, 'odour decaying');
     const suddenRot = productionRulesMatches.find(card => card.card === 'Sudden Rot');
     assert(suddenRot, 'Production search should find Sudden Rot from its rules text');
-    assert.strictEqual(suddenRot.renderMode, 'image',
-        'The incomplete Sudden Rot record should stay searchable while using its source image');
+    assert.strictEqual(suddenRot.renderMode, 'rich',
+        'The verified Sudden Rot record should render from its reconciled structured text');
 
     console.log('All structured card search tests passed!');
 })().catch(error => {

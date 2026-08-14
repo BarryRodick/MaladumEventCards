@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-04-12T17:07:14.527Z",
-  "processedCards": 127,
+  "generatedAt": "2026-05-15T08:50:57.110Z",
+  "processedCards": 142,
   "usedOcr": false,
   "cards": [
     {
@@ -8,14 +8,14 @@
       "game": "Base Game",
       "card": "Renewed Vigour",
       "sourceImage": "Renewed_Vigour.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -76,14 +76,14 @@
       "game": "Base Game",
       "card": "Life Drain",
       "sourceImage": "Life_Drain.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "grave"
+            "name": "revenant"
           }
         ],
         "right": []
@@ -144,14 +144,14 @@
       "game": "Base Game",
       "card": "Balefire",
       "sourceImage": "Balefire.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "revenant"
           }
         ],
         "right": []
@@ -212,14 +212,14 @@
       "game": "Base Game",
       "card": "Respite",
       "sourceImage": "Respite.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "novice"
           }
         ],
         "right": []
@@ -280,14 +280,14 @@
       "game": "Base Game",
       "card": "Snap",
       "sourceImage": "Snap.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -348,14 +348,14 @@
       "game": "Base Game",
       "card": "Malacytic Fluctuations",
       "sourceImage": "Malacytic_Fluctuations.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -416,14 +416,14 @@
       "game": "Base Game",
       "card": "Trap! Arrow",
       "sourceImage": "Trap_Arrow.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": []
@@ -484,14 +484,14 @@
       "game": "Base Game",
       "card": "Fiery Touch",
       "sourceImage": "Fiery_Touch.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "grave"
+            "name": "revenant"
           }
         ],
         "right": []
@@ -552,14 +552,14 @@
       "game": "Base Game",
       "card": "Feeling Lucky",
       "sourceImage": "Feeling_Lucky.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "novice"
           }
         ],
         "right": []
@@ -620,14 +620,14 @@
       "game": "Base Game",
       "card": "Alarm!",
       "sourceImage": "Alarm.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -688,14 +688,14 @@
       "game": "Base Game",
       "card": "Chilling Aura",
       "sourceImage": "Chilling_Aura.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "revenant"
           }
         ],
         "right": []
@@ -756,14 +756,14 @@
       "game": "Base Game",
       "card": "Reanimation",
       "sourceImage": "Reanimation.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "grave"
+            "name": "revenant"
           }
         ],
         "right": []
@@ -824,14 +824,14 @@
       "game": "Base Game",
       "card": "Get That One!",
       "sourceImage": "Get_That_One.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "revenant"
           }
         ],
         "right": []
@@ -892,14 +892,14 @@
       "game": "Base Game",
       "card": "Deathly Fusion",
       "sourceImage": "Deathly_Fusion.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "grave"
+            "name": "revenant"
           }
         ],
         "right": []
@@ -960,14 +960,14 @@
       "game": "Base Game",
       "card": "They're Below Us!",
       "sourceImage": "Theyre_Below_Us.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "grave"
+            "name": "revenant"
           }
         ],
         "right": []
@@ -1028,18 +1028,14 @@
       "game": "Base Game",
       "card": "Unnatural Lifeforce",
       "sourceImage": "Unnatural_Lifeforce.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
-          },
-          {
-            "type": "icon",
-            "name": "arrow-up"
+            "name": "malagaunt"
           }
         ],
         "right": []
@@ -1100,18 +1096,14 @@
       "game": "Base Game",
       "card": "Death Draws In",
       "sourceImage": "Death_Draws_In.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "otherworldly"
-          },
-          {
-            "type": "icon",
-            "name": "arrow-up"
+            "name": "malagaunt"
           }
         ],
         "right": []
@@ -1172,14 +1164,14 @@
       "game": "Base Game",
       "card": "Gleaming Trinket",
       "sourceImage": "Gleaming_Trinket.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -1240,14 +1232,14 @@
       "game": "Base Game",
       "card": "Tremors",
       "sourceImage": "Tremors.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -1308,14 +1300,14 @@
       "game": "Base Game",
       "card": "Spooked",
       "sourceImage": "Spooked.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -1376,14 +1368,14 @@
       "game": "Base Game",
       "card": "As One Door Closes...",
       "sourceImage": "As_One_Door_Closes.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -1444,14 +1436,14 @@
       "game": "Base Game",
       "card": "Trap! Snare",
       "sourceImage": "Trap_Snare.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -1512,14 +1504,14 @@
       "game": "Base Game",
       "card": "They're Everywhere",
       "sourceImage": "Theyre_Everywhere.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -1580,7 +1572,7 @@
       "game": "Base Game",
       "card": "Lost Traveller",
       "sourceImage": "Lost_Traveller.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -1648,7 +1640,7 @@
       "game": "Base Game",
       "card": "Lost Traveller",
       "sourceImage": "Lost_Traveller.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -1716,8 +1708,8 @@
       "game": "Base Game",
       "card": "Opportunist",
       "sourceImage": "Opportunist.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
@@ -1784,7 +1776,7 @@
       "game": "Base Game",
       "card": "Opportunist",
       "sourceImage": "Opportunist.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -1852,7 +1844,7 @@
       "game": "Base Game",
       "card": "On The Hunt",
       "sourceImage": "On_The_Hunt.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -1920,7 +1912,7 @@
       "game": "Base Game",
       "card": "Out For Blood",
       "sourceImage": "Out_For_Blood.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -1988,20 +1980,20 @@
       "game": "Base Game",
       "card": "Cankers",
       "sourceImage": "Cankers.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "wandering-beast"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "malacytic-conduit"
+            "name": "otherworldly"
           }
         ]
       },
@@ -2061,14 +2053,14 @@
       "game": "Base Game",
       "card": "Troglodyte",
       "sourceImage": "Troglodyte.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "wandering-beast"
           }
         ],
         "right": []
@@ -2129,14 +2121,14 @@
       "game": "Base Game",
       "card": "Drakon",
       "sourceImage": "Drakon.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "wandering-beast"
           }
         ],
         "right": []
@@ -2197,14 +2189,14 @@
       "game": "Base Game",
       "card": "Trap! Net",
       "sourceImage": "Trap_Net.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "dungeon"
           }
         ],
         "right": []
@@ -2265,14 +2257,14 @@
       "game": "Base Game",
       "card": "Trap! Pit",
       "sourceImage": "Trap_Pit.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "dungeon"
           }
         ],
         "right": []
@@ -2333,14 +2325,14 @@
       "game": "Base Game",
       "card": "Trap! Swinging Blade",
       "sourceImage": "Trap_Swinging_Blade.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "wall"
+            "name": "dungeon"
           }
         ],
         "right": []
@@ -2401,14 +2393,14 @@
       "game": "Base Game",
       "card": "Fading Light",
       "sourceImage": "Fading_Light.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": []
@@ -2469,14 +2461,14 @@
       "game": "Base Game",
       "card": "Collapse!",
       "sourceImage": "Collapse.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "dungeon"
           }
         ],
         "right": []
@@ -2537,14 +2529,14 @@
       "game": "Base Game",
       "card": "Dormant Lifeforce",
       "sourceImage": "Dormant_Lifeforce.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "grave"
+            "name": "dungeon"
           }
         ],
         "right": []
@@ -2605,14 +2597,14 @@
       "game": "Base Game",
       "card": "Drip, Drip, Drip",
       "sourceImage": "Drip_Drip_Drip.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": []
@@ -2673,14 +2665,14 @@
       "game": "Base Game",
       "card": "Premonition",
       "sourceImage": "Premonition.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "novice"
           }
         ],
         "right": []
@@ -2741,14 +2733,14 @@
       "game": "Base Game",
       "card": "Teamwork",
       "sourceImage": "Teamwork.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "novice"
           }
         ],
         "right": []
@@ -2809,14 +2801,14 @@
       "game": "Base Game",
       "card": "Respite",
       "sourceImage": "Respite.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "novice"
           }
         ],
         "right": []
@@ -2877,14 +2869,14 @@
       "game": "Base Game",
       "card": "Blaze of Glory",
       "sourceImage": "Blaze_of_Glory.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "novice"
           }
         ],
         "right": []
@@ -2945,14 +2937,14 @@
       "game": "Base Game",
       "card": "Spurred On",
       "sourceImage": "Spurred_On.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "novice"
           }
         ],
         "right": []
@@ -3013,14 +3005,14 @@
       "game": "Base Game",
       "card": "Malacytic Surge",
       "sourceImage": "Malacytic_Surge.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "novice"
           }
         ],
         "right": []
@@ -3081,18 +3073,14 @@
       "game": "Base Game",
       "card": "Dangerous Ground",
       "sourceImage": "Dangerous_Ground.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
-          },
-          {
-            "type": "icon",
-            "name": "larger-area"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -3153,18 +3141,14 @@
       "game": "Base Game",
       "card": "Malacytic Exhaustion",
       "sourceImage": "Malacytic_Exhaustion.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
-          },
-          {
-            "type": "icon",
-            "name": "entry-point"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -3225,14 +3209,14 @@
       "game": "Base Game",
       "card": "Unexpected Assault",
       "sourceImage": "Unexpected_Assault.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -3293,18 +3277,14 @@
       "game": "Base Game",
       "card": "One Thing After Another",
       "sourceImage": "One_Thing_After_Another.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
-          },
-          {
-            "type": "icon",
-            "name": "entry-point"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -3365,14 +3345,14 @@
       "game": "Base Game",
       "card": "Fresh Graves",
       "sourceImage": "Fresh_Graves.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "grave"
+            "name": "revenant"
           },
           {
             "type": "label",
@@ -3380,7 +3360,7 @@
           },
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -3437,11 +3417,336 @@
       }
     },
     {
+      "id": 128,
+      "game": "Base Game",
+      "card": "Careless Swing",
+      "sourceImage": "Careless_Swing.png",
+      "status": "verified",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "veteran"
+          }
+        ],
+        "right": []
+      },
+      "regions": null
+    },
+    {
+      "id": 129,
+      "game": "Base Game",
+      "card": "Deadly Accuracy",
+      "sourceImage": "Deadly_Accuracy.png",
+      "status": "verified",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "veteran"
+          }
+        ],
+        "right": []
+      },
+      "regions": null
+    },
+    {
+      "id": 130,
+      "game": "Base Game",
+      "card": "Trap! Fireball",
+      "sourceImage": "Trap_Fireball.png",
+      "status": "verified",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "veteran"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "dungeon"
+          }
+        ],
+        "right": []
+      },
+      "regions": null
+    },
+    {
+      "id": 131,
+      "game": "Base Game",
+      "card": "Wave of Exhaustion",
+      "sourceImage": "Wave_of_Exhaustion.png",
+      "status": "verified",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "veteran"
+          }
+        ],
+        "right": []
+      },
+      "regions": null
+    },
+    {
+      "id": 132,
+      "game": "Base Game",
+      "card": "Trap! Poison Gas",
+      "sourceImage": "Trap_Poison_Gas.png",
+      "status": "verified",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "veteran"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "dungeon"
+          }
+        ],
+        "right": []
+      },
+      "regions": null
+    },
+    {
+      "id": 133,
+      "game": "Base Game",
+      "card": "Sudden Rot",
+      "sourceImage": "Sudden_Rot.png",
+      "status": "verified",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "veteran"
+          }
+        ],
+        "right": []
+      },
+      "regions": null
+    },
+    {
+      "id": 134,
+      "game": "Base Game",
+      "card": "Malacytic Vigour",
+      "sourceImage": "Malacytic_Vigour.png",
+      "status": "verified",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "veteran"
+          }
+        ],
+        "right": []
+      },
+      "regions": null
+    },
+    {
+      "id": 135,
+      "game": "Base Game",
+      "card": "Trap! Deadfall",
+      "sourceImage": "Trap_Deadfall.png",
+      "status": "verified",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "veteran"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "dungeon"
+          }
+        ],
+        "right": []
+      },
+      "regions": null
+    },
+    {
+      "id": 136,
+      "game": "Base Game",
+      "card": "Crack!",
+      "sourceImage": "Crack.png",
+      "status": "verified",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "veteran"
+          }
+        ],
+        "right": []
+      },
+      "regions": null
+    },
+    {
+      "id": 137,
+      "game": "Base Game",
+      "card": "Get Them Off Me!",
+      "sourceImage": "Get_Them_Off_Me.png",
+      "status": "verified",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "veteran"
+          }
+        ],
+        "right": []
+      },
+      "regions": null
+    },
+    {
+      "id": 138,
+      "game": "Base Game",
+      "card": "Where Did I Put That?",
+      "sourceImage": "Where_Did_I_Put_That.png",
+      "status": "verified",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "veteran"
+          }
+        ],
+        "right": []
+      },
+      "regions": null
+    },
+    {
+      "id": 139,
+      "game": "Base Game",
+      "card": "Not Again?",
+      "sourceImage": "Not_Again.png",
+      "status": "verified",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "veteran"
+          }
+        ],
+        "right": []
+      },
+      "regions": null
+    },
+    {
+      "id": 140,
+      "game": "Base Game",
+      "card": "Trap! Acid Mist",
+      "sourceImage": "Trap_Acid_Mist.png",
+      "status": "verified",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "veteran"
+          }
+        ],
+        "right": []
+      },
+      "regions": null
+    },
+    {
+      "id": 141,
+      "game": "Base Game",
+      "card": "Trap! Wall of Fire",
+      "sourceImage": "Trap_Wall_of_Fire.png",
+      "status": "verified",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "veteran"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "dungeon"
+          }
+        ],
+        "right": []
+      },
+      "regions": null
+    },
+    {
+      "id": 142,
+      "game": "Base Game",
+      "card": "Trap! Caltrops",
+      "sourceImage": "Trap_Caltrops.png",
+      "status": "verified",
+      "confidence": 1,
+      "issues": [],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "veteran"
+          },
+          {
+            "type": "label",
+            "text": "+"
+          },
+          {
+            "type": "icon",
+            "name": "dungeon"
+          }
+        ],
+        "right": []
+      },
+      "regions": null
+    },
+    {
       "id": 51,
       "game": "Of Ale And Adventure",
       "card": "Questgiver",
       "sourceImage": "Questgiver.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -3509,7 +3814,7 @@
       "game": "Of Ale And Adventure",
       "card": "Questgiver",
       "sourceImage": "Questgiver.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -3577,7 +3882,7 @@
       "game": "Of Ale And Adventure",
       "card": "Stand And Deliver!",
       "sourceImage": "Stand_And_Deliver.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -3645,8 +3950,8 @@
       "game": "Of Ale And Adventure",
       "card": "Bounty!",
       "sourceImage": "Bounty.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
@@ -3713,8 +4018,8 @@
       "game": "Of Ale And Adventure",
       "card": "Nomadic Trader",
       "sourceImage": "Nomadic_Trader.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
@@ -3781,7 +4086,7 @@
       "game": "Of Ale And Adventure",
       "card": "Excursionist",
       "sourceImage": "Excursionist.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -3849,7 +4154,7 @@
       "game": "Of Ale And Adventure",
       "card": "Panhandler",
       "sourceImage": "Panhandler.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -3917,7 +4222,7 @@
       "game": "Of Ale And Adventure",
       "card": "Wanderer",
       "sourceImage": "Wanderer.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -3985,14 +4290,14 @@
       "game": "Of Ale And Adventure",
       "card": "Rumours",
       "sourceImage": "Rumours.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -4053,14 +4358,14 @@
       "game": "Of Ale And Adventure",
       "card": "Escape Route",
       "sourceImage": "Escape_Route.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "novice"
           }
         ],
         "right": []
@@ -4121,14 +4426,14 @@
       "game": "Of Ale And Adventure",
       "card": "It's A Trap!",
       "sourceImage": "Its_A_Trap.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "novice"
           }
         ],
         "right": []
@@ -4189,14 +4494,14 @@
       "game": "Of Ale And Adventure",
       "card": "Outta My Way!",
       "sourceImage": "Outta_My_Way.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "novice"
           }
         ],
         "right": []
@@ -4257,14 +4562,14 @@
       "game": "Of Ale And Adventure",
       "card": "Stroke Of Fortune",
       "sourceImage": "Stroke_Of_Fortune.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "novice"
           }
         ],
         "right": []
@@ -4325,18 +4630,22 @@
       "game": "Of Ale And Adventure",
       "card": "Lights Out",
       "sourceImage": "Lights_Out.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
+          },
+          {
+            "type": "label",
+            "text": "+"
           },
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "dungeon"
           }
         ],
         "right": []
@@ -4397,18 +4706,14 @@
       "game": "Of Ale And Adventure",
       "card": "Paradigm Shift",
       "sourceImage": "Paradigm_Shift.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
-          },
-          {
-            "type": "icon",
-            "name": "grave"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -4469,20 +4774,20 @@
       "game": "Beyond The Vaults",
       "card": "Tsewer-Nami",
       "sourceImage": "Tsewer_Nami.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "location"
           },
           {
             "type": "label",
@@ -4546,20 +4851,20 @@
       "game": "Beyond The Vaults",
       "card": "Toxic Waste",
       "sourceImage": "Toxic_Waste.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "location"
           },
           {
             "type": "label",
@@ -4623,20 +4928,20 @@
       "game": "Beyond The Vaults",
       "card": "Spitting Fire",
       "sourceImage": "Spitting_Fire.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "location"
           },
           {
             "type": "label",
@@ -4700,20 +5005,20 @@
       "game": "Beyond The Vaults",
       "card": "Cave-In!",
       "sourceImage": "Cave_In.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "location"
           },
           {
             "type": "label",
@@ -4777,14 +5082,14 @@
       "game": "Beyond The Vaults",
       "card": "Heigh-Ho, Heigh-Ho!",
       "sourceImage": "Heigh_Ho_Heigh_Ho.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           },
           {
             "type": "label",
@@ -4798,7 +5103,7 @@
         "right": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "location"
           },
           {
             "type": "label",
@@ -4862,20 +5167,20 @@
       "game": "Beyond The Vaults",
       "card": "Runaway Train",
       "sourceImage": "Runaway_Train.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "location"
           },
           {
             "type": "label",
@@ -4939,20 +5244,20 @@
       "game": "Beyond The Vaults",
       "card": "G-G-G-G-Ghosts!",
       "sourceImage": "G-G-G-G-Ghosts.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "location"
           },
           {
             "type": "label",
@@ -5016,20 +5321,20 @@
       "game": "Beyond The Vaults",
       "card": "Hall of Heroes",
       "sourceImage": "Hall_of_Heroes.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "location"
           },
           {
             "type": "label",
@@ -5093,20 +5398,20 @@
       "game": "Beyond The Vaults",
       "card": "Nectar Of The Gods",
       "sourceImage": "Nectar_Of_The_Gods.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "location"
           },
           {
             "type": "label",
@@ -5170,20 +5475,20 @@
       "game": "Beyond The Vaults",
       "card": "Infiltration",
       "sourceImage": "Infiltration.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "location"
           },
           {
             "type": "label",
@@ -5247,20 +5552,20 @@
       "game": "Beyond The Vaults",
       "card": "Shhhhh......",
       "sourceImage": "Shhhhh.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "location"
           },
           {
             "type": "label",
@@ -5324,20 +5629,20 @@
       "game": "Beyond The Vaults",
       "card": "Seize Them!",
       "sourceImage": "Seize_Them.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "location"
           },
           {
             "type": "label",
@@ -5401,14 +5706,14 @@
       "game": "Beyond The Vaults",
       "card": "Watch Your Step!",
       "sourceImage": "Watch_Your_Step.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -5469,18 +5774,14 @@
       "game": "Beyond The Vaults",
       "card": "Corrupted Warrior",
       "sourceImage": "Corrupted_Warrior.png",
-      "status": "auto",
-      "confidence": 0.98,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
-          },
-          {
-            "type": "icon",
-            "name": "grave"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -5541,14 +5842,14 @@
       "game": "Beyond The Vaults",
       "card": "Rotten Floor",
       "sourceImage": "Rotten_Floor.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           },
           {
             "type": "label",
@@ -5556,13 +5857,13 @@
           },
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "location"
           },
           {
             "type": "label",
@@ -5626,24 +5927,28 @@
       "game": "Beyond The Vaults",
       "card": "They're In The Walls!",
       "sourceImage": "Theyre_In_The_Walls.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
+          },
+          {
+            "type": "label",
+            "text": "+"
           },
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "location"
           },
           {
             "type": "label",
@@ -5707,24 +6012,28 @@
       "game": "Beyond The Vaults",
       "card": "The Floodgates Open",
       "sourceImage": "The_Floodgates_Open.png",
-      "status": "auto",
-      "confidence": 0.98,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
+          },
+          {
+            "type": "label",
+            "text": "+"
           },
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "location"
           },
           {
             "type": "label",
@@ -5788,14 +6097,14 @@
       "game": "Beyond The Vaults",
       "card": "The Floodgates Open",
       "sourceImage": "The_Floodgates_Open.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           },
           {
             "type": "label",
@@ -5803,13 +6112,13 @@
           },
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "location"
           },
           {
             "type": "label",
@@ -5873,14 +6182,14 @@
       "game": "Revenant Retribution",
       "card": "High Alert",
       "sourceImage": "High_Alert.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "revenant"
           },
           {
             "type": "label",
@@ -5888,7 +6197,7 @@
           },
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -5949,14 +6258,14 @@
       "game": "Revenant Retribution",
       "card": "Fortune Favours The Grave",
       "sourceImage": "Fortune_Favours_The_Grave.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "grave"
+            "name": "revenant"
           },
           {
             "type": "label",
@@ -5964,7 +6273,7 @@
           },
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -6025,14 +6334,14 @@
       "game": "Revenant Retribution",
       "card": "Lurching Forth",
       "sourceImage": "Lurching_Forth.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "revenant"
           },
           {
             "type": "label",
@@ -6040,7 +6349,7 @@
           },
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -6101,14 +6410,14 @@
       "game": "Revenant Retribution",
       "card": "Dead-Jà Vu",
       "sourceImage": "Dead_Ja_Vu.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "grave"
+            "name": "revenant"
           },
           {
             "type": "label",
@@ -6116,7 +6425,7 @@
           },
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -6177,14 +6486,14 @@
       "game": "Revenant Retribution",
       "card": "Deathly Avatar",
       "sourceImage": "Deathly_Avatar.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "otherworldly"
+            "name": "revenant"
           },
           {
             "type": "label",
@@ -6192,7 +6501,7 @@
           },
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -6253,14 +6562,14 @@
       "game": "Beasts Of Environ",
       "card": "Split-Tail Rats",
       "sourceImage": "Split_Tail_Rats.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "wandering-beast"
           }
         ],
         "right": []
@@ -6321,20 +6630,20 @@
       "game": "Beasts Of Environ",
       "card": "Alary",
       "sourceImage": "Alary.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "wandering-beast"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "otherworldly"
           }
         ]
       },
@@ -6394,14 +6703,14 @@
       "game": "Beasts Of Environ",
       "card": "Great Bear",
       "sourceImage": "Great_Bear.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "wandering-beast"
           }
         ],
         "right": []
@@ -6462,14 +6771,14 @@
       "game": "Beasts Of Environ",
       "card": "Bloodwyrm",
       "sourceImage": "Bloodwyrm.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "wandering-beast"
           }
         ],
         "right": []
@@ -6530,20 +6839,20 @@
       "game": "Beasts Of Environ",
       "card": "Skin Shifter",
       "sourceImage": "Skin_Shifter.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "wandering-beast"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "malacytic-conduit"
+            "name": "otherworldly"
           }
         ]
       },
@@ -6603,14 +6912,14 @@
       "game": "Beasts Of Environ",
       "card": "Crag Troll",
       "sourceImage": "Crag_Troll.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "wandering-beast"
           }
         ],
         "right": []
@@ -6671,14 +6980,14 @@
       "game": "Beasts Of Environ",
       "card": "It's Alive",
       "sourceImage": "Its_Alive.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -6739,14 +7048,14 @@
       "game": "Beasts Of Environ",
       "card": "Home Invasion",
       "sourceImage": "Home_Invasion.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -6807,7 +7116,7 @@
       "game": "Beasts Of Environ",
       "card": "Unmasked!",
       "sourceImage": "Unmasked.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -6875,24 +7184,24 @@
       "game": "Oblivion's Maw",
       "card": "Eldritch Tentacle",
       "sourceImage": "Eldritch_Tentacle.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "malacytic-conduit"
+            "name": "corrupter"
           },
           {
             "type": "icon",
-            "name": "otherworldly"
+            "name": "wandering-beast"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "otherworldly"
           }
         ]
       },
@@ -6952,18 +7261,18 @@
       "game": "Oblivion's Maw",
       "card": "Eldritch Tentacle",
       "sourceImage": "Eldritch_Tentacle.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "malacytic-conduit"
+            "name": "corrupter"
           },
           {
             "type": "icon",
-            "name": "creature"
+            "name": "wandering-beast"
           }
         ],
         "right": [
@@ -7029,18 +7338,18 @@
       "game": "Oblivion's Maw",
       "card": "Eldritch Tentacle",
       "sourceImage": "Eldritch_Tentacle.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "malacytic-conduit"
+            "name": "corrupter"
           },
           {
             "type": "icon",
-            "name": "otherworldly"
+            "name": "wandering-beast"
           }
         ],
         "right": [
@@ -7106,14 +7415,14 @@
       "game": "Oblivion's Maw",
       "card": "It's Behind You!",
       "sourceImage": "Its_Behind_You.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "malacytic-conduit"
+            "name": "corrupter"
           }
         ],
         "right": []
@@ -7174,14 +7483,14 @@
       "game": "Oblivion's Maw",
       "card": "Corrupt Talisman",
       "sourceImage": "Corrupt_Talisman.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "malacytic-conduit"
+            "name": "corrupter"
           }
         ],
         "right": []
@@ -7242,14 +7551,14 @@
       "game": "Oblivion's Maw",
       "card": "Ethereal Power",
       "sourceImage": "Ethereal_Power.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -7310,14 +7619,14 @@
       "game": "Oblivion's Maw",
       "card": "Deathly Draught",
       "sourceImage": "Deathly_Draught.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -7378,14 +7687,14 @@
       "game": "Oblivion's Maw",
       "card": "Don't Look Up",
       "sourceImage": "Dont_Look_Up.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "dungeon"
           }
         ],
         "right": []
@@ -7446,14 +7755,14 @@
       "game": "Oblivion's Maw",
       "card": "Halls Of Veneration",
       "sourceImage": "Halls_Of_Veneration.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": []
@@ -7514,14 +7823,14 @@
       "game": "Oblivion's Maw",
       "card": "Cursed Chest",
       "sourceImage": "Cursed_Chest.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "wandering-beast"
           }
         ],
         "right": [
@@ -7587,20 +7896,20 @@
       "game": "Oblivion's Maw",
       "card": "Cursed Portal",
       "sourceImage": "Cursed_Portal.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "wandering-beast"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "malacytic-conduit"
+            "name": "otherworldly"
           }
         ]
       },
@@ -7660,14 +7969,14 @@
       "game": "Oblivion's Maw",
       "card": "Cursed Vestiges",
       "sourceImage": "Cursed_Vestiges.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "wandering-beast"
           }
         ],
         "right": [
@@ -7733,18 +8042,22 @@
       "game": "Oblivion's Maw",
       "card": "Trap! Ancient Wards",
       "sourceImage": "Trap_Ancient_Wards.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
+          },
+          {
+            "type": "label",
+            "text": "+"
           },
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "dungeon"
           }
         ],
         "right": []
@@ -7805,18 +8118,22 @@
       "game": "Oblivion's Maw",
       "card": "Trap! Crushing Ceiling",
       "sourceImage": "Trap_Crushing_Ceiling.png",
-      "status": "auto",
-      "confidence": 0.95,
+      "status": "verified",
+      "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
+          },
+          {
+            "type": "label",
+            "text": "+"
           },
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": []
@@ -7877,14 +8194,14 @@
       "game": "Oblivion's Maw",
       "card": "Summon The Master...",
       "sourceImage": "Summon_The_Master.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -7943,22 +8260,22 @@
     {
       "id": 113,
       "game": "Forbidden Creed",
-      "card": "Maladite Golum",
+      "card": "Maladite Golem",
       "sourceImage": "Maladite_Golum.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "wandering-beast"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "malacytic-conduit"
+            "name": "otherworldly"
           }
         ]
       },
@@ -8018,14 +8335,14 @@
       "game": "Forbidden Creed",
       "card": "The Cabal",
       "sourceImage": "The_Cabal.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "cabal"
           }
         ],
         "right": []
@@ -8086,14 +8403,14 @@
       "game": "Forbidden Creed",
       "card": "Debased Acolyte",
       "sourceImage": "Debased_Acolyte.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "cabal"
           }
         ],
         "right": []
@@ -8154,7 +8471,7 @@
       "game": "Forbidden Creed",
       "card": "Treacherous Terrain",
       "sourceImage": "Treacherous_Terrain.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -8222,7 +8539,7 @@
       "game": "Forbidden Creed",
       "card": "Treacherous Terrain",
       "sourceImage": "Treacherous_Terrain.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -8290,7 +8607,7 @@
       "game": "Forbidden Creed",
       "card": "Thunderstorm",
       "sourceImage": "Thunderstorm.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -8358,7 +8675,7 @@
       "game": "Forbidden Creed",
       "card": "Ambush!",
       "sourceImage": "Ambush.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -8426,7 +8743,7 @@
       "game": "Forbidden Creed",
       "card": "Chill Wind",
       "sourceImage": "Chill_Wind.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -8494,7 +8811,7 @@
       "game": "Forbidden Creed",
       "card": "Dusk To Dawn",
       "sourceImage": "Dusk_To_Dawn.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -8562,7 +8879,7 @@
       "game": "Forbidden Creed",
       "card": "Falling Rocks",
       "sourceImage": "Falling_Rocks.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -8630,7 +8947,7 @@
       "game": "Forbidden Creed",
       "card": "Howling Gale",
       "sourceImage": "Howling_Gale.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
@@ -8698,14 +9015,14 @@
       "game": "Forbidden Creed",
       "card": "Malacytic Scourge",
       "sourceImage": "Malacytic_Scourge.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -8766,14 +9083,14 @@
       "game": "Forbidden Creed",
       "card": "Purifying Aether",
       "sourceImage": "Purifying_Aether.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "novice"
           }
         ],
         "right": []
@@ -8834,14 +9151,14 @@
       "game": "Forbidden Creed",
       "card": "Touched By Darkness",
       "sourceImage": "Touched_By_Darkness.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -8902,18 +9219,14 @@
       "game": "Forbidden Creed",
       "card": "They Are Coming",
       "sourceImage": "They_Are_Coming.png",
-      "status": "auto",
+      "status": "verified",
       "confidence": 1,
       "issues": [],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
-          },
-          {
-            "type": "icon",
-            "name": "entry-point"
+            "name": "veteran"
           }
         ],
         "right": []

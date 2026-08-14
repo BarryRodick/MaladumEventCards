@@ -9,7 +9,6 @@ export function buildDeck({
     availableCards = [],
     dataStore = {},
     cardCounts = {},
-    specialCardCounts = {},
     sentryCardCounts = {},
     enableSentryRules = false,
     enableCorrupterRules = false,
@@ -22,7 +21,6 @@ export function buildDeck({
     const heldBackCardTypes = dataStore.heldBackCardTypes || [];
     const selectedCardsMap = new Map();
     const regularCounts = { ...cardCounts };
-    const specialCounts = { ...specialCardCounts };
     const sentryCounts = { ...sentryCardCounts };
     const allAvailableCards = [...availableCards];
 
@@ -36,10 +34,10 @@ export function buildDeck({
     });
 
     let mainDeck = [];
-    let specialDeck = [];
+    // Retain the state shape; Corrupters replace main-deck cards instead of forming a separate deck.
+    const specialDeck = [];
     let sentryDeck = [];
     let hasRegularCardSelection = false;
-    let hasSpecialCardSelection = false;
 
     allCardTypes.forEach(type => {
         if (sentryTypes.includes(type) && enableSentryRules) return;
@@ -54,18 +52,6 @@ export function buildDeck({
         }
     });
 
-    if (enableCorrupterRules) {
-        allCardTypes.forEach(type => {
-            if (!corrupterTypes.includes(type)) return;
-            const count = specialCounts[type];
-            if (count > 0) {
-                hasSpecialCardSelection = true;
-                const selected = selectCardsByType(type, count, selectedCardsMap, specialCounts, allAvailableCards, shuffle);
-                specialDeck = specialDeck.concat(selected);
-            }
-        });
-    }
-
     if (enableSentryRules) {
         allCardTypes.forEach(type => {
             if (!sentryTypes.includes(type)) return;
@@ -77,22 +63,18 @@ export function buildDeck({
         });
     }
 
-    if (!hasRegularCardSelection && !hasSpecialCardSelection && sentryDeck.length === 0) {
+    if (!hasRegularCardSelection && sentryDeck.length === 0) {
         return { error: DECK_RULE_ERRORS.emptySelection };
     }
 
     if (enableCorrupterRules && mainDeck.length >= corrupterReplacementCount) {
-        const replacementPool = specialDeck.length > 0
-            ? specialDeck
-            : getSpecialCards(corrupterReplacementCount, corrupterTypes, deckDataByType, shuffle);
+        const replacementPool = getSpecialCards(corrupterReplacementCount, corrupterTypes, deckDataByType, shuffle);
         const corrupterCards = shuffle([...replacementPool]).slice(0, corrupterReplacementCount);
 
         if (corrupterCards.length > 0) {
             mainDeck.splice(0, corrupterCards.length);
             mainDeck = mainDeck.concat(corrupterCards);
         }
-
-        specialDeck = [];
     }
 
     mainDeck = shuffle(mainDeck);

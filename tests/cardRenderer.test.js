@@ -75,6 +75,19 @@ function collectByClass(node, className, matches = []) {
     return matches;
 }
 
+function collectVisibleText(node, values = []) {
+    if (!node || typeof node !== 'object') {
+        return values;
+    }
+
+    if (node.textContent && (!node.children || node.children.length === 0)) {
+        values.push(node.textContent);
+    }
+
+    (node.children || []).forEach(child => collectVisibleText(child, values));
+    return values;
+}
+
 (async () => {
     const {
         renderCardNode,
@@ -120,8 +133,12 @@ function collectByClass(node, className, matches = []) {
         iconRegistry
     });
 
-    assert.strictEqual(collectByClass(fullNode, 'card-surface__meta').length, 1,
-        'Full cards should include metadata pills');
+    assert.strictEqual(collectByClass(fullNode, 'card-surface__meta').length, 0,
+        'Full cards should not insert metadata into the printed-card text flow');
+    assert.deepStrictEqual(collectVisibleText(fullNode).slice(0, 2), [
+        'Heigh-Ho, Heigh-Ho!',
+        'DISQUIET-DISMAY'
+    ], 'Full cards should place the first section label immediately after the title');
     assert.strictEqual(collectByClass(fullNode, 'card-section').length, 1,
         'Full cards should include rendered body sections');
     assert.strictEqual(collectByClass(fullNode, 'card-footer-icon').length, 3,
