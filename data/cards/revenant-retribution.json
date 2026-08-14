@@ -31,7 +31,7 @@
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "revenant"
           },
           {
             "type": "label",
@@ -39,7 +39,7 @@
           },
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -52,12 +52,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "high alert revenant + veteran revenant retribution todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "high alert revenant + veteran revenant retribution revenant veteran disquiet-desperation take the revenant reinforcements from the box and add them to the supply. they will be available for use for the rest of the game. then, draw another event card, resolving it as if the dread were one band higher than it is. in addition, when determining which adversaries will arrive this round, consider the dread to be one band higher than it is. discard this card after resolving adversary arrival. disaster-doom take the revenant reinforcements from the box and add them to the supply. they will be available for use for the rest of the game. then, flip the adversary board to the reverse side, if not already flipped. all adversaries in play immediately take one action following the normal rules. revenant + veteran"
     },
     {
       "id": 85,
@@ -79,7 +79,7 @@
         "left": [
           {
             "type": "icon",
-            "name": "grave"
+            "name": "revenant"
           },
           {
             "type": "label",
@@ -87,7 +87,7 @@
           },
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -97,12 +97,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "fortune favours the grave revenant + veteran revenant retribution todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "fortune favours the grave revenant + veteran revenant retribution disquiet-doom increase dread by 1. take the revenant reinforcements from the box and add them to the supply. they will be available for use for the rest of the game. then, a blessed lamentor is place on every grave point within short range of an adventurer. revenant + veteran"
     },
     {
       "id": 86,
@@ -124,7 +124,7 @@
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "revenant"
           },
           {
             "type": "label",
@@ -132,7 +132,7 @@
           },
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -142,17 +142,17 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "lurching forth revenant + veteran revenant retribution todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "lurching forth revenant + veteran revenant retribution disquiet-doom increase dread by 1. take the revenant reinforcements from the box and add them to the supply. they will be available for use for the rest of the game. resolve adversary arrival for the round. you will resolve adversary arrival again in the adversary phase as normal. revenant + veteran"
     },
     {
       "id": 87,
       "card": "Dead-Jà Vu",
-      "slug": "dead-j-vu",
+      "slug": "dead-ja-vu",
       "type": "Revenant + Veteran",
       "game": "Revenant Retribution",
       "sourceImage": "Dead_Ja_Vu.png",
@@ -162,19 +162,19 @@
         {
           "kind": "mode",
           "label": "DISQUIET-DISTRESS",
-          "text": "Increase Dread by 1.\n\nTake the topmost card from the discard pile (ignoring [arrow-up] cards) and resolve it again, if possible. Then shuffle this card back into the deck."
+          "text": "Increase Dread by 1.\n\nTake the topmost card from the discard pile (ignoring [veteran] cards) and resolve it again, if possible. Then shuffle this card back into the deck."
         },
         {
           "kind": "mode",
           "label": "DISMAY-DOOM",
-          "text": "Increase Dread by 1.\n\nTake the Revenant Reinforcements from the box and add them to the supply. They will be available for use for the rest of the game.\n\nThen take all [grave] cards from the discard pile. Select one at random and resolve it. Shuffle the others back into the deck."
+          "text": "Increase Dread by 1.\n\nTake the Revenant Reinforcements from the box and add them to the supply. They will be available for use for the rest of the game.\n\nThen take all [revenant] cards from the discard pile. Select one at random and resolve it. Shuffle the others back into the deck."
         }
       ],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "grave"
+            "name": "revenant"
           },
           {
             "type": "label",
@@ -182,7 +182,7 @@
           },
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -195,12 +195,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "dead-jà vu revenant + veteran revenant retribution increase dread discard pile arrow-up revenant reinforcements grave"
+      "searchText": "dead-jà vu revenant + veteran revenant retribution revenant veteran disquiet-distress increase dread by 1. take the topmost card from the discard pile (ignoring veteran cards) and resolve it again, if possible. then shuffle this card back into the deck. dismay-doom increase dread by 1. take the revenant reinforcements from the box and add them to the supply. they will be available for use for the rest of the game. then take all revenant cards from the discard pile. select one at random and resolve it. shuffle the others back into the deck. revenant + veteran"
     },
     {
       "id": 88,
@@ -218,7 +218,7 @@
           "text": "Increase Dread by 1 and shuffle this card back into the deck. Then, draw and resolve another Event Card."
         },
         {
-          "kind": "body",
+          "kind": "mode",
           "label": "DISMAY-DOOM",
           "text": "Take the Revenant Reinforcements from the box and add them to the supply. They will be available for use for the rest of the game.\n\nThen, if the Malagaunt or Deathly Avatar is in play, Bless it and raise Dread by 2.\n\nOtherwise, place a Myria at a random Entry Point and mark it with a Reminder counter. If all Myria are in play, mark the one furthest from any enemies with a Reminder counter.\n\nThe marked Myria will use the Deathly Avatar character board and dashboard."
         }
@@ -227,7 +227,7 @@
         "left": [
           {
             "type": "icon",
-            "name": "otherworldly"
+            "name": "revenant"
           },
           {
             "type": "label",
@@ -235,7 +235,7 @@
           },
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -245,12 +245,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "deathly avatar revenant + veteran revenant retribution todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "deathly avatar revenant + veteran revenant retribution disquiet-distress increase dread by 1 and shuffle this card back into the deck. then, draw and resolve another event card. dismay-doom take the revenant reinforcements from the box and add them to the supply. they will be available for use for the rest of the game. then, if the malagaunt or deathly avatar is in play, bless it and raise dread by 2. otherwise, place a myria at a random entry point and mark it with a reminder counter. if all myria are in play, mark the one furthest from any enemies with a reminder counter. the marked myria will use the deathly avatar character board and dashboard. revenant + veteran"
     }
   ]
 }

@@ -1,5 +1,5 @@
 // Unified service worker combining caching and version logic
-const APP_VERSION = '2.16.0';
+const APP_VERSION = '2.16.1';
 const CACHE_PREFIX = 'maladum-event-cards-';
 const CACHE_NAME = CACHE_PREFIX + APP_VERSION;
 
@@ -43,6 +43,7 @@ const urlsToCache = [
     './assets/icons/bludgeoning.png',
     './assets/icons/blue-reminder.svg',
     './assets/icons/camouflage.png',
+    './assets/icons/cleave.svg',
     './assets/icons/creature.png',
     './assets/icons/denizen.png',
     './assets/icons/enemy.svg',
@@ -54,6 +55,7 @@ const urlsToCache = [
     './assets/icons/grave.svg',
     './assets/icons/hawkeye.png',
     './assets/icons/health.png',
+    './assets/icons/hit-and-run.svg',
     './assets/icons/larger-area.png',
     './assets/icons/larger-area.svg',
     './assets/icons/malacytic-conduit.png',
@@ -68,15 +70,20 @@ const urlsToCache = [
     './assets/icons/piercing.png',
     './assets/icons/plunderer.png',
     './assets/icons/poison.png',
+    './assets/icons/potion.svg',
+    './assets/icons/quickstrike.svg',
     './assets/icons/red-reminder.svg',
     './assets/icons/revenant.svg',
     './assets/icons/search.svg',
     './assets/icons/sharp.png',
     './assets/icons/size.png',
     './assets/icons/skull.svg',
+    './assets/icons/sundering.svg',
     './assets/icons/unknown-icon.svg',
+    './assets/icons/vicious.svg',
     './assets/icons/wall.png',
     './assets/icons/worthy-opponent.png',
+    './assets/icons/wounded.svg',
     './assets/icons/yellow-reminder.svg',
     './assets/ui/campaign-divider.svg',
     './assets/ui/dark-surface-texture.svg',

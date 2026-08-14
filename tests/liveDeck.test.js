@@ -123,14 +123,16 @@ console.log('Testing live deck transitions...');
     const originalRandom = Math.random;
 
     try {
-        Math.random = () => 0.999;
+        Math.random = () => 0;
         const result = liveDeckActions.shuffleTopN(state, activeCard, 2);
         const newIndex = state.currentDeck.findIndex(card => card.id === activeCard.id);
 
         assert.strictEqual(result.message.includes('next 2 cards'), true);
         assert.strictEqual(result.render, true);
-        assert(newIndex >= state.currentIndex && newIndex <= state.currentIndex + 1,
-            'shuffleTopN should insert within the next N cards');
+        assert.strictEqual(newIndex, state.currentIndex + 1,
+            'shuffleTopN should insert after the newly revealed next card');
+        assert.strictEqual(state.currentDeck[state.currentIndex].id, 3,
+            'shuffleTopN should reveal the card that originally followed the active card');
     } finally {
         Math.random = originalRandom;
     }

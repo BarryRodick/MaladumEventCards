@@ -4,6 +4,8 @@ Maladum Event Cards is a static browser app for managing event decks and campaig
 
 [https://barryrodick.github.io/MaladumEventCards/](https://barryrodick.github.io/MaladumEventCards/)
 
+This is the canonical project. The former standalone `maladum-rich-event-cards` experiment was reconciled into this repository for version 2.16.1; new code, issues, and card corrections belong here.
+
 ## Using the App
 
 1. Open the GitHub Pages link.
@@ -126,7 +128,7 @@ The OpenRouter enrichment step only promotes clean automated results to `auto`; 
 
 ## Reviewing And Editing Cards
 
-Manual review is expected during migration.
+The tracked catalog currently contains 142 human-verified rich cards. Use this review workflow when adding cards, changing extracted text, or rerunning the extractor.
 
 - Open [reports/card-review/index.html](reports/card-review/index.html) after running `npm run review:cards`.
 - Compare the source image on the left with the structured render and raw extraction metadata on the right.
@@ -161,6 +163,8 @@ For a new or updated card:
 - The service worker now caches structured card JSON and local SVG icon assets as part of the app shell.
 
 ## Current Extractor Limitations
+
+These limitations apply to newly extracted or force-regenerated records; the tracked 142-card catalog has been reviewed and verified.
 
 - Footer icon matching is intentionally conservative and currently defaults many detected footer glyphs to `unknown-icon`.
 - OCR is used as confirmation and review input, not as an unquestioned source of truth.

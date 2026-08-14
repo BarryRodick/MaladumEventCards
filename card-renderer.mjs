@@ -28,23 +28,6 @@ function appendSectionParagraphs(doc, sectionBody, section, options) {
     });
 }
 
-function createMetaRow(doc, card) {
-    const meta = doc.createElement('div');
-    meta.className = 'card-surface__meta';
-
-    const type = doc.createElement('span');
-    type.className = 'card-meta-pill';
-    type.textContent = card.type;
-    meta.appendChild(type);
-
-    const game = doc.createElement('span');
-    game.className = 'card-meta-pill card-meta-pill--muted';
-    game.textContent = card.game;
-    meta.appendChild(game);
-
-    return meta;
-}
-
 function createFooter(doc, card, options, { compact = false } = {}) {
     if (!card.footer || (!Array.isArray(card.footer.left) && !Array.isArray(card.footer.right))) {
         return null;
@@ -101,8 +84,6 @@ function renderRichCard(doc, card, options = {}, size = 'full') {
     article.appendChild(title);
 
     if (size !== 'compact') {
-        article.appendChild(createMetaRow(doc, card));
-
         const sections = doc.createElement('div');
         sections.className = 'card-surface__sections';
 

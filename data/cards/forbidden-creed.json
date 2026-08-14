@@ -3,8 +3,8 @@
   "cards": [
     {
       "id": 113,
-      "card": "Maladite Golum",
-      "slug": "maladite-golum",
+      "card": "Maladite Golem",
+      "slug": "maladite-golem",
       "type": "Wandering Beast",
       "game": "Forbidden Creed",
       "sourceImage": "Maladite_Golum.png",
@@ -26,13 +26,13 @@
         "left": [
           {
             "type": "icon",
-            "name": "creature"
+            "name": "wandering-beast"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "malacytic-conduit"
+            "name": "otherworldly"
           }
         ]
       },
@@ -43,12 +43,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "maladite golum wandering beast forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "maladite golem wandering beast forbidden creed wandering beast disquiet-desperation if there are fewer than five blue pegs in the dread tracker, replace the lowest black peg with a blue peg and shuffle this card back into the deck. otherwise, place a maladite golem at a random entry point and activate it immediately. before the golem activates each turn, replace the lowest blue peg in the dread tracker with a black peg. if you cannot, the golem is defeated. this character follows normal npc activation rules considering all other characters to be enemies. however, if unengaged it will target the closest corrupted character if possible. unengaged adventurers within los and medium range of the golem may spend x magic pegs as an action to place x reminder counters on the golem. when it activates, that character may discard them to take actions with the golem up to its normal limit. any remaining actions follow its normal rules. other characters may add reminders, discarding any already there, provided x is more than the current number of counters. disaster-doom as above, but flip the maladite golem’s character board to the elite side. wandering-beast otherworldly"
     },
     {
       "id": 114,
@@ -66,7 +66,7 @@
           "text": "Resolve a Cabal spell. Then shuffle this card back into the deck."
         },
         {
-          "kind": "body",
+          "kind": "mode",
           "label": "DISMAY-DOOM",
           "text": "If the Cabal have been defeated in the current quest, discard this card.\n\nIf they are in play, resolve a Cabal spell. Then shuffle this card back into the deck.\n\nOtherwise, increase the Members track by 1, if possible. Then that many Cabal members enter play at random Entry Points (roll separately for each). Refer to the Cabal Reference card for their rules. Then shuffle this card back into the deck."
         }
@@ -75,7 +75,7 @@
         "left": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "cabal"
           }
         ],
         "right": []
@@ -87,12 +87,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "the cabal cabal forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "the cabal cabal forbidden creed cabal disquiet-distress resolve a cabal spell. then shuffle this card back into the deck. dismay-doom if the cabal have been defeated in the current quest, discard this card. if they are in play, resolve a cabal spell. then shuffle this card back into the deck. otherwise, increase the members track by 1, if possible. then that many cabal members enter play at random entry points (roll separately for each). refer to the cabal reference card for their rules. then shuffle this card back into the deck. cabal"
     },
     {
       "id": 115,
@@ -114,7 +114,7 @@
         "left": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "cabal"
           }
         ],
         "right": []
@@ -124,12 +124,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "debased acolyte cabal forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "debased acolyte cabal forbidden creed disquiet-doom if the cabal have been defeated in this quest, discard this card. otherwise, select a random denizen. it gains one random uncommon weapon and one random item from the token pouch. place it at a random entry point. this denizen is an acolyte of the cabal and is treated as an adversary for all purposes. resolve a cabal spell. then shuffle this card back into the deck. cabal"
     },
     {
       "id": 116,
@@ -149,56 +149,6 @@
         {
           "kind": "mode",
           "label": "DESPERATION-DOOM",
-          "text": "As Disquiet-Dismay. In addition, place a Reminder counter into the room. If a copy of this card is already in play, the chosen room must be different to the one already marked if possible, and the second copy of the card can be discarded.",
-          "threshold": 2
-        },
-        {
-          "kind": "box",
-          "label": "",
-          "text": "Marked rooms are [move:2] until the end of the game."
-        }
-      ],
-      "footer": {
-        "left": [
-          {
-            "type": "icon",
-            "name": "mountain"
-          }
-        ],
-        "right": []
-      },
-      "tags": [
-        "Mountain"
-      ],
-      "tokens": {
-        "style": "inline-bracket"
-      },
-      "extraction": {
-        "status": "auto",
-        "confidence": 1,
-        "issues": [],
-        "managedBy": "extractor"
-      },
-      "searchText": "treacherous terrain mountain forbidden creed mountain disquiet-dismay determine a random adventurer. they have stumbled on some loose scree or black ice and must spend a skill peg (reaction) or be knocked prone. all other characters in the same room roll a combat die – on a blunder they are knocked prone. desperation-doom as disquiet-dismay. in addition, place a reminder counter into the room. if a copy of this card is already in play, the chosen room must be different to the one already marked if possible, and the second copy of the card can be discarded. marked rooms are move 2 until the end of the game. mountain"
-    },
-    {
-      "id": 117,
-      "card": "Treacherous Terrain",
-      "slug": "treacherous-terrain",
-      "type": "Mountain",
-      "game": "Forbidden Creed",
-      "sourceImage": "Treacherous_Terrain.png",
-      "contents": "Treacherous_Terrain.png",
-      "renderMode": "rich",
-      "sections": [
-        {
-          "kind": "mode",
-          "label": "Disquiet-Dismay",
-          "text": "Determine a random Adventurer. They have stumbled on some loose scree or black ice and must spend a Skill peg (reaction) or be knocked prone. All other characters in the same room roll a combat die – on a blunder they are knocked prone."
-        },
-        {
-          "kind": "mode",
-          "label": "Desperation-Doom",
           "text": "As Disquiet-Dismay. In addition, place a Reminder counter into the room. If a copy of this card is already in play, the chosen room must be different to the one already marked if possible, and the second copy of the card can be discarded."
         },
         {
@@ -223,12 +173,61 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "treacherous terrain mountain forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "treacherous terrain mountain forbidden creed mountain disquiet-dismay determine a random adventurer. they have stumbled on some loose scree or black ice and must spend a skill peg (reaction) or be knocked prone. all other characters in the same room roll a combat die – on a blunder they are knocked prone. desperation-doom as disquiet-dismay. in addition, place a reminder counter into the room. if a copy of this card is already in play, the chosen room must be different to the one already marked if possible, and the second copy of the card can be discarded. marked rooms are move 2 until the end of the game. mountain"
+    },
+    {
+      "id": 117,
+      "card": "Treacherous Terrain",
+      "slug": "treacherous-terrain",
+      "type": "Mountain",
+      "game": "Forbidden Creed",
+      "sourceImage": "Treacherous_Terrain.png",
+      "contents": "Treacherous_Terrain.png",
+      "renderMode": "rich",
+      "sections": [
+        {
+          "kind": "mode",
+          "label": "DISQUIET-DISMAY",
+          "text": "Determine a random Adventurer. They have stumbled on some loose scree or black ice and must spend a Skill peg (reaction) or be knocked prone. All other characters in the same room roll a combat die – on a blunder they are knocked prone."
+        },
+        {
+          "kind": "mode",
+          "label": "DESPERATION-DOOM",
+          "text": "As Disquiet-Dismay. In addition, place a Reminder counter into the room. If a copy of this card is already in play, the chosen room must be different to the one already marked if possible, and the second copy of the card can be discarded."
+        },
+        {
+          "kind": "box",
+          "label": "",
+          "text": "Marked rooms are [move:2] until the end of the game."
+        }
+      ],
+      "footer": {
+        "left": [
+          {
+            "type": "icon",
+            "name": "mountain"
+          }
+        ],
+        "right": []
+      },
+      "tags": [
+        "Mountain"
+      ],
+      "tokens": {
+        "style": "inline-bracket"
+      },
+      "extraction": {
+        "status": "verified",
+        "confidence": 1,
+        "issues": [],
+        "managedBy": "human"
+      },
+      "searchText": "treacherous terrain mountain forbidden creed mountain disquiet-dismay determine a random adventurer. they have stumbled on some loose scree or black ice and must spend a skill peg (reaction) or be knocked prone. all other characters in the same room roll a combat die – on a blunder they are knocked prone. desperation-doom as disquiet-dismay. in addition, place a reminder counter into the room. if a copy of this card is already in play, the chosen room must be different to the one already marked if possible, and the second copy of the card can be discarded. marked rooms are move 2 until the end of the game. mountain"
     },
     {
       "id": 118,
@@ -267,12 +266,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "thunderstorm mountain forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "thunderstorm mountain forbidden creed mountain disquiet-doom increase dread by 1. the entire gaming area is move 1 unless already higher, and all squares are a source of water. los is limited to short range unless characters have hawkeye hawkeye or night sight night-sight . in the assessment phase, scatter from the centre of the gaming area and place a reminder counter. any character in or adjacent to that square is struck by lightning and suffers an attack with three dice and piercing piercing . repeat this in each subsequent assessment phase, scattering from the previous position. after resolving the lightning strike, if a 1 was rolled for the scatter, discard this card. mountain"
     },
     {
       "id": 119,
@@ -286,12 +285,12 @@
       "sections": [
         {
           "kind": "mode",
-          "label": "Disquiet-Dismay",
+          "label": "DISQUIET-DISMAY",
           "text": "In such an open location your attackers could be hiding anywhere... For each Adversary type arriving this round, instead of rolling for Entry Points, instead determine a random Adventurer. That Adversary will arrive from the square on the edge of the gaming area with the shortest route to that Adventurer. Adversaries arriving from Grave Points or any other arrival position arrive as normal. Shuffle this card back into the deck."
         },
         {
           "kind": "mode",
-          "label": "Desperation-Doom",
+          "label": "DESPERATION-DOOM",
           "text": "This round, resolve the Adversary Phase before the Adventurer Phase. Adversary arrival is resolved as detailed for Disquiet-Dismay."
         }
       ],
@@ -309,12 +308,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "ambush! mountain forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "ambush! mountain forbidden creed disquiet-dismay in such an open location your attackers could be hiding anywhere... for each adversary type arriving this round, instead of rolling for entry points, instead determine a random adventurer. that adversary will arrive from the square on the edge of the gaming area with the shortest route to that adventurer. adversaries arriving from grave points or any other arrival position arrive as normal. shuffle this card back into the deck. desperation-doom this round, resolve the adversary phase before the adventurer phase. adversary arrival is resolved as detailed for disquiet-dismay. mountain"
     },
     {
       "id": 120,
@@ -353,12 +352,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "chill wind mountain forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "chill wind mountain forbidden creed mountain disquiet-doom the wind changes and the biting cold starts to affect your adventurers. count eight spaces up the dread tracker and add a purple peg. while this card is in play, adventurers and denizens become fatigued at the end of any turn in which they did not move. if an adventurer or denizen becomes stunned they lose one health. discard this card when the purple peg is replaced. mountain"
     },
     {
       "id": 121,
@@ -397,12 +396,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "dusk to dawn mountain forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "dusk to dawn mountain forbidden creed mountain disquiet-desperation the sun is slowly rising/setting. the gaming area gradually changes from light to dark or vice versa. randomly determine an edge of the gaming area. as each new dread band is entered for the first time, the area within four squares of the chosen edge becomes dark/light as appropriate. move two darkness/light counters along the sides of the gaming area to mark how far the effect has reached. disaster-doom the sun breaks through/is obscured by clouds. the gaming area suddenly changes from light to dark or vice versa. randomly determine an edge of the gaming area and mark it with a darkness/light counter. the half of the gaming area closest to that edge becomes dark/light as appropriate. mountain"
     },
     {
       "id": 122,
@@ -439,12 +438,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "falling rocks mountain forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "falling rocks mountain forbidden creed disquiet-desperation an adventurer has put a foot wrong and rocks and rubble become loose. the adventurer closest to a wall suffers an attack with two dice, blast and bludgeoning bludgeoning . then shuffle this card back into the deck. disaster-doom there is too much movement in the area and the walls themselves are coming down! the adventurer closest to a wall suffers an attack with three dice, blast and bludgeoning bludgeoning . the wall closest to them is removed from the game and replaced with a barricade. mountain"
     },
     {
       "id": 123,
@@ -478,12 +477,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "howling gale mountain forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "howling gale mountain forbidden creed mountain disquiet-doom a powerful wind blasts through the area. roll the magic die to determine a direction. the number rolled is the strength of the wind. if a 1 was rolled, increase dread by 1 and shuffle this card back into the deck. otherwise, the wind affects all movable terrain pieces and all characters not in contact with a wall or immovable terrain piece. each is moved a number of squares in the direction rolled equal to the number rolled minus their size, rounding down. attacks of opportunity do not apply. any character moved three or more squares is knocked prone. any character that hits a wall or other obstacle and would still be moved further suffers an attack with two dice and bludgeoning bludgeoning . any character may spend a skill peg (reaction) to avoid these effects. mountain"
     },
     {
       "id": 124,
@@ -515,7 +514,7 @@
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -525,12 +524,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "malacytic scourge environment forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "malacytic scourge environment forbidden creed disquiet-distress determine a random adventurer. they become cursed. then shuffle this card back into the deck. dismay-desperation determine a random adventurer. they become corrupted. the closest other character to them becomes cursed. then shuffle this card back into the deck. disaster-doom determine a random adventurer. they become corrupted. each character within short range of them becomes cursed. environment"
     },
     {
       "id": 125,
@@ -557,7 +556,7 @@
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "novice"
           }
         ],
         "right": []
@@ -569,12 +568,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "purifying aether novice forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "purifying aether novice forbidden creed novice disquiet-distress reduce dread by 1. all characters may replace their rightmost black health peg with a green one. npcs will automatically do this. characters with no black health pegs gain a skill peg, ignoring their normal limit. then, if the ascendant is in play, all characters with no black pegs increase their tethered value by 1. dismay-doom as disquiet-distress. then, all characters may restore the rightmost crossed-out health space on their character board, if applicable. novice"
     },
     {
       "id": 126,
@@ -601,7 +600,7 @@
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -613,12 +612,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "touched by darkness veteran forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "touched by darkness veteran forbidden creed veteran disquiet-desperation increase dread by 1. all characters must discard a magic peg or become corrupted. then shuffle this card back into the deck. disaster-doom all characters with any black health pegs that have not lost control cross out the leftmost health space on their character board. then all characters must discard two magic pegs or become corrupted. veteran"
     },
     {
       "id": 127,
@@ -632,12 +631,12 @@
       "sections": [
         {
           "kind": "mode",
-          "label": "Disquiet-Dismay",
+          "label": "DISQUIET-DISMAY",
           "text": "Increase Dread by 1.\nThen, roll the Magic Die. Count empty spaces from the bottom of the Dread Tracker equal to the number rolled and insert a purple peg. Repeat this, starting from the previous purple peg, until you have added three pegs.\nIn any round where a purple peg was replaced, resolve Adversary arrival twice. Discard this card at the end of the round when the last purple peg is replaced."
         },
         {
           "kind": "mode",
-          "label": "Desperation-Doom",
+          "label": "DESPERATION-DOOM",
           "text": "For the rest of the game, resolve Adversary arrival twice in any round where a Magic peg was added to the tracker."
         }
       ],
@@ -645,11 +644,7 @@
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
-          },
-          {
-            "type": "icon",
-            "name": "entry-point"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -661,12 +656,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "they are coming veteran forbidden creed todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "they are coming veteran forbidden creed veteran disquiet-dismay increase dread by 1. then, roll the magic die. count empty spaces from the bottom of the dread tracker equal to the number rolled and insert a purple peg. repeat this, starting from the previous purple peg, until you have added three pegs. in any round where a purple peg was replaced, resolve adversary arrival twice. discard this card at the end of the round when the last purple peg is replaced. desperation-doom for the rest of the game, resolve adversary arrival twice in any round where a magic peg was added to the tracker. veteran"
     }
   ]
 }

@@ -138,7 +138,7 @@ export const liveDeckActions = {
         const actualN = Math.min(requestedN, remaining);
 
         deckState.currentDeck.splice(deckState.currentIndex, 1);
-        const insertIdx = deckState.currentIndex + Math.floor(Math.random() * actualN);
+        const insertIdx = deckState.currentIndex + 1 + Math.floor(Math.random() * actualN);
         deckState.currentDeck.splice(insertIdx, 0, card);
 
         return {

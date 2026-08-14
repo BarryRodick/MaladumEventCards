@@ -94,16 +94,22 @@ export function buildCardSearchText(card) {
         .map(item => item.type === 'label' ? item.text : item.name)
         .join(' ');
 
-    return [
+    return normalizeSearchText([
         card.card,
         card.type,
         card.game,
         ...toArray(card.tags),
         sectionText,
         footerText
-    ]
-        .join(' ')
+    ].join(' '));
+}
+
+function normalizeSearchText(text = '') {
+    return String(text)
+        .trim()
         .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
         .replace(/\s+/g, ' ')
         .trim();
 }
@@ -220,7 +226,7 @@ export function normalizeCachedCardCatalog(cachedCatalog = {}) {
 }
 
 export function searchCards(cards = [], rawQuery = '') {
-    const query = String(rawQuery || '').trim().toLowerCase();
+    const query = normalizeSearchText(rawQuery);
     if (!query) {
         return [];
     }

@@ -31,13 +31,13 @@
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "location"
           },
           {
             "type": "label",
@@ -53,12 +53,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "tsewer-nami environment beyond the vaults sewers rivers disquiet-distress the waters start to rise. any character standing in or adjacent to water is knocked prone. then place a purple peg into the first space in the dread band above the current one. all squares in a room containing a sewer channel are move 1 and a source of water until the purple peg is replaced. then shuffle this card back into the deck. dismay-doom a surge of water bursts forth, affecting all rooms containing a sewer channel. • characters are knocked prone and suffer an attack with one die. each hit fatigues the character instead of causing damage. if a character is/becomes stunned, remaining hits are treated as an attack with no-defence . • sources of fire are removed/extinguished, and burning counters removed. map entry-point sewers/rivers"
+      "searchText": "tsewer-nami environment beyond the vaults sewers rivers disquiet-distress the waters start to rise. any character standing in or adjacent to water is knocked prone. then place a purple peg into the first space in the dread band above the current one. all squares in a room containing a sewer channel are move 1 and a source of water until the purple peg is replaced. then shuffle this card back into the deck. dismay-doom a surge of water bursts forth, affecting all rooms containing a sewer channel. • characters are knocked prone and suffer an attack with one die. each hit fatigues the character instead of causing damage. if a character is/becomes stunned, remaining hits are treated as an attack with no-defence . • sources of fire are removed/extinguished, and burning counters removed. environment location sewers/rivers"
     },
     {
       "id": 67,
@@ -73,20 +73,20 @@
         {
           "kind": "mode",
           "label": "DISQUIET-DOOM",
-          "text": "Place a Poisoned counter on the sewer channel closest to the edge of the gaming area.\n\nIn each Assessment Phase, it spreads – place a Poisoned counter on the nearest connected sewer channel to the board edge that doesn’t have one. Then, all characters in short range of any channel with a Poisoned counter must roll for the effects as if were Poisoned themselves (a 6 will not remove the counter as it is not on the character).\n\nAdventurers may Interact with a Poisoned sewer channel and either spend two Magic pegs or discard a Blessed Water token to remove Poisoned counters from it and all adjoining channels.\n\nIf all Poisoned counters are removed, discard this card."
+          "text": "Place a Poisoned [poison] counter on the sewer channel closest to the edge of the gaming area.\n\nIn each Assessment Phase, it spreads – place a Poisoned counter on the nearest connected sewer channel to the board edge that doesn’t have one. Then, all characters in short range of any channel with a Poisoned counter must roll for the effects as if were Poisoned themselves (a 6 will not remove the counter as it is not on the character).\n\nAdventurers may Interact with a Poisoned sewer channel and either spend two Magic pegs or discard a Blessed Water token to remove Poisoned counters from it and all adjoining channels.\n\nIf all Poisoned counters are removed, discard this card."
         }
       ],
       "footer": {
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "location"
           },
           {
             "type": "label",
@@ -99,12 +99,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "toxic waste environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "toxic waste environment beyond the vaults disquiet-doom place a poisoned poison counter on the sewer channel closest to the edge of the gaming area. in each assessment phase, it spreads – place a poisoned counter on the nearest connected sewer channel to the board edge that doesn’t have one. then, all characters in short range of any channel with a poisoned counter must roll for the effects as if were poisoned themselves (a 6 will not remove the counter as it is not on the character). adventurers may interact with a poisoned sewer channel and either spend two magic pegs or discard a blessed water token to remove poisoned counters from it and all adjoining channels. if all poisoned counters are removed, discard this card. environment location sewers"
     },
     {
       "id": 68,
@@ -118,12 +118,12 @@
       "sections": [
         {
           "kind": "mode",
-          "label": "Disquiet-Dismay",
+          "label": "DISQUIET-DISMAY",
           "text": "Determine the square of a lava flow closest to an Adventurer. Scatter two burning counters from that position (placing counters adjacent to the flow if they would land on it). Then, for each party taking part, repeat this process for the next closest lava flow (e.g. a total of twice for a single party, three times for two parties, etc)\n\nIf a counter hits a character or terrain piece, they are Burning. Otherwise, place it on the floor. Squares with a burning counter are treated as lava flows."
         },
         {
           "kind": "mode",
-          "label": "Desperation-Doom",
+          "label": "DESPERATION-DOOM",
           "text": "As Disquiet-Dismay, but scatter three burning counters per lava flow."
         }
       ],
@@ -131,13 +131,13 @@
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "location"
           },
           {
             "type": "label",
@@ -150,12 +150,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "spitting fire environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "spitting fire environment beyond the vaults disquiet-dismay determine the square of a lava flow closest to an adventurer. scatter two burning counters from that position (placing counters adjacent to the flow if they would land on it). then, for each party taking part, repeat this process for the next closest lava flow (e.g. a total of twice for a single party, three times for two parties, etc) if a counter hits a character or terrain piece, they are burning. otherwise, place it on the floor. squares with a burning counter are treated as lava flows. desperation-doom as disquiet-dismay, but scatter three burning counters per lava flow. environment location mines"
     },
     {
       "id": 69,
@@ -182,13 +182,13 @@
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "location"
           },
           {
             "type": "label",
@@ -201,12 +201,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "cave-in! dungeon beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "cave-in! dungeon beyond the vaults disquiet-distress choose a random rockface wall and mark it as destroyed – it no longer produces ore. all characters within short range of the rockface side suffer a two-dice attack with bludgeoning bludgeoning . dismay-doom as disquiet-distress, but there is a risk of a chain reaction! mark all tunnel entrance walls and rockface walls with reminder counters. after a cart or character passes through a tunnel/character interacts with a rockface, roll the blue die (before completing any movement). on a blunder skull the tunnel/rockface collapses. place a barricade on each side of a tunnel/the rockface side of a wall, pushing characters aside. derail the cart if applicable. any character pushed aside suffers a two-dice attack with bludgeoning bludgeoning . mark collapsed rockface walls as destroyed. dungeon location mines"
     },
     {
       "id": 70,
@@ -220,12 +220,12 @@
       "sections": [
         {
           "kind": "mode",
-          "label": "Disquiet-Dismay",
+          "label": "DISQUIET-DISMAY",
           "text": "Select a random Denizen. It gains two Health, a Pick/Hammer or similar and Explosives. Place it at a random Entry Point. When activated, it Moves to the nearest Rockface and Interacts to drop ore. When Dread reaches Desperation, it takes the ore to the nearest cart and drives off the gaming area. It will not engage. If engaged, it makes a Melee Attack. If still engaged it Moves away, or Attacks again if it cannot. It then resumes normal rules. If ore is Interacted with within short range it is hostile to that party and follows the AI chart while enemies are visible. If its equipment is taken, it is hostile to all and leaves play if no enemies are visible."
         },
         {
           "kind": "mode",
-          "label": "Desperation-Doom",
+          "label": "DESPERATION-DOOM",
           "text": "Select a Denizen as above. See above for character interactions. Otherwise, when activated, it Moves to the Mine Entrance and discards Explosives to drop 3 Reminder counters. It then leaves the gaming area. Remove one Reminder in Assessment Phase. When the last is removed, remove any Track passing through the Entrance and place two Barricades blocking it."
         }
       ],
@@ -233,7 +233,7 @@
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           },
           {
             "type": "label",
@@ -247,7 +247,7 @@
         "right": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "location"
           },
           {
             "type": "label",
@@ -260,12 +260,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
-        "confidence": 0.95,
+        "status": "verified",
+        "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "heigh-ho, heigh-ho! dungeon + denizen beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "heigh-ho, heigh-ho! dungeon + denizen beyond the vaults disquiet-dismay select a random denizen. it gains two health, a pick/hammer or similar and explosives. place it at a random entry point. when activated, it moves to the nearest rockface and interacts to drop ore. when dread reaches desperation, it takes the ore to the nearest cart and drives off the gaming area. it will not engage. if engaged, it makes a melee attack. if still engaged it moves away, or attacks again if it cannot. it then resumes normal rules. if ore is interacted with within short range it is hostile to that party and follows the ai chart while enemies are visible. if its equipment is taken, it is hostile to all and leaves play if no enemies are visible. desperation-doom select a denizen as above. see above for character interactions. otherwise, when activated, it moves to the mine entrance and discards explosives to drop 3 reminder counters. it then leaves the gaming area. remove one reminder in assessment phase. when the last is removed, remove any track passing through the entrance and place two barricades blocking it. dungeon + denizen location mines"
     },
     {
       "id": 71,
@@ -287,13 +287,13 @@
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "location"
           },
           {
             "type": "label",
@@ -306,12 +306,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
-        "confidence": 0.95,
+        "status": "verified",
+        "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "runaway train dungeon beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "runaway train dungeon beyond the vaults disquiet-doom choose a random mine cart and add a reminder counter to it. it can no longer be driven and adventurers cannot get in. adventurers already on board may get out, but if they do so they suffer a two dice attack with bludgeoning bludgeoning and are knocked prone. in each assessment phase it moves once along the track in whichever direction it can move furthest from its starting point, if possible. its first move is 4 squares and subsequent moves are 7 squares. after it turns a corner or hits a track end, roll the blue die. on a blunder skull it de-rails. if the cart leaves the gaming area, adventurers on board are left for dead and anything else inside is lost. discard this card and the reminder counter if the cart de-rails or leaves play. dungeon location mines"
     },
     {
       "id": 72,
@@ -338,13 +338,13 @@
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "location"
           },
           {
             "type": "label",
@@ -357,12 +357,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "g-g-g-g-ghosts! dungeon beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "g-g-g-g-ghosts! dungeon beyond the vaults disquiet-doom a surge of malaclytes awakens ancient spectres. any illusions in play are removed and cannot be created while this card is in play. scatter all five illusions from the banquet table or other suitable centrepiece. these are ghosts and will activate in the npc phase. ghosts block los. characters can move through them but not stop on them. ghosts have one action (two actions if the topmost peg in the dread tracker is blue). they move towards the nearest character (ignoring characters with camouflage , moving through walls and terrain but not stopping on them) and haunt. when they haunt, roll the blue die. one or more hits will fatigue the target; a critical will also terrify them. an adventurer who is haunted but not terrified may spend a skill peg (reaction) to remove the ghost and gain 1xp. adventurers may interact with ghosts and spend a magic peg to remove them. discard this card when all ghosts are removed. dungeon location great hall"
     },
     {
       "id": 73,
@@ -384,13 +384,13 @@
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "location"
           },
           {
             "type": "label",
@@ -403,12 +403,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
-        "confidence": 0.95,
+        "status": "verified",
+        "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "hall of heroes dungeon beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "hall of heroes dungeon beyond the vaults disquiet-doom you have come across your adversaries’ great meeting hall and they will defend it! count ten empty spaces up the dread tracker (or as high as you can) and add a purple peg. while this card is in play, adversaries that do not have los to an enemy move towards the great hall and will wait in the centre of the room. any adversary that enters the hall becomes blessed. in each assessment phase, if there are more adversaries than adventurers in the hall, increase the dread by 1. discard this card when the purple peg is replaced. dungeon location great hall"
     },
     {
       "id": 74,
@@ -422,12 +422,12 @@
       "sections": [
         {
           "kind": "mode",
-          "label": "Disquiet-Desperation",
-          "text": "Refill all empty fonts. Add a Blessed counter to all wells, drains and other freestanding sources of water, and to the X closest sewer channels (or similar) to the edge of the board, where X is the number of parties in the game.\n\nAdventurers may interact with any object with a Blessed counter to discard the counter, restore one Health, and take a Blessed Water token."
+          "label": "DISQUIET-DESPERATION",
+          "text": "Refill all empty fonts. Add a Blessed counter to all wells, drains and other freestanding sources of water, and to the X closest sewer channels (or similar) to the edge of the board, where X is the number of parties in the game.\n\nAdventurers may Interact with any object with a Blessed counter to discard the counter, restore one Health, and take a Blessed Water token."
         },
         {
           "kind": "mode",
-          "label": "Disaster-Doom",
+          "label": "DISASTER-DOOM",
           "text": "As above. However, the Adversaries may have contaminated the water, giving it the Hazardous: Poisonous [poison] rule: When a counter is discarded/ Font interacted with, roll the blue die. If a hit is scored, the normal effects are applied. On a blunder [skull], the user is Poisoned instead. On a blank, nothing happens."
         }
       ],
@@ -435,13 +435,13 @@
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "location"
           },
           {
             "type": "label",
@@ -454,12 +454,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "nectar of the gods environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "nectar of the gods environment beyond the vaults disquiet-desperation refill all empty fonts. add a blessed counter to all wells, drains and other freestanding sources of water, and to the x closest sewer channels (or similar) to the edge of the board, where x is the number of parties in the game. adventurers may interact with any object with a blessed counter to discard the counter, restore one health, and take a blessed water token. disaster-doom as above. however, the adversaries may have contaminated the water, giving it the hazardous: poisonous poison rule: when a counter is discarded/ font interacted with, roll the blue die. if a hit is scored, the normal effects are applied. on a blunder skull , the user is poisoned instead. on a blank, nothing happens. environment location sources of water"
     },
     {
       "id": 75,
@@ -473,12 +473,12 @@
       "sections": [
         {
           "kind": "mode",
-          "label": "Disquiet-Dismay",
+          "label": "DISQUIET-DISMAY",
           "text": "You’ve made it deep into your Adversaries’ camp and you’ve caught them by surprise. All Adversaries in play are Fatigued, and no more Adversaries will arrive this round. Replace the bottom peg in the tracker with a purple one and shuffle this card back into the deck."
         },
         {
           "kind": "mode",
-          "label": "Desperation-Doom",
+          "label": "DESPERATION-DOOM",
           "text": "Your Adversaries will defend their garrison fiercely and they have summoned reinforcements. All Adversaries in play are Blessed. Increase the Dread by 1, plus 2 more for each purple peg at the bottom of the Dread tracker (if any)."
         }
       ],
@@ -486,13 +486,13 @@
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "entry-point"
+            "name": "location"
           },
           {
             "type": "label",
@@ -505,12 +505,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
-        "confidence": 0.95,
+        "status": "verified",
+        "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "infiltration dungeon beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "infiltration dungeon beyond the vaults disquiet-dismay you’ve made it deep into your adversaries’ camp and you’ve caught them by surprise. all adversaries in play are fatigued, and no more adversaries will arrive this round. replace the bottom peg in the tracker with a purple one and shuffle this card back into the deck. desperation-doom your adversaries will defend their garrison fiercely and they have summoned reinforcements. all adversaries in play are blessed. increase the dread by 1, plus 2 more for each purple peg at the bottom of the dread tracker (if any). dungeon location garrison"
     },
     {
       "id": 76,
@@ -537,13 +537,13 @@
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "location"
           },
           {
             "type": "label",
@@ -556,12 +556,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
-        "confidence": 0.95,
+        "status": "verified",
+        "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "shhhhh...... dungeon beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "shhhhh...... dungeon beyond the vaults disquiet-distress your adversaries are not expecting a full-on assault in a place like a library, and you can take advantage of that! count four empty spaces up the dread tracker and add a purple peg. if at the moment the purple peg is replaced no adversaries have los to an enemy, you may reduce the dread by 2 and put the sentries rules into place, adding patrol points to the gaming area following the normal rules if necessary. dismay-doom as characters fight their way through the library, malacytes leach from the ancient books. any character that spends magic pegs within short range of a bookcase, book pile or similar may add a blue peg to the tracker (in addition to the normal one, if applicable) to restore up to two additional magic pegs after resolving the spell or ability. dungeon location archives"
     },
     {
       "id": 77,
@@ -583,13 +583,13 @@
         "left": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "dungeon"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "location"
           },
           {
             "type": "label",
@@ -602,12 +602,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
-        "confidence": 0.95,
+        "status": "verified",
+        "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "seize them! dungeon beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "seize them! dungeon beyond the vaults disquiet-doom these prison cells are still in use! place a spare denizen prone in any cell not yet opened. they do not need a card or board as they will not activate. these denizens will be targeted by enemies as normal, and if they suffer any damage they are defeated. each may be dragged off the gaming area via a staging point to gain 1 renown, and they will count as having joined your party for the purposes of hiring. for the rest of the quest, adversaries without los to an enemy will target defeated adventurers if possible, moving towards them and dragging them to the nearest cell/cage following the normal rules. once a defeated adventurer is in a cell, the adversary will revert to its normal rules, locking the cell door as it leaves. defeated adventurers still in a cell at the end of the game (including any subsequent rescue mission) reduce their left for dead roll by 3. dungeon location bastille"
     },
     {
       "id": 78,
@@ -634,7 +634,7 @@
         "left": [
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": []
@@ -644,12 +644,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "watch your step! environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "watch your step! environment beyond the vaults disquiet-dismay falling rubble or boggy terrain makes certain areas treacherous. mark a random room with a red reminder counter and mark up to two random adjoining rooms with blue reminder counters. marked rooms are as follows: blue-reminder : rough ground 1 move 1 red-reminder : rough ground 2 move 2 yellow-reminder : rough ground 3 move 3 (see below) desperation-doom as disquiet dismay, but mark the first room with a yellow reminder and the two adjoining rooms with red reminders. environment"
     },
     {
       "id": 79,
@@ -676,11 +676,7 @@
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
-          },
-          {
-            "type": "icon",
-            "name": "grave"
+            "name": "veteran"
           }
         ],
         "right": []
@@ -690,12 +686,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
-        "confidence": 0.98,
+        "status": "verified",
+        "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "corrupted warrior veteran beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "corrupted warrior veteran beyond the vaults disquiet-distress the warrior still slumbers... increase dread by 1 and shuffle this card back into the deck. then, draw and resolve another event card. dismay-doom select a random denizen. it gains two additional health pegs, two additional magic pegs, one random uncommon weapon and one random item from the token pouch. add a mini-boss insert to its board. place the miniature at a random entry point. this denizen is considered to be an adversary for all purposes. veteran"
     },
     {
       "id": 80,
@@ -709,12 +705,12 @@
       "sections": [
         {
           "kind": "mode",
-          "label": "Disquiet-Distress",
+          "label": "DISQUIET-DISTRESS",
           "text": "Increase Dread by 1. Select a random character on an upper level. If there are none, shuffle this card back into the deck and draw another.\n\nOtherwise, place a Pit in the closest possible position to that character not in contact with an Entry Point (it can be placed under other characters). The Pit is a hole to the level below. This causes noise for the purposes of Sentries.\n\nAny character on the Pit falls through, following the normal falling rules. Any character in contact with the Pit must spend a Skill peg (reaction) or fall through.\n\nPlace two Barricades under the Pit. Characters in or adjacent to those squares are pushed directly away and laid prone, and suffer an attack with 3 dice and Bludgeoning. They may spend a Skill peg (reaction) to avoid the attack."
         },
         {
           "kind": "mode",
-          "label": "Dismay-Doom",
+          "label": "DISMAY-DOOM",
           "text": "As Disquiet-Distress, but resolved twice if possible."
         }
       ],
@@ -722,7 +718,7 @@
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           },
           {
             "type": "label",
@@ -730,13 +726,13 @@
           },
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "location"
           },
           {
             "type": "label",
@@ -749,12 +745,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
-        "confidence": 0.95,
+        "status": "verified",
+        "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "rotten floor veteran + environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "rotten floor veteran + environment beyond the vaults disquiet-distress increase dread by 1. select a random character on an upper level. if there are none, shuffle this card back into the deck and draw another. otherwise, place a pit in the closest possible position to that character not in contact with an entry point (it can be placed under other characters). the pit is a hole to the level below. this causes noise for the purposes of sentries. any character on the pit falls through, following the normal falling rules. any character in contact with the pit must spend a skill peg (reaction) or fall through. place two barricades under the pit. characters in or adjacent to those squares are pushed directly away and laid prone, and suffer an attack with 3 dice and bludgeoning. they may spend a skill peg (reaction) to avoid the attack. dismay-doom as disquiet-distress, but resolved twice if possible. veteran +1 environment location multi-level gaming areas"
     },
     {
       "id": 81,
@@ -776,17 +772,21 @@
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
+          },
+          {
+            "type": "label",
+            "text": "+"
           },
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "location"
           },
           {
             "type": "label",
@@ -799,12 +799,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
-        "confidence": 0.95,
+        "status": "verified",
+        "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "they're in the walls! veteran + environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "they're in the walls! veteran + environment beyond the vaults disquiet-doom if the quest objectives directly involve entry points, increase dread by 2, discard this card, and draw another. if secondary entry points are already in play, increase dread by 1 and resolve adversary arrival. you will resolve it again in the adversary phase as normal. then discard this card. otherwise, determine the furthest adventurer from its staging point. roll the magic die to determine a direction and then place secondary entry points 1 and 4 short range away in that direction (or as close as possible), on a different level if possible. then, starting at this position, roll for direction again and place points 2 and 5 medium range away, again changing level if possible. repeat from this position to place points 3 and 6. for the rest of the game, roll for adversary arrival twice each round, once for each set of entry points. veteran + environment location larger and/or multi-level gaming areas"
     },
     {
       "id": 82,
@@ -826,17 +826,21 @@
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
+          },
+          {
+            "type": "label",
+            "text": "+"
           },
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "location"
           },
           {
             "type": "label",
@@ -852,12 +856,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
-        "confidence": 0.98,
+        "status": "verified",
+        "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "the floodgates open veteran + environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "the floodgates open veteran + environment beyond the vaults veteran environment disquiet-doom if the quest objectives directly involve entry points, increase dread by 2, discard this card, and draw another. if secondary entry points are already in play, increase dread by 1 and resolve adversary arrival. you will resolve it again in the adversary phase as normal. then discard this card. otherwise, roll the magic die for each existing entry point and place the matching secondary entry point that many spaces to its right (or as close as possible to that position). if that area has multiple levels, place the secondary entry point on a different level. for entry points on the gaming area, do not roll – place the secondary entry point in the nearest similar position available (well, staircase, or other suitable arrival position), or the same position if there are none. for the rest of the game, roll for adversary arrival twice each round, once for each set of entry points. veteran + environment location larger and/or multi-level gaming areas"
     },
     {
       "id": 83,
@@ -884,7 +888,7 @@
         "left": [
           {
             "type": "icon",
-            "name": "arrow-up"
+            "name": "veteran"
           },
           {
             "type": "label",
@@ -892,13 +896,13 @@
           },
           {
             "type": "icon",
-            "name": "map"
+            "name": "environment"
           }
         ],
         "right": [
           {
             "type": "icon",
-            "name": "larger-area"
+            "name": "location"
           },
           {
             "type": "label",
@@ -914,12 +918,12 @@
         "style": "inline-bracket"
       },
       "extraction": {
-        "status": "auto",
+        "status": "verified",
         "confidence": 1,
         "issues": [],
-        "managedBy": "extractor"
+        "managedBy": "human"
       },
-      "searchText": "the floodgates open veteran + environment beyond the vaults todo todo - requires manual entry unknown-icon unknown-icon"
+      "searchText": "the floodgates open veteran + environment beyond the vaults veteran environment disquiet-doom if the quest objectives directly involve entry points, increase dread by 2, discard this card, and draw another. if secondary entry points are already in play, increase dread by 1 and resolve adversary arrival. you will resolve it again in the adversary phase as normal. then discard this card. otherwise, roll the magic die for each existing entry point and place the matching secondary entry point that many spaces to its right (or as close as possible to that position). if that area has multiple levels, place the secondary entry point on a different level. for entry points on the gaming area, do not roll - place the secondary entry point in the nearest similar position available (well, staircase, or other suitable arrival position), or the same position if there are none. for the rest of the game, roll for adversary arrival twice each round, once for each set of entry points. veteran + environment location larger and/or multi-level gaming areas"
     }
   ]
 }
