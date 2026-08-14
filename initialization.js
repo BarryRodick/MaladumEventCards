@@ -7,14 +7,8 @@ import { loadSavedConfig, restoreBasicConfig } from './config-manager.js';
 import { generateGameSelection, populateDifficultySelection, loadCardTypes, initializeDeckFlowUI } from './ui-manager.js';
 import { liveDeckSession } from './live-deck-session.js';
 import { setupUpdateNotifications } from './update-utils.js';
-import { saveState, loadState } from './storage-utils.js';
 import { hydrateDeckState } from './app-snapshot.js';
-import { mergeCardCatalogs, normalizeCachedCardCatalog } from './card-data.mjs';
-
-const CACHE_KEYS = {
-    cards: 'cachedCardsData',
-    difficulties: 'cachedDifficultiesData'
-};
+import { acquireCardCatalog } from './card-catalog.js';
 
 /**
  * Initializes the application
@@ -38,18 +32,19 @@ export async function initializeApp() {
         restoreBasicConfig(savedConfig);
     }
 
-    await loadGameData();
+    const catalogResult = await acquireCardCatalog();
+    reportCatalogDiagnostics(catalogResult.diagnostics);
+    if (catalogResult.status === 'unavailable') {
+        showToast('Failed to load game data. Please check your connection.');
+    } else {
+        applyCardCatalog(catalogResult);
+        if (catalogResult.status === 'offline') {
+            showToast('Using cached offline data.');
+        }
+    }
 
     // 4. Finalize Setup
     if (state.dataStore && state.dataStore.games) {
-        // Build card map
-        state.cardMap.clear();
-        Object.keys(state.dataStore.games).forEach(game => {
-            state.dataStore.games[game].forEach(card => {
-                state.cardMap.set(card.id, card);
-            });
-        });
-
         // Setup expansion info
         state.allGames = Object.keys(state.dataStore.games);
 
@@ -85,86 +80,23 @@ export async function initializeApp() {
     trackEvent('App', 'Initialize', 'Maladum Event Cards');
 }
 
-async function loadGameData() {
-    try {
-        const [legacyCardsData, difficultiesData, richCardsData] = await Promise.all([
-            fetchJson('maladumcards.json'),
-            fetchJson('difficulties.json'),
-            loadRichCardsData().catch(error => {
-                console.warn('Structured card catalog unavailable, continuing with legacy image cards:', error);
-                return null;
-            })
-        ]);
+function applyCardCatalog({ catalog, difficulties, cardIndex }) {
+    state.dataStore = catalog;
+    state.iconRegistry = catalog.icons || {};
+    state.cardManifest = catalog.cardManifest || null;
+    state.difficultySettings = difficulties;
+    state.cardMap = cardIndex;
+}
 
-        const cardsData = mergeCardCatalogs(legacyCardsData, richCardsData);
-
-        state.dataStore = cardsData;
-        state.iconRegistry = cardsData.icons || {};
-        state.cardManifest = cardsData.cardManifest || null;
-        state.difficultySettings = difficultiesData.difficulties || [];
-        cacheFetchedData(cardsData, difficultiesData);
-    } catch (error) {
-        console.warn('Fetch failed, trying cache:', error);
-        if (loadCachedData()) {
-            showToast('Using cached offline data.');
+function reportCatalogDiagnostics(diagnostics = []) {
+    diagnostics.forEach(({ level, message, error }) => {
+        const log = level === 'error' ? console.error : console.warn;
+        if (error) {
+            log(message, error);
             return;
         }
-
-        console.error('No cached data available:', error);
-        showToast('Failed to load game data. Please check your connection.');
-    }
-}
-
-function cacheFetchedData(cardsData, difficultiesData) {
-    const cardsCached = saveState(CACHE_KEYS.cards, cardsData);
-    const difficultiesCached = saveState(CACHE_KEYS.difficulties, difficultiesData);
-
-    if (!cardsCached || !difficultiesCached) {
-        console.warn('Unable to cache fetched game data for offline use.');
-    }
-}
-
-function loadCachedData() {
-    const cachedCards = loadState(CACHE_KEYS.cards);
-    const cachedDiffs = loadState(CACHE_KEYS.difficulties);
-
-    if (!cachedCards || !cachedDiffs) {
-        return false;
-    }
-
-    const normalizedCards = normalizeCachedCardCatalog(cachedCards);
-    state.dataStore = normalizedCards;
-    state.iconRegistry = normalizedCards.icons || {};
-    state.cardManifest = normalizedCards.cardManifest || null;
-    state.difficultySettings = cachedDiffs.difficulties || [];
-    return true;
-}
-
-async function fetchJson(path) {
-    const response = await fetch(path);
-    if (!response.ok) {
-        throw new Error(`Failed to load ${path}: ${response.status}`);
-    }
-    return response.json();
-}
-
-async function loadRichCardsData() {
-    const manifest = await fetchJson('data/cards/manifest.json');
-    const [icons, richGameEntries] = await Promise.all([
-        fetchJson('data/cards/icons.json'),
-        Promise.all(
-            Object.entries(manifest.games || {}).map(async ([gameName, path]) => {
-                const payload = await fetchJson(path);
-                return [gameName, payload];
-            })
-        )
-    ]);
-
-    return {
-        manifest,
-        icons,
-        games: Object.fromEntries(richGameEntries)
-    };
+        log(message);
+    });
 }
 
 function restoreDeckState(deckState) {
