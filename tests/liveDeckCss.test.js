@@ -58,4 +58,14 @@ console.log('Testing live deck cockpit CSS...');
         'The Draw Next Card control should span the full mobile cockpit width');
 }
 
+{
+    const disabledRule = styles.match(/#generateDeck:disabled,\s*\.rune-btn:disabled\s*\{([\s\S]*?)\n\}/);
+    assert(disabledRule,
+        'The shared disabled rune-button rule should remain defined');
+    assert(!/\bopacity\s*:/.test(disabledRule[1]),
+        'Disabled rune buttons should keep their labels fully opaque');
+    assert(!/\bfilter\s*:/.test(disabledRule[1]),
+        'Disabled rune buttons should not filter their labels');
+}
+
 console.log('All live deck cockpit CSS checks passed!');

@@ -1666,9 +1666,10 @@ body {
 #generateDeck:disabled,
 .rune-btn:disabled {
     cursor: not-allowed;
-    opacity: 0.58;
     pointer-events: none;
-    filter: saturate(0.65) brightness(0.82);
+    background-color: #171512;
+    color: #a89663;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.85);
     box-shadow:
         0 6px 16px rgba(0, 0, 0, 0.45),
         0 0 8px rgba(0, 0, 0, 0.12);
