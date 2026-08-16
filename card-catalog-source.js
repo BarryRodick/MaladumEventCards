@@ -1,3 +1,13 @@
+export const REQUIRED_RICH_GAME_SOURCES = Object.freeze({
+    'Base Game': 'data/cards/base-game.json',
+    'Of Ale And Adventure': 'data/cards/of-ale-and-adventure.json',
+    'Beyond The Vaults': 'data/cards/beyond-the-vaults.json',
+    'Revenant Retribution': 'data/cards/revenant-retribution.json',
+    'Beasts Of Environ': 'data/cards/beasts-of-environ.json',
+    "Oblivion's Maw": 'data/cards/oblivion-s-maw.json',
+    'Forbidden Creed': 'data/cards/forbidden-creed.json'
+});
+
 async function fetchJson(path) {
     const response = await fetch(path);
     if (!response.ok) {
@@ -6,47 +16,82 @@ async function fetchJson(path) {
     return response.json();
 }
 
-async function loadRichCardCatalog() {
-    const manifest = await fetchJson('data/cards/manifest.json');
-    const [icons, gameEntries] = await Promise.all([
-        fetchJson('data/cards/icons.json'),
-        Promise.all(
-            Object.entries(manifest.games || {}).map(async ([gameName, path]) => {
-                const payload = await fetchJson(path);
-                return [gameName, payload];
-            })
-        )
-    ]);
+async function acquireJson(path) {
+    try {
+        return {
+            status: 'success',
+            path,
+            value: await fetchJson(path)
+        };
+    } catch (error) {
+        return {
+            status: 'failure',
+            path,
+            error
+        };
+    }
+}
 
+function isRecord(value) {
+    return value && typeof value === 'object' && !Array.isArray(value);
+}
+
+function sourceDiagnostic(label, result) {
+    if (result.status === 'success') return null;
     return {
-        manifest,
-        icons,
-        games: Object.fromEntries(gameEntries)
+        level: 'warn',
+        message: `${label} unavailable:`,
+        error: result.error
     };
 }
 
-export async function loadFreshCardCatalog() {
-    const richCatalogPromise = loadRichCardCatalog()
-        .then(richCatalog => ({ richCatalog, diagnostics: [] }))
-        .catch(error => ({
-            richCatalog: null,
-            diagnostics: [{
-                level: 'warn',
-                message: 'Structured card catalog unavailable, continuing with legacy image cards:',
-                error
-            }]
-        }));
-
-    const [legacyCatalog, difficultiesPayload, richResult] = await Promise.all([
-        fetchJson('maladumcards.json'),
-        fetchJson('difficulties.json'),
-        richCatalogPromise
+export const loadFreshCardCatalog = async function loadFreshCardCatalog() {
+    const [legacy, difficulties, manifest, icons] = await Promise.all([
+        acquireJson('maladumcards.json'),
+        acquireJson('difficulties.json'),
+        acquireJson('data/cards/manifest.json'),
+        acquireJson('data/cards/icons.json')
     ]);
 
+    const manifestGames = isRecord(manifest.value?.games) ? manifest.value.games : {};
+    const gameSourceEntries = Object.entries({
+        ...REQUIRED_RICH_GAME_SOURCES,
+        ...manifestGames
+    });
+    const gameResults = await Promise.all(
+        gameSourceEntries.map(async ([gameName, path]) => [gameName, await acquireJson(path)])
+    );
+    const games = Object.fromEntries(gameResults);
+    const successfulGames = Object.fromEntries(
+        gameResults
+            .filter(([, result]) => result.status === 'success')
+            .map(([gameName, result]) => [gameName, result.value])
+    );
+    const diagnostics = [
+        sourceDiagnostic('Legacy card catalog', legacy),
+        sourceDiagnostic('Difficulty settings', difficulties),
+        sourceDiagnostic('Structured card manifest', manifest),
+        sourceDiagnostic('Structured card icons', icons),
+        ...gameResults.map(([gameName, result]) => sourceDiagnostic(`Structured card source for ${gameName}`, result))
+    ].filter(Boolean);
+
     return {
-        legacyCatalog,
-        difficultiesPayload,
-        richCatalog: richResult.richCatalog,
-        diagnostics: richResult.diagnostics
+        legacyCatalog: legacy.value ?? null,
+        difficultiesPayload: difficulties.value ?? null,
+        richCatalog: {
+            manifest: manifest.value ?? null,
+            icons: icons.value ?? null,
+            games: successfulGames
+        },
+        sources: {
+            legacy,
+            difficulties,
+            manifest,
+            icons,
+            games
+        },
+        complete: [legacy, difficulties, manifest, icons, ...Object.values(games)]
+            .every(result => result.status === 'success'),
+        diagnostics
     };
-}
+};

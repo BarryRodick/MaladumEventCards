@@ -10,6 +10,14 @@ Maladum Event Cards is the canonical static browser app for building Maladum eve
 The searchable collection of Maladum event cards, drawn from legacy image records and structured rich records.
 _Avoid_: card data, card list
 
+### Minimum viable Card Catalog invariant
+
+The checked-in legacy and structured sources agree on seven required games and 142 globally unique card IDs. A runtime Card Catalog is usable only when all seven game groups are present and non-empty; every card has a positive integer ID, title, type, matching game, and source image; IDs are globally unique; the Sentry, Corrupter, and held-back rule-type collections are present; and at least one named difficulty profile has non-negative integer Novice and Veteran adjustments.
+
+Successful transport is not proof of valid data. Empty or malformed legacy, difficulty, manifest, icon, or rich-game payloads make an acquisition incomplete. An incomplete acquisition may be used for the current session only when its merged Card Catalog still satisfies the invariant. It must not replace the versioned atomic last-known-good snapshot.
+
+A complete candidate may replace that snapshot only when it is not lower in any durable quality dimension: total cards, rich-renderable cards, icon entries, manifest game coverage, rule-type coverage, or difficulty profiles. Otherwise the richer valid snapshot remains authoritative for the session and for offline recovery.
+
 ## Canonical Repository
 
 `BarryRodick/MaladumEventCards` is the sole development repository. Treat the former `BarryRodick/maladum-rich-event-cards` split repository as a reconciled donor pending archival; it must not receive new product work.

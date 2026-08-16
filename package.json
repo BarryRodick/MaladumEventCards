@@ -1,6 +1,6 @@
 {
   "name": "maladum-event-cards",
-  "version": "2.16.1",
+  "version": "2.16.2",
   "engines": {
     "node": ">=20.9.0"
   },

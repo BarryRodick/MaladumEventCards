@@ -86,7 +86,16 @@
 
     <main id="main-content" class="container my-4" role="main">
         <div class="glass-panel">
-            <div id="deckExperience" class="deck-experience" data-mode="build">
+            <section id="catalogStatus" class="catalog-startup-status" data-state="loading" role="status"
+                aria-live="polite" aria-labelledby="catalogStatusTitle">
+                <p class="catalog-startup-kicker">Card Catalog</p>
+                <h2 id="catalogStatusTitle">Loading Card Catalog</h2>
+                <p id="catalogStatusMessage">Checking the latest card sources and your saved recovery copy.</p>
+                <button id="catalogRetry" class="rune-btn small primary" type="button" hidden>
+                    <i class="fas fa-arrows-rotate me-2" aria-hidden="true"></i> Retry Card Catalog
+                </button>
+            </section>
+            <div id="deckExperience" class="deck-experience" data-mode="build" hidden>
                 <section id="deckModeHeader" class="deck-mode-header">
                     <div class="deck-mode-copy">
                         <p id="deckModeEyebrow" class="deck-mode-eyebrow">Step 1 of 2</p>

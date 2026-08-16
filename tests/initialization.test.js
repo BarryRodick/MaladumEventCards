@@ -66,7 +66,132 @@ function createState(cardMap = new Map()) {
     };
 }
 
+function loadInitializeApp({ state, document, acquireCardCatalog, hooks = {} }) {
+    return loadSourceModule('initialization.js', {
+        dependencies: {
+            state,
+            document,
+            acquireCardCatalog,
+            trackEvent: hooks.trackEvent || (() => { }),
+            showToast: hooks.showToast || (() => { }),
+            loadSavedConfig: hooks.loadSavedConfig || (() => null),
+            restoreBasicConfig: hooks.restoreBasicConfig || (() => { }),
+            generateGameSelection: hooks.generateGameSelection || (() => { }),
+            populateDifficultySelection: hooks.populateDifficultySelection || (() => { }),
+            loadCardTypes: hooks.loadCardTypes || (() => { }),
+            initializeDeckFlowUI: hooks.initializeDeckFlowUI || (() => { }),
+            liveDeckSession: hooks.liveDeckSession || { present() { } },
+            setupUpdateNotifications: hooks.setupUpdateNotifications || (() => { }),
+            hydrateDeckState: hooks.hydrateDeckState || (() => ({ hasActiveDeck: false }))
+        },
+        exports: ['initializeApp']
+    }).initializeApp;
+}
+
 console.log('Testing initialization helpers...');
+
+(async () => {
+{
+    const startupElements = {
+        catalogStatus: { hidden: false, dataset: {} },
+        catalogStatusTitle: { textContent: '' },
+        catalogStatusMessage: { textContent: '' },
+        catalogRetry: { hidden: true, disabled: false, onclick: null },
+        deckExperience: { hidden: false }
+    };
+    const document = createDocument(startupElements);
+    const state = createState();
+    const catalog = {
+        games: { 'Base Game': [{ id: 1, card: 'Alarm' }] },
+        icons: {},
+        cardManifest: {}
+    };
+    const acquisitionResults = [
+        {
+            status: 'unavailable',
+            catalog: null,
+            difficulties: [],
+            cardIndex: new Map(),
+            diagnostics: []
+        },
+        {
+            status: 'fresh',
+            catalog,
+            difficulties: [{ name: 'Novice', novice: 1, veteran: 0 }],
+            cardIndex: new Map([[1, catalog.games['Base Game'][0]]]),
+            diagnostics: []
+        }
+    ];
+    let acquisitionCalls = 0;
+    let gameSelectionCalls = 0;
+    const initializeApp = loadInitializeApp({
+        state,
+        document,
+        acquireCardCatalog: async () => acquisitionResults[acquisitionCalls++],
+        hooks: {
+            generateGameSelection() { gameSelectionCalls++; }
+        }
+    });
+
+    await initializeApp();
+
+    assert.strictEqual(acquisitionCalls, 1);
+    assert.strictEqual(startupElements.catalogStatus.hidden, false);
+    assert.strictEqual(startupElements.catalogStatus.dataset.state, 'error');
+    assert(startupElements.catalogStatusMessage.textContent.includes('connection'));
+    assert.strictEqual(startupElements.catalogRetry.hidden, false);
+    assert.strictEqual(startupElements.deckExperience.hidden, true,
+        'A clean startup failure must not expose an apparently usable empty builder');
+    assert.strictEqual(gameSelectionCalls, 0);
+
+    await startupElements.catalogRetry.onclick();
+
+    assert.strictEqual(acquisitionCalls, 2, 'Retry must perform a real catalog reacquisition');
+    assert.strictEqual(startupElements.catalogStatus.hidden, true);
+    assert.strictEqual(startupElements.deckExperience.hidden, false);
+    assert.strictEqual(gameSelectionCalls, 1);
+    assert.strictEqual(state.dataStore, catalog);
+    assert.strictEqual(state.cardMap.get(1), catalog.games['Base Game'][0]);
+}
+
+{
+    const indexSource = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+    assert(indexSource.includes('id="catalogStatus"'));
+    assert(indexSource.includes('id="catalogStatusTitle"'));
+    assert(indexSource.includes('id="catalogStatusMessage"'));
+    assert(indexSource.includes('id="catalogRetry"'));
+    assert(/id="deckExperience"[^>]*\shidden(?:\s|>)/.test(indexSource),
+        'The builder should start hidden until a usable Card Catalog is applied');
+}
+
+{
+    const startupElements = {
+        catalogStatus: { hidden: false, dataset: {} },
+        catalogStatusTitle: { textContent: '' },
+        catalogStatusMessage: { textContent: '' },
+        catalogRetry: { hidden: true, disabled: false, onclick: null },
+        deckExperience: { hidden: false }
+    };
+    const initializeApp = loadInitializeApp({
+        state: createState(),
+        document: createDocument(startupElements),
+        acquireCardCatalog: async () => { throw new Error('unexpected acquisition failure'); }
+    });
+
+    const originalConsoleError = console.error;
+    console.error = () => { };
+    let result;
+    try {
+        result = await initializeApp();
+    } finally {
+        console.error = originalConsoleError;
+    }
+
+    assert.strictEqual(result.status, 'unavailable');
+    assert.strictEqual(startupElements.catalogStatus.dataset.state, 'error');
+    assert.strictEqual(startupElements.catalogRetry.hidden, false);
+    assert.strictEqual(startupElements.deckExperience.hidden, true);
+}
 
 {
     const elements = {
@@ -198,3 +323,7 @@ console.log('Testing initialization helpers...');
 }
 
 console.log('All initialization helper tests passed!');
+})().catch(error => {
+    console.error(error);
+    process.exitCode = 1;
+});

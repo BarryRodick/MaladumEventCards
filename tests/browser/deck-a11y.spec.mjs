@@ -52,6 +52,104 @@ async function selectOnlyBaseGame(page) {
     await expect(page.locator('#game-base-game')).toBeChecked();
 }
 
+function isCatalogRequest(requestUrl) {
+    const pathname = new URL(requestUrl).pathname;
+    return pathname.endsWith('/maladumcards.json')
+        || pathname.endsWith('/difficulties.json')
+        || pathname.includes('/data/cards/');
+}
+
+test('clean offline startup stays blocked until Retry performs a successful reacquisition', async ({ page }) => {
+    await page.addInitScript(() => localStorage.clear());
+    let legacyAttempts = 0;
+    page.on('request', request => {
+        if (new URL(request.url()).pathname.endsWith('/maladumcards.json')) legacyAttempts++;
+    });
+    const failCatalog = route => {
+        return isCatalogRequest(route.request().url()) ? route.abort() : route.continue();
+    };
+    await page.route('**/*', failCatalog);
+
+    await page.goto('/');
+
+    const status = page.locator('#catalogStatus');
+    const retry = page.getByRole('button', { name: 'Retry Card Catalog' });
+    await expect(status).toHaveAttribute('data-state', 'error');
+    await expect(status).toContainText('Check your connection');
+    await expect(retry).toBeVisible();
+    await expect(page.locator('#deckExperience')).toBeHidden();
+
+    await retry.click();
+    await expect.poll(() => legacyAttempts).toBeGreaterThanOrEqual(2);
+    await expect(status).toHaveAttribute('data-state', 'error');
+
+    await page.unroute('**/*', failCatalog);
+    await retry.click();
+
+    await expect.poll(() => legacyAttempts).toBeGreaterThanOrEqual(3);
+    await expect(status).toBeHidden();
+    await expect(page.locator('#deckExperience')).toBeVisible();
+    await expect(page.locator('#gameCheckboxes input[type="checkbox"]').first()).toBeVisible();
+    const recoveredSnapshot = await page.evaluate(() => {
+        const raw = localStorage.getItem('cachedCardCatalogSnapshot.v1');
+        return raw ? JSON.parse(raw) : null;
+    });
+    expect(recoveredSnapshot?.version).toBe(1);
+    expect(Object.values(recoveredSnapshot.catalog.games).flat()).toHaveLength(142);
+});
+
+test('cached offline startup keeps the last-known-good snapshot intact', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('#deckExperience')).toBeVisible();
+
+    const snapshotBefore = await page.evaluate(() => localStorage.getItem('cachedCardCatalogSnapshot.v1'));
+    expect(snapshotBefore).toBeTruthy();
+
+    const failCatalog = route => isCatalogRequest(route.request().url()) ? route.abort() : route.continue();
+    await page.route('**/*', failCatalog);
+    await page.reload();
+
+    await expect(page.locator('#catalogStatus')).toHaveAttribute('data-state', 'offline');
+    await expect(page.locator('#catalogStatus')).toContainText('last-known-good');
+    await expect(page.getByRole('button', { name: 'Retry Card Catalog' })).toBeVisible();
+    await expect(page.locator('#deckExperience')).toBeVisible();
+    expect(await page.evaluate(() => localStorage.getItem('cachedCardCatalogSnapshot.v1'))).toBe(snapshotBefore);
+});
+
+test('one failed rich game cannot downgrade the richer atomic snapshot', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('#deckExperience')).toBeVisible();
+
+    const snapshotBefore = await page.evaluate(() => localStorage.getItem('cachedCardCatalogSnapshot.v1'));
+    const failBaseGame = route => (
+        new URL(route.request().url()).pathname.endsWith('/data/cards/base-game.json')
+            ? route.abort()
+            : route.continue()
+    );
+    await page.route('**/*', failBaseGame);
+    await page.reload();
+
+    await expect(page.locator('#catalogStatus')).toHaveAttribute('data-state', 'offline');
+    await expect(page.locator('#deckExperience')).toBeVisible();
+    expect(await page.evaluate(() => localStorage.getItem('cachedCardCatalogSnapshot.v1'))).toBe(snapshotBefore);
+});
+
+test('viable partial data is session-only when no saved snapshot exists', async ({ page }) => {
+    const failBaseGame = route => (
+        new URL(route.request().url()).pathname.endsWith('/data/cards/base-game.json')
+            ? route.abort()
+            : route.continue()
+    );
+    await page.route('**/*', failBaseGame);
+    await page.goto('/');
+
+    await expect(page.locator('#catalogStatus')).toHaveAttribute('data-state', 'partial');
+    await expect(page.locator('#catalogStatus')).toContainText('safe session data');
+    await expect(page.getByRole('button', { name: 'Retry Card Catalog' })).toBeVisible();
+    await expect(page.locator('#deckExperience')).toBeVisible();
+    expect(await page.evaluate(() => localStorage.getItem('cachedCardCatalogSnapshot.v1'))).toBeNull();
+});
+
 test('deck validation and core controls work by keyboard and pass focused axe checks', async ({ page }) => {
     await page.route('https://www.googletagmanager.com/**', route => route.abort());
     await page.addInitScript(() => localStorage.clear());
