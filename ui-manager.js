@@ -8,8 +8,10 @@ import { saveConfiguration } from './config-manager.js';
 import { deriveDeckMode, formatDeckSummary, getGenerateDeckState } from './deck-flow-utils.js';
 import { searchCards } from './card-data.mjs';
 import { renderCardNode, renderCompactCardNode } from './card-renderer.mjs';
+import { validateDeckCount } from './deck-rules.js';
 
 const debouncedSaveConfiguration = debounce(saveConfiguration, 400);
+let cardPreviewTrigger = null;
 
 const MODE_COPY = {
     build: {
@@ -41,9 +43,17 @@ function getRenderOptions(extraOptions = {}) {
 function getConfiguredCardCounts() {
     return state.allCardTypes.reduce((counts, type) => {
         const input = document.getElementById(cardTypeId(type));
-        counts[type] = Math.max(0, parseInt(input?.value, 10) || 0);
+        const validation = validateDeckCount(input?.value, Number(input?.max));
+        counts[type] = validation.valid ? validation.value : 0;
         return counts;
     }, {});
+}
+
+function hasInvalidConfiguredCardCounts() {
+    return state.allCardTypes.some(type => {
+        const input = document.getElementById(cardTypeId(type));
+        return !validateDeckCount(input?.value, Number(input?.max)).valid;
+    });
 }
 
 /**
@@ -161,9 +171,10 @@ export function generateCardTypeInputs() {
                 </div>
                 <div class="card-type-counter">
                     <button type="button" class="btn btn-sm btn-outline-secondary decrease-btn" data-type="${type}" aria-label="Decrease ${type} Cards">-</button>
-                    <input type="number" id="${cardTypeId(type)}" min="0" max="${maxCount}" value="${savedCount}" class="form-control form-control-sm input-count" aria-label="${type} Cards count">
+                    <input type="number" id="${cardTypeId(type)}" min="0" max="${maxCount}" step="1" required value="${savedCount}" class="form-control form-control-sm input-count" aria-label="${type} Cards count" aria-describedby="${cardTypeId(type)}-error" aria-invalid="false">
                     <button type="button" class="btn btn-sm btn-outline-secondary increase-btn" data-type="${type}" aria-label="Increase ${type} Cards">+</button>
                 </div>
+                <p id="${cardTypeId(type)}-error" class="input-validation-error" role="alert" hidden></p>
             </div>
         `;
         fragment.appendChild(div);
@@ -171,6 +182,7 @@ export function generateCardTypeInputs() {
 
     cardTypeInputs.appendChild(fragment);
     setupInputListeners();
+    document.querySelectorAll('.input-count').forEach(updateCardCountError);
 }
 
 function setupInputListeners() {
@@ -178,8 +190,10 @@ function setupInputListeners() {
         btn.addEventListener('click', (e) => {
             const type = e.currentTarget.getAttribute('data-type');
             const input = document.getElementById(cardTypeId(type));
-            if (parseInt(input.value, 10) < parseInt(input.max, 10)) {
-                input.value = parseInt(input.value, 10) + 1;
+            const currentCount = validateDeckCount(input.value, Number(input.max));
+            if (currentCount.valid && currentCount.value < Number(input.max)) {
+                input.value = currentCount.value + 1;
+                updateCardCountError(input);
                 debouncedSaveConfiguration();
                 renderDeckSummary();
             }
@@ -190,8 +204,10 @@ function setupInputListeners() {
         btn.addEventListener('click', (e) => {
             const type = e.currentTarget.getAttribute('data-type');
             const input = document.getElementById(cardTypeId(type));
-            if (parseInt(input.value, 10) > 0) {
-                input.value = parseInt(input.value, 10) - 1;
+            const currentCount = validateDeckCount(input.value, Number(input.max));
+            if (currentCount.valid && currentCount.value > 0) {
+                input.value = currentCount.value - 1;
+                updateCardCountError(input);
                 debouncedSaveConfiguration();
                 renderDeckSummary();
             }
@@ -199,11 +215,25 @@ function setupInputListeners() {
     });
 
     document.querySelectorAll('.input-count').forEach(input => {
-        input.addEventListener('change', () => {
-            debouncedSaveConfiguration();
+        input.addEventListener('input', () => {
+            const isValid = updateCardCountError(input);
+            if (isValid) debouncedSaveConfiguration();
             renderDeckSummary();
         });
     });
+}
+
+function updateCardCountError(input) {
+    const validation = validateDeckCount(input?.value, Number(input?.max));
+    const feedback = document.getElementById(`${input.id}-error`);
+    input?.setCustomValidity?.(validation.valid ? '' : validation.message);
+    input?.classList?.toggle('is-invalid', !validation.valid);
+    input?.setAttribute?.('aria-invalid', String(!validation.valid));
+    if (feedback) {
+        feedback.textContent = validation.valid ? '' : validation.message;
+        feedback.hidden = validation.valid;
+    }
+    return validation.valid;
 }
 
 function getSavedCardCount(type) {
@@ -501,13 +531,16 @@ function setSummaryChipValue(chip, value) {
     chip.textContent = String(value);
 }
 
-export function showCardPreview({ id, name, image, type, card: providedCard } = {}) {
+export function showCardPreview({ id, name, image, type, card: providedCard, trigger } = {}) {
     const modal = document.getElementById('cardPreviewModal');
     if (!modal) return;
 
     const resolvedCard = providedCard || resolvePreviewCard({ id, name, image });
     const card = preparePreviewCard(resolvedCard, { id, name, image, type });
     if (!card) return;
+
+    cardPreviewTrigger = trigger || getPreviewTrigger();
+    setupCardPreviewFocusManagement(modal);
 
     setModalDataset(modal, 'cardId', card.id);
     setModalDataset(modal, 'cardName', card.card);
@@ -568,6 +601,25 @@ export function showCardPreview({ id, name, image, type, card: providedCard } = 
         modal.style.display = 'block';
         modal.removeAttribute('aria-hidden');
     }
+}
+
+function getPreviewTrigger() {
+    const activeElement = document.activeElement;
+    return typeof activeElement?.focus === 'function' ? activeElement : null;
+}
+
+function setupCardPreviewFocusManagement(modal) {
+    if (modal.dataset.cardPreviewFocusManaged === 'true' || typeof modal.addEventListener !== 'function') return;
+
+    modal.dataset.cardPreviewFocusManaged = 'true';
+    modal.addEventListener('shown.bs.modal', () => {
+        modal.querySelector('[data-bs-dismiss="modal"]')?.focus();
+    });
+    modal.addEventListener('hidden.bs.modal', () => {
+        const trigger = cardPreviewTrigger;
+        cardPreviewTrigger = null;
+        if (trigger?.isConnected !== false) trigger?.focus?.();
+    });
 }
 
 function preparePreviewCard(card, legacy = {}) {
@@ -755,8 +807,9 @@ function updateGenerateButtonState() {
             ? 'fas fa-dungeon'
             : 'fas fa-sliders';
 
-    generateButton.disabled = !generateState.canGenerate;
-    generateButton.setAttribute('aria-disabled', String(!generateState.canGenerate));
+    const hasInvalidCounts = hasInvalidConfiguredCardCounts();
+    generateButton.disabled = !generateState.canGenerate || hasInvalidCounts;
+    generateButton.setAttribute('aria-disabled', String(generateButton.disabled));
     generateButton.innerHTML = `<i class="${iconClass} me-2"></i> ${generateState.label}`;
 }
 

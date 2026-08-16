@@ -17,7 +17,7 @@ function loadDeckManager(state, document, overrides = {}) {
     const shuffleDeck = overrides.shuffleDeck || ((deck) => deck);
     const deckRules = loadSourceModule('deck-rules.js', {
         dependencies: { parseCardTypes, shuffleDeck },
-        exports: ['buildDeck', 'DECK_RULE_ERRORS']
+        exports: ['buildDeck', 'DECK_RULE_ERRORS', 'validateDeckCount']
     });
     const { rebuildSelectedCardsMap } = loadSourceModule('live-deck.js', {
         dependencies: { parseCardTypes, shuffleDeck },
@@ -36,6 +36,7 @@ function loadDeckManager(state, document, overrides = {}) {
             shuffleDeck,
             buildDeck: overrides.buildDeck || deckRules.buildDeck,
             DECK_RULE_ERRORS: deckRules.DECK_RULE_ERRORS,
+            validateDeckCount: deckRules.validateDeckCount,
             rebuildSelectedCardsMap: overrides.rebuildSelectedCardsMap || rebuildSelectedCardsMap,
             showToast: overrides.showToast || (() => { }),
             trackEvent: overrides.trackEvent || (() => { }),
@@ -124,6 +125,44 @@ function makeBaseState() {
 }
 
 console.log('Testing deck-manager behavior...');
+
+// ============================
+// Test: invalid counts do not replace a working deck
+// ============================
+{
+    const state = makeBaseState();
+    const existingCard = { id: 99, card: 'Existing Deck Card', type: 'Dungeon' };
+    state.currentDeck = [existingCard];
+    state.deck.main = [existingCard];
+    state.deck.combined = [existingCard];
+    state.allCardTypes = ['Cabal'];
+    state.availableCards = [
+        { id: 1, card: 'Cabal A', type: 'Cabal' },
+        { id: 2, card: 'Cabal B', type: 'Cabal' }
+    ];
+    state.deckDataByType = { Cabal: state.availableCards };
+
+    const document = makeDeckGenerationDocument({});
+    const originalGetElementById = document.getElementById.bind(document);
+    document.getElementById = id => id === 'type-cabal'
+        ? {
+            id: 'type-cabal',
+            value: '99',
+            max: '99',
+            classList: makeClassList(),
+            setAttribute() { },
+            setCustomValidity() { },
+            focus() { },
+            reportValidity() { }
+        }
+        : originalGetElementById(id);
+
+    const { generateDeck } = loadDeckManager(state, document);
+    generateDeck();
+
+    assert.deepStrictEqual(state.currentDeck, [existingCard],
+        'An invalid requested count must not clear a working deck before validation completes');
+}
 
 // ============================
 // Test: newly catalogued Veteran cards remain reachable

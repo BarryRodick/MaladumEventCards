@@ -3,7 +3,7 @@
  */
 import { state, CONFIG, cardTypeId } from './state.js';
 import { shuffleDeck } from './card-utils.js';
-import { buildDeck, DECK_RULE_ERRORS } from './deck-rules.js';
+import { buildDeck, DECK_RULE_ERRORS, validateDeckCount } from './deck-rules.js';
 import { rebuildSelectedCardsMap } from './live-deck.js';
 import { showToast, trackEvent } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
@@ -19,14 +19,6 @@ export function generateDeck() {
         return;
     }
 
-    state.currentIndex = -1;
-    state.isActiveCardCleared = false;
-    state.deck.main = [];
-    state.deck.special = [];
-    state.sentryDeck = [];
-    state.discardPile = [];
-    state.cards.selected.clear();
-
     const cardCounts = {};
     const specialCardCounts = {};
     const sentryCardCounts = {};
@@ -34,7 +26,13 @@ export function generateDeck() {
     state.allCardTypes.forEach(type => {
         const input = document.getElementById(cardTypeId(type));
         if (!input) return;
-        const count = parseInt(input.value) || 0;
+        const validation = validateDeckCount(input.value, Number(input.max));
+        if (!validation.valid) {
+            showCardCountError(input, validation.message);
+            return;
+        }
+        clearCardCountError(input);
+        const count = validation.value;
 
         if (state.dataStore.sentryTypes.includes(type) && state.enableSentryRules) {
             sentryCardCounts[type] = count;
@@ -64,6 +62,28 @@ export function generateDeck() {
         return;
     }
 
+    if (deckResult.error === DECK_RULE_ERRORS.invalidCounts) {
+        const firstInvalidInput = deckResult.invalidCounts
+            .map(({ type, message }) => {
+                const input = document.getElementById(cardTypeId(type));
+                if (input) showCardCountError(input, message);
+                return input;
+            })
+            .find(Boolean);
+        firstInvalidInput?.focus();
+        firstInvalidInput?.reportValidity?.();
+        showToast('Correct the highlighted card counts before generating the deck.');
+        return;
+    }
+
+    state.currentIndex = -1;
+    state.isActiveCardCleared = false;
+    state.deck.main = [];
+    state.deck.special = [];
+    state.sentryDeck = [];
+    state.discardPile = [];
+    state.cards.selected.clear();
+
     state.deck.main = deckResult.mainDeck;
     state.deck.special = deckResult.specialDeck;
     state.currentDeck = deckResult.combinedDeck;
@@ -87,4 +107,26 @@ export function generateDeck() {
     saveConfiguration();
 
     trackEvent('Deck', 'Generate', `Games: ${state.selectedGames.join(', ')}`, state.currentDeck.length);
+}
+
+function showCardCountError(input, message) {
+    input.setCustomValidity?.(message);
+    input.classList?.add('is-invalid');
+    input.setAttribute?.('aria-invalid', 'true');
+    const feedback = document.getElementById(`${input.id}-error`);
+    if (feedback) {
+        feedback.textContent = message;
+        feedback.hidden = false;
+    }
+}
+
+function clearCardCountError(input) {
+    input.setCustomValidity?.('');
+    input.classList?.remove('is-invalid');
+    input.setAttribute?.('aria-invalid', 'false');
+    const feedback = document.getElementById(`${input.id}-error`);
+    if (feedback) {
+        feedback.textContent = '';
+        feedback.hidden = true;
+    }
 }

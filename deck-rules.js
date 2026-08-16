@@ -1,8 +1,37 @@
 import { parseCardTypes, shuffleDeck } from './card-utils.js';
 
 export const DECK_RULE_ERRORS = {
-    emptySelection: 'empty-selection'
+    emptySelection: 'empty-selection',
+    invalidCounts: 'invalid-counts'
 };
+
+/**
+ * Parses a deck count without silently changing what the player entered.
+ */
+export function validateDeckCount(value, max) {
+    const maximum = Number(max);
+    const rawValue = typeof value === 'string' ? value.trim() : value;
+
+    if (!Number.isInteger(maximum) || maximum < 0) {
+        return { valid: false, message: 'This card type is unavailable.' };
+    }
+
+    if (rawValue === '' || rawValue === null || rawValue === undefined) {
+        return { valid: false, message: `Enter a whole number from 0 to ${maximum}.` };
+    }
+
+    const count = typeof rawValue === 'number'
+        ? rawValue
+        : /^\d+$/.test(rawValue)
+            ? Number(rawValue)
+            : Number.NaN;
+
+    if (!Number.isInteger(count) || count < 0 || count > maximum) {
+        return { valid: false, message: `Enter a whole number from 0 to ${maximum}.` };
+    }
+
+    return { valid: true, value: count };
+}
 
 export function buildDeck({
     allCardTypes = [],
@@ -16,12 +45,22 @@ export function buildDeck({
     deckDataByType = {},
     shuffle = shuffleDeck
 } = {}) {
+    const invalidCounts = validateDeckCounts({
+        allCardTypes,
+        availableCards,
+        cardCounts,
+        sentryCardCounts
+    });
+    if (invalidCounts.length > 0) {
+        return { error: DECK_RULE_ERRORS.invalidCounts, invalidCounts };
+    }
+
     const sentryTypes = dataStore.sentryTypes || [];
     const corrupterTypes = dataStore.corrupterTypes || [];
     const heldBackCardTypes = dataStore.heldBackCardTypes || [];
     const selectedCardsMap = new Map();
-    const regularCounts = { ...cardCounts };
-    const sentryCounts = { ...sentryCardCounts };
+    const regularCounts = normalizeDeckCounts(cardCounts);
+    const sentryCounts = normalizeDeckCounts(sentryCardCounts);
     const allAvailableCards = [...availableCards];
 
     const setAsideCards = [];
@@ -88,6 +127,43 @@ export function buildDeck({
         setAsideCards,
         selectedCardIds: collectSelectedCardIds(combinedDeck, sentryDeck)
     };
+}
+
+function validateDeckCounts({
+    allCardTypes,
+    availableCards,
+    cardCounts,
+    sentryCardCounts
+}) {
+    const maxCounts = getMaximumCardCounts(allCardTypes, availableCards);
+    const invalidCounts = [];
+
+    [cardCounts, sentryCardCounts].forEach(counts => {
+        Object.entries(counts || {}).forEach(([type, value]) => {
+            const result = validateDeckCount(value, maxCounts[type] ?? 0);
+            if (!result.valid) invalidCounts.push({ type, message: result.message });
+        });
+    });
+
+    return invalidCounts;
+}
+
+function getMaximumCardCounts(allCardTypes, availableCards) {
+    return (allCardTypes || []).reduce((maxCounts, type) => {
+        const cardIds = new Set();
+        (availableCards || []).forEach((card, index) => {
+            if (!parseCardTypes(card.type).allTypes.includes(type)) return;
+            cardIds.add(card.id ?? `card-${index}`);
+        });
+        maxCounts[type] = cardIds.size;
+        return maxCounts;
+    }, {});
+}
+
+function normalizeDeckCounts(counts) {
+    return Object.fromEntries(
+        Object.entries(counts || {}).map(([type, value]) => [type, Number(value)])
+    );
 }
 
 function isHeldBackCard(card, heldBackCardTypes) {

@@ -375,6 +375,13 @@ body.dark-mode .card {
     line-height: 1;
 }
 
+.input-validation-error {
+    margin: 0.3rem 0 0;
+    color: #ffb3b3;
+    font-size: 0.75rem;
+    line-height: 1.25;
+}
+
 /* Responsive Design for Card Type Inputs */
 @media (max-width: 768px) {
     .card-type-row {
