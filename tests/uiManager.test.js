@@ -175,6 +175,12 @@ function loadUiManager(document, window = {}, stateOverrides = {}, overrides = {
             searchCards: overrides.searchCards || (() => []),
             renderCardNode: overrides.renderCardNode || (() => makeElement('article')),
             renderCompactCardNode: overrides.renderCompactCardNode || (() => makeElement('article')),
+            validateDeckCount: overrides.validateDeckCount || ((value, max) => {
+                const count = Number(value);
+                return Number.isInteger(count) && count >= 0 && count <= Number(max)
+                    ? { valid: true, value: count }
+                    : { valid: false, message: 'Enter a whole number.' };
+            }),
             document,
             window
         },
@@ -250,8 +256,8 @@ console.log('Testing combined UI manager contracts...');
 {
     const elements = {
         generateDeck: makeElement('button'),
-        'type-dungeon': Object.assign(makeElement('input'), { value: '0' }),
-        'type-sentry': Object.assign(makeElement('input'), { value: '2' })
+        'type-dungeon': Object.assign(makeElement('input'), { value: '0', max: '99' }),
+        'type-sentry': Object.assign(makeElement('input'), { value: '2', max: '99' })
     };
     const document = makeDocument(elements);
     let lastGenerateConfig;
@@ -334,12 +340,18 @@ console.log('Testing combined UI manager contracts...');
     const hint = makeElement('small');
     const actionButtons = [makeElement('button'), makeElement('button'), makeElement('button')];
     const modal = makeElement('div');
+    const modalListeners = {};
+    let closeButtonFocuses = 0;
+    const closeButton = makeElement('button');
+    closeButton.focus = () => { closeButtonFocuses++; };
+    modal.addEventListener = (event, listener) => { modalListeners[event] = listener; };
     modal.queries = {
         '[data-card-preview-title]': title,
         '[data-card-preview-surface]': surface,
         '[data-card-preview-type]': type,
         '[data-card-preview-readable]': readable,
-        '[data-card-preview-hint]': hint
+        '[data-card-preview-hint]': hint,
+        '[data-bs-dismiss="modal"]': closeButton
     };
     modal.queryLists = { '[data-preview-deck-action]': actionButtons };
     const shuffleInput = makeElement('input');
@@ -386,6 +398,16 @@ console.log('Testing combined UI manager contracts...');
     assert.strictEqual(actionButtons.every(button => button.disabled), true);
     assert(hint.textContent.includes('Generate a deck'));
     assert.strictEqual(shownCount, 1);
+
+    let triggerFocuses = 0;
+    const trigger = { isConnected: true, focus() { triggerFocuses++; } };
+    loaded.showCardPreview({ card: richCard, trigger });
+    modalListeners['shown.bs.modal']();
+    modalListeners['hidden.bs.modal']();
+    assert.strictEqual(closeButtonFocuses, 1,
+        'Opening a preview should send focus to its close control');
+    assert.strictEqual(triggerFocuses, 1,
+        'Closing a preview should restore focus to the control that opened it');
 
     loaded.state.currentDeck = [{ id: 7 }];
     loaded.showCardPreview({ card: richCard });

@@ -95,7 +95,7 @@
                             Choose games, set card counts, and generate the live deck when the setup is ready.
                         </p>
                     </div>
-                    <div class="deck-mode-tabs" role="tablist" aria-label="Deck builder modes">
+                    <div class="deck-mode-tabs" role="group" aria-label="Deck builder modes">
                         <button id="buildModeButton" class="mode-tab is-active" type="button" aria-pressed="true">
                             <i class="fas fa-layer-group" aria-hidden="true"></i>
                             <span>Build</span>
@@ -191,8 +191,8 @@
                         <label for="cardSearchInput" class="brand-text text-gold mb-2">Search cards</label>
                         <input id="cardSearchInput" type="search" class="form-control form-control-lg"
                             placeholder="Search title, type, game, or rules text..." autocomplete="off">
-                        <small id="cardSearchStatus" class="text-muted mt-2 d-block"></small>
-                        <div id="cardSearchResults" class="card-search-results mt-3" aria-live="polite"></div>
+                        <small id="cardSearchStatus" class="text-muted mt-2 d-block" role="status" aria-live="polite"></small>
+                        <div id="cardSearchResults" class="card-search-results mt-3"></div>
                     </div>
                 </section>
 
@@ -262,10 +262,10 @@
 
                 <!-- Rune Controls -->
                 <nav id="navigationButtons" class="nav-controls" style="display: none;">
-                    <button id="prevCard" class="rune-btn secondary" type="button">
+                    <button id="prevCard" class="rune-btn secondary" type="button" disabled>
                         <i class="fas fa-chevron-left me-2"></i> Previous
                     </button>
-                    <button id="markInPlay" class="rune-btn tertiary" type="button">
+                    <button id="markInPlay" class="rune-btn tertiary" type="button" disabled>
                         <i class="fas fa-eye me-2"></i> Mark In Play
                     </button>
                     <button id="nextCard" class="rune-btn primary next-draw" type="button">
@@ -327,11 +327,11 @@
 
                         <!-- Hidden config for N -->
                         <div id="shuffleNConfig" class="mt-3 p-3 text-center" style="display: none; background: rgba(0,0,0,0.5); border-radius: 8px;">
-                            <label class="text-gold mb-2 d-block">Shuffle into top <span id="nDisplay">3</span> cards?</label>
+                            <label for="actionN" class="text-gold mb-2 d-block">Shuffle into top <span id="nDisplay">3</span> cards?</label>
                             <div class="d-flex justify-content-center align-items-center gap-2 mb-3">
-                                <button class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('actionN').stepDown(); document.getElementById('nDisplay').textContent = document.getElementById('actionN').value;">-</button>
-                                <input type="number" id="actionN" class="input-rune" value="3" min="1" max="10" style="width: 60px;">
-                                <button class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('actionN').stepUp(); document.getElementById('nDisplay').textContent = document.getElementById('actionN').value;">+</button>
+                                <button class="btn btn-sm btn-outline-secondary" type="button" aria-label="Decrease shuffle count" onclick="document.getElementById('actionN').stepDown(); document.getElementById('nDisplay').textContent = document.getElementById('actionN').value;">-</button>
+                                <input type="number" id="actionN" class="input-rune" value="3" min="1" max="10" step="1" style="width: 60px;">
+                                <button class="btn btn-sm btn-outline-secondary" type="button" aria-label="Increase shuffle count" onclick="document.getElementById('actionN').stepUp(); document.getElementById('nDisplay').textContent = document.getElementById('actionN').value;">+</button>
                             </div>
                             <button id="confirmShuffleN" class="rune-btn small" style="min-width: auto; padding: 8px 16px;">
                                 Confirm
@@ -342,13 +342,13 @@
                         <div id="insertCardConfig" class="mt-3 p-3" style="display: none; background: rgba(0,0,0,0.5); border-radius: 8px;">
                             <h5 class="text-gold mb-3 text-center">Insert Card</h5>
                             <div class="mb-3">
-                                <label>Card Type</label>
+                                <label for="insertTypeSelect">Card Type</label>
                                 <select id="insertTypeSelect" class="form-control">
                                     <!-- Populated by JS -->
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label>Specific Card (Optional)</label>
+                                <label for="insertSpecificCardSelect">Specific Card (Optional)</label>
                                 <select id="insertSpecificCardSelect" class="form-control">
                                     <option value="">Random</option>
                                     <!-- Populated by JS -->

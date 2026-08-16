@@ -128,7 +128,7 @@ export function setupEventListeners() {
         const openActivePreview = (target) => {
             const card = resolveCardFromPreviewTarget(target);
             if (!card) return;
-            showCardPreview({ id: card.id, card });
+            showCardPreview({ id: card.id, card, trigger: target });
             trackEvent('Card Status', 'Preview Active Card', card.card || '');
         };
 
@@ -322,14 +322,14 @@ function openCardPreviewFromResult(resultItem) {
     if (!cardId) return;
     const card = state.cardMap.get(Number(cardId));
     if (!card) return;
-    showCardPreview({ id: cardId, card });
+    showCardPreview({ id: cardId, card, trigger: resultItem });
     trackEvent('Card Search', 'Preview Card', card.card || '');
 }
 
 function openCardPreviewFromInPlay(previewButton) {
     const card = resolveCardFromPreviewTarget(previewButton);
     if (!card) return;
-    showCardPreview({ id: card.id, card });
+    showCardPreview({ id: card.id, card, trigger: previewButton });
     trackEvent('Card Status', 'Preview In Play', card.card || '');
 }
 

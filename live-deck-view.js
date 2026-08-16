@@ -72,6 +72,17 @@ function appendEmptyInPlayState(container) {
     container.appendChild(emptyState);
 }
 
+function renderNavigationControls() {
+    const hasActiveCard = state.currentIndex >= 0
+        && !state.isActiveCardCleared
+        && Boolean(state.currentDeck?.[state.currentIndex]);
+    const previousButton = document.getElementById('prevCard');
+    const markInPlayButton = document.getElementById('markInPlay');
+
+    if (previousButton) previousButton.disabled = state.currentIndex <= 0;
+    if (markInPlayButton) markInPlayButton.disabled = !hasActiveCard;
+}
+
 function preloadUpcomingCards(count = 2) {
     preloadCache.length = 0;
     const currentDeck = Array.isArray(state.currentDeck) ? state.currentDeck : [];
@@ -113,6 +124,7 @@ export const liveDeckView = {
         if (clearButton) {
             clearButton.style.display = state.currentIndex >= 0 && !state.isActiveCardCleared ? 'block' : 'none';
         }
+        renderNavigationControls();
         preloadUpcomingCards();
     },
 
@@ -135,6 +147,7 @@ export const liveDeckView = {
         progressBar.style.width = `${percentage}%`;
         progressBar.setAttribute('aria-valuenow', percentage.toFixed(0));
         progressBar.setAttribute('aria-valuetext', progressLabel);
+        renderNavigationControls();
         renderDeckSummary();
     },
 

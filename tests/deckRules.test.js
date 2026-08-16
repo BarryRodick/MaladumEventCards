@@ -16,7 +16,7 @@ function loadDeckRules(overrides = {}) {
             }),
             shuffleDeck: overrides.shuffleDeck || ((deck) => deck)
         },
-        exports: ['buildDeck', 'DECK_RULE_ERRORS']
+        exports: ['buildDeck', 'DECK_RULE_ERRORS', 'validateDeckCount']
     });
 }
 
@@ -127,6 +127,28 @@ console.log('Testing deck rules...');
     });
 
     assert.strictEqual(result.error, DECK_RULE_ERRORS.emptySelection);
+}
+
+{
+    const { buildDeck, DECK_RULE_ERRORS, validateDeckCount } = loadDeckRules();
+    const cards = [
+        { id: 1, card: 'Cabal A', type: 'Cabal' },
+        { id: 2, card: 'Cabal B', type: 'Cabal' }
+    ];
+
+    ['99', '', '1.5', '-1', '1e2'].forEach(value => {
+        const result = buildDeck({
+            allCardTypes: ['Cabal'],
+            availableCards: cards,
+            dataStore: { sentryTypes: [], corrupterTypes: [], heldBackCardTypes: [] },
+            cardCounts: { Cabal: value }
+        });
+        assert.strictEqual(result.error, DECK_RULE_ERRORS.invalidCounts,
+            `Invalid count ${JSON.stringify(value)} must be rejected instead of truncated or clamped`);
+    });
+
+    assert.deepStrictEqual(validateDeckCount('2', 2), { valid: true, value: 2 });
+    assert.strictEqual(validateDeckCount('3', 2).valid, false);
 }
 
 {
