@@ -64,6 +64,7 @@ export const liveDeckSession = {
             return;
         }
 
+        liveDeckView.renderCurrentCard();
         liveDeckView.renderInPlayCards();
         liveDeckView.renderProgress();
         showToast(`Card "${activeCard.card}" marked as in play.`);

@@ -41,6 +41,18 @@ function loadDeckManager(state, document, overrides = {}) {
             showToast: overrides.showToast || (() => { }),
             trackEvent: overrides.trackEvent || (() => { }),
             saveConfiguration: overrides.saveConfiguration || (() => { }),
+            renderCardCountValidation: overrides.renderCardCountValidation || ((input, validation) => {
+                input.setCustomValidity?.(validation.valid ? '' : validation.message);
+                if (validation.valid) input.classList?.remove('is-invalid');
+                else input.classList?.add('is-invalid');
+                input.setAttribute?.('aria-invalid', String(!validation.valid));
+                const feedback = document.getElementById(`${input.id}-error`);
+                if (feedback) {
+                    feedback.textContent = validation.valid ? '' : validation.message;
+                    feedback.hidden = validation.valid;
+                }
+                return validation.valid;
+            }),
             setActionPanelOpen: overrides.setActionPanelOpen || (() => { }),
             setDeckMode: overrides.setDeckMode || (() => { }),
             liveDeckView: overrides.liveDeckView || { renderAll() { } },
@@ -125,6 +137,47 @@ function makeBaseState() {
 }
 
 console.log('Testing deck-manager behavior...');
+
+// ============================
+// Test: missing game selection does not replace a working deck
+// ============================
+{
+    const state = makeBaseState();
+    const existingCard = { id: 99, card: 'Existing Deck Card', type: 'Dungeon' };
+    state.selectedGames = [];
+    state.currentDeck = [existingCard];
+    state.deck.main = [existingCard];
+    state.deck.combined = [existingCard];
+
+    const { generateDeck } = loadDeckManager(state, makeDeckGenerationDocument({}));
+    generateDeck();
+
+    assert.deepStrictEqual(state.currentDeck, [existingCard],
+        'A missing game selection must preserve the last working deck');
+}
+
+// ============================
+// Test: empty card selection does not replace a working deck
+// ============================
+{
+    const state = makeBaseState();
+    const existingCard = { id: 99, card: 'Existing Deck Card', type: 'Dungeon' };
+    state.currentDeck = [existingCard];
+    state.deck.main = [existingCard];
+    state.deck.combined = [existingCard];
+    state.allCardTypes = ['Denizen'];
+    state.availableCards = [{ id: 1, card: 'Denizen A', type: 'Denizen' }];
+    state.deckDataByType = { Denizen: state.availableCards };
+
+    const { generateDeck } = loadDeckManager(
+        state,
+        makeDeckGenerationDocument({ Denizen: 0 })
+    );
+    generateDeck();
+
+    assert.deepStrictEqual(state.currentDeck, [existingCard],
+        'An empty card selection must preserve the last working deck');
+}
 
 // ============================
 // Test: invalid counts do not replace a working deck

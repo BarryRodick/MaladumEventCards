@@ -105,7 +105,7 @@ console.log('Testing live deck session...');
             return true;
         },
         liveDeckView: {
-            renderCurrentCard() { },
+            renderCurrentCard: () => calls.push(['card']),
             renderProgress: () => calls.push(['progress']),
             renderInPlayCards: () => calls.push(['in-play']),
             renderAll() { }
@@ -119,6 +119,7 @@ console.log('Testing live deck session...');
 
     assert.deepStrictEqual(calls, [
         ['transition', state, activeCard],
+        ['card'],
         ['in-play'],
         ['progress'],
         ['toast', 'Card "Wanderer" marked as in play.'],

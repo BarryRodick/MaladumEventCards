@@ -188,6 +188,7 @@ function loadUiManager(document, window = {}, stateOverrides = {}, overrides = {
             'setActionPanelOpen',
             'toggleActionPanel',
             'setDeckMode',
+            'updateDifficultyDetails',
             'updateCardSearchResults',
             'showCardPreview',
             'renderDeckSummary'
@@ -320,6 +321,73 @@ console.log('Testing combined UI manager contracts...');
     assert.strictEqual(elements.generateDeck.disabled, false,
         'Enabling a configured deck rule should update the build contract');
     assert(elements.generateDeck.innerHTML.includes('Generate Deck'));
+}
+
+{
+    const noviceInput = Object.assign(makeElement('input'), { id: 'type-novice', value: '99', max: '5' });
+    noviceInput.setCustomValidity = function setCustomValidity(message) {
+        this.validationMessage = message;
+    };
+    noviceInput.setAttribute('aria-invalid', 'true');
+    noviceInput.classList.add('is-invalid');
+    noviceInput.validationMessage = 'Requested 99; 5 available.';
+    const noviceError = Object.assign(makeElement('p'), {
+        hidden: false,
+        textContent: 'Requested 99; 5 available.'
+    });
+    const veteranInput = Object.assign(makeElement('input'), { id: 'type-veteran', value: '0', max: '5' });
+    veteranInput.setCustomValidity = function setCustomValidity(message) {
+        this.validationMessage = message;
+    };
+    const veteranError = makeElement('p');
+    const generate = makeElement('button');
+    generate.disabled = true;
+    const difficultyDetails = makeElement('small');
+    const document = makeDocument({
+        difficultyDetails,
+        'type-novice': noviceInput,
+        'type-novice-error': noviceError,
+        'type-veteran': veteranInput,
+        'type-veteran-error': veteranError,
+        generateDeck: generate
+    });
+    let summaryRenders = 0;
+    let lastGenerateConfig;
+    const loaded = loadUiManager(document, {}, {
+        allCardTypes: ['Novice', 'Veteran'],
+        selectedGames: ['Base Game'],
+        difficultySettings: [{
+            name: 'Very Easy',
+            description: 'Use one Novice card.',
+            novice: 1,
+            veteran: 0
+        }]
+    }, {
+        formatDeckSummary() {
+            summaryRenders++;
+            return makeSummary();
+        },
+        getGenerateDeckState(config) {
+            lastGenerateConfig = config;
+            const canGenerate = config.cardCounts.Novice === 1;
+            return { canGenerate, label: canGenerate ? 'Generate Deck' : 'Choose Card Counts' };
+        }
+    });
+
+    loaded.updateDifficultyDetails();
+
+    assert.strictEqual(noviceInput.value, 1);
+    assert.strictEqual(noviceInput.validationMessage, '');
+    assert.strictEqual(noviceInput.attributes['aria-invalid'], 'false');
+    assert.strictEqual(noviceInput.classList.contains('is-invalid'), false);
+    assert.strictEqual(noviceError.hidden, true);
+    assert.strictEqual(noviceError.textContent, '');
+    assert.strictEqual(lastGenerateConfig.cardCounts.Novice, 1);
+    assert.strictEqual(generate.disabled, false,
+        'A preset that repairs an invalid count should immediately re-enable Generate');
+    assert(generate.innerHTML.includes('Generate Deck'));
+    assert.strictEqual(summaryRenders, 1,
+        'Applying a preset should immediately refresh the deck summary');
 }
 
 {

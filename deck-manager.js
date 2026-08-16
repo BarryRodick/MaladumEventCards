@@ -7,7 +7,7 @@ import { buildDeck, DECK_RULE_ERRORS, validateDeckCount } from './deck-rules.js'
 import { rebuildSelectedCardsMap } from './live-deck.js';
 import { showToast, trackEvent } from './app-utils.js';
 import { saveConfiguration } from './config-manager.js';
-import { setActionPanelOpen, setDeckMode } from './ui-manager.js';
+import { renderCardCountValidation, setActionPanelOpen, setDeckMode } from './ui-manager.js';
 import { liveDeckView } from './live-deck-view.js';
 
 /**
@@ -29,11 +29,11 @@ export function generateDeck() {
         if (!input) return;
         const validation = validateDeckCount(input.value, Number(input.max));
         if (!validation.valid) {
-            showCardCountError(input, validation.message);
+            renderCardCountValidation(input, validation);
             invalidInputs.push(input);
             return;
         }
-        clearCardCountError(input);
+        renderCardCountValidation(input, validation);
         const count = validation.value;
 
         if (state.dataStore.sentryTypes.includes(type) && state.enableSentryRules) {
@@ -76,7 +76,7 @@ export function generateDeck() {
         const firstInvalidInput = deckResult.invalidCounts
             .map(({ type, message }) => {
                 const input = document.getElementById(cardTypeId(type));
-                if (input) showCardCountError(input, message);
+                if (input) renderCardCountValidation(input, { valid: false, message });
                 return input;
             })
             .find(Boolean);
@@ -117,26 +117,4 @@ export function generateDeck() {
     saveConfiguration();
 
     trackEvent('Deck', 'Generate', `Games: ${state.selectedGames.join(', ')}`, state.currentDeck.length);
-}
-
-function showCardCountError(input, message) {
-    input.setCustomValidity?.(message);
-    input.classList?.add('is-invalid');
-    input.setAttribute?.('aria-invalid', 'true');
-    const feedback = document.getElementById(`${input.id}-error`);
-    if (feedback) {
-        feedback.textContent = message;
-        feedback.hidden = false;
-    }
-}
-
-function clearCardCountError(input) {
-    input.setCustomValidity?.('');
-    input.classList?.remove('is-invalid');
-    input.setAttribute?.('aria-invalid', 'false');
-    const feedback = document.getElementById(`${input.id}-error`);
-    if (feedback) {
-        feedback.textContent = '';
-        feedback.hidden = true;
-    }
 }

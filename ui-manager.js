@@ -40,20 +40,14 @@ function getRenderOptions(extraOptions = {}) {
     };
 }
 
-function getConfiguredCardCounts() {
-    return state.allCardTypes.reduce((counts, type) => {
+function getConfiguredCardCountState() {
+    return state.allCardTypes.reduce((countState, type) => {
         const input = document.getElementById(cardTypeId(type));
         const validation = validateDeckCount(input?.value, Number(input?.max));
-        counts[type] = validation.valid ? validation.value : 0;
-        return counts;
-    }, {});
-}
-
-function hasInvalidConfiguredCardCounts() {
-    return state.allCardTypes.some(type => {
-        const input = document.getElementById(cardTypeId(type));
-        return !validateDeckCount(input?.value, Number(input?.max)).valid;
-    });
+        countState.counts[type] = validation.valid ? validation.value : 0;
+        countState.hasInvalid = countState.hasInvalid || !validation.valid;
+        return countState;
+    }, { counts: {}, hasInvalid: false });
 }
 
 /**
@@ -182,7 +176,7 @@ export function generateCardTypeInputs() {
 
     cardTypeInputs.appendChild(fragment);
     setupInputListeners();
-    document.querySelectorAll('.input-count').forEach(updateCardCountError);
+    document.querySelectorAll('.input-count').forEach(renderCardCountValidation);
 }
 
 function setupInputListeners() {
@@ -193,7 +187,7 @@ function setupInputListeners() {
             const currentCount = validateDeckCount(input.value, Number(input.max));
             if (currentCount.valid && currentCount.value < Number(input.max)) {
                 input.value = currentCount.value + 1;
-                updateCardCountError(input);
+                renderCardCountValidation(input);
                 debouncedSaveConfiguration();
                 renderDeckSummary();
             }
@@ -207,7 +201,7 @@ function setupInputListeners() {
             const currentCount = validateDeckCount(input.value, Number(input.max));
             if (currentCount.valid && currentCount.value > 0) {
                 input.value = currentCount.value - 1;
-                updateCardCountError(input);
+                renderCardCountValidation(input);
                 debouncedSaveConfiguration();
                 renderDeckSummary();
             }
@@ -216,15 +210,17 @@ function setupInputListeners() {
 
     document.querySelectorAll('.input-count').forEach(input => {
         input.addEventListener('input', () => {
-            const isValid = updateCardCountError(input);
+            const isValid = renderCardCountValidation(input);
             if (isValid) debouncedSaveConfiguration();
             renderDeckSummary();
         });
     });
 }
 
-function updateCardCountError(input) {
-    const validation = validateDeckCount(input?.value, Number(input?.max));
+export function renderCardCountValidation(
+    input,
+    validation = validateDeckCount(input?.value, Number(input?.max))
+) {
     const feedback = document.getElementById(`${input.id}-error`);
     input?.setCustomValidity?.(validation.valid ? '' : validation.message);
     input?.classList?.toggle('is-invalid', !validation.valid);
@@ -266,7 +262,6 @@ export function populateDifficultySelection() {
         state.selectedDifficultyIndex = e.target.selectedIndex;
         updateDifficultyDetails();
         debouncedSaveConfiguration();
-        renderDeckSummary();
     });
 }
 
@@ -283,8 +278,15 @@ export function updateDifficultyDetails() {
     const noviceInput = document.getElementById(cardTypeId('Novice'));
     const veteranInput = document.getElementById(cardTypeId('Veteran'));
 
-    if (noviceInput) noviceInput.value = selectedDifficulty.novice || 0;
-    if (veteranInput) veteranInput.value = selectedDifficulty.veteran || 0;
+    if (noviceInput) {
+        noviceInput.value = selectedDifficulty.novice || 0;
+        renderCardCountValidation(noviceInput);
+    }
+    if (veteranInput) {
+        veteranInput.value = selectedDifficulty.veteran || 0;
+        renderCardCountValidation(veteranInput);
+    }
+    renderDeckSummary();
 }
 
 export function updateCardSearchResults(rawQuery) {
@@ -798,9 +800,10 @@ function updateGenerateButtonState() {
     const generateButton = document.getElementById('generateDeck');
     if (!generateButton) return;
 
+    const configuredCounts = getConfiguredCardCountState();
     const generateState = getGenerateDeckState({
         selectedGames: state.selectedGames,
-        cardCounts: getConfiguredCardCounts(),
+        cardCounts: configuredCounts.counts,
         sentryTypes: state.dataStore.sentryTypes,
         corrupterTypes: state.dataStore.corrupterTypes,
         enableSentryRules: state.enableSentryRules,
@@ -813,8 +816,7 @@ function updateGenerateButtonState() {
             ? 'fas fa-dungeon'
             : 'fas fa-sliders';
 
-    const hasInvalidCounts = hasInvalidConfiguredCardCounts();
-    generateButton.disabled = !generateState.canGenerate || hasInvalidCounts;
+    generateButton.disabled = !generateState.canGenerate || configuredCounts.hasInvalid;
     generateButton.setAttribute('aria-disabled', String(generateButton.disabled));
     generateButton.innerHTML = `<i class="${iconClass} me-2"></i> ${generateState.label}`;
 }

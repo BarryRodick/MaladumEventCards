@@ -159,6 +159,36 @@ console.log('Testing deck rules...');
 
 {
     const { buildDeck, DECK_RULE_ERRORS } = loadDeckRules();
+    const cards = [
+        { id: 1, card: 'Denizen A', type: 'Denizen' },
+        { id: 98, card: 'Corrupter A', type: 'Corrupter' },
+        { id: 99, card: 'Corrupter B', type: 'Corrupter' }
+    ];
+
+    ['', '1.5', '1e2', '-1', '3'].forEach(value => {
+        const result = buildDeck({
+            allCardTypes: ['Denizen', 'Corrupter'],
+            availableCards: cards,
+            dataStore: {
+                sentryTypes: [],
+                corrupterTypes: ['Corrupter'],
+                heldBackCardTypes: []
+            },
+            cardCounts: { Denizen: 1 },
+            specialCardCounts: { Corrupter: value },
+            enableCorrupterRules: true,
+            corrupterReplacementCount: 5,
+            deckDataByType: { Corrupter: cards.slice(1) }
+        });
+
+        assert.strictEqual(result.error, DECK_RULE_ERRORS.invalidCounts,
+            `Invalid Corrupter count ${JSON.stringify(value)} must be rejected by deck rules`);
+        assert(result.invalidCounts.some(({ type }) => type === 'Corrupter'));
+    });
+}
+
+{
+    const { buildDeck, DECK_RULE_ERRORS } = loadDeckRules();
     const result = buildDeck({
         allCardTypes: ['Denizen', 'Dungeon'],
         availableCards: [
@@ -198,6 +228,87 @@ console.log('Testing deck rules...');
 }
 
 {
+    const { buildDeck } = loadDeckRules();
+    const result = buildDeck({
+        allCardTypes: ['Environment', 'Revenant', 'Veteran'],
+        availableCards: [
+            { id: 1, card: 'Fresh Graves', type: 'Revenant + Veteran' },
+            { id: 2, card: 'Environment A', type: 'Environment' }
+        ],
+        dataStore: {
+            sentryTypes: ['Revenant'],
+            corrupterTypes: [],
+            heldBackCardTypes: ['Veteran']
+        },
+        cardCounts: { Environment: 1, Veteran: 1 },
+        sentryCardCounts: { Revenant: 1 },
+        enableSentryRules: true
+    });
+
+    assert.strictEqual(result.error, undefined,
+        'A Sentry/regular compound card should jointly fulfil both requested counts');
+    assert.deepStrictEqual(result.mainDeck.map(card => card.id), [2]);
+    assert.deepStrictEqual(result.sentryDeck.map(card => card.id), [1],
+        'A compound allocation that fulfils a Sentry count should remain set aside as Sentry');
+    assert.deepStrictEqual(result.selectedCardIds.sort((left, right) => left - right), [1, 2]);
+}
+
+{
+    const { buildDeck } = loadDeckRules();
+    const compoundCard = { id: 1, card: 'Either Type', type: 'A / B' };
+    const dedicatedCard = { id: 2, card: 'A Only', type: 'A' };
+    const adverseOrders = [
+        {
+            cards: [compoundCard, dedicatedCard],
+            shuffle: cards => cards
+        },
+        {
+            cards: [dedicatedCard, compoundCard],
+            shuffle: cards => [...cards].reverse()
+        }
+    ];
+
+    adverseOrders.forEach(({ cards, shuffle }, index) => {
+        const result = buildDeck({
+            allCardTypes: ['A', 'B'],
+            availableCards: cards,
+            dataStore: { sentryTypes: [], corrupterTypes: [], heldBackCardTypes: [] },
+            cardCounts: { A: 1, B: 1 },
+            shuffle
+        });
+
+        assert.strictEqual(result.error, undefined,
+            `A fulfillable alternative-type request must survive adverse shuffle order ${index + 1}`);
+        assert.deepStrictEqual(
+            result.combinedDeck.map(card => card.id).sort((left, right) => left - right),
+            [1, 2],
+            'The A-only card must satisfy A so the A/B card remains available for B'
+        );
+    });
+
+    const multipleSolutions = [
+        compoundCard,
+        dedicatedCard,
+        { id: 3, card: 'B Only', type: 'B' },
+        { id: 4, card: 'Second A', type: 'A' },
+        { id: 5, card: 'Second B', type: 'B' }
+    ];
+    const selectedSets = [
+        { cards: multipleSolutions, shuffle: cards => cards },
+        { cards: [...multipleSolutions].reverse(), shuffle: cards => [...cards].reverse() }
+    ].map(({ cards, shuffle }) => buildDeck({
+        allCardTypes: ['A', 'B'],
+        availableCards: cards,
+        dataStore: { sentryTypes: [], corrupterTypes: [], heldBackCardTypes: [] },
+        cardCounts: { A: 1, B: 1 },
+        shuffle
+    }).combinedDeck.map(card => card.id).sort((left, right) => left - right));
+
+    assert.deepStrictEqual(selectedSets, [[2, 3], [2, 3]],
+        'Allocation should choose the same valid cards before final deck shuffling');
+}
+
+{
     const { buildDeck, DECK_RULE_ERRORS } = loadDeckRules();
     const result = buildDeck({
         allCardTypes: ['Corrupter'],
@@ -211,7 +322,7 @@ console.log('Testing deck rules...');
             heldBackCardTypes: []
         },
         enableCorrupterRules: true,
-        specialCardCounts: { Corrupter: 5 },
+        specialCardCounts: { Corrupter: 1 },
         corrupterReplacementCount: 5
     });
 

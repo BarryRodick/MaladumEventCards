@@ -48,6 +48,7 @@ export function buildDeck({
     dataStore = {},
     cardCounts = {},
     sentryCardCounts = {},
+    specialCardCounts = {},
     enableSentryRules = false,
     enableCorrupterRules = false,
     corrupterReplacementCount = 5,
@@ -58,7 +59,8 @@ export function buildDeck({
         allCardTypes,
         availableCards,
         cardCounts,
-        sentryCardCounts
+        sentryCardCounts,
+        specialCardCounts
     });
     if (invalidCounts.length > 0) {
         return { error: DECK_RULE_ERRORS.invalidCounts, invalidCounts };
@@ -67,49 +69,57 @@ export function buildDeck({
     const sentryTypes = dataStore.sentryTypes || [];
     const corrupterTypes = dataStore.corrupterTypes || [];
     const heldBackCardTypes = dataStore.heldBackCardTypes || [];
-    const selectedCardsMap = new Map();
     const requestedRegularCounts = normalizeDeckCounts(cardCounts);
     const requestedSentryCounts = normalizeDeckCounts(sentryCardCounts);
     const regularCounts = { ...requestedRegularCounts };
     const sentryCounts = { ...requestedSentryCounts };
     const allAvailableCards = [...availableCards];
 
-    const setAsideCards = [];
-    const regularCardPool = allAvailableCards.filter(card => {
-        if (isHeldBackCard(card, heldBackCardTypes)) {
-            setAsideCards.push(card);
-            return false;
-        }
-        return true;
-    });
+    const setAsideCards = allAvailableCards.filter(card =>
+        isHeldBackCard(card, heldBackCardTypes)
+    );
 
     let mainDeck = [];
     // Retain the state shape; Corrupters replace main-deck cards instead of forming a separate deck.
     const specialDeck = [];
     let sentryDeck = [];
-    let hasRegularCardSelection = false;
-
-    allCardTypes.forEach(type => {
-        if (sentryTypes.includes(type) && enableSentryRules) return;
-        if (corrupterTypes.includes(type) && enableCorrupterRules) return;
-
-        const count = regularCounts[type];
-        if (count > 0) {
-            hasRegularCardSelection = true;
-            const cardPool = heldBackCardTypes.includes(type) ? setAsideCards : regularCardPool;
-            const selected = selectCardsByType(type, count, selectedCardsMap, regularCounts, cardPool, shuffle);
-            mainDeck = mainDeck.concat(selected);
+    const regularTypes = allCardTypes.filter(type =>
+        !(sentryTypes.includes(type) && enableSentryRules)
+        && !(corrupterTypes.includes(type) && enableCorrupterRules)
+    );
+    const activeSentryTypes = enableSentryRules
+        ? allCardTypes.filter(type => sentryTypes.includes(type))
+        : [];
+    const hasRegularCardSelection = regularTypes.some(type => regularCounts[type] > 0);
+    const allocationCounts = { ...regularCounts };
+    if (enableSentryRules) {
+        Object.entries(sentryCounts).forEach(([type, count]) => {
+            allocationCounts[type] = (allocationCounts[type] || 0) + count;
+        });
+    }
+    const deckAllocation = allocateCardsForCounts({
+        counts: allocationCounts,
+        allowedTypes: [...new Set([...regularTypes, ...activeSentryTypes])],
+        cardPool: allAvailableCards,
+        canUseCard(card, contribution) {
+            const fulfilsSentryCount = activeSentryTypes.some(type => contribution[type] > 0);
+            if (fulfilsSentryCount) return true;
+            if (!isHeldBackCard(card, heldBackCardTypes)) return true;
+            return Object.keys(contribution).some(type =>
+                contribution[type] > 0 && heldBackCardTypes.includes(type)
+            );
         }
     });
-
+    deckAllocation.selections.forEach(({ card, contribution }) => {
+        if (activeSentryTypes.some(type => contribution[type] > 0)) sentryDeck.push(card);
+        else mainDeck.push(card);
+    });
+    Object.keys(regularCounts).forEach(type => {
+        regularCounts[type] = deckAllocation.remainingCounts[type] ?? regularCounts[type];
+    });
     if (enableSentryRules) {
-        allCardTypes.forEach(type => {
-            if (!sentryTypes.includes(type)) return;
-            const count = sentryCounts[type];
-            if (count > 0) {
-                const selected = selectCardsByType(type, count, selectedCardsMap, sentryCounts, allAvailableCards, shuffle);
-                sentryDeck = sentryDeck.concat(selected);
-            }
+        Object.keys(sentryCounts).forEach(type => {
+            sentryCounts[type] = deckAllocation.remainingCounts[type] ?? sentryCounts[type];
         });
     }
 
@@ -152,12 +162,13 @@ function validateDeckCounts({
     allCardTypes,
     availableCards,
     cardCounts,
-    sentryCardCounts
+    sentryCardCounts,
+    specialCardCounts
 }) {
     const maxCounts = getMaximumCardCounts(allCardTypes, availableCards);
     const invalidCounts = [];
 
-    [cardCounts, sentryCardCounts].forEach(counts => {
+    [cardCounts, sentryCardCounts, specialCardCounts].forEach(counts => {
         Object.entries(counts || {}).forEach(([type, value]) => {
             const result = validateDeckCount(value, maxCounts[type] ?? 0);
             if (!result.valid) {
@@ -212,46 +223,231 @@ function isHeldBackCard(card, heldBackCardTypes) {
     return typeInfo.allTypes.some(type => heldBackCardTypes.includes(type));
 }
 
-function selectCardsByType(cardType, count, selectedCardsMap, cardCounts, cardPool, shuffle) {
-    const selectedCards = [];
-    const cardsOfType = cardPool.filter(card => {
-        const typeInfo = parseCardTypes(card.type);
-        return typeInfo.allTypes.includes(cardType);
-    });
-
-    const shuffledCards = shuffle([...cardsOfType]);
-
-    for (const card of shuffledCards) {
-        if (selectedCards.length >= count) break;
-        if (selectedCardsMap.has(card.id)) continue;
-
-        const typeInfo = parseCardTypes(card.type);
-        let canSelect = true;
-
-        typeInfo.andGroups.forEach(orOptions => {
-            const hasValidOption = orOptions.some(type => {
-                if (type === cardType) return true;
-                return cardCounts[type] && cardCounts[type] > 0;
-            });
-            if (!hasValidOption) canSelect = false;
+function allocateCardsForCounts({
+    counts,
+    allowedTypes,
+    cardPool,
+    canUseCard = () => true
+}) {
+    const typeOrder = allowedTypes.filter(type => counts[type] > 0);
+    const requestedTypes = new Set(typeOrder);
+    const remainingCounts = { ...counts };
+    const orderedCards = [...cardPool].sort(compareCardAllocationOrder);
+    const candidateKeys = new Set();
+    const candidates = orderedCards
+        .map((card, index) => ({
+            card,
+            index,
+            key: card.id ?? card,
+            contributions: getCardContributions(card, requestedTypes)
+        }))
+        .filter(candidate => {
+            if (candidateKeys.has(candidate.key)) return false;
+            candidateKeys.add(candidate.key);
+            return candidate.contributions.length > 0;
         });
+    const usedCandidateIndexes = new Set();
+    const deadEnds = new Set();
+    const requestedTotal = getCountTotal(remainingCounts, typeOrder);
+    let bestAllocation = {
+        selections: [],
+        remainingCounts: { ...remainingCounts },
+        fulfilled: 0
+    };
 
-        if (canSelect) {
-            selectedCards.push(card);
-            selectedCardsMap.set(card.id, true);
-
-            typeInfo.andGroups.forEach(orOptions => {
-                for (const type of orOptions) {
-                    if (cardCounts[type] && cardCounts[type] > 0) {
-                        cardCounts[type]--;
-                        break;
-                    }
-                }
-            });
+    function search(selectedSelections) {
+        const remainingTotal = getCountTotal(remainingCounts, typeOrder);
+        const fulfilled = requestedTotal - remainingTotal;
+        if (fulfilled > bestAllocation.fulfilled) {
+            bestAllocation = {
+                selections: [...selectedSelections],
+                remainingCounts: { ...remainingCounts },
+                fulfilled
+            };
         }
+        if (remainingTotal === 0) return [...selectedSelections];
+
+        const stateKey = `${typeOrder.map(type => remainingCounts[type]).join(',')}|${[
+            ...usedCandidateIndexes
+        ].sort((left, right) => left - right).join(',')}`;
+        if (deadEnds.has(stateKey)) return null;
+        if (!hasSufficientCapacity(remainingTotal)) {
+            recordBestEffort(selectedSelections);
+            deadEnds.add(stateKey);
+            return null;
+        }
+
+        const target = findMostConstrainedType();
+        if (!target || target.options.length === 0) {
+            deadEnds.add(stateKey);
+            return null;
+        }
+
+        for (const option of target.options) {
+            const { candidate, contribution } = option;
+            usedCandidateIndexes.add(candidate.index);
+            applyContribution(remainingCounts, contribution, -1);
+            selectedSelections.push({ card: candidate.card, contribution });
+
+            const result = search(selectedSelections);
+            if (result) return result;
+
+            selectedSelections.pop();
+            applyContribution(remainingCounts, contribution, 1);
+            usedCandidateIndexes.delete(candidate.index);
+        }
+
+        deadEnds.add(stateKey);
+        return null;
     }
 
-    return selectedCards;
+    function findMostConstrainedType() {
+        let target = null;
+
+        typeOrder.forEach(type => {
+            if (remainingCounts[type] <= 0) return;
+            const options = getFeasibleOptions(type);
+            if (!target || options.length < target.options.length) {
+                target = { type, options };
+            }
+        });
+
+        return target;
+    }
+
+    function getFeasibleOptions(targetType) {
+        const options = [];
+
+        candidates.forEach(candidate => {
+            getFeasibleContributions(candidate).forEach(contribution => {
+                if (!contribution[targetType]) return;
+                options.push({ candidate, contribution });
+            });
+        });
+
+        return options.sort((left, right) =>
+            left.candidate.contributions.length - right.candidate.contributions.length
+            || left.candidate.index - right.candidate.index
+        );
+    }
+
+    function hasSufficientCapacity(remainingTotal) {
+        const typeCapacity = Object.fromEntries(typeOrder.map(type => [type, 0]));
+        let totalCapacity = 0;
+
+        candidates.forEach(candidate => {
+            const feasibleContributions = getFeasibleContributions(candidate);
+            if (feasibleContributions.length === 0) return;
+
+            totalCapacity += Math.max(...feasibleContributions.map(contribution =>
+                Object.values(contribution).reduce((total, count) => total + count, 0)
+            ));
+            typeOrder.forEach(type => {
+                typeCapacity[type] += Math.max(...feasibleContributions.map(contribution =>
+                    contribution[type] || 0
+                ));
+            });
+        });
+
+        return totalCapacity >= remainingTotal
+            && typeOrder.every(type => typeCapacity[type] >= remainingCounts[type]);
+    }
+
+    function getFeasibleContributions(candidate) {
+        if (usedCandidateIndexes.has(candidate.index)) return [];
+        return candidate.contributions.filter(contribution =>
+            contributionFits(remainingCounts, contribution)
+            && canUseCard(candidate.card, contribution)
+        );
+    }
+
+    function recordBestEffort(selectedSelections) {
+        const addedOptions = [];
+        const bestEffortSelections = [...selectedSelections];
+
+        while (getCountTotal(remainingCounts, typeOrder) > 0) {
+            const target = findMostConstrainedType();
+            if (!target || target.options.length === 0) break;
+            const option = target.options[0];
+            usedCandidateIndexes.add(option.candidate.index);
+            applyContribution(remainingCounts, option.contribution, -1);
+            bestEffortSelections.push({
+                card: option.candidate.card,
+                contribution: option.contribution
+            });
+            addedOptions.push(option);
+        }
+
+        const fulfilled = requestedTotal - getCountTotal(remainingCounts, typeOrder);
+        if (fulfilled > bestAllocation.fulfilled) {
+            bestAllocation = {
+                selections: bestEffortSelections,
+                remainingCounts: { ...remainingCounts },
+                fulfilled
+            };
+        }
+
+        addedOptions.reverse().forEach(option => {
+            applyContribution(remainingCounts, option.contribution, 1);
+            usedCandidateIndexes.delete(option.candidate.index);
+        });
+    }
+
+    const exactSelections = search([]);
+    const allocation = exactSelections
+        ? { selections: exactSelections, remainingCounts: { ...remainingCounts } }
+        : bestAllocation;
+
+    return allocation;
+}
+
+function compareCardAllocationOrder(left, right) {
+    const fields = ['id', 'card', 'type', 'contents'];
+    for (const field of fields) {
+        const comparison = String(left?.[field] ?? '').localeCompare(
+            String(right?.[field] ?? ''),
+            undefined,
+            { numeric: true, sensitivity: 'base' }
+        );
+        if (comparison !== 0) return comparison;
+    }
+    return 0;
+}
+
+function getCardContributions(card, requestedTypes) {
+    const typeInfo = parseCardTypes(card.type);
+    let contributions = [{}];
+
+    for (const andGroup of typeInfo.andGroups) {
+        const groupOptions = [...new Set(andGroup.filter(type => requestedTypes.has(type)))];
+        if (groupOptions.length === 0) return [];
+
+        contributions = contributions.flatMap(contribution =>
+            groupOptions.map(type => ({
+                ...contribution,
+                [type]: (contribution[type] || 0) + 1
+            }))
+        );
+    }
+
+    return [...new Map(contributions.map(contribution => [
+        JSON.stringify(Object.entries(contribution).sort(([left], [right]) => left.localeCompare(right))),
+        contribution
+    ])).values()];
+}
+
+function getCountTotal(counts, types) {
+    return types.reduce((total, type) => total + Math.max(0, counts[type] || 0), 0);
+}
+
+function contributionFits(remainingCounts, contribution) {
+    return Object.entries(contribution).every(([type, count]) => remainingCounts[type] >= count);
+}
+
+function applyContribution(remainingCounts, contribution, direction) {
+    Object.entries(contribution).forEach(([type, count]) => {
+        remainingCounts[type] += count * direction;
+    });
 }
 
 function getSpecialCards(count, specialTypes, deckDataByType, shuffle) {

@@ -74,6 +74,21 @@ test('deck validation and core controls work by keyboard and pass focused axe ch
         await countInputs.nth(index).fill('0');
     }
 
+    const noviceCount = page.locator('#type-novice');
+    const noviceError = page.locator('#type-novice-error');
+    const noviceMaximum = Number(await noviceCount.getAttribute('max'));
+    await noviceCount.fill(String(noviceMaximum + 1));
+    await expect(noviceCount).toHaveAttribute('aria-invalid', 'true');
+    await expect(generate).toBeDisabled();
+
+    await page.locator('#difficultyLevel').selectOption('1');
+    await expect(noviceCount).toHaveValue('5');
+    await expect(noviceCount).toHaveAttribute('aria-invalid', 'false');
+    await expect(noviceError).toBeHidden();
+    await expect(generate).toBeEnabled();
+    await expect(generate).toContainText('Generate Deck');
+    await noviceCount.fill('0');
+
     const environmentCount = page.locator('#type-environment');
     const environmentError = page.locator('#type-environment-error');
     const maximum = Number(await environmentCount.getAttribute('max'));
@@ -137,10 +152,19 @@ test('deck validation and core controls work by keyboard and pass focused axe ch
     await expect(markInPlay).toBeEnabled();
     await expect(navigationGate).toContainText('second card');
 
+    await markInPlay.click();
+    await expect(markInPlay).toBeDisabled();
+    await expect(navigationGate).toContainText('already in play');
+
     await drawNext.click();
     await expect(previous).toBeEnabled();
     await expect(markInPlay).toBeEnabled();
     await expect(navigationGate).toBeHidden();
+
+    await previous.click();
+    await expect(previous).toBeDisabled();
+    await expect(markInPlay).toBeDisabled();
+    await expect(navigationGate).toContainText('already in play');
 
     await page.getByRole('button', { name: 'Search', exact: true }).click();
     const search = page.getByRole('searchbox', { name: 'Search cards' });

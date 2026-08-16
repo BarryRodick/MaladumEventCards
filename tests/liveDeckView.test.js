@@ -180,7 +180,8 @@ console.log('Testing live deck browser view...');
             { id: 2, card: 'Second', type: 'Denizen', renderMode: 'rich' }
         ],
         currentIndex: -1,
-        isActiveCardCleared: false
+        isActiveCardCleared: false,
+        inPlayCards: []
     };
     const output = createNode('div');
     const previousButton = createNode('button');
@@ -206,11 +207,23 @@ console.log('Testing live deck browser view...');
     assert.strictEqual(markInPlayButton.disabled, false);
     assert(navigationGate.textContent.includes('second card'));
 
+    state.inPlayCards = [state.currentDeck[0]];
+    view.renderCurrentCard();
+    assert.strictEqual(markInPlayButton.disabled, true,
+        'Mark In Play should be unavailable when the active card is already in play');
+    assert(navigationGate.textContent.includes('already in play'));
+
     state.currentIndex = 1;
     view.renderCurrentCard();
     assert.strictEqual(previousButton.disabled, false);
     assert.strictEqual(markInPlayButton.disabled, false);
     assert.strictEqual(navigationGate.hidden, true);
+
+    state.currentIndex = 0;
+    view.renderCurrentCard();
+    assert.strictEqual(markInPlayButton.disabled, true,
+        'Returning to a card already in play should keep Mark In Play unavailable');
+    assert(navigationGate.textContent.includes('already in play'));
 }
 
 {
