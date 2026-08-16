@@ -366,12 +366,11 @@ self.addEventListener('fetch', event => {
         return;
     }
 
-    const fetchAndCache = () => fetch(event.request).then(networkResponse => {
+    const fetchAndCache = () => fetch(event.request).then(async networkResponse => {
         if (networkResponse && networkResponse.status === 200) {
             const responseToCache = networkResponse.clone();
-            caches.open(CACHE_NAME).then(cache => {
-                cache.put(event.request, responseToCache);
-            });
+            const cache = await caches.open(CACHE_NAME);
+            await cache.put(event.request, responseToCache);
         }
         return networkResponse;
     });

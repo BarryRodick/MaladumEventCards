@@ -7,6 +7,7 @@ import {
 import { mergeCardCatalogs, normalizeCachedCardCatalog } from './card-data.mjs';
 
 const REQUIRED_GAME_NAMES = Object.keys(REQUIRED_RICH_GAME_SOURCES);
+const REQUIRED_RULE_COLLECTIONS = ['sentryTypes', 'corrupterTypes', 'heldBackCardTypes'];
 
 function isRecord(value) {
     return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
@@ -131,11 +132,10 @@ function usableRichCatalog(richCatalog, sources) {
 }
 
 function isValidCatalog(catalog) {
-    const requiredRuleCollections = ['sentryTypes', 'corrupterTypes', 'heldBackCardTypes'];
     if (
         !isRecord(catalog)
         || !isRecord(catalog.games)
-        || !requiredRuleCollections.every(name => (
+        || !REQUIRED_RULE_COLLECTIONS.every(name => (
             Array.isArray(catalog[name])
             && catalog[name].length > 0
             && catalog[name].every(value => typeof value === 'string' && value.trim().length > 0)
@@ -165,16 +165,20 @@ function measureSnapshotQuality(snapshot) {
         richCardCount: cards.filter(card => card.renderMode === 'rich').length,
         iconCount: Object.keys(snapshot.catalog.icons || {}).length,
         manifestGameCount: Object.keys(snapshot.catalog.cardManifest?.games || {}).length,
-        ruleTypeCount: ['sentryTypes', 'corrupterTypes', 'heldBackCardTypes']
+        ruleTypeCount: REQUIRED_RULE_COLLECTIONS
             .reduce((count, name) => count + snapshot.catalog[name].length, 0),
         difficultyCount: snapshot.difficulties.length
     };
 }
 
-function isAtLeastAsRich(candidateSnapshot, cachedSnapshot) {
+function compareSnapshotQuality(candidateSnapshot, cachedSnapshot) {
     const candidateQuality = measureSnapshotQuality(candidateSnapshot);
     const cachedQuality = measureSnapshotQuality(cachedSnapshot);
-    return Object.keys(candidateQuality).every(name => candidateQuality[name] >= cachedQuality[name]);
+    const qualityNames = Object.keys(candidateQuality);
+    return {
+        atLeastAsRich: qualityNames.every(name => candidateQuality[name] >= cachedQuality[name]),
+        strictlyRicher: qualityNames.some(name => candidateQuality[name] > cachedQuality[name])
+    };
 }
 
 function normalizeValidCachedSnapshot(snapshot) {
@@ -281,11 +285,25 @@ export const acquireCardCatalog = async function acquireCardCatalog(options) {
         const cacheEligible = allSourcesFetched && sourcePayloadsValid;
         const cachedSnapshot = loadValidCachedSnapshot();
         if (cachedSnapshot) {
-            const candidateIsAtLeastAsRich = isAtLeastAsRich(
+            const qualityComparison = compareSnapshotQuality(
                 { catalog, difficulties },
                 cachedSnapshot
             );
-            if (!cacheEligible || !candidateIsAtLeastAsRich) {
+            if (!cacheEligible && qualityComparison.atLeastAsRich && qualityComparison.strictlyRicher) {
+                return readyResult(
+                    'partial',
+                    catalog,
+                    difficulties,
+                    [
+                        ...candidateDiagnostics,
+                        {
+                            level: 'warn',
+                            message: 'Using a richer session-only Card Catalog; the last-known-good saved snapshot remains unchanged.'
+                        }
+                    ]
+                );
+            }
+            if (!cacheEligible || !qualityComparison.atLeastAsRich) {
                 return readyResult(
                     'offline',
                     cachedSnapshot.catalog,

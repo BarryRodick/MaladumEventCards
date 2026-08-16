@@ -267,6 +267,40 @@ console.log('Testing Card Catalog acquisition...');
 }
 
 {
+    const cachedCatalog = catalogWithCards([{ id: 1, card: 'Cached Alarm', renderMode: 'image' }]);
+    const richerPartialCatalog = catalogWithCards([{ id: 1, card: 'Session Alarm', renderMode: 'rich' }]);
+    const cachedWrites = [];
+    const acquireCardCatalog = loadAcquisition({
+        loadFreshCardCatalog: async () => ({
+            legacyCatalog: { games: {} },
+            difficultiesPayload: { difficulties: [{ name: 'Novice', novice: 1, veteran: 0 }] },
+            richCatalog: null,
+            allSourcesFetched: false,
+            diagnostics: []
+        }),
+        loadCardCatalogSnapshot: () => ({
+            catalog: cachedCatalog,
+            difficulties: { difficulties: [{ name: 'Novice', novice: 1, veteran: 0 }] },
+            migrated: false
+        }),
+        mergeCardCatalogs: () => richerPartialCatalog,
+        normalizeCachedCardCatalog: value => value,
+        saveCardCatalogSnapshot: (...args) => {
+            cachedWrites.push(args);
+            return true;
+        }
+    });
+
+    const result = await acquireCardCatalog();
+
+    assert.strictEqual(result.status, 'partial');
+    assert.strictEqual(result.catalog, richerPartialCatalog,
+        'A strictly richer valid partial Card Catalog should improve only the current session');
+    assert.deepStrictEqual(cachedWrites, [],
+        'A partial Card Catalog must leave the last-known-good snapshot intact');
+}
+
+{
     const richOnlyCatalog = catalogWithCards([{ id: 1, card: 'Rich Alarm', renderMode: 'rich' }]);
     const acquireCardCatalog = loadAcquisition({
         loadFreshCardCatalog: async () => ({

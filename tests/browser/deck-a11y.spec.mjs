@@ -186,6 +186,16 @@ test('Retry bypasses a malformed service-worker response and saves the recovered
             return raw ? JSON.parse(raw) : null;
         });
         expect(Object.values(recoveredSnapshot.catalog.games).flat()).toHaveLength(142);
+        const recoveredServiceWorkerCards = await page.evaluate(async () => {
+            const cacheName = (await caches.keys())
+                .find(name => name.startsWith('maladum-event-cards-'));
+            const cache = await caches.open(cacheName);
+            const sourceUrl = new URL('data/cards/base-game.json', window.location.href);
+            const response = await cache.match(sourceUrl);
+            const payload = await response.json();
+            return payload.cards.length;
+        });
+        expect(recoveredServiceWorkerCards).toBeGreaterThan(0);
     } finally {
         await page.evaluate(async () => {
             const registrations = await navigator.serviceWorker.getRegistrations();
