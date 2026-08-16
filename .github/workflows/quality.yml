@@ -1,0 +1,41 @@
+name: Quality
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  deck-quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Validate card catalog
+        run: npm run validate:cards
+
+      - name: Verify generated runtime files
+        run: |
+          npm run build
+          git diff --exit-code
+
+      - name: Run focused deck browser and axe checks
+        run: npm run test:browser:deck

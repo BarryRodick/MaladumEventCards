@@ -10,6 +10,8 @@
     "test:deck": "node tests/deckGeneration.test.js",
     "test:actions": "node tests/liveDeckSession.test.js",
     "test:storage": "node tests/storageUtils.test.js",
+    "test:browser": "playwright test",
+    "test:browser:deck": "playwright test deck-a11y.spec.mjs --project=chromium",
     "validate:cards": "node scripts/validate-card-data.mjs",
     "extract:cards": "node scripts/extract-cards.mjs --ocr",
     "extract:cards:openrouter": "node scripts/enrich-cards-openrouter.mjs",
@@ -17,6 +19,8 @@
     "build": "node scripts/update-version.js"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.62.1",
     "sharp": "^0.35.3",
     "tesseract.js": "^6.0.1"
   }
