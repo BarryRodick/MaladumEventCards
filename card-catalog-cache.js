@@ -28,6 +28,10 @@ export function loadCardCatalogSnapshot() {
         };
     }
 
+    return loadLegacyCardCatalogSnapshot();
+}
+
+export function loadLegacyCardCatalogSnapshot() {
     const catalog = loadState(LEGACY_CACHE_KEYS.catalog);
     const difficulties = loadState(LEGACY_CACHE_KEYS.difficulties);
     if (!isRecord(catalog) || !isRecord(difficulties)) {

@@ -59,6 +59,12 @@ function isCatalogRequest(requestUrl) {
         || pathname.includes('/data/cards/');
 }
 
+function failBaseGameRequest(route) {
+    return new URL(route.request().url()).pathname.endsWith('/data/cards/base-game.json')
+        ? route.abort()
+        : route.continue();
+}
+
 test('clean offline startup stays blocked until Retry performs a successful reacquisition', async ({ page }) => {
     await page.addInitScript(() => localStorage.clear());
     let legacyAttempts = 0;
@@ -121,12 +127,7 @@ test('one failed rich game cannot downgrade the richer atomic snapshot', async (
     await expect(page.locator('#deckExperience')).toBeVisible();
 
     const snapshotBefore = await page.evaluate(() => localStorage.getItem('cachedCardCatalogSnapshot.v1'));
-    const failBaseGame = route => (
-        new URL(route.request().url()).pathname.endsWith('/data/cards/base-game.json')
-            ? route.abort()
-            : route.continue()
-    );
-    await page.route('**/*', failBaseGame);
+    await page.route('**/*', failBaseGameRequest);
     await page.reload();
 
     await expect(page.locator('#catalogStatus')).toHaveAttribute('data-state', 'offline');
@@ -134,13 +135,8 @@ test('one failed rich game cannot downgrade the richer atomic snapshot', async (
     expect(await page.evaluate(() => localStorage.getItem('cachedCardCatalogSnapshot.v1'))).toBe(snapshotBefore);
 });
 
-test('viable partial data is session-only when no saved snapshot exists', async ({ page }) => {
-    const failBaseGame = route => (
-        new URL(route.request().url()).pathname.endsWith('/data/cards/base-game.json')
-            ? route.abort()
-            : route.continue()
-    );
-    await page.route('**/*', failBaseGame);
+test('viable partial Card Catalog is session-only when no saved snapshot exists', async ({ page }) => {
+    await page.route('**/*', failBaseGameRequest);
     await page.goto('/');
 
     await expect(page.locator('#catalogStatus')).toHaveAttribute('data-state', 'partial');
@@ -148,6 +144,56 @@ test('viable partial data is session-only when no saved snapshot exists', async 
     await expect(page.getByRole('button', { name: 'Retry Card Catalog' })).toBeVisible();
     await expect(page.locator('#deckExperience')).toBeVisible();
     expect(await page.evaluate(() => localStorage.getItem('cachedCardCatalogSnapshot.v1'))).toBeNull();
+});
+
+test('Retry bypasses a malformed service-worker response and saves the recovered Card Catalog', async ({ browser }) => {
+    const context = await browser.newContext({
+        baseURL: 'http://127.0.0.1:4173',
+        serviceWorkers: 'allow'
+    });
+    const page = await context.newPage();
+
+    try {
+        await page.goto('/');
+        await expect(page.locator('#deckExperience')).toBeVisible();
+        await page.evaluate(() => navigator.serviceWorker.ready.then(() => true));
+        await page.reload();
+        await expect(page.locator('#deckExperience')).toBeVisible();
+
+        await page.evaluate(async () => {
+            localStorage.removeItem('cachedCardCatalogSnapshot.v1');
+            const cacheName = (await caches.keys())
+                .find(name => name.startsWith('maladum-event-cards-'));
+            if (!cacheName) throw new Error('App service-worker cache was not created');
+            const cache = await caches.open(cacheName);
+            const sourceUrl = new URL('data/cards/base-game.json', window.location.href);
+            await cache.put(sourceUrl, new Response(JSON.stringify({ cards: [] }), {
+                headers: { 'Content-Type': 'application/json' }
+            }));
+        });
+        await page.reload();
+
+        const status = page.locator('#catalogStatus');
+        await expect(status).toHaveAttribute('data-state', 'partial');
+        await expect(page.locator('#deckExperience')).toBeVisible();
+        expect(await page.evaluate(() => localStorage.getItem('cachedCardCatalogSnapshot.v1'))).toBeNull();
+
+        await page.getByRole('button', { name: 'Retry Card Catalog' }).click();
+
+        await expect(status).toBeHidden();
+        const recoveredSnapshot = await page.evaluate(() => {
+            const raw = localStorage.getItem('cachedCardCatalogSnapshot.v1');
+            return raw ? JSON.parse(raw) : null;
+        });
+        expect(Object.values(recoveredSnapshot.catalog.games).flat()).toHaveLength(142);
+    } finally {
+        await page.evaluate(async () => {
+            const registrations = await navigator.serviceWorker.getRegistrations();
+            await Promise.all(registrations.map(registration => registration.unregister()));
+            await Promise.all((await caches.keys()).map(name => caches.delete(name)));
+        }).catch(() => { });
+        await context.close();
+    }
 });
 
 test('deck validation and core controls work by keyboard and pass focused axe checks', async ({ page }) => {

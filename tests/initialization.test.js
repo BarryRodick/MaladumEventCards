@@ -123,11 +123,15 @@ console.log('Testing initialization helpers...');
         }
     ];
     let acquisitionCalls = 0;
+    const acquisitionOptions = [];
     let gameSelectionCalls = 0;
     const initializeApp = loadInitializeApp({
         state,
         document,
-        acquireCardCatalog: async () => acquisitionResults[acquisitionCalls++],
+        acquireCardCatalog: async options => {
+            acquisitionOptions.push(options);
+            return acquisitionResults[acquisitionCalls++];
+        },
         hooks: {
             generateGameSelection() { gameSelectionCalls++; }
         }
@@ -147,6 +151,8 @@ console.log('Testing initialization helpers...');
     await startupElements.catalogRetry.onclick();
 
     assert.strictEqual(acquisitionCalls, 2, 'Retry must perform a real catalog reacquisition');
+    assert.deepStrictEqual(acquisitionOptions, [undefined, { forceRefresh: true }],
+        'Retry must explicitly bypass stale browser and service-worker responses');
     assert.strictEqual(startupElements.catalogStatus.hidden, true);
     assert.strictEqual(startupElements.deckExperience.hidden, false);
     assert.strictEqual(gameSelectionCalls, 1);

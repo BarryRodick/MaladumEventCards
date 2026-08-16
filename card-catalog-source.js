@@ -8,20 +8,20 @@ export const REQUIRED_RICH_GAME_SOURCES = Object.freeze({
     'Forbidden Creed': 'data/cards/forbidden-creed.json'
 });
 
-async function fetchJson(path) {
-    const response = await fetch(path);
+async function fetchJson(path, { forceRefresh = false } = {}) {
+    const response = await fetch(path, forceRefresh ? { cache: 'reload' } : undefined);
     if (!response.ok) {
         throw new Error(`Failed to load ${path}: ${response.status}`);
     }
     return response.json();
 }
 
-async function acquireJson(path) {
+async function acquireJson(path, options) {
     try {
         return {
             status: 'success',
             path,
-            value: await fetchJson(path)
+            value: await fetchJson(path, options)
         };
     } catch (error) {
         return {
@@ -45,12 +45,12 @@ function sourceDiagnostic(label, result) {
     };
 }
 
-export const loadFreshCardCatalog = async function loadFreshCardCatalog() {
+export const loadFreshCardCatalog = async function loadFreshCardCatalog(options) {
     const [legacy, difficulties, manifest, icons] = await Promise.all([
-        acquireJson('maladumcards.json'),
-        acquireJson('difficulties.json'),
-        acquireJson('data/cards/manifest.json'),
-        acquireJson('data/cards/icons.json')
+        acquireJson('maladumcards.json', options),
+        acquireJson('difficulties.json', options),
+        acquireJson('data/cards/manifest.json', options),
+        acquireJson('data/cards/icons.json', options)
     ]);
 
     const manifestGames = isRecord(manifest.value?.games) ? manifest.value.games : {};
@@ -59,7 +59,7 @@ export const loadFreshCardCatalog = async function loadFreshCardCatalog() {
         ...manifestGames
     });
     const gameResults = await Promise.all(
-        gameSourceEntries.map(async ([gameName, path]) => [gameName, await acquireJson(path)])
+        gameSourceEntries.map(async ([gameName, path]) => [gameName, await acquireJson(path, options)])
     );
     const games = Object.fromEntries(gameResults);
     const successfulGames = Object.fromEntries(
@@ -90,7 +90,7 @@ export const loadFreshCardCatalog = async function loadFreshCardCatalog() {
             icons,
             games
         },
-        complete: [legacy, difficulties, manifest, icons, ...Object.values(games)]
+        allSourcesFetched: [legacy, difficulties, manifest, icons, ...Object.values(games)]
             .every(result => result.status === 'success'),
         diagnostics
     };

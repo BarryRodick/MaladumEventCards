@@ -191,6 +191,8 @@ assert(serviceWorker.includes("const CACHE_PREFIX = 'maladum-event-cards-';"),
     'Service worker should define an app-owned cache namespace');
 assert(serviceWorker.includes('name.startsWith(CACHE_PREFIX) && name !== CACHE_NAME'),
     'Service worker activation should preserve caches outside the app namespace');
+assert(serviceWorker.includes("event.request.cache === 'reload'"),
+    'Service worker should bypass stale app-shell entries for forced Card Catalog reacquisition');
 
 assertRecursiveImportClosure(
     TOP_LEVEL_RUNTIME_FILES.filter(asset => /\.(?:js|mjs)$/.test(asset) && cachedAssets.has(asset)),

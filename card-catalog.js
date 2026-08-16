@@ -1,8 +1,16 @@
 import { loadFreshCardCatalog, REQUIRED_RICH_GAME_SOURCES } from './card-catalog-source.js';
-import { loadCardCatalogSnapshot, saveCardCatalogSnapshot } from './card-catalog-cache.js';
+import {
+    loadCardCatalogSnapshot,
+    loadLegacyCardCatalogSnapshot,
+    saveCardCatalogSnapshot
+} from './card-catalog-cache.js';
 import { mergeCardCatalogs, normalizeCachedCardCatalog } from './card-data.mjs';
 
 const REQUIRED_GAME_NAMES = Object.keys(REQUIRED_RICH_GAME_SOURCES);
+
+function isRecord(value) {
+    return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+}
 
 function toDifficulties(payload) {
     return Array.isArray(payload?.difficulties) ? payload.difficulties : [];
@@ -11,9 +19,7 @@ function toDifficulties(payload) {
 function hasValidDifficulties(payload) {
     const difficulties = toDifficulties(payload);
     return difficulties.length > 0 && difficulties.every(difficulty => (
-        difficulty
-        && typeof difficulty === 'object'
-        && !Array.isArray(difficulty)
+        isRecord(difficulty)
         && typeof difficulty.name === 'string'
         && difficulty.name.trim().length > 0
         && Number.isInteger(difficulty.novice)
@@ -24,9 +30,7 @@ function hasValidDifficulties(payload) {
 }
 
 function hasValidRawCard(card, gameName, requireGame) {
-    return card
-        && typeof card === 'object'
-        && !Array.isArray(card)
+    return isRecord(card)
         && Number.isInteger(card.id)
         && card.id > 0
         && typeof card.card === 'string'
@@ -57,15 +61,18 @@ function hasValidRichGameSource(source, gameName) {
 
 function hasValidRichSourcePayloads(sources) {
     if (!sources) return true;
+    const gameEntries = Object.entries(isRecord(sources.games) ? sources.games : {});
     const cards = [];
-    const hasRequiredSources = REQUIRED_GAME_NAMES.every(gameName => {
-        const source = sources.games?.[gameName];
+    const hasRequiredSources = REQUIRED_GAME_NAMES.every(gameName => (
+        gameEntries.some(([sourceGameName]) => sourceGameName === gameName)
+    ));
+    const hasValidSources = gameEntries.every(([gameName, source]) => {
         const gameCards = richGameCards(source);
         if (!hasValidRichGameSource(source, gameName)) return false;
         cards.push(...gameCards);
         return true;
     });
-    return hasRequiredSources && hasUniqueCardIds(cards);
+    return hasRequiredSources && hasValidSources && hasUniqueCardIds(cards);
 }
 
 function hasValidLegacySourcePayload(sources) {
@@ -73,9 +80,7 @@ function hasValidLegacySourcePayload(sources) {
     const source = sources.legacy;
     const games = source?.value?.games;
     return source?.status === 'success'
-        && games
-        && typeof games === 'object'
-        && !Array.isArray(games)
+        && isRecord(games)
         && REQUIRED_GAME_NAMES.every(gameName => (
             Array.isArray(games[gameName])
             && games[gameName].length > 0
@@ -89,11 +94,12 @@ function hasValidManifestSourcePayload(sources) {
     const source = sources.manifest;
     const games = source?.value?.games;
     return source?.status === 'success'
-        && games
-        && typeof games === 'object'
-        && !Array.isArray(games)
-        && REQUIRED_GAME_NAMES.every(gameName => (
-            typeof games[gameName] === 'string' && games[gameName].trim().length > 0
+        && isRecord(games)
+        && REQUIRED_GAME_NAMES.every(gameName => Object.hasOwn(games, gameName))
+        && Object.entries(games).every(([gameName, path]) => (
+            typeof path === 'string'
+            && path.trim().length > 0
+            && sources.games?.[gameName]?.path === path
         ));
 }
 
@@ -102,14 +108,10 @@ function hasValidIconSourcePayload(sources) {
     const source = sources.icons;
     const icons = source?.value;
     return source?.status === 'success'
-        && icons
-        && typeof icons === 'object'
-        && !Array.isArray(icons)
+        && isRecord(icons)
         && Object.keys(icons).length > 0
         && Object.values(icons).every(icon => (
-            icon
-            && typeof icon === 'object'
-            && !Array.isArray(icon)
+            isRecord(icon)
             && [icon.asset, icon.path].some(value => typeof value === 'string' && value.trim().length > 0)
         ));
 }
@@ -131,12 +133,8 @@ function usableRichCatalog(richCatalog, sources) {
 function isValidCatalog(catalog) {
     const requiredRuleCollections = ['sentryTypes', 'corrupterTypes', 'heldBackCardTypes'];
     if (
-        !catalog
-        || typeof catalog !== 'object'
-        || Array.isArray(catalog)
-        || !catalog.games
-        || typeof catalog.games !== 'object'
-        || Array.isArray(catalog.games)
+        !isRecord(catalog)
+        || !isRecord(catalog.games)
         || !requiredRuleCollections.every(name => (
             Array.isArray(catalog[name])
             && catalog[name].length > 0
@@ -160,27 +158,26 @@ function isValidCatalog(catalog) {
     return hasUniqueCardIds(gameEntries.flatMap(([, cards]) => cards));
 }
 
-function measureCatalogQuality(catalog, difficulties) {
-    const cards = Object.values(catalog.games).flat();
+function measureSnapshotQuality(snapshot) {
+    const cards = Object.values(snapshot.catalog.games).flat();
     return {
         cardCount: cards.length,
         richCardCount: cards.filter(card => card.renderMode === 'rich').length,
-        iconCount: Object.keys(catalog.icons || {}).length,
-        manifestGameCount: Object.keys(catalog.cardManifest?.games || {}).length,
+        iconCount: Object.keys(snapshot.catalog.icons || {}).length,
+        manifestGameCount: Object.keys(snapshot.catalog.cardManifest?.games || {}).length,
         ruleTypeCount: ['sentryTypes', 'corrupterTypes', 'heldBackCardTypes']
-            .reduce((count, name) => count + catalog[name].length, 0),
-        difficultyCount: difficulties.length
+            .reduce((count, name) => count + snapshot.catalog[name].length, 0),
+        difficultyCount: snapshot.difficulties.length
     };
 }
 
-function isAtLeastAsRich(candidateCatalog, candidateDifficulties, cachedCatalog, cachedDifficulties) {
-    const candidateQuality = measureCatalogQuality(candidateCatalog, candidateDifficulties);
-    const cachedQuality = measureCatalogQuality(cachedCatalog, cachedDifficulties);
+function isAtLeastAsRich(candidateSnapshot, cachedSnapshot) {
+    const candidateQuality = measureSnapshotQuality(candidateSnapshot);
+    const cachedQuality = measureSnapshotQuality(cachedSnapshot);
     return Object.keys(candidateQuality).every(name => candidateQuality[name] >= cachedQuality[name]);
 }
 
-function loadValidCachedSnapshot() {
-    const snapshot = loadCardCatalogSnapshot();
+function normalizeValidCachedSnapshot(snapshot) {
     if (!snapshot || !hasValidDifficulties(snapshot.difficulties)) return null;
 
     const catalog = normalizeCachedCardCatalog(snapshot.catalog);
@@ -191,6 +188,13 @@ function loadValidCachedSnapshot() {
         catalog,
         difficulties: toDifficulties(snapshot.difficulties)
     };
+}
+
+function loadValidCachedSnapshot() {
+    const snapshot = normalizeValidCachedSnapshot(loadCardCatalogSnapshot());
+    if (snapshot) return snapshot;
+
+    return normalizeValidCachedSnapshot(loadLegacyCardCatalogSnapshot());
 }
 
 function buildCardIndex(catalog) {
@@ -239,16 +243,16 @@ function failureResult(error) {
     };
 }
 
-export const acquireCardCatalog = async function acquireCardCatalog() {
+export const acquireCardCatalog = async function acquireCardCatalog(options) {
     try {
         const {
             legacyCatalog,
             difficultiesPayload,
             richCatalog,
             sources,
-            complete = true,
+            allSourcesFetched = true,
             diagnostics = []
-        } = await loadFreshCardCatalog();
+        } = await loadFreshCardCatalog(options);
         if (!hasValidDifficulties(difficultiesPayload)) {
             throw new Error('Fresh difficulty settings are empty or malformed.');
         }
@@ -274,14 +278,12 @@ export const acquireCardCatalog = async function acquireCardCatalog() {
                     message: 'One or more Card Catalog sources were empty or malformed; using a session-only catalog.'
                 }
             ];
-        const cacheEligible = complete && sourcePayloadsValid;
+        const cacheEligible = allSourcesFetched && sourcePayloadsValid;
         const cachedSnapshot = loadValidCachedSnapshot();
         if (cachedSnapshot) {
             const candidateIsAtLeastAsRich = isAtLeastAsRich(
-                catalog,
-                difficulties,
-                cachedSnapshot.catalog,
-                cachedSnapshot.difficulties
+                { catalog, difficulties },
+                cachedSnapshot
             );
             if (!cacheEligible || !candidateIsAtLeastAsRich) {
                 return readyResult(
@@ -304,7 +306,7 @@ export const acquireCardCatalog = async function acquireCardCatalog() {
         const cacheDiagnostics = didCache === false
             ? [{
                 level: 'warn',
-                message: 'Unable to cache fetched game data for offline use.'
+                message: 'Unable to cache the fetched Card Catalog for offline use.'
             }]
             : [];
 

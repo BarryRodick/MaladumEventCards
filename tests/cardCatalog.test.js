@@ -20,6 +20,7 @@ function loadAcquisition(overrides = {}) {
         dependencies: {
             loadFreshCardCatalog: overrides.loadFreshCardCatalog || (() => Promise.resolve({})),
             loadCardCatalogSnapshot: overrides.loadCardCatalogSnapshot || (() => null),
+            loadLegacyCardCatalogSnapshot: overrides.loadLegacyCardCatalogSnapshot || (() => null),
             saveCardCatalogSnapshot: overrides.saveCardCatalogSnapshot || (() => true),
             mergeCardCatalogs: overrides.mergeCardCatalogs || (() => ({ games: {} })),
             normalizeCachedCardCatalog: overrides.normalizeCachedCardCatalog || (value => value),
@@ -98,7 +99,7 @@ function completeFreshResult(catalog) {
             icons: { status: 'success', value: catalog.icons },
             games: gameSources
         },
-        complete: true,
+        allSourcesFetched: true,
         diagnostics: []
     };
 }
@@ -121,8 +122,8 @@ console.log('Testing Card Catalog acquisition...');
     };
     const baseGameError = new Error('base game asset failed');
     const requested = [];
-    const loadFreshCardCatalog = loadFreshSource(async path => {
-        requested.push(path);
+    const loadFreshCardCatalog = loadFreshSource(async (path, options) => {
+        requested.push({ path, options });
         if (path === 'data/cards/base-game.json') throw baseGameError;
         if (!(path in sourcePayloads)) {
             return { ok: false, status: 404, json: async () => null };
@@ -130,9 +131,9 @@ console.log('Testing Card Catalog acquisition...');
         return { ok: true, status: 200, json: async () => sourcePayloads[path] };
     });
 
-    const result = await loadFreshCardCatalog();
+    const result = await loadFreshCardCatalog({ forceRefresh: true });
 
-    assert.strictEqual(result.complete, false);
+    assert.strictEqual(result.allSourcesFetched, false);
     assert.strictEqual(result.sources.legacy.status, 'success');
     assert.strictEqual(result.sources.difficulties.status, 'success');
     assert.strictEqual(result.sources.manifest.status, 'success');
@@ -141,8 +142,10 @@ console.log('Testing Card Catalog acquisition...');
     assert.strictEqual(result.sources.games['Base Game'].error, baseGameError);
     assert.strictEqual(result.sources.games['Forbidden Creed'].status, 'success');
     assert.deepStrictEqual(result.richCatalog.games['Forbidden Creed'], sourcePayloads['data/cards/forbidden-creed.json']);
-    assert(requested.includes('data/cards/base-game.json'));
-    assert(requested.includes('data/cards/forbidden-creed.json'));
+    assert(requested.some(request => request.path === 'data/cards/base-game.json'));
+    assert(requested.some(request => request.path === 'data/cards/forbidden-creed.json'));
+    assert(requested.every(request => request.options?.cache === 'reload'),
+        'A forced reacquisition must bypass the browser and service-worker cache for every source');
 }
 
 {
@@ -210,7 +213,7 @@ console.log('Testing Card Catalog acquisition...');
             legacyCatalog: { games: { 'Base Game': [{ id: 1 }, { id: 2 }] } },
             difficultiesPayload: { difficulties: [{ name: 'Novice', novice: 1, veteran: 0 }] },
             richCatalog: { games: { 'Base Game': [{ id: 2 }] } },
-            complete: false,
+            allSourcesFetched: false,
             diagnostics: [{ level: 'warn', message: 'Rich source failed:', error: failedGame }]
         }),
         loadCardCatalogSnapshot: () => ({
@@ -244,7 +247,7 @@ console.log('Testing Card Catalog acquisition...');
             legacyCatalog: { games: {} },
             difficultiesPayload: { difficulties: [{ name: 'Novice', novice: 1, veteran: 0 }] },
             richCatalog: null,
-            complete: false,
+            allSourcesFetched: false,
             diagnostics: []
         }),
         loadCardCatalogSnapshot: () => ({
@@ -270,7 +273,7 @@ console.log('Testing Card Catalog acquisition...');
             legacyCatalog: null,
             difficultiesPayload: { difficulties: [{ name: 'Novice', novice: 1, veteran: 0 }] },
             richCatalog: { games: {} },
-            complete: false,
+            allSourcesFetched: false,
             diagnostics: []
         }),
         mergeCardCatalogs: legacyCatalog => {
@@ -297,7 +300,7 @@ console.log('Testing Card Catalog acquisition...');
                 difficulties: [{ name: 'Broken', novice: 'many', veteran: 0 }]
             },
             richCatalog: null,
-            complete: true,
+            allSourcesFetched: true,
             diagnostics: []
         }),
         loadCardCatalogSnapshot: () => ({
@@ -350,7 +353,7 @@ console.log('Testing Card Catalog acquisition...');
                 legacyCatalog: { games: {} },
                 difficultiesPayload: { difficulties: [{ name: 'Novice', novice: 1, veteran: 0 }] },
                 richCatalog: null,
-                complete: true,
+                allSourcesFetched: true,
                 diagnostics: []
             }),
             mergeCardCatalogs: () => catalog,
@@ -395,6 +398,20 @@ console.log('Testing Card Catalog acquisition...');
                 freshResult.sources.games['Base Game'].value.cards.push(duplicate);
             },
             'Duplicate raw rich IDs must be rejected before merge can conceal them'
+        ],
+        [
+            freshResult => {
+                const gameName = 'Expansion Preview';
+                const path = 'data/cards/expansion-preview.json';
+                freshResult.richCatalog.manifest.games[gameName] = path;
+                freshResult.richCatalog.games[gameName] = { cards: [] };
+                freshResult.sources.games[gameName] = {
+                    status: 'success',
+                    path,
+                    value: freshResult.richCatalog.games[gameName]
+                };
+            },
+            'Every manifest-added rich source must be valid before cache replacement'
         ]
     ];
 
@@ -453,7 +470,7 @@ console.log('Testing Card Catalog acquisition...');
             legacyCatalog: { games: {} },
             difficultiesPayload: { difficulties: [{ name: 'Novice', novice: 1, veteran: 0 }] },
             richCatalog: null,
-            complete: true,
+            allSourcesFetched: true,
             diagnostics: []
         }),
         loadCardCatalogSnapshot: () => ({
@@ -491,7 +508,7 @@ console.log('Testing Card Catalog acquisition...');
             legacyCatalog: { games: {} },
             difficultiesPayload: { difficulties: [{ name: 'Novice', novice: 1, veteran: 0 }] },
             richCatalog: null,
-            complete: true,
+            allSourcesFetched: true,
             diagnostics: []
         }),
         loadCardCatalogSnapshot: () => ({ catalog, difficulties: cachedDifficulties, migrated: false }),
@@ -556,6 +573,34 @@ console.log('Testing Card Catalog acquisition...');
     assert.strictEqual(result.status, 'unavailable',
         'An invalid cached snapshot must not expose an apparently usable builder');
     assert.strictEqual(result.catalog, null);
+}
+
+{
+    const malformedAtomicCatalog = catalogWithCards();
+    delete malformedAtomicCatalog.games['Forbidden Creed'];
+    const legacyCatalog = catalogWithCards([{ id: 9, card: 'Legacy Recovery', renderMode: 'image' }]);
+    const networkError = new Error('offline');
+    const acquireCardCatalog = loadAcquisition({
+        loadFreshCardCatalog: async () => { throw networkError; },
+        loadCardCatalogSnapshot: () => ({
+            catalog: malformedAtomicCatalog,
+            difficulties: { difficulties: [{ name: 'Novice', novice: 1, veteran: 0 }] },
+            migrated: false
+        }),
+        loadLegacyCardCatalogSnapshot: () => ({
+            catalog: legacyCatalog,
+            difficulties: { difficulties: [{ name: 'Novice', novice: 1, veteran: 0 }] },
+            migrated: true
+        }),
+        normalizeCachedCardCatalog: value => value
+    });
+
+    const result = await acquireCardCatalog();
+
+    assert.strictEqual(result.status, 'offline');
+    assert.strictEqual(result.catalog, legacyCatalog,
+        'A malformed atomic snapshot must not mask a valid legacy recovery snapshot');
+    assert.strictEqual(result.cardIndex.get(9), legacyCatalog.games['Base Game'][0]);
 }
 
 {

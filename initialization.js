@@ -75,11 +75,11 @@ export const initializeApp = async function initializeApp() {
     }
 
     let retryInProgress = false;
-    const loadCatalogForStartup = async () => {
+    const loadCatalogForStartup = async options => {
         renderCatalogStartupState('loading');
         let catalogResult;
         try {
-            catalogResult = await acquireCardCatalog();
+            catalogResult = await acquireCardCatalog(options);
         } catch (error) {
             catalogResult = {
                 status: 'unavailable',
@@ -97,7 +97,7 @@ export const initializeApp = async function initializeApp() {
 
         if (catalogResult.status === 'unavailable') {
             renderCatalogStartupState('error');
-            showToast('Failed to load game data. Please check your connection.');
+            showToast('Failed to load the Card Catalog. Please check your connection.');
             return catalogResult;
         }
 
@@ -106,7 +106,7 @@ export const initializeApp = async function initializeApp() {
 
         if (catalogResult.status === 'offline') {
             renderCatalogStartupState('offline');
-            showToast('Using cached offline data.');
+            showToast('Using the saved Card Catalog offline.');
         } else if (catalogResult.status === 'partial') {
             renderCatalogStartupState('partial');
         } else {
@@ -119,7 +119,7 @@ export const initializeApp = async function initializeApp() {
         if (retryInProgress) return null;
         retryInProgress = true;
         try {
-            return await loadCatalogForStartup();
+            return await loadCatalogForStartup({ forceRefresh: true });
         } finally {
             retryInProgress = false;
         }
