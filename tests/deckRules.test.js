@@ -147,8 +147,54 @@ console.log('Testing deck rules...');
             `Invalid count ${JSON.stringify(value)} must be rejected instead of truncated or clamped`);
     });
 
+    assert.deepStrictEqual(validateDeckCount('0', 2), { valid: true, value: 0 });
     assert.deepStrictEqual(validateDeckCount('2', 2), { valid: true, value: 2 });
-    assert.strictEqual(validateDeckCount('3', 2).valid, false);
+    assert.deepStrictEqual(validateDeckCount('3', 2), {
+        valid: false,
+        requested: 3,
+        available: 2,
+        message: 'Requested 3; 2 available. Enter a whole number from 0 to 2.'
+    });
+}
+
+{
+    const { buildDeck, DECK_RULE_ERRORS } = loadDeckRules();
+    const result = buildDeck({
+        allCardTypes: ['Denizen', 'Dungeon'],
+        availableCards: [
+            { id: 1, card: 'Either Type', type: 'Denizen / Dungeon' }
+        ],
+        dataStore: { sentryTypes: [], corrupterTypes: [], heldBackCardTypes: [] },
+        cardCounts: { Denizen: 1, Dungeon: 1 }
+    });
+
+    assert.strictEqual(result.error, DECK_RULE_ERRORS.invalidCounts,
+        'One alternative-type card cannot fulfil two requested type counts');
+    assert.deepStrictEqual(result.invalidCounts.map(({ type, requested, available }) => ({
+        type,
+        requested,
+        available
+    })), [
+        { type: 'Dungeon', requested: 1, available: 0 }
+    ]);
+    assert(result.invalidCounts[0].message.includes('Requested 1'));
+    assert(result.invalidCounts[0].message.includes('0 available'));
+}
+
+{
+    const { buildDeck } = loadDeckRules();
+    const result = buildDeck({
+        allCardTypes: ['Denizen', 'Dungeon'],
+        availableCards: [
+            { id: 1, card: 'Compound Type', type: 'Denizen + Dungeon' }
+        ],
+        dataStore: { sentryTypes: [], corrupterTypes: [], heldBackCardTypes: [] },
+        cardCounts: { Denizen: 1, Dungeon: 1 }
+    });
+
+    assert.strictEqual(result.error, undefined,
+        'One compound card should fulfil one requested count in each required group');
+    assert.deepStrictEqual(result.combinedDeck.map(card => card.id), [1]);
 }
 
 {

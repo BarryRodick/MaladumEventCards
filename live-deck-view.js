@@ -78,9 +78,23 @@ function renderNavigationControls() {
         && Boolean(state.currentDeck?.[state.currentIndex]);
     const previousButton = document.getElementById('prevCard');
     const markInPlayButton = document.getElementById('markInPlay');
+    const navigationGate = document.getElementById('deckNavigationGate');
 
     if (previousButton) previousButton.disabled = state.currentIndex <= 0;
     if (markInPlayButton) markInPlayButton.disabled = !hasActiveCard;
+
+    if (navigationGate) {
+        if (state.currentIndex < 0) {
+            navigationGate.textContent = 'Draw a card to enable Mark In Play. Previous is available after the second draw.';
+        } else if (!hasActiveCard) {
+            navigationGate.textContent = 'Draw or restore an active card to enable Mark In Play.';
+        } else if (state.currentIndex === 0) {
+            navigationGate.textContent = 'Draw a second card to enable Previous.';
+        } else {
+            navigationGate.textContent = '';
+        }
+        navigationGate.hidden = navigationGate.textContent === '';
+    }
 }
 
 function preloadUpcomingCards(count = 2) {

@@ -385,6 +385,7 @@ export function setDeckMode(requestedMode, options = {}) {
 
     const buildButton = document.getElementById('buildModeButton');
     const playButton = document.getElementById('playModeButton');
+    const modeGate = document.getElementById('deckModeGate');
     const hasActiveDeck = state.currentDeck.length > 0;
 
     if (buildButton) {
@@ -396,6 +397,11 @@ export function setDeckMode(requestedMode, options = {}) {
         playButton.disabled = !hasActiveDeck;
         playButton.classList.toggle('is-active', mode === 'play');
         playButton.setAttribute('aria-pressed', String(mode === 'play'));
+    }
+
+    if (modeGate) {
+        modeGate.textContent = hasActiveDeck ? '' : 'Generate a deck to enable Play.';
+        modeGate.hidden = hasActiveDeck;
     }
 
     setUtilitiesDrawerOpen(state.isUtilityDrawerOpen);

@@ -174,6 +174,46 @@ console.log('Testing live deck browser view...');
 }
 
 {
+    const state = {
+        currentDeck: [
+            { id: 1, card: 'First', type: 'Dungeon', renderMode: 'rich' },
+            { id: 2, card: 'Second', type: 'Denizen', renderMode: 'rich' }
+        ],
+        currentIndex: -1,
+        isActiveCardCleared: false
+    };
+    const output = createNode('div');
+    const previousButton = createNode('button');
+    const markInPlayButton = createNode('button');
+    const navigationGate = createNode('p');
+    const document = createDocument({
+        deckOutput: output,
+        prevCard: previousButton,
+        markInPlay: markInPlayButton,
+        deckNavigationGate: navigationGate
+    });
+    const view = loadLiveDeckView(state, document);
+
+    view.renderCurrentCard();
+    assert.strictEqual(previousButton.disabled, true);
+    assert.strictEqual(markInPlayButton.disabled, true);
+    assert.strictEqual(navigationGate.hidden, false);
+    assert(navigationGate.textContent.includes('Draw a card'));
+
+    state.currentIndex = 0;
+    view.renderCurrentCard();
+    assert.strictEqual(previousButton.disabled, true);
+    assert.strictEqual(markInPlayButton.disabled, false);
+    assert(navigationGate.textContent.includes('second card'));
+
+    state.currentIndex = 1;
+    view.renderCurrentCard();
+    assert.strictEqual(previousButton.disabled, false);
+    assert.strictEqual(markInPlayButton.disabled, false);
+    assert.strictEqual(navigationGate.hidden, true);
+}
+
+{
     const richCard = {
         id: 17,
         card: 'Sudden Rot',

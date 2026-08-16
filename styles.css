@@ -2438,6 +2438,18 @@ button:focus,
     text-transform: uppercase;
 }
 
+.deck-control-gate {
+    margin: 0.55rem 0 0;
+    color: rgba(245, 230, 211, 0.82);
+    font-size: 0.9rem;
+    line-height: 1.45;
+    text-align: center;
+}
+
+.deck-mode-copy .deck-control-gate {
+    text-align: left;
+}
+
 #deckExperience[data-mode="play"] .deck-mode-header {
     padding: 0.8rem 0.95rem;
 }
@@ -2476,7 +2488,9 @@ button:focus,
 }
 
 .mode-tab:disabled {
-    opacity: 0.45;
+    color: #bdb6a6;
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(197, 165, 114, 0.18);
     cursor: not-allowed;
 }
 

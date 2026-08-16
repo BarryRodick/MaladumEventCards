@@ -68,4 +68,13 @@ console.log('Testing live deck cockpit CSS...');
         'Disabled rune buttons should not filter their labels');
 }
 
+{
+    const disabledModeRule = styles.match(/\.mode-tab:disabled\s*\{([\s\S]*?)\n\}/);
+    assert(disabledModeRule, 'The disabled mode-switch rule should remain defined');
+    assert(!/\bopacity\s*:/.test(disabledModeRule[1]),
+        'Disabled Build/Play labels should remain fully opaque and readable');
+    assert(!/\bfilter\s*:/.test(disabledModeRule[1]),
+        'Disabled Build/Play labels should not use a dimming filter');
+}
+
 console.log('All live deck cockpit CSS checks passed!');

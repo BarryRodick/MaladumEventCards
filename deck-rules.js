@@ -26,7 +26,16 @@ export function validateDeckCount(value, max) {
             ? Number(rawValue)
             : Number.NaN;
 
-    if (!Number.isInteger(count) || count < 0 || count > maximum) {
+    if (Number.isInteger(count) && count > maximum) {
+        return {
+            valid: false,
+            requested: count,
+            available: maximum,
+            message: `Requested ${count}; ${maximum} available. Enter a whole number from 0 to ${maximum}.`
+        };
+    }
+
+    if (!Number.isInteger(count) || count < 0) {
         return { valid: false, message: `Enter a whole number from 0 to ${maximum}.` };
     }
 
@@ -59,8 +68,10 @@ export function buildDeck({
     const corrupterTypes = dataStore.corrupterTypes || [];
     const heldBackCardTypes = dataStore.heldBackCardTypes || [];
     const selectedCardsMap = new Map();
-    const regularCounts = normalizeDeckCounts(cardCounts);
-    const sentryCounts = normalizeDeckCounts(sentryCardCounts);
+    const requestedRegularCounts = normalizeDeckCounts(cardCounts);
+    const requestedSentryCounts = normalizeDeckCounts(sentryCardCounts);
+    const regularCounts = { ...requestedRegularCounts };
+    const sentryCounts = { ...requestedSentryCounts };
     const allAvailableCards = [...availableCards];
 
     const setAsideCards = [];
@@ -102,6 +113,14 @@ export function buildDeck({
         });
     }
 
+    const unfulfilledCounts = [
+        ...getUnfulfilledCounts(requestedRegularCounts, regularCounts),
+        ...getUnfulfilledCounts(requestedSentryCounts, sentryCounts)
+    ];
+    if (unfulfilledCounts.length > 0) {
+        return { error: DECK_RULE_ERRORS.invalidCounts, invalidCounts: unfulfilledCounts };
+    }
+
     if (!hasRegularCardSelection && sentryDeck.length === 0) {
         return { error: DECK_RULE_ERRORS.emptySelection };
     }
@@ -141,7 +160,14 @@ function validateDeckCounts({
     [cardCounts, sentryCardCounts].forEach(counts => {
         Object.entries(counts || {}).forEach(([type, value]) => {
             const result = validateDeckCount(value, maxCounts[type] ?? 0);
-            if (!result.valid) invalidCounts.push({ type, message: result.message });
+            if (!result.valid) {
+                invalidCounts.push({
+                    type,
+                    ...(result.requested === undefined ? {} : { requested: result.requested }),
+                    ...(result.available === undefined ? {} : { available: result.available }),
+                    message: result.message
+                });
+            }
         });
     });
 
@@ -164,6 +190,21 @@ function normalizeDeckCounts(counts) {
     return Object.fromEntries(
         Object.entries(counts || {}).map(([type, value]) => [type, Number(value)])
     );
+}
+
+function getUnfulfilledCounts(requestedCounts, remainingCounts) {
+    return Object.entries(remainingCounts)
+        .filter(([, remaining]) => remaining > 0)
+        .map(([type, remaining]) => {
+            const requested = requestedCounts[type];
+            const available = requested - remaining;
+            return {
+                type,
+                requested,
+                available,
+                message: `Requested ${requested}; ${available} available with the selected card counts.`
+            };
+        });
 }
 
 function isHeldBackCard(card, heldBackCardTypes) {

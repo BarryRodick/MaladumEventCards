@@ -165,6 +165,80 @@ console.log('Testing deck-manager behavior...');
 }
 
 // ============================
+// Test: UI-invalid counts abort before building and focus the first error
+// ============================
+{
+    const state = makeBaseState();
+    const existingCard = { id: 99, card: 'Existing Deck Card', type: 'Dungeon' };
+    state.currentDeck = [existingCard];
+    state.deck.main = [existingCard];
+    state.deck.combined = [existingCard];
+    state.allCardTypes = ['Cabal', 'Dungeon'];
+    state.availableCards = [
+        { id: 1, card: 'Cabal A', type: 'Cabal' },
+        { id: 2, card: 'Cabal B', type: 'Cabal' },
+        { id: 3, card: 'Dungeon A', type: 'Dungeon' }
+    ];
+
+    let focusCalls = 0;
+    let reportCalls = 0;
+    const invalidInput = {
+        id: 'type-cabal',
+        value: '3',
+        max: '2',
+        classList: makeClassList(),
+        attributes: {},
+        setAttribute(name, value) { this.attributes[name] = String(value); },
+        setCustomValidity(message) { this.validationMessage = message; },
+        focus() { focusCalls++; },
+        reportValidity() { reportCalls++; }
+    };
+    const validInput = {
+        id: 'type-dungeon',
+        value: '1',
+        max: '1',
+        classList: makeClassList(),
+        setAttribute() { },
+        setCustomValidity() { }
+    };
+    const feedback = { textContent: '', hidden: true };
+    const document = makeDeckGenerationDocument({});
+    const originalGetElementById = document.getElementById.bind(document);
+    document.getElementById = id => ({
+        'type-cabal': invalidInput,
+        'type-dungeon': validInput,
+        'type-cabal-error': feedback
+    }[id] || originalGetElementById(id));
+
+    let buildCalls = 0;
+    const { generateDeck } = loadDeckManager(state, document, {
+        buildDeck() {
+            buildCalls++;
+            return {
+                mainDeck: [state.availableCards[2]],
+                specialDeck: [],
+                combinedDeck: [state.availableCards[2]],
+                sentryDeck: [],
+                setAsideCards: []
+            };
+        }
+    });
+
+    generateDeck();
+
+    assert.strictEqual(buildCalls, 0,
+        'Generation must stop before building when any visible count field is invalid');
+    assert.deepStrictEqual(state.currentDeck, [existingCard],
+        'A UI-invalid request must preserve the last working deck');
+    assert(feedback.textContent.includes('Requested 3') && feedback.textContent.includes('2 available'),
+        'Inline feedback should compare the requested count with the available count');
+    assert.strictEqual(feedback.hidden, false);
+    assert.strictEqual(invalidInput.attributes['aria-invalid'], 'true');
+    assert.strictEqual(focusCalls, 1, 'The first invalid field should receive focus');
+    assert.strictEqual(reportCalls, 1, 'The first invalid field should report its validity');
+}
+
+// ============================
 // Test: newly catalogued Veteran cards remain reachable
 // ============================
 {

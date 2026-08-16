@@ -255,6 +255,41 @@ console.log('Testing combined UI manager contracts...');
 
 {
     const elements = {
+        deckExperience: makeElement(),
+        deckModeEyebrow: makeElement('p'),
+        deckModeTitle: makeElement('h2'),
+        deckModeDescription: makeElement('p'),
+        buildModeButton: makeElement('button'),
+        playModeButton: makeElement('button'),
+        deckModeGate: makeElement('p'),
+        deckUtilityDrawer: makeElement('section'),
+        deckUtilityDrawerBody: makeElement('div'),
+        toggleUtilityDrawer: makeElement('button'),
+        generateDeck: makeElement('button')
+    };
+    const document = makeDocument(elements);
+    const loaded = loadUiManager(document, {}, {
+        currentDeck: [],
+        difficultySettings: [{ name: 'Custom difficulty' }]
+    }, {
+        deriveDeckMode: ({ currentDeckLength, requestedMode }) =>
+            requestedMode === 'play' && currentDeckLength === 0 ? 'build' : requestedMode
+    });
+
+    loaded.setDeckMode('build');
+    assert.strictEqual(elements.playModeButton.disabled, true);
+    assert.strictEqual(elements.deckModeGate.hidden, false);
+    assert(elements.deckModeGate.textContent.includes('Generate a deck'));
+
+    loaded.state.currentDeck = [{ id: 1, card: 'Alarm!' }];
+    loaded.setDeckMode('play');
+    assert.strictEqual(elements.playModeButton.disabled, false);
+    assert.strictEqual(elements.deckModeGate.hidden, true);
+    assert.strictEqual(elements.deckModeGate.textContent, '');
+}
+
+{
+    const elements = {
         generateDeck: makeElement('button'),
         'type-dungeon': Object.assign(makeElement('input'), { value: '0', max: '99' }),
         'type-sentry': Object.assign(makeElement('input'), { value: '2', max: '99' })

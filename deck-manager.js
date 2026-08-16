@@ -22,6 +22,7 @@ export function generateDeck() {
     const cardCounts = {};
     const specialCardCounts = {};
     const sentryCardCounts = {};
+    const invalidInputs = [];
 
     state.allCardTypes.forEach(type => {
         const input = document.getElementById(cardTypeId(type));
@@ -29,6 +30,7 @@ export function generateDeck() {
         const validation = validateDeckCount(input.value, Number(input.max));
         if (!validation.valid) {
             showCardCountError(input, validation.message);
+            invalidInputs.push(input);
             return;
         }
         clearCardCountError(input);
@@ -42,6 +44,14 @@ export function generateDeck() {
             cardCounts[type] = count;
         }
     });
+
+    if (invalidInputs.length > 0) {
+        const firstInvalidInput = invalidInputs[0];
+        firstInvalidInput.focus?.();
+        firstInvalidInput.reportValidity?.();
+        showToast('Correct the highlighted card counts before generating the deck.');
+        return;
+    }
 
     const deckResult = buildDeck({
         allCardTypes: state.allCardTypes,
