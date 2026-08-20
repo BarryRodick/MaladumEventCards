@@ -10,6 +10,10 @@ Maladum Event Cards is the canonical static browser app for building Maladum eve
 The searchable collection of Maladum event cards, drawn from legacy image records and structured rich records.
 _Avoid_: card data, card list
 
+**Card Catalog acceptance policy**:
+The domain rules that decide whether a Card Catalog candidate is usable for the current session and whether it may replace the last-known-good snapshot.
+_Avoid_: catalog validation, card validation
+
 ### Minimum viable Card Catalog invariant
 
 The checked-in legacy and structured sources agree on seven required games and 142 globally unique card IDs. A runtime Card Catalog is usable only when all seven game groups are present and non-empty; every card has a positive integer ID, title, type, matching game, and source image; IDs are globally unique; the Sentry, Corrupter, and held-back rule-type collections are present; and at least one named difficulty profile has non-negative integer Novice and Veteran adjustments.

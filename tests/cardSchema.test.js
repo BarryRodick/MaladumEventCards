@@ -83,6 +83,23 @@ async function loadModule(relativePath) {
     });
     assert(invalidErrors.length >= 6, 'Invalid rich card should surface multiple errors');
 
+    for (const id of [0, -1, 1.5]) {
+        const idErrors = validateRichCardRecord({
+            id,
+            card: 'Invalid ID',
+            slug: 'invalid-id',
+            type: 'Environment',
+            game: 'Base Game',
+            sourceImage: 'Invalid_ID.png',
+            sections: [{ kind: 'body', text: 'Text.' }],
+            footer: { left: [], right: [] },
+            searchText: 'invalid id',
+            extraction: { status: 'verified' }
+        });
+        assert(idErrors.some(error => error.path === 'card.id'),
+            `Rich card id ${id} should be rejected`);
+    }
+
     console.log('All structured card schema tests passed!');
 })().catch(error => {
     console.error(error);

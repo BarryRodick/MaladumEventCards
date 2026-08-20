@@ -82,8 +82,8 @@ export function validateRichCardRecord(card, path = 'card') {
         return errors;
     }
 
-    if (!Number.isFinite(card.id)) {
-        pushError(errors, 'Card id must be a finite number.', `${path}.id`);
+    if (!Number.isInteger(card.id) || card.id <= 0) {
+        pushError(errors, 'Card id must be a positive integer.', `${path}.id`);
     }
 
     ['card', 'slug', 'type', 'game', 'sourceImage', 'searchText'].forEach(field => {

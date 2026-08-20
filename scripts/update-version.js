@@ -7,6 +7,7 @@ const TOP_LEVEL_RUNTIME_FILES = [
     './app-snapshot.js',
     './app-utils.js',
     './card-catalog-cache.js',
+    './card-catalog-policy.mjs',
     './card-catalog-source.js',
     './card-catalog.js',
     './card-data.mjs',

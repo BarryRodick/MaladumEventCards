@@ -157,6 +157,7 @@ const cachedAssets = new Set(runtimeAssetManifest);
 [
     './app-snapshot.js',
     './campaign-tracker.js',
+    './card-catalog-policy.mjs',
     './card-data.mjs',
     './card-renderer.mjs',
     './card-tokenizer.mjs',
@@ -215,6 +216,8 @@ assert(updateVersionScript.includes("'./app-snapshot.js'"),
     'Build asset manifest should include app-snapshot.js for future service-worker syncs');
 assert(updateVersionScript.includes("'./campaign-tracker.js'"),
     'Build asset manifest should include campaign-tracker.js for future service-worker syncs');
+assert(updateVersionScript.includes("'./card-catalog-policy.mjs'"),
+    'Build asset manifest should include the Card Catalog policy for future service-worker syncs');
 assert(updateVersionScript.includes("'assets'"),
     'Build asset manifest should scan the assets directory for future service-worker syncs');
 
