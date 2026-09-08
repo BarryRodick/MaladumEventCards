@@ -76,7 +76,7 @@ test('clean offline startup stays blocked until Retry performs a successful reac
     };
     await page.route('**/*', failCatalog);
 
-    await page.goto('/');
+    await page.goto('/?legacy=1');
 
     const status = page.locator('#catalogStatus');
     const retry = page.getByRole('button', { name: 'Retry Card Catalog' });
@@ -105,7 +105,7 @@ test('clean offline startup stays blocked until Retry performs a successful reac
 });
 
 test('cached offline startup keeps the last-known-good snapshot intact', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?legacy=1');
     await expect(page.locator('#deckExperience')).toBeVisible();
 
     const snapshotBefore = await page.evaluate(() => localStorage.getItem('cachedCardCatalogSnapshot.v1'));
@@ -123,7 +123,7 @@ test('cached offline startup keeps the last-known-good snapshot intact', async (
 });
 
 test('one failed rich game cannot downgrade the richer atomic snapshot', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?legacy=1');
     await expect(page.locator('#deckExperience')).toBeVisible();
 
     const snapshotBefore = await page.evaluate(() => localStorage.getItem('cachedCardCatalogSnapshot.v1'));
@@ -137,7 +137,7 @@ test('one failed rich game cannot downgrade the richer atomic snapshot', async (
 
 test('viable partial Card Catalog is session-only when no saved snapshot exists', async ({ page }) => {
     await page.route('**/*', failBaseGameRequest);
-    await page.goto('/');
+    await page.goto('/?legacy=1');
 
     await expect(page.locator('#catalogStatus')).toHaveAttribute('data-state', 'partial');
     await expect(page.locator('#catalogStatus')).toContainText('safe session data');
@@ -154,7 +154,7 @@ test('Retry bypasses a malformed service-worker response and saves the recovered
     const page = await context.newPage();
 
     try {
-        await page.goto('/');
+        await page.goto('/?legacy=1');
         await expect(page.locator('#deckExperience')).toBeVisible();
         await page.evaluate(() => navigator.serviceWorker.ready.then(() => true));
         await page.reload();
@@ -209,7 +209,7 @@ test('Retry bypasses a malformed service-worker response and saves the recovered
 test('deck validation and core controls work by keyboard and pass focused axe checks', async ({ page }) => {
     await page.route('https://www.googletagmanager.com/**', route => route.abort());
     await page.addInitScript(() => localStorage.clear());
-    await page.goto('/');
+    await page.goto('/?legacy=1');
 
     const buildMode = page.getByRole('button', { name: 'Build', exact: true });
     const playMode = page.getByRole('button', { name: 'Play', exact: true });
