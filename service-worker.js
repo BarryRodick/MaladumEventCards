@@ -1,5 +1,5 @@
 // Unified service worker combining caching and version logic
-const APP_VERSION = '2.16.2';
+const APP_VERSION = '2.16.3';
 const CACHE_PREFIX = 'maladum-event-cards-';
 const CACHE_NAME = CACHE_PREFIX + APP_VERSION;
 
@@ -364,6 +364,15 @@ self.addEventListener('fetch', event => {
     }
 
     if (requestUrl.origin !== self.location.origin) {
+        return;
+    }
+
+    // Retire only the homepage; other legacy pages and local saves remain available.
+    const homePath = new URL('./', self.location.href).pathname;
+    if (event.request.mode === 'navigate'
+        && (requestUrl.pathname === homePath || requestUrl.pathname === homePath + 'index.html')
+        && requestUrl.searchParams.get('legacy') !== '1') {
+        event.respondWith(Response.redirect('https://eventdeck.barryrodick.chatgpt.site/', 302));
         return;
     }
 

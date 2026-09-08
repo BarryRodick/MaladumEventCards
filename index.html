@@ -2,6 +2,13 @@
 <html lang="en">
 
 <head>
+    <!-- Keep legacy=1 available for decks and campaigns saved on this origin. -->
+    <script>
+        if (new URLSearchParams(location.search).get('legacy') !== '1') {
+            location.replace('https://eventdeck.barryrodick.chatgpt.site/');
+        }
+    </script>
+    <noscript><meta http-equiv="refresh" content="0; url=https://eventdeck.barryrodick.chatgpt.site/"></noscript>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZMTSM9B7Q7"></script>
     <script>
