@@ -1,13 +1,17 @@
-# Eventdeck homepage redirect
+# Event Deck homepage redirect
 
-Prepared at Barry's request on 8 September 2026, from GitHub main `13f2a554f4416abbad736f81225e1aab4a710d84`. This branch contains only the old Pages redirect, not the separate Sites application.
+## Current state — 30 October 2026
 
-The homepage and index.html redirect to https://eventdeck.barryrodick.chatgpt.site/. Old queries and fragments are discarded. JavaScript-disabled visitors use a meta refresh. The old service worker also redirects homepage navigation after its 2.16.3 update, so a cached homepage cannot indefinitely mask the move.
+GitHub Pages index.html redirects visitors to https://eventdeck.rodick.me/ through JavaScript and a noscript refresh. That target was updated in commit d22669d641d4eac4ff6f0219e06c3d38019c8290 and verified by HTTP readback.
 
-`https://barryrodick.github.io/MaladumEventCards/?legacy=1` retains access to existing local decks and campaigns. Other legacy HTML pages are unchanged. The redirect never reads, transfers or clears local storage. Existing saves do not move to the new origin.
+The legacy service worker may still direct cached visitors to the previous Sites address, which remains available. Returning controlled-client verification is retained in [#112](https://github.com/BarryRodick/MaladumEventCards/issues/112); this cleanup does not claim it complete or change worker behavior.
 
-Verification: unit tests, generated-version build, 142-card validation, six legacy browser/accessibility journeys and four redirect journeys. The service-worker journey starts on the original main worker, installs 2.16.3, reopens the page, checks the redirect and retained storage, then repeats with a forward 2.16.4 rollback. An already-open offline tab cannot receive an update until it reconnects; live returning-visitor checks remain necessary after publication.
+[Legacy access](https://barryrodick.github.io/MaladumEventCards/?legacy=1) is retained for local decks and campaigns. No redirect reads, transfers or clears saved data. Browser saves remain specific to their origin.
 
-GitHub Pages publishes main from the repository root. Publishing this candidate therefore requires pushing the review branch, merging the reviewed change and waiting for Pages to build. No push or merge is implied by the local preparation record. The new automatic redirect supersedes the earlier link-only proposal; no Sites runtime or database deployment is involved.
+This repository contains the legacy runtime and redirect, not the current hosted Sites source. The README explains that boundary.
 
-Rollback: restore index.html and service-worker.js from baseline `13f2a554f4416abbad736f81225e1aab4a710d84`, set version.json to 2.16.4 with the action date, run npm run build to synchronise the package and worker versions, rerun checks, and publish only with rollback approval. Do not revert to worker version 2.16.2. Retain all local saves.
+## Historical preparation and rollback evidence
+
+The September 2026 preparation targeted the previous Sites address. Its local validation covered legacy browser journeys, service-worker update and forward rollback simulations; those checks are not live verification of the current custom-domain cutover.
+
+Historical baseline: 13f2a554f4416abbad736f81225e1aab4a710d84. Any rollback must be separately scoped and preserve browser data; worker versions must advance rather than reverting to2.16.2. No rollback or worker modification is part of the October cleanup.
